@@ -16,8 +16,10 @@
 
   <ItemGroup>
     <Folder Include="DAL\Models\" />
-    <Folder Include="Services\" />
+    <Folder Include="Services\Checks\" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 
 </Project>

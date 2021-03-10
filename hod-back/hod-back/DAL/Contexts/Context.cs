@@ -84,7 +84,8 @@ namespace hod_back.DAL.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=localhost,1402;Initial Catalog=ugtu;Persist Security Info=True;User ID=SA;Password=P@ssw0rd_ugtu");
+            optionsBuilder.UseSqlServer("Data Source=localhost,1402;Initial Catalog=hod;Persist Security Info=True;User ID=SA;Password=P@ssw0rd_ugtu");
+            //optionsBuilder.UseSqlServer("Data Source=localhost,1402;Initial Catalog=ugtu;Persist Security Info=True;User ID=SA;Password=P@ssw0rd_ugtu");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
