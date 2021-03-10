@@ -12,7 +12,7 @@ using hod_back.DAL.Models.Views;
 using hod_back.DAL.Contexts;
 using hod_back.DAL.Models.Auth;
 
-namespace hod_back.DAL.Repositories
+namespace hod_back.DAL.Repositories.Auth
 {
     public class RolesRepository : IRepository<Roles>
     {
