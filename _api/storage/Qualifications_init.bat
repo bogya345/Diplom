@@ -1,0 +1,1 @@
+Powershell -File ./Qualifications/Qualifications_init.ps1

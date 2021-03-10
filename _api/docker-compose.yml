@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  sql-server-db_own:
+    container_name: sql-server-own
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1401:1433"
+    environment:
+      SA_PASSWORD: "P@ssword_own"
+      ACCEPT_EULA: "Y"
+  sql-server-db_ugtu:
+    container_name: sql-server-ugtu
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1402:1433"
+    environment:
+      SA_PASSWORD: "P@ssword_ugtu"
+      ACCEPT_EULA: "Y"

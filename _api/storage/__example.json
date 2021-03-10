@@ -1,0 +1,15 @@
+{
+  "ok": true,
+  "data": {
+    "assets": {
+      "Groups": [{ //This is the array that we want to import
+        "group_id": 1,
+        "group_name": "ИСТ-16",
+        //...more fields...
+        }, 
+        //...+ 2499 more objects in the parcels array
+      ],
+      total: 2500
+    },
+  },
+}

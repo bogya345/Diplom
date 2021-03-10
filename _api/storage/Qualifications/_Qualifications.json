@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "data": {
+    "assets": {
+      "Qualifications": [
+      	{
+        "qualif_id": 1,
+        "qualif_name": "Квалификация1"
+        },
+        {
+        "qualif_id": 2,
+        "qualif_name": "Квалификация2"
+        },
+        {
+        "qualif_id": 3,
+        "qualif_name": "Квалификация3"
+        }
+      ]
+    }
+  }
+}

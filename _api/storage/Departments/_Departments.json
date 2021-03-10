@@ -1,0 +1,14 @@
+
+{
+  "ok": true,
+  "data": {
+    "assets": {
+      "Departments": [
+        {
+        "_id": 0,
+        "_name": ""
+        },
+      ]
+    }
+  }
+}

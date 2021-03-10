@@ -1,0 +1,2 @@
+	qualif_id int,
+	qualif_name NVARCHAR(100)

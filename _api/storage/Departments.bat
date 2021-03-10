@@ -1,0 +1,1 @@
+Powershell -File ./Departments/Departments.ps1
