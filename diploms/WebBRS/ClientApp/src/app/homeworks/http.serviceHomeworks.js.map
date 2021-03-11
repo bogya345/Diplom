@@ -1,0 +1,1 @@
+{"version":3,"file":"http.serviceHomeworks.js","sourceRoot":"","sources":["http.serviceHomeworks.ts"],"names":[],"mappings":";;;AAQA;IAEE,+BAAoB,IAAgB;QAAhB,SAAI,GAAJ,IAAI,CAAY;IAAI,CAAC;IACzC,iDAAiB,GAAjB;QACE,OAAO,IAAI,CAAC,IAAI,CAAC,GAAG,CAAc,kBAAkB,EAClD;QACE,YAAY;QACZ,iCAAiC;QACjC,iGAAiG;QACjG,GAAG;SACJ,CAAC,CAAC;IACP,CAAC;IAEH,4BAAC;AAAD,CAAC,AAbD,IAaC;AAbY,sDAAqB"}

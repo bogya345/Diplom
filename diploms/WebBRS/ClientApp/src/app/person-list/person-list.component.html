@@ -1,0 +1,107 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Пользователи</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Пользователи</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Пользователи</h3>
+
+              <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <!-- <input type="text" name="table_search" class="form-control float-right" placeholder="Search">-->
+
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Преподаватель</th>
+                    <th>Дата выдачи задания</th>
+                    <th>Статус</th>
+                    <th>Описание</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="dashboard/homeworks/183" class="d-block" (click)="redirectToHomeWork()">183</a></td>
+                    <td>Сочко С.</td>
+                    <td>11-7-2020</td>
+                    <td><span class="tag tag-success">Не выполнено</span></td>
+                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                  </tr>
+                  <tr>
+                    <td>219</td>
+                    <td>Семериков А.</td>
+                    <td>11-7-2020</td>
+                    <td><span class="tag tag-warning">Не выполнено</span></td>
+                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                  </tr>
+                  <tr>
+                    <td>657</td>
+                    <td>Григорьевых А.</td>
+                    <td>11-7-2020</td>
+                    <td><span class="tag tag-primary">Не выполнено</span></td>
+                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                  </tr>
+                  <tr>
+                    <td>175</td>
+                    <td>Кунцев В.</td>
+                    <td>11-7-2020</td>
+                    <td><span class="tag tag-danger">Не выполнено</span></td>
+                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <ol class="breadcrumb float-sm-right">
+              <li *ngFor="let i of person"><a href="#">Home</a></li>
+            </ol>
+            <div class="card" *ngFor="let i of personinfo">
+              <div class="card-body">
+                <!-- Начало текстового контента -->
+                <h4 class="card-title">{{ i.nCode }}</h4>
+                <h6 class="card-subtitle mb-2"> <i>{{ i.GuidPerson }}</i></h6>
+                <p class="card-text text-muted">Кол-во групп: {{ i.FirstName }}.</p>
+                <p class="card-text text-muted">Кол-во групп: {{ i.LastName }}.</p>
+                <p class="card-text text-muted">Кол-во групп: {{ i.PatronicName }}.</p>
+                <p class="card-text text-muted">Кол-во групп: {{ i.Email }}.</p>
+              </div><!-- Конец текстового контента -->
+
+            </div>
+            <!-- /.card-body -->
+          </div>
+
+
+        </div>
+        <!-- /.col -->
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </section>
+</div>
+<router-outlet></router-outlet>

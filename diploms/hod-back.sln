@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hod-back", "hod-back\hod-ba
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hod-back-testing", "hod-back-testing\hod-back-testing.csproj", "{72A8B3F1-1C25-4DE8-AA48-C11BC7752FAB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebBRS", "sem-back\WebBRS.csproj", "{F6DE9F84-0A1C-4D49-8DD4-F1E07F5956C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebBRS", "WebBRS\WebBRS.csproj", "{139B6CFD-E658-4854-A5C1-1270C036C47B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{72A8B3F1-1C25-4DE8-AA48-C11BC7752FAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72A8B3F1-1C25-4DE8-AA48-C11BC7752FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72A8B3F1-1C25-4DE8-AA48-C11BC7752FAB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6DE9F84-0A1C-4D49-8DD4-F1E07F5956C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6DE9F84-0A1C-4D49-8DD4-F1E07F5956C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6DE9F84-0A1C-4D49-8DD4-F1E07F5956C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6DE9F84-0A1C-4D49-8DD4-F1E07F5956C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{139B6CFD-E658-4854-A5C1-1270C036C47B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{139B6CFD-E658-4854-A5C1-1270C036C47B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{139B6CFD-E658-4854-A5C1-1270C036C47B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{139B6CFD-E658-4854-A5C1-1270C036C47B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
