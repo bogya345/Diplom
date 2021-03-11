@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Unic\\Diplom\\diploms\\WebBRS\\WebBRS.csproj": {}
+    "D:\\Unic\\Diplom\\diploms\\sem-back\\WebBRS.csproj": {}
   },
   "projects": {
-    "D:\\Unic\\Diplom\\diploms\\WebBRS\\WebBRS.csproj": {
+    "D:\\Unic\\Diplom\\diploms\\sem-back\\WebBRS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Unic\\Diplom\\diploms\\WebBRS\\WebBRS.csproj",
+        "projectUniqueName": "D:\\Unic\\Diplom\\diploms\\sem-back\\WebBRS.csproj",
         "projectName": "WebBRS",
-        "projectPath": "D:\\Unic\\Diplom\\diploms\\WebBRS\\WebBRS.csproj",
+        "projectPath": "D:\\Unic\\Diplom\\diploms\\sem-back\\WebBRS.csproj",
         "packagesPath": "C:\\Users\\пк\\.nuget\\packages\\",
-        "outputPath": "D:\\Unic\\Diplom\\diploms\\WebBRS\\obj\\",
+        "outputPath": "D:\\Unic\\Diplom\\diploms\\sem-back\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\пк\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -38,37 +38,17 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "ClosedXML": {
+            "EntityFramework": {
               "target": "Package",
-              "version": "[0.95.4, )"
-            },
-            "ClosedXML.Report": {
-              "target": "Package",
-              "version": "[0.2.1, )"
-            },
-            "ClosedXML.Signed": {
-              "target": "Package",
-              "version": "[0.95.4, )"
-            },
-            "Microsoft.AspNetCore.Authentication.JwtBearer": {
-              "target": "Package",
-              "version": "[3.1.12, )"
+              "version": "[6.4.4, )"
             },
             "Microsoft.AspNetCore.SpaServices.Extensions": {
               "target": "Package",
               "version": "[3.1.10, )"
             },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[5.0.3, )"
-            },
-            "Microsoft.EntityFrameworkCore.Abstractions": {
-              "target": "Package",
-              "version": "[5.0.3, )"
-            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.3, )"
+              "version": "[3.1.11, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
@@ -78,7 +58,7 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.3, )"
+              "version": "[3.1.11, )"
             },
             "Microsoft.TypeScript.MSBuild": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
