@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Unic\\Diplom\\hod-back\\hod-back\\hod-back.csproj": {}
+    "D:\\Unic\\Diplom\\diploms\\hod-back\\hod-back.csproj": {}
   },
   "projects": {
-    "D:\\Unic\\Diplom\\hod-back\\hod-back\\hod-back.csproj": {
+    "D:\\Unic\\Diplom\\diploms\\hod-back\\hod-back.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Unic\\Diplom\\hod-back\\hod-back\\hod-back.csproj",
+        "projectUniqueName": "D:\\Unic\\Diplom\\diploms\\hod-back\\hod-back.csproj",
         "projectName": "hod-back",
-        "projectPath": "D:\\Unic\\Diplom\\hod-back\\hod-back\\hod-back.csproj",
+        "projectPath": "D:\\Unic\\Diplom\\diploms\\hod-back\\hod-back.csproj",
         "packagesPath": "C:\\Users\\пк\\.nuget\\packages\\",
-        "outputPath": "D:\\Unic\\Diplom\\hod-back\\hod-back\\obj\\",
+        "outputPath": "D:\\Unic\\Diplom\\diploms\\hod-back\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\пк\\AppData\\Roaming\\NuGet\\NuGet.Config",

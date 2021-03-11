@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qBN7fuIGcXzbqM95NkGnN6TW/USKnWDqbfo0EhrfDwA7l5NE43thTieaLvNV3WrZOYY7dDPoAe0Bh/1iS32vVg==",
+  "dgSpecHash": "WKRmHtFpZmxSFP1PIDs9tO5vcALqxsLi399rQ7Bhi155auBXVOPyP5VaqKWkCP433z9CSeE46tHWPaQfhhTCVw==",
   "success": true,
-  "projectFilePath": "D:\\Unic\\Diplom\\hod-back\\hod-back\\hod-back.csproj",
+  "projectFilePath": "D:\\Unic\\Diplom\\diploms\\hod-back\\hod-back.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\пк\\.nuget\\packages\\closedxml\\0.95.4\\closedxml.0.95.4.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\documentformat.openxml\\2.7.2\\documentformat.openxml.2.7.2.nupkg.sha512",
