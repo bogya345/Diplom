@@ -48,10 +48,6 @@ namespace hod_back.DAL.Repositories
             return db.Departments.FirstOrDefault(func);
         }
 
-        public IEnumerable<Departments> GetAll()
-        {
-            throw new NotImplementedException();
-        }
         public override IEnumerable<Departments> GetAll(Func<Departments, bool> func)
         {
             if (DAL_Settings.localAccess)
