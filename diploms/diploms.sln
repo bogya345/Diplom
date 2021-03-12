@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hod-back-testing", "hod-bac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebBRS", "WebBRS\WebBRS.csproj", "{139B6CFD-E658-4854-A5C1-1270C036C47B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebBRS-testing", "WebBRS-testing\WebBRS-testing.csproj", "{9AB804F5-900E-4F3E-970D-DAB32391D005}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{139B6CFD-E658-4854-A5C1-1270C036C47B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{139B6CFD-E658-4854-A5C1-1270C036C47B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{139B6CFD-E658-4854-A5C1-1270C036C47B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AB804F5-900E-4F3E-970D-DAB32391D005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AB804F5-900E-4F3E-970D-DAB32391D005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AB804F5-900E-4F3E-970D-DAB32391D005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AB804F5-900E-4F3E-970D-DAB32391D005}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

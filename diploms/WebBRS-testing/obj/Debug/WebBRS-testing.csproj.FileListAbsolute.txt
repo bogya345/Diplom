@@ -1,0 +1,17 @@
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\WebBRS-testing.dll
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\WebBRS-testing.pdb
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+D:\Unic\Diplom\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.csprojAssemblyReference.cache
+D:\Unic\Diplom\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.csproj.CoreCompileInputs.cache
+D:\Unic\Diplom\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.csproj.CopyComplete
+D:\Unic\Diplom\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.dll
+D:\Unic\Diplom\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.pdb
