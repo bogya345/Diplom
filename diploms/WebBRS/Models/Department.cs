@@ -11,7 +11,7 @@ namespace WebBRS.Models
 	{
 		//[Column("IdDepart")]
 		[Required, Key]
-		public int IdDepart { get; set; }
+		public Guid DepartmentGUID { get; set; }
 		[Required]
 		public string FullNameDepart { get; set; }
 		[Required]

@@ -7,9 +7,9 @@ using WebBRS.Models.Views;
 
 namespace WebBRS.DAL.Repositories
 {
-    public class AuthUsersRepository : IRepository<AuthUsers>
+    public class AuthUsersRepo : IRepository<AuthUsers>
     {
-        public AuthUsersRepository(MyContext context) : base(context) { }
+        public AuthUsersRepo(MyContext context) : base(context) { }
 
 
         public override void Create(AuthUsers item)

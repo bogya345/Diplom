@@ -1,17 +1,17 @@
-﻿using DocumentFormat.OpenXml.InkML;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebBRS.Models;
+
 namespace WebBRS.DAL.Repositories
 {
-	public class HomeWorkRepository:IRepository<ClassWork>
+    public class StudentRepo : IRepository<Student>
     {
-        public HomeWorkRepository(MyContext context) : base(context) { }
+        public StudentRepo(MyContext context) : base(context) { }
 
 
-        public override void Create(ClassWork item)
+        public override void Create(Student item)
         {
             throw new NotImplementedException();
         }
@@ -26,39 +26,39 @@ namespace WebBRS.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public override void Delete(ClassWork item)
+        public override void Delete(Student item)
         {
             throw new NotImplementedException();
         }
 
-        public ClassWork Get(int id)
+        public Student Get(int id)
         {
             throw new NotImplementedException();
         }
-        public override ClassWork Get(Func<ClassWork, bool> func)
+        public override Student Get(Func<Student, bool> func)
         {
-            return db.ClassWorks.FirstOrDefault(func);
+            return db.Students.FirstOrDefault(func);
         }
 
-        public IEnumerable<ClassWork> GetAll()
+        public IEnumerable<Student> GetAll()
         {
             //throw new NotImplementedException();
-            IEnumerable<ClassWork> tmp = db.ClassWorks;
+            IEnumerable<Student> tmp = db.Students;
 
-            return db.ClassWorks.ToList();
+            return db.Students.ToList();
 
         }
-        public override IEnumerable<ClassWork> GetAll(Func<ClassWork, bool> func)
+        public override IEnumerable<Student> GetAll(Func<Student, bool> func)
         {
-            return db.ClassWorks.Where(func);
+            return db.Students.Where(func);
         }
 
-        public override ClassWork OnExist(string name)
+        public override Student OnExist(string name)
         {
             throw new NotImplementedException();
         }
 
-        public override void Update(ClassWork item)
+        public override void Update(Student item)
         {
             throw new NotImplementedException();
         }

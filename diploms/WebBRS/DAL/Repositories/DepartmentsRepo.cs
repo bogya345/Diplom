@@ -7,9 +7,9 @@ using WebBRS.Models;
 
 namespace WebBRS.DAL.Repositories
 {
-	public class DepartmentsRepository : IRepository<Department>
+	public class DepartmentsRepo : IRepository<Department>
     {
-        public DepartmentsRepository(MyContext context) : base(context) { }
+        public DepartmentsRepo(MyContext context) : base(context) { }
 
 
         public override void Create(Department item)

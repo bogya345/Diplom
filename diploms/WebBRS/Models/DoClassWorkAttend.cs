@@ -19,6 +19,7 @@ namespace WebBRS.Models
 		public string TextDoClassWork { get; set; }
 		public string FilePath { get; set; }
 		public double Ball { get; set; }
+		public bool Done { get; set; }
 		public DateTime? DatePass { get; set; }
 		[ForeignKey("IdWPS")]
 

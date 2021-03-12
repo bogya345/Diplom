@@ -4,15 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebBRS.Models;
-
 namespace WebBRS.DAL.Repositories
 {
-    public class PersonsRepository : IRepository<Person>
+	public class HomeWorkRepo:IRepository<ClassWork>
     {
-        public PersonsRepository(MyContext context) : base(context) { }
+        public HomeWorkRepo(MyContext context) : base(context) { }
 
 
-        public override void Create(Person item)
+        public override void Create(ClassWork item)
         {
             throw new NotImplementedException();
         }
@@ -27,39 +26,39 @@ namespace WebBRS.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public override void Delete(Person item)
+        public override void Delete(ClassWork item)
         {
             throw new NotImplementedException();
         }
 
-        public Person Get(int id)
+        public ClassWork Get(int id)
         {
             throw new NotImplementedException();
         }
-        public override Person Get(Func<Person, bool> func)
+        public override ClassWork Get(Func<ClassWork, bool> func)
         {
-            return db.Persons.FirstOrDefault(func);
+            return db.ClassWorks.FirstOrDefault(func);
         }
 
-        public IEnumerable<Person> GetAll()
+        public IEnumerable<ClassWork> GetAll()
         {
             //throw new NotImplementedException();
-            IEnumerable<Person> tmp = db.Persons;
+            IEnumerable<ClassWork> tmp = db.ClassWorks;
 
-            return db.Persons.ToList();
+            return db.ClassWorks.ToList();
 
         }
-        public override IEnumerable<Person> GetAll(Func<Person, bool> func)
+        public override IEnumerable<ClassWork> GetAll(Func<ClassWork, bool> func)
         {
-            return db.Persons.Where(func);
+            return db.ClassWorks.Where(func);
         }
 
-        public override Person OnExist(string name)
+        public override ClassWork OnExist(string name)
         {
             throw new NotImplementedException();
         }
 
-        public override void Update(Person item)
+        public override void Update(ClassWork item)
         {
             throw new NotImplementedException();
         }

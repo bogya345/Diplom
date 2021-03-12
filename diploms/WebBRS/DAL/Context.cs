@@ -64,6 +64,7 @@ namespace WebBRS.DAL
 		{
 			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBDRS;Integrated Security=True");
 			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-PBKSLRS\\SQLEXPRESS;Initial Catalog=DbBRS;Integrated Security=True");
+
 			optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBRS;Integrated Security=True");
 		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -90,7 +91,7 @@ namespace WebBRS.DAL
 			modelBuilder.Entity<Lecturer>()
 				.HasMany(c => c.Subjects)
 				.WithMany(s => s.Lecturers)
-				.UsingEntity<SubjectLecturer> (
+				.UsingEntity<SubjectLecturer>(
 				   j => j
 					.HasOne(pt => pt.Subject)
 					.WithMany(t => t.SubjectLecturers)
@@ -106,20 +107,25 @@ namespace WebBRS.DAL
 					j.ToTable("SubjectLecturers");
 				}
 			);
+			modelBuilder.Entity<AuthUsers>((item =>
+			{
+				item.HasNoKey();
+				item.ToView("AuthUsers");
+			}));
 			modelBuilder.Entity<Group>()
-				.HasMany(c => c.Subjects)
-				.WithMany(s => s.Groups)
-				.UsingEntity<SubjectForGroup>(
-				   j => j
-					.HasOne(pt => pt.Subject)
-					.WithMany(t => t.SubjectForGroups)
-					.HasForeignKey(pt => pt.IdSubject),
-				j => j
-					.HasOne(pt => pt.Group)
-					.WithMany(p => p.SubjectForGroups)
-					.HasForeignKey(pt => pt.IdGroup)
-				
-			);
+			.HasMany(c => c.Subjects)
+			.WithMany(s => s.Groups)
+			.UsingEntity<SubjectForGroup>(
+			   j => j
+				.HasOne(pt => pt.Subject)
+				.WithMany(t => t.SubjectForGroups)
+				.HasForeignKey(pt => pt.IdSubject),
+			j => j
+				.HasOne(pt => pt.Group)
+				.WithMany(p => p.SubjectForGroups)
+				.HasForeignKey(pt => pt.IdGroup)
+
+		);
 			#region Справочники
 			modelBuilder.Entity<DepartmentType>()
 				.HasKey(p => p.DepartTypeID);

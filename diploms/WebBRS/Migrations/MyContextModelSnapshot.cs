@@ -77,10 +77,9 @@ namespace WebBRS.Migrations
 
             modelBuilder.Entity("WebBRS.Models.Department", b =>
                 {
-                    b.Property<int>("IdDepart")
+                    b.Property<Guid>("DepartmentGUID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("DepartmentTypeID")
                         .HasColumnType("int");
@@ -89,14 +88,14 @@ namespace WebBRS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("HeadDepartId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("HeadDepartId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ShortNameDepart")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdDepart");
+                    b.HasKey("DepartmentGUID");
 
                     b.HasIndex("DepartmentTypeID");
 
@@ -140,6 +139,9 @@ namespace WebBRS.Migrations
 
                     b.Property<DateTime>("DateTimePass")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Done")
+                        .HasColumnType("bit");
 
                     b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
@@ -203,8 +205,8 @@ namespace WebBRS.Migrations
                     b.Property<string>("GroupName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("IdDepart")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("IdDepart")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("IdGroupPrev")
                         .HasColumnType("int");
@@ -372,13 +374,7 @@ namespace WebBRS.Migrations
                     b.Property<int?>("IdGroup")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdSLecturer")
-                        .HasColumnType("int");
-
                     b.Property<int?>("IdSubject")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdTS")
                         .HasColumnType("int");
 
                     b.Property<int?>("LecturerIdLecturer")
@@ -486,7 +482,7 @@ namespace WebBRS.Migrations
                     b.Property<string>("password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("AuthUsers");
+                    b.ToView("AuthUsers");
                 });
 
             modelBuilder.Entity("WebBRS.Models.WorkPersonStatus", b =>
