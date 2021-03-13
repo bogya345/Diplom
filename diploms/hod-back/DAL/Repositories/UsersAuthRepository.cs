@@ -50,7 +50,7 @@ namespace hod_back.DAL.Repositories
             throw new NotImplementedException();
             //return db.AuthUsers;
         }
-        public override IEnumerable<AuthUsers> GetAll(Func<AuthUsers, bool> func)
+        public override IEnumerable<AuthUsers> GetMany(Func<AuthUsers, bool> func)
         {
             return db.AuthUsers.Where(func);
         }

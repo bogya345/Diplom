@@ -69,7 +69,7 @@ namespace hod_back.DAL.Repositories
             throw new NotImplementedException();
             //return db.TeacherLoad;
         }
-        public override IEnumerable<TeacherLoad> GetAll(Func<TeacherLoad, bool> func)
+        public override IEnumerable<TeacherLoad> GetMany(Func<TeacherLoad, bool> func)
         {
             return db.TeacherLoad.Where(func);
         }

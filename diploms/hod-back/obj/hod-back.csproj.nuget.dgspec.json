@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\hod-back\\hod-back.csproj": {}
+    "D:\\Unic\\Diplom\\diploms\\hod-back\\hod-back.csproj": {}
   },
   "projects": {
-    "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\hod-back\\hod-back.csproj": {
+    "D:\\Unic\\Diplom\\diploms\\hod-back\\hod-back.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\hod-back\\hod-back.csproj",
+        "projectUniqueName": "D:\\Unic\\Diplom\\diploms\\hod-back\\hod-back.csproj",
         "projectName": "hod-back",
-        "projectPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\hod-back\\hod-back.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\hod-back\\obj\\",
+        "projectPath": "D:\\Unic\\Diplom\\diploms\\hod-back\\hod-back.csproj",
+        "packagesPath": "C:\\Users\\пк\\.nuget\\packages\\",
+        "outputPath": "D:\\Unic\\Diplom\\diploms\\hod-back\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\пк\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,7 +26,6 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -41,11 +37,14 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "ClosedXML": {
               "target": "Package",
               "version": "[0.95.4, )"
+            },
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.4.4, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -78,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

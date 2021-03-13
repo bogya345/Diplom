@@ -54,7 +54,7 @@ namespace hod_back.DAL.Repositories
             }
             return db.Subjects;
         }
-        public override IEnumerable<Subjects> GetAll(Func<Subjects, bool> func)
+        public override IEnumerable<Subjects> GetMany(Func<Subjects, bool> func)
         {
             if (DAL_Settings.localAccess)
             {

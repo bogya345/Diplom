@@ -3,14 +3,24 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HodHomeComponent } from './hod-home/hod-home.component';
+import { LoginComponent } from './login/login.component';
+import { BrsHomeComponent } from './brs-home/brs-home.component';
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HodHomeComponent,
+    LoginComponent,
+    BrsHomeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

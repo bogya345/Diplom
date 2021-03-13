@@ -67,7 +67,7 @@ namespace hod_back.Controllers
         {
             try
             {
-                return unit.Groups.GetAll(x => x.id_department == int.Parse(id_cathedra));
+                return unit.Groups.GetMany(x => x.id_department == int.Parse(id_cathedra));
             }
             catch (Exception ex)
             {
@@ -127,7 +127,7 @@ namespace hod_back.Controllers
             if (!DAL_Settings.localAccess)
             {
                 // idk how it make better
-                List<ViewTeacherLoad> list_ = unit.ViewTeacherLoads.GetAll(x => x.id_group == id_group_).ToList();
+                List<ViewTeacherLoad> list_ = unit.ViewTeacherLoads.GetMany(x => x.id_group == id_group_).ToList();
                 return list_;
             }
             else

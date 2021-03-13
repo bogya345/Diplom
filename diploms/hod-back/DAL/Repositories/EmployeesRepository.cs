@@ -63,7 +63,7 @@ namespace hod_back.DAL.Repositories
             // подумай еще раз
             throw new NotImplementedException();
         }
-        public override IEnumerable<Employees> GetAll(Func<Employees, bool> func)
+        public override IEnumerable<Employees> GetMany(Func<Employees, bool> func)
         {
             return db.Employees.Where(func);
         }

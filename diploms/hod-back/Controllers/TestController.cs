@@ -58,7 +58,7 @@ namespace hod_back.Controllers
         [HttpGet("open")]
         public IEnumerable<Groups> GetConnect()
         {
-            return unit.Groups.GetAll(x => x.id_group == 1 || x.id_group == 2 || x.id_group == 3);
+            return unit.Groups.GetMany(x => x.id_group == 1 || x.id_group == 2 || x.id_group == 3);
         }
 
     }
