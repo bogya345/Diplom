@@ -1,8 +1,13 @@
 {
   "ExpandedNodes": [
+<<<<<<< HEAD
+    ""
+  ],
+=======
     "",
     "\\diploms"
   ],
   "SelectedNode": "\\diploms\\hod-back.sln",
+>>>>>>> 6e97d7b3fd4ab3993687abbd934584b0940da82b
   "PreviewInSolutionExplorer": false
 }

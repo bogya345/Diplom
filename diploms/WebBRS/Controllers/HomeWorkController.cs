@@ -22,11 +22,31 @@ namespace WebBRS.Controllers
 			return View();
 		}
 		[HttpGet("getall")]
-		public IEnumerable<ClassWork> GetDepartmentss()
+		public IEnumerable<ClassWork> GetDepartments()
 		{
 			try
 			{
 				IEnumerable<ClassWork> tmp = unit.Homeworks.GetAll();
+				//int i;
+				return tmp;
+				//return unit.CathInfo.GetAll();
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+		}
+		[HttpGet("get/{id_student}")]
+
+		public IEnumerable<DoClassWorkAttend> GetNotDoned(string id_student)
+		{
+			try
+			{
+				int id_stud = Convert.ToInt32(id_student);
+				Student student = unit.Students.Get(s => s.IdStudent == id_stud);
+				StudentsGroupHistory studentsGroupHistory = unit.StudentGroupHistories.Get(sgh => sgh.Student.IdStudent == student.IdStudent);
+				Attendance attendance = unit.Attendances.Get(att => att.SGH.IdSGH == studentsGroupHistory.IdSGH);
+				IEnumerable<DoClassWorkAttend> tmp = unit.PersonHomeworks.GetAll( x=>x.Attendance.IdAtt == attendance.IdAtt);
 				//int i;
 				return tmp;
 				//return unit.CathInfo.GetAll();

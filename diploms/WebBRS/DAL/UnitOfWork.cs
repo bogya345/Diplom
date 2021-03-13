@@ -29,11 +29,15 @@ namespace WebBRS.DAL
 
         #region Tables Reposes
 
-        private PersonsRepository personsRepository;
+        private PersonsRepo personsRepository;
+        private AttendanceRepo attendanceRepository;
 		//private DepartmenRepository personsRepository;
 		//private BlockRecsRepository blockRecsRepository;
-		private DepartmentsRepository departsRepository;
-		private HomeWorkRepository homeworksRepository;
+		private DepartmentsRepo departsRepository;
+		private HomeWorkRepo homeworksRepository;
+		private StudentRepo studentsRepository;
+		private HomeWorkStudentsRepo homeWorkStudentsRepo;
+		private StudentGroupHistoryRepo studentGroupHistoryRepo;
 		//private EducFormsRepository educFormsRepository;
 		//private GroupsRepository groupsRepository;
 		//private QualificationRepository qualificationRepository;
@@ -49,7 +53,7 @@ namespace WebBRS.DAL
 		/// <summary>
 		/// авторизация
 		/// </summary>
-		private AuthUsersRepository usersAuthRepository;
+		private AuthUsersRepo usersAuthRepository;
 		//private DepartmentsRepository DepartsRepository;
 		//private HomeWorkRepository HomeWorksRepository;
 
@@ -63,39 +67,75 @@ namespace WebBRS.DAL
 
 
         #region Repository Access
-        public AuthUsersRepository AuthUsers
+        public AuthUsersRepo AuthUsers
         {
             get
             {
                 if (usersAuthRepository == null)
-                    usersAuthRepository = new AuthUsersRepository(context);
+                    usersAuthRepository = new AuthUsersRepo(context);
                 return usersAuthRepository;
             }
+        }  
+        public StudentRepo Students
+        {
+            get
+            {
+                if (studentsRepository == null)
+                    studentsRepository = new StudentRepo(context);
+                return studentsRepository;
+            }
         }
-        public PersonsRepository Persons
+        public StudentGroupHistoryRepo StudentGroupHistories
+        {
+            get
+            {
+                if (studentGroupHistoryRepo == null)
+                    studentGroupHistoryRepo = new StudentGroupHistoryRepo(context);
+                return studentGroupHistoryRepo;
+            }
+        } 
+        public AttendanceRepo Attendances
+        {
+            get
+            {
+                if (attendanceRepository == null)
+                    attendanceRepository = new AttendanceRepo(context);
+                return attendanceRepository;
+            }
+        }
+        public PersonsRepo Persons
         {
             get
             {
                 if (personsRepository == null)
-                    personsRepository = new PersonsRepository(context);
+                    personsRepository = new PersonsRepo(context);
                 return personsRepository;
             }
+        } 
+        public HomeWorkStudentsRepo PersonHomeworks
+        {
+            get
+            {
+                if (homeWorkStudentsRepo == null)
+                    homeWorkStudentsRepo = new HomeWorkStudentsRepo(context);
+                return homeWorkStudentsRepo;
+            }
         }
-        public DepartmentsRepository Departments
+        public DepartmentsRepo Departments
         {
             get
             {
                 if (departsRepository == null)
-                    departsRepository = new DepartmentsRepository(context);
+                    departsRepository = new DepartmentsRepo(context);
                 return departsRepository;
             }
         } 
-        public HomeWorkRepository Homeworks
+        public HomeWorkRepo Homeworks
         {
             get
             {
                 if (homeworksRepository == null)
-                    homeworksRepository = new HomeWorkRepository(context);
+                    homeworksRepository = new HomeWorkRepo(context);
                 return homeworksRepository;
             }
         }

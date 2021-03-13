@@ -18,11 +18,9 @@ namespace WebBRS.Models
 		[ForeignKey("IdGroup")]
 		public int? IdGroup { get; set; }
 		public Group Group { get; set; }
-		[ForeignKey("IdSLecturer")]
-		public int? IdSLecturer { get; set; }
+
 		public virtual SubjectLecturer Lecturer { get; set; }
-		[ForeignKey("IdTSk")]
-		public int? IdTS { get; set; }
+
 		public virtual TypeStudy TypeStudy { get; set; }
 		public DateTime SFGDate { get; set; }
 		public List<ExactClass> ExactClasses { get; set; } = new List<ExactClass>();

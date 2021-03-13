@@ -16,6 +16,7 @@ import { TimetablePartComponent } from './timetable-part/timetable-part.componen
 import { AttendanceComponent } from './attendance/attendance.component';
 import { AttendanceGroupselectedComponent } from './attendance-groupselected/attendance-groupselected.component';
 import { PersonListComponent } from './person-list/person-list.component';
+import { AttedanceTableComponent } from './attedance-table/attedance-table.component';
 
 //const appRoutes: Routes = [
 //  {
@@ -43,7 +44,8 @@ import { PersonListComponent } from './person-list/person-list.component';
     TimetablePartComponent,
     AttendanceComponent,
     AttendanceGroupselectedComponent,
-    PersonListComponent
+    PersonListComponent,
+    AttedanceTableComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

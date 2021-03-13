@@ -8,7 +8,6 @@ namespace WebBRS.Models
 {
 	public class SubjectLecturer
 	{
-		public int IdSL { get; set; }
 		public int IdLecturer { get; set; }
 		public int IdSubject { get; set; }
 
