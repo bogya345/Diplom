@@ -65,6 +65,7 @@ namespace WebBRS_testing.UI
         [TestMethod]
         public void TestMethod1()
         {
+
             ChromeDriver driver = new ChromeDriver(@"D:/Profile/#_drivers");
             driver.Url = "http://localhost:4200/";
             var h2 = driver.FindElementByTagName("h2");
