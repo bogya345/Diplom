@@ -1,6 +1,0 @@
-	group_id int,
-	group_name NVARCHAR(10),
-	startYear datetime,
-	qualif_id int,
-	educForm_id int,
-	dep_id int

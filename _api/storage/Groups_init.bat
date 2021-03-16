@@ -1,1 +1,0 @@
-Powershell -File ./Groups/Groups_.ps1
