@@ -71,6 +71,9 @@ import { AttedanceTableComponent } from './attedance-table/attedance-table.compo
           {
             path: 'homeworks', component: HomeworksComponent
           },
+          {
+            path: 'attedancetable', component: AttedanceTableComponent
+          },
           { path: 'homeworks/183', component: HomeworkComponent },
           { path: 'personlist', component: PersonListComponent }
 

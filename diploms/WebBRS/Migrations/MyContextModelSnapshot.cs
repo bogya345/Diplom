@@ -179,14 +179,49 @@ namespace WebBRS.Migrations
                     b.Property<DateTime>("DateClass")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ExactClassForLecturerClassIdEXCFLC")
+                        .HasColumnType("int");
+
                     b.Property<int?>("IdSFG")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LecturerIdSLecturer")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubjectLecturerIdLecturer")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubjectLecturerIdSubject")
                         .HasColumnType("int");
 
                     b.HasKey("IdClass");
 
+                    b.HasIndex("ExactClassForLecturerClassIdEXCFLC");
+
                     b.HasIndex("IdSFG");
 
+                    b.HasIndex("LecturerIdSLecturer");
+
+                    b.HasIndex("SubjectLecturerIdLecturer", "SubjectLecturerIdSubject");
+
                     b.ToTable("ExactClasses");
+                });
+
+            modelBuilder.Entity("WebBRS.Models.ExactClassForLecturerClass", b =>
+                {
+                    b.Property<int>("IdEXCFLC")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("LecturerIdSLecturer")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdEXCFLC");
+
+                    b.HasIndex("LecturerIdSLecturer");
+
+                    b.ToTable("ExactClassForLecturerClasses");
                 });
 
             modelBuilder.Entity("WebBRS.Models.Group", b =>
@@ -415,9 +450,6 @@ namespace WebBRS.Migrations
                     b.Property<int>("IdSubject")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdSL")
-                        .HasColumnType("int");
-
                     b.Property<int>("IdTS")
                         .HasColumnType("int");
 
@@ -590,11 +622,36 @@ namespace WebBRS.Migrations
 
             modelBuilder.Entity("WebBRS.Models.ExactClass", b =>
                 {
+                    b.HasOne("WebBRS.Models.ExactClassForLecturerClass", "ExactClassForLecturerClass")
+                        .WithMany("ExactClasses")
+                        .HasForeignKey("ExactClassForLecturerClassIdEXCFLC");
+
                     b.HasOne("WebBRS.Models.SubjectForGroup", "SubjectForGroup")
                         .WithMany("ExactClasses")
                         .HasForeignKey("IdSFG");
 
+                    b.HasOne("WebBRS.Models.Lecturer", null)
+                        .WithMany("ExactClasses")
+                        .HasForeignKey("LecturerIdSLecturer");
+
+                    b.HasOne("WebBRS.Models.SubjectLecturer", "SubjectLecturer")
+                        .WithMany()
+                        .HasForeignKey("SubjectLecturerIdLecturer", "SubjectLecturerIdSubject");
+
+                    b.Navigation("ExactClassForLecturerClass");
+
                     b.Navigation("SubjectForGroup");
+
+                    b.Navigation("SubjectLecturer");
+                });
+
+            modelBuilder.Entity("WebBRS.Models.ExactClassForLecturerClass", b =>
+                {
+                    b.HasOne("WebBRS.Models.Lecturer", "Lecturer")
+                        .WithMany()
+                        .HasForeignKey("LecturerIdSLecturer");
+
+                    b.Navigation("Lecturer");
                 });
 
             modelBuilder.Entity("WebBRS.Models.Group", b =>
@@ -738,6 +795,11 @@ namespace WebBRS.Migrations
                     b.Navigation("ClassWorks");
                 });
 
+            modelBuilder.Entity("WebBRS.Models.ExactClassForLecturerClass", b =>
+                {
+                    b.Navigation("ExactClasses");
+                });
+
             modelBuilder.Entity("WebBRS.Models.Group", b =>
                 {
                     b.Navigation("PrevGroups");
@@ -749,6 +811,8 @@ namespace WebBRS.Migrations
 
             modelBuilder.Entity("WebBRS.Models.Lecturer", b =>
                 {
+                    b.Navigation("ExactClasses");
+
                     b.Navigation("SubjectForGroups");
 
                     b.Navigation("SubjectLecturers");

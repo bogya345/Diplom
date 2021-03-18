@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,7 +38,10 @@ namespace WebBRS.DAL.Repositories
         }
         public override Student Get(Func<Student, bool> func)
         {
-            return db.Students.FirstOrDefault(func);
+            return db.Students
+                .Include(st=>st.Person)
+                .Include(st=>st.StudentsGroupHistories)
+                .FirstOrDefault(func);
         }
 
         public IEnumerable<Student> GetAll()

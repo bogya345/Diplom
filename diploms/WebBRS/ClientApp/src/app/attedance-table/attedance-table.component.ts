@@ -15,15 +15,31 @@ export class AttedanceTableComponent implements OnInit {
 
 
 }
+interface Group {
+  idGroup: number,
+  GroupName: string,
+  Specialty: string,
+  Students: Student[]
+}
 interface ExactClassForLecturerClass {
-  nCode: number,
-  GuidPerson: string,
-  //dateCreated: Date,
-  //dateEnd: Date
-  FirstName: string,
-  LastName: string,
-  PatronicName: string,
-  Email: string,
-  DateTimeReg: Date,
-  BirthDate: Date
+  Groups: Group[],
+  Lecturer: Lecturer,
+  ExactClasses: ExactClass[],
+  Students: Student[]
+}
+interface Student {
+  IdStudent: number,
+  PesonFIO: string,
+  Attedanced: string[]
+}
+interface Lecturer {
+  IdStudent: number,
+  PesonFIO: string
+
+}
+
+interface ExactClass {
+  IdClass: number,
+  DateExactClass: Date,
+  numberClass: number
 }

@@ -14,8 +14,9 @@ namespace WebBRS.Models
 
 		public virtual Person Person { get; set; }
 
-		public List<SubjectForGroup> SubjectForGroups { get; set; } = new List<SubjectForGroup>();
-		public List<SubjectLecturer> SubjectLecturers { get; set; } = new List<SubjectLecturer>();
+		public virtual List<SubjectForGroup> SubjectForGroups { get; set; } = new List<SubjectForGroup>();
+		public virtual List<SubjectLecturer> SubjectLecturers { get; set; } = new List<SubjectLecturer>();
+		public virtual  List<ExactClass> ExactClasses { get; set; } = new List<ExactClass>();
 		public List<Subject> Subjects { get; set; } = new List<Subject>();
 	}
 }

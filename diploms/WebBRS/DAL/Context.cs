@@ -12,6 +12,7 @@ namespace WebBRS.DAL
 	{
 		#region Tables
 		public DbSet<Attendance> Attendances { get; set; }
+		public DbSet<ExactClassForLecturerClass> ExactClassForLecturerClasses { get; set; }
 		public DbSet<ClassWork> ClassWorks { get; set; }
 		public DbSet<WorkPersonStatus> WorkPersonStatuses { get; set; }
 		public DbSet<Department> Departments { get; set; }
