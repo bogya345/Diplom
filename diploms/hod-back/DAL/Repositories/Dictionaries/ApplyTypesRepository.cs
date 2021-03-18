@@ -17,7 +17,7 @@ namespace hod_back.DAL.Repositories
         public ApplyTypesRepository(Context context) : base(context) { }
 
 
-        public override IEnumerable<ApplyTypes> GetAll(Func<ApplyTypes, bool> func)
+        public override IEnumerable<ApplyTypes> GetMany(Func<ApplyTypes, bool> func)
         {
             return db.ApplyTypes;
         }

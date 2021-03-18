@@ -51,7 +51,7 @@ namespace hod_back.DAL.Repositories
         {
             throw new NotImplementedException();
         }
-        public override IEnumerable<CathInfo> GetAll(Func<CathInfo, bool> func)
+        public override IEnumerable<CathInfo> GetMany(Func<CathInfo, bool> func)
         {
             return db.CathInfo.Where(func);
         }

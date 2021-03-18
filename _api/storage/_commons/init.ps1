@@ -1,6 +1,6 @@
 
 
-function Create-DataPSFile {
+function Create-JsonDataPSFile {
     param (
         $dbName,
         $schemeName,
@@ -48,6 +48,68 @@ New-Item -Path ./ -Name `$res_filename
 `$content += `"WITH (``n`"
 `$content += Get-Content -Path `$info_txt
 `$content += `"``n)``n`"
+
+Add-Content -Path `$res_path -Value `$content
+
+pause
+    "
+
+    New-Item -Path $dirpathName -Name $filenameName -Value $inner_data
+
+
+}
+
+function Create-ForceDataPSFile {
+    param (
+        $dbName,
+        $schemeName,
+        $tablenameName,
+        $dirpathName,
+        $filenameName
+    )
+
+    
+    $inner_data = 
+    "
+<#
+    INSERT INTO
+#>
+
+`$db = `"$dbName`"
+`$scheme = `"$schemeName`"
+`$tablename = `"$tablenameName`"
+
+`$table = '[' + `$db + '].[' + `$scheme + '].[' + `$tablename + ']'
+
+`$info_txt = './' + '_' + `$tablename + '.txt'
+`$info_json = './' + '_' + `$tablename + '.json'
+`$info_data = './' + '@' + `$tablename + '_data.txt'
+
+`$res_filename = '#sql_' + `$tablename + '.sql'
+`$res_path = './' + `$res_filename 
+
+
+Remove-Item -Path `$res_path
+New-Item -Path ./ -Name `$res_filename
+
+
+`$content = `"`"
+
+`$content += 'DELETE FROM ' + `$table
+
+`$content += `"``n``n`"
+
+`$content += 'INSERT INTO ' + `$table + `"``n`"
+
+`$content += `"VALUES``n`"
+
+`$data_ = Get-Content -Path `$info_data
+
+foreach(`$line in `$(`$data_ -split `"``r``n`")) {
+
+    `$append = `"(N'`" + `$line.replace(`"``t`", `"',``tN'`") + `"')`" + `",``n`"
+    `$content += `$append.replace(`"N'NULL'`",'NULL')
+}
 
 Add-Content -Path `$res_path -Value `$content
 
@@ -128,13 +190,13 @@ $pats_res_path = "./" + $tablename + '/'
 
 if($db -eq "" -or $db -eq " ") 
 {
-$db = "UGTU"
-Write-Output "Database == UGTU" 
+$db = "hod"
+Write-Output "Database == hod" 
 }
 if($scheme -eq "" -or $scheme -eq " ") 
 {
-$scheme = "dbo"
-Write-Output "Scheme == dbo" 
+$scheme = "Import"
+Write-Output "Scheme == Import" 
 }
 if($tablename -eq "" -or $tablename -eq " ") 
 {
@@ -149,13 +211,13 @@ New-Item -Path . -Name $tablename -ItemType "directory"
 <# Copy patterns #>
 
 $res_dir = './' + $tablename + '/'
-$res_txt = $pats_res_path + '_' + $tablename + ".txt"
-$name = '_' + $tablename + '.txt'
+$res_txt = $pats_res_path + '' + $tablename + ".txt"
+$name = '@' + $tablename + '.txt'
 New-Item -Path $res_dir -Name $name -ItemType "file"
 
 $res_dir = './' + $tablename + '/'
-$res_json = $pats_res_path + '_' + $tablename + ".json"
-$name = '_' + $tablename + '.json'
+$res_json = $pats_res_path + '@' + $tablename + ".json"
+$name = '@' + $tablename + '.json'
 $inner = "
 {
   `"ok`": true,
@@ -174,34 +236,36 @@ $inner = "
 New-Item -Path $res_dir -Name $name -ItemType "file" -Value $inner
 
 $res_dir = './' + $tablename + '/'
-$name = '_' + $tablename + '_init.sql'
+$name = '@' + $tablename + '_init.sql'
 $inner = 'CREATE TABLE ' + "$db.$scheme.$tablename" + "`n(`n`n)"
 New-Item -Path $res_dir -Name $name -ItemType "file" -Value $inner
+
+$name = '@' + $tablename + '_data.txt'
+New-Item -Path $res_dir -Name $name -ItemType "file"
 
 
 <# Create PowerShell File #>
 
 $dirpath = './' + $tablename 
-$filename = $tablename + '.ps1'
-Create-DataPSFile -dbName $db -schemeName $scheme -tablenameName $tablename -dirpathName $dirpath -filenameName $filename
+$filename_pw1 = 'PW1_' + $tablename + '.ps1'
+Create-ForceDataPSFile -dbName $db -schemeName $scheme -tablenameName $tablename -dirpathName $dirpath -filenameName $filename_pw1
 
 $dirpath = './' + $tablename 
-$filename = $tablename + '_init.ps1'
-Create-InitPSFile -dbName $db -schemeName $scheme -tablenameName $tablename -dirpathName $dirpath -filenameName $filename
+$filename_pw2 = 'PW2_' +  $tablename + '_init.ps1'
+Create-InitPSFile -dbName $db -schemeName $scheme -tablenameName $tablename -dirpathName $dirpath -filenameName $filename_pw2
 
 
 <# Create bats #>
 
-$root_path = './'
-$ex_path = $root_path + $tablename + '/' + $tablename + '.ps1'
-$filename = $tablename + '.bat'
-$inner_runner = "Powershell -File " + $ex_path
-New-Item -Path $root_path -Name $filename -Value $inner_runner
+$root_path = './' + $tablename + '/'
 
-$root_path = './'
-$ex_path = $root_path + $tablename + '/' + $tablename + '_init.ps1'
-$filename = $tablename + '_init.bat'
-$inner_runner = "Powershell -File " + $ex_path
-New-Item -Path $root_path -Name $filename -Value $inner_runner
+$filename_bat1 = '#bat_' + $tablename + '.bat'
+$inner_runner = "Powershell -File " + $filename_pw1
+New-Item -Path $root_path -Name $filename_bat1 -Value $inner_runner
+
+
+$filename_bat2 = '#bat_' + $tablename + '_init.bat'
+$inner_runner = "Powershell -File " + $filename_pw1
+New-Item -Path $root_path -Name $filename_bat2 -Value $inner_runner
 
 pause

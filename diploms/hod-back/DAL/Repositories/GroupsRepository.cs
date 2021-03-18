@@ -50,7 +50,7 @@ namespace hod_back.DAL.Repositories
         {
             throw new NotImplementedException();
         }
-        public override IEnumerable<Groups> GetAll(Func<Groups, bool> func)
+        public override IEnumerable<Groups> GetMany(Func<Groups, bool> func)
         {
             if (DAL_Settings.localAccess)
             {

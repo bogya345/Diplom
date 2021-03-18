@@ -92,7 +92,7 @@ namespace hod_back.Controllers
             int id_group_ = Convert.ToInt32(id_group);
 
             // WARNING (LOOPS) - but idk how to make it better
-            foreach (BlockRecs item in unit.BlockRecs.GetAll(x => x.id_group == id_group_).ToList())
+            foreach (BlockRecs item in unit.BlockRecs.GetMany(x => x.id_group == id_group_).ToList())
             {
                 BlockRecs_toSend result = new BlockRecs_toSend(unit, item);
                 list.Add(result);

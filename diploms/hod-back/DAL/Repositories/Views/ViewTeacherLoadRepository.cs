@@ -51,7 +51,7 @@ namespace hod_back.DAL.Repositories
             throw new NotImplementedException();
             //return db.ViewTeacherLoad;
         }
-        public override IEnumerable<ViewTeacherLoad> GetAll(Func<ViewTeacherLoad, bool> func)
+        public override IEnumerable<ViewTeacherLoad> GetMany(Func<ViewTeacherLoad, bool> func)
         {
             List<ViewTeacherLoad> tmp_ = db.ViewTeacherLoad.Take(100).ToList();
 

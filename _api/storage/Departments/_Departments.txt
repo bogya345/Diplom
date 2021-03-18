@@ -1,2 +1,0 @@
-	dep_id int,
-	dep_name NVARCHAR(100)

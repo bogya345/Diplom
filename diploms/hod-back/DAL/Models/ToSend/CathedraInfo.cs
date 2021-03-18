@@ -22,9 +22,9 @@ namespace hod_back.DAL.Models.ToSend
 
             if (!DAL_Settings.localAccess)
             {
-                List<CathInfo> tmp = unit.CathInfo.GetAll(x => x.id_cathedra == dep_id).ToList();
+                List<CathInfo> tmp = unit.CathInfo.GetMany(x => x.id_cathedra == dep_id).ToList();
                 this.cathedra = unit.Departments.Get(x => x.dep_id == dep_id);
-                this.groups = unit.Groups.GetAll(x => x.id_department == dep_id).ToList();
+                this.groups = unit.Groups.GetMany(x => x.id_department == dep_id).ToList();
                 if (this.cathedra == null) { throw new Exception(); }
             }
             else

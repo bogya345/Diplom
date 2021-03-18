@@ -20,7 +20,7 @@ namespace hod_back.DAL.Models.ToSend
         {
             try
             {
-                Groups = db.Groups.GetAll(x => x.id_department == currentCathedra).ToList();
+                Groups = db.Groups.GetMany(x => x.id_department == currentCathedra).ToList();
                 TeachersCaths = db.Employees.GetAllTeachers().ToList();
             }
             catch (Exception ex)

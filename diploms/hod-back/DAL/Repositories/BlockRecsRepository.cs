@@ -20,32 +20,6 @@ namespace hod_back.DAL.Repositories
             db.BlockRecs.Add(item);
         }
 
-        public override void Delete(int itemId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Delete(string itemName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Delete(BlockRecs item)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public BlockRecs Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-        public override BlockRecs Get(Func<BlockRecs, bool> func)
-        {
-            //return db.BlockRecs.Di
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<BlockRecs> GetAll()
         {
             if (DAL_Settings.localAccess)
@@ -54,7 +28,8 @@ namespace hod_back.DAL.Repositories
             }
             return db.BlockRecs;
         }
-        public override IEnumerable<BlockRecs> GetAll(Func<BlockRecs, bool> func)
+
+        public override IEnumerable<BlockRecs> GetMany(Func<BlockRecs, bool> func)
         {
             if (DAL_Settings.localAccess)
             {
@@ -63,14 +38,5 @@ namespace hod_back.DAL.Repositories
             return db.BlockRecs.Where(func);
         }
 
-        public override BlockRecs OnExist(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Update(BlockRecs item)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -50,7 +50,7 @@ namespace hod_back.DAL.Repositories
         {
             throw new NotImplementedException();
         }
-        public override IEnumerable<Qualifications> GetAll(Func<Qualifications, bool> func)
+        public override IEnumerable<Qualifications> GetMany(Func<Qualifications, bool> func)
         {
             return db.Qualifications.Where(func);
         }

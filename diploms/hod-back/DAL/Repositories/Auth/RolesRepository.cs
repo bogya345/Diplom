@@ -43,7 +43,7 @@ namespace hod_back.DAL.Repositories.Auth
             throw new NotImplementedException();
         }
 
-        public override IEnumerable<Roles> GetAll(Func<Roles, bool> func)
+        public override IEnumerable<Roles> GetMany(Func<Roles, bool> func)
         {
             throw new NotImplementedException();
         }

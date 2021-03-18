@@ -50,7 +50,7 @@ namespace hod_back.DAL.Repositories
         {
             return db.EducForms;
         }
-        public override IEnumerable<EducForms> GetAll(Func<EducForms, bool> func)
+        public override IEnumerable<EducForms> GetMany(Func<EducForms, bool> func)
         {
             return db.EducForms.Where(func);
         }

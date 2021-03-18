@@ -3,7 +3,42 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  
+  production: false,
+
+  client_kind_request: 'diplom_client_kind',
+
+// bogya
+  hod_api_url: "https://localhost:*/",
+  hod_sessionConst: {
+    username: 'hod_username',
+    role: 'hod_rolename',
+    department: 'hod_department',
+    accessTokenName: 'hod_accessToken',
+    ownCookie: 'hodpart'
+  },
+  hod_auth: {
+    // втисит
+    email: 'teach1@ugtu.net',
+    pass: 'qwer',
+  },
+
+// semka
+  brs_api_url: "https://localhost:*/",
+  brs_sessionConst: {
+    username: '',
+    role: '',
+    department: '',
+    accessTokenName: '',
+    ownCookie: ''
+  },
+  brs_auth: {
+    // someone
+    email: '',
+    pass: '',
+  },
+  
+
 };
 
 /*
