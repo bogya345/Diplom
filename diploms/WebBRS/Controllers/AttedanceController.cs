@@ -19,12 +19,12 @@ namespace WebBRS.Controllers
 		{
 			return View();
 		}
-		[HttpGet("getLecturerClass/{id_lecturer}/{IdEXCFLC}/{id_group}/{actual}")]
-		public ExactClassForLecturerClass GetLecturerClass(string id_lecturer,string IdEXCFLC, string id_selected_group, string actual)
+		[HttpGet("getLecturerClass/{IdEXCFLC}/{id_group}/{actual}")]
+		public ExactClassForLecturerClass GetLecturerClass(string IdEXCFLC, string id_selected_group, string actual)
 		{
 			try
 			{
-				Lecturer lecturer = unit.Lecturers.Get(l => l.IdSLecturer == Convert.ToInt32(id_lecturer));
+				Lecturer lecturer = unit.Lecturers.Get(l => l.Person.Email == HttpContext.User.Identity.Name);
 				ExactClassForLecturerClass exactClassForLecturer = unit.ExactClassForLectureres
 																		.Get(excfl => excfl.IdEXCFLC == Convert.ToInt32(IdEXCFLC));
 				IEnumerable<ExactClass> exactClasses = exactClassForLecturer.ExactClasses;
