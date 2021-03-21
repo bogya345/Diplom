@@ -36,3 +36,22 @@ D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back-testing\obj\Debug\hod-ba
 D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back-testing\obj\Debug\hod-back-testing.csproj.CopyComplete
 D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back-testing\obj\Debug\hod-back-testing.dll
 D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back-testing\obj\Debug\hod-back-testing.pdb
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\hod-back-testing.dll
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\hod-back-testing.pdb
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\WebDriver.dll
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\bin\Debug\WebDriver.xml
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\obj\Debug\hod-back-testing.csprojAssemblyReference.cache
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\obj\Debug\hod-back-testing.csproj.CoreCompileInputs.cache
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\obj\Debug\hod-back-testing.csproj.CopyComplete
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\obj\Debug\hod-back-testing.dll
+F:\Study\Diploma\DiplomTwo\diploms\hod-back-testing\obj\Debug\hod-back-testing.pdb
