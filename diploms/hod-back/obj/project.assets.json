@@ -7735,19 +7735,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\пк\\.nuget\\packages\\": {}
+    "C:\\Users\\Admin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Unic\\Diplom\\diploms\\hod-back\\hod-back.csproj",
+      "projectUniqueName": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\hod-back\\hod-back.csproj",
       "projectName": "hod-back",
-      "projectPath": "D:\\Unic\\Diplom\\diploms\\hod-back\\hod-back.csproj",
-      "packagesPath": "C:\\Users\\пк\\.nuget\\packages\\",
-      "outputPath": "D:\\Unic\\Diplom\\diploms\\hod-back\\obj\\",
+      "projectPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\hod-back\\hod-back.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\hod-back\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\пк\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7759,6 +7759,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -7770,6 +7771,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "ClosedXML": {
             "target": "Package",
@@ -7810,7 +7812,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }
