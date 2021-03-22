@@ -15,25 +15,6 @@ D:\Unic\Diplom\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.csproj.CoreCompil
 D:\Unic\Diplom\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.csproj.CopyComplete
 D:\Unic\Diplom\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.dll
 D:\Unic\Diplom\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.pdb
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\WebBRS-testing.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\WebBRS-testing.pdb
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\WebDriver.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\bin\Debug\WebDriver.xml
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.csprojAssemblyReference.cache
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.csproj.CoreCompileInputs.cache
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.csproj.CopyComplete
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.pdb
 F:\Study\Diploma\DiplomTwo\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 F:\Study\Diploma\DiplomTwo\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 F:\Study\Diploma\DiplomTwo\diploms\WebBRS-testing\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll

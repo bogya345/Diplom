@@ -341,3 +341,12 @@ F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csp
 F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.dll
 F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.pdb
 F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.genruntimeconfig.cache
+D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
+D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\EntityFramework.dll
+D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\System.CodeDom.dll
+D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebBRS.Models
 {
+	//Расписание в 1с конфигурации
 	public class ExactClass
 	{
 		[Required, Key]
@@ -15,13 +16,14 @@ namespace WebBRS.Models
 
 		[ForeignKey("IdSFG")]
 		public SubjectForGroup SubjectForGroup { get; set; }
-		public DateTime DateClass { get; set; }
+		public DateTime DateClassStart { get; set; }
+		public DateTime DateClassEnd { get; set; }
 		public byte ClassNumber { get; set; }
 		public ExactClassForLecturerClass ExactClassForLecturerClass { get; set; }
 		public virtual SubjectLecturer SubjectLecturer { get; set; }
+		public virtual Person PersonLecturer { get; set; }
 		public virtual List<ClassWork> ClassWorks { get; set; } = new List<ClassWork>();
 		public virtual List<Attendance> Attendances { get; set; } = new List<Attendance>();
 		
-
 	}
 }

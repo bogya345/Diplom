@@ -40,8 +40,8 @@ namespace WebBRS.DAL
 		}
 		public MyContext()
 		{
-			Database.EnsureDeleted();   // удаляем бд со старой схемой
-			Database.EnsureCreated();   // создаем бд с новой схемой
+			//Database.EnsureDeleted();   // удаляем бд со старой схемой
+			//Database.EnsureCreated();   // создаем бд с новой схемой
 		}
 
 		public MyContext getContext()
@@ -64,9 +64,9 @@ namespace WebBRS.DAL
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBDRS;Integrated Security=True");
-			optionsBuilder.UseSqlServer("Data Source=DESKTOP-PBKSLRS\\SQLEXPRESS;Initial Catalog=DbBRS;Integrated Security=True");
+			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-PBKSLRS\\SQLEXPRESS;Initial Catalog=DbBRS;Integrated Security=True");
 
-			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBRS;Integrated Security=True");
+			optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBRS;Integrated Security=True");
 		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

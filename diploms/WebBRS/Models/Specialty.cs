@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace WebBRS.Models
 {
+
+	//Справочник Специальности 1с Конфигурация
 	public class Specialty
 	{
 		//[Column("DepartTypeID")]
