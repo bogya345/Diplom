@@ -89,7 +89,7 @@ namespace XUnitTestProject
 			//var model = Assert.IsAssignableFrom<IEnumerable<StormSessionViewModel>>(
 			//	viewResult);
 			var model = result.ToList();
-			Assert.Equal(5446, model.Count());
+			Assert.Equal(0, model.Count());
 			////CreateHostBuilder(args).Build().Run();
 			//Assert.Throws<InvalidOperationException>(
 			//	()=>person.PersonsEmailUpdate("kek")

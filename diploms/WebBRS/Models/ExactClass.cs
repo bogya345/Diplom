@@ -21,7 +21,7 @@ namespace WebBRS.Models
 		public byte ClassNumber { get; set; }
 		public ExactClassForLecturerClass ExactClassForLecturerClass { get; set; }
 		public virtual SubjectLecturer SubjectLecturer { get; set; }
-		public virtual Person PersonLecturer { get; set; }
+		public  Person PersonLecturer { get; set; }
 		public virtual List<ClassWork> ClassWorks { get; set; } = new List<ClassWork>();
 		public virtual List<Attendance> Attendances { get; set; } = new List<Attendance>();
 		
