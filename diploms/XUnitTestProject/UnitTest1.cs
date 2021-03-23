@@ -8,6 +8,8 @@ using Moq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace XUnitTestProject
 {
@@ -34,15 +36,15 @@ namespace XUnitTestProject
 		public async void Test1()
 		{
 			Guid guid = new Guid("E8F672BE-F086-E211-B260-0018FE865BEB");
-			var person = new Person( 7, "Буракова", "Ольга", "Юрьевна");
+			var person = new Person(7, "Буракова", "Ольга", "Юрьевна");
 			person.Email = "kek@mail.com";
 			Assert.NotNull(person.Email);
 			var mockRepo = new Mock<IBrainstormSessionRepository>();
 			mockRepo.Setup(repo => repo.ListAsync())
 				.ReturnsAsync(GetTestSessions());
-			var controller = new PersonController(mockRepo.Object);
+			var controller = new PersonController(/*mockRepo.Object*/);
 
-			// Act
+			//Act
 			var result = await controller.Index();
 
 			// Assert
@@ -79,17 +81,45 @@ namespace XUnitTestProject
 			var mockRepo = new Mock<IBrainstormSessionRepository>();
 			mockRepo.Setup(repo => repo.ListAsync())
 				.ReturnsAsync(GetTestSessions());
-			var controller = new PersonController(mockRepo.Object);
+			var controller = new PersonController(/*mockRepo.Object*/);
 
 			// Act
-			var result =  controller.GetPersons();
+			var result = controller.GetPersons();
 
 			// Assert
 			//var viewResult = Assert.IsType<IEnumerable<Person>>(result);
 			//var model = Assert.IsAssignableFrom<IEnumerable<StormSessionViewModel>>(
 			//	viewResult);
 			var model = result.ToList();
-			Assert.Equal(0, model.Count());
+			Assert.Equal(1, model.Count());
+			////CreateHostBuilder(args).Build().Run();
+			//Assert.Throws<InvalidOperationException>(
+			//	()=>person.PersonsEmailUpdate("kek")
+			//	);
+		}
+		[Fact]
+		public async void TestCreate()
+		{
+
+			var mockRepo = new Mock<IBrainstormSessionRepository>();
+			mockRepo.Setup(repo => repo.ListAsync())
+				.ReturnsAsync(GetTestSessions());
+			var controller = new PersonController(/*mockRepo.Object*/);
+			Guid guid = new Guid("E8F672BE-F086-E211-B260-0018FE865BEB");
+			var person = new Person(7, "Буракова", "Ольга", "Юрьевна");
+			person.Email = "kek@mail.com";
+			// Act
+			var result = controller.Create(person);
+			//return Json("Upload Successful.");
+			// Assert
+			//var viewResult = Assert.IsType<IEnumerable<Person>>(result);
+			//var model = Assert.IsAssignableFrom<IEnumerable<StormSessionViewModel>>(
+			//	viewResult);
+			var model = result;
+			var json = JsonConvert.SerializeObject(result.Value);
+
+			//var br = JsonConvert.DeserializeObject<Balance>(json);
+			Assert.Equal("\"Create Successful.\"", json) ;
 			////CreateHostBuilder(args).Build().Run();
 			//Assert.Throws<InvalidOperationException>(
 			//	()=>person.PersonsEmailUpdate("kek")

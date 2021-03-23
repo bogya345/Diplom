@@ -722,7 +722,6 @@ F:\Study\Diploma\DiplomTwo\diploms\WebBRS\bin\Debug\netcoreapp3.1\runtimes\win-x
 F:\Study\Diploma\DiplomTwo\diploms\WebBRS\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
 F:\Study\Diploma\DiplomTwo\diploms\WebBRS\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 F:\Study\Diploma\DiplomTwo\diploms\WebBRS\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-F:\Study\Diploma\DiplomTwo\diploms\WebBRS\obj\Debug\netcoreapp3.1\WebBRS.csprojAssemblyReference.cache
 F:\Study\Diploma\DiplomTwo\diploms\WebBRS\obj\Debug\netcoreapp3.1\WebBRS.AssemblyInfoInputs.cache
 F:\Study\Diploma\DiplomTwo\diploms\WebBRS\obj\Debug\netcoreapp3.1\WebBRS.AssemblyInfo.cs
 F:\Study\Diploma\DiplomTwo\diploms\WebBRS\obj\Debug\netcoreapp3.1\WebBRS.csproj.CoreCompileInputs.cache
@@ -746,3 +745,4 @@ F:\Study\Diploma\DiplomTwo\diploms\WebBRS\obj\Debug\netcoreapp3.1\WebBRS.dll
 F:\Study\Diploma\DiplomTwo\diploms\WebBRS\obj\Debug\netcoreapp3.1\WebBRS.pdb
 F:\Study\Diploma\DiplomTwo\diploms\WebBRS\obj\Debug\netcoreapp3.1\WebBRS.genruntimeconfig.cache
 D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS\obj\Debug\netcoreapp3.1\WebBRS.csprojAssemblyReference.cache
+F:\Study\Diploma\DiplomTwo\diploms\WebBRS\obj\Debug\netcoreapp3.1\WebBRS.csprojAssemblyReference.cache

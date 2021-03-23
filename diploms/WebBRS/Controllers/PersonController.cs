@@ -45,6 +45,12 @@ namespace WebBRS.Controllers
 		public string Description { get; set; }
 		public DateTimeOffset DateCreated { get; set; }
 	}
+	public class NewSessionModel
+	{
+		[Required]
+		public string SessionName { get; set; }
+	}
+
 
 	[Route("person")]
 	public class PersonController : Controller
@@ -64,11 +70,6 @@ namespace WebBRS.Controllers
 			return View(model);
 		}
 
-		public class NewSessionModel
-		{
-			[Required]
-			public string SessionName { get; set; }
-		}
 
 		[HttpPost]
 		public async Task<IActionResult> Index(NewSessionModel model)
@@ -90,15 +91,15 @@ namespace WebBRS.Controllers
 		}
 		private readonly IBrainstormSessionRepository _sessionRepository;
 
-		public PersonController(IBrainstormSessionRepository sessionRepository)
-		{
-			_sessionRepository = sessionRepository;
-		}
+		//public PersonController(IBrainstormSessionRepository sessionRepository)
+		//{
+		//	_sessionRepository = sessionRepository;
+		//}
 		private UnitOfWork unit = new UnitOfWork();
-		public PersonController(UnitOfWork sessionRepository)
-		{
-			unit = sessionRepository;
-		}
+		//public PersonController(UnitOfWork sessionRepository)
+		//{
+		//	unit = sessionRepository;
+		//}
 		//GET: PersonController
 		//public ActionResult Index()
 		//{
@@ -111,7 +112,7 @@ namespace WebBRS.Controllers
 			return View();
 		}
 		[HttpGet("getall")]
-		public  IEnumerable<Person> GetPersons()
+		public IEnumerable<Person> GetPersons()
 		{
 			try
 			{
@@ -130,18 +131,16 @@ namespace WebBRS.Controllers
 		}
 
 		// POST: PersonController/Create
-		[HttpPost]
+		[HttpPost("createNew")]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create(IFormCollection collection)
+		public JsonResult Create([FromBody] Person value)
 		{
-			try
-			{
-				return RedirectToAction(nameof(Index));
-			}
-			catch
-			{
-				return View();
-			}
+			unit.Save();
+			//Person person = value;
+			unit.Persons.Create(value);
+		skip:
+
+			return Json("Create Successful.");
 		}
 
 		// GET: PersonController/Edit/5

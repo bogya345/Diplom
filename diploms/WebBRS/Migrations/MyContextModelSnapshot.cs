@@ -179,7 +179,10 @@ namespace WebBRS.Migrations
                     b.Property<byte>("ClassNumber")
                         .HasColumnType("tinyint");
 
-                    b.Property<DateTime>("DateClass")
+                    b.Property<DateTime>("DateClassEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateClassStart")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("ExactClassForLecturerClassIdEXCFLC")
@@ -190,6 +193,9 @@ namespace WebBRS.Migrations
 
                     b.Property<int?>("LecturerIdSLecturer")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("PersonLecturerGuidPerson")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("SubjectLecturerIdLecturer")
                         .HasColumnType("int");
@@ -204,6 +210,8 @@ namespace WebBRS.Migrations
                     b.HasIndex("IdSFG");
 
                     b.HasIndex("LecturerIdSLecturer");
+
+                    b.HasIndex("PersonLecturerGuidPerson");
 
                     b.HasIndex("SubjectLecturerIdLecturer", "SubjectLecturerIdSubject");
 
@@ -640,11 +648,17 @@ namespace WebBRS.Migrations
                         .WithMany("ExactClasses")
                         .HasForeignKey("LecturerIdSLecturer");
 
+                    b.HasOne("WebBRS.Models.Person", "PersonLecturer")
+                        .WithMany()
+                        .HasForeignKey("PersonLecturerGuidPerson");
+
                     b.HasOne("WebBRS.Models.SubjectLecturer", "SubjectLecturer")
                         .WithMany()
                         .HasForeignKey("SubjectLecturerIdLecturer", "SubjectLecturerIdSubject");
 
                     b.Navigation("ExactClassForLecturerClass");
+
+                    b.Navigation("PersonLecturer");
 
                     b.Navigation("SubjectForGroup");
 
