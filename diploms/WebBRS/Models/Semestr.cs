@@ -5,9 +5,14 @@ using System.Threading.Tasks;
 
 namespace WebBRS.Models
 {
-	public class Semestr
+	public class SemestrBase
 	{
 		public int IdSemestr { get; set; }
 		public string NameSemestr { get; set; }
+	}
+	public class Semestr
+	{
+		public int IdSemestr { get; set; }
+
 	}
 }

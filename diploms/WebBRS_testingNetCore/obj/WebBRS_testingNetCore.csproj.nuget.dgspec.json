@@ -1,21 +1,18 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS_testingNetCore\\WebBRS_testingNetCore.csproj": {}
+    "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS_testingNetCore\\WebBRS_testingNetCore.csproj": {}
   },
   "projects": {
-    "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj": {
+    "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\WebBRS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj",
+        "projectUniqueName": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\WebBRS.csproj",
         "projectName": "WebBRS",
-        "projectPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj",
+        "projectPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\WebBRS.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\obj\\",
+        "outputPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -118,22 +115,19 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS_testingNetCore\\WebBRS_testingNetCore.csproj": {
+    "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS_testingNetCore\\WebBRS_testingNetCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS_testingNetCore\\WebBRS_testingNetCore.csproj",
+        "projectUniqueName": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS_testingNetCore\\WebBRS_testingNetCore.csproj",
         "projectName": "WebBRS_testingNetCore",
-        "projectPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS_testingNetCore\\WebBRS_testingNetCore.csproj",
+        "projectPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS_testingNetCore\\WebBRS_testingNetCore.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS_testingNetCore\\obj\\",
+        "outputPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS_testingNetCore\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -149,8 +143,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj": {
-                "projectPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj"
+              "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\WebBRS.csproj": {
+                "projectPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\WebBRS.csproj"
               }
             }
           }
@@ -200,7 +194,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

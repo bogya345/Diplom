@@ -14,7 +14,7 @@ namespace WebBRS.DAL.Repositories
 
         public override void Create(Person item)
         {
-            throw new NotImplementedException();
+            db.Persons.Add(item);
         }
 
         public override void Delete(int itemId)
