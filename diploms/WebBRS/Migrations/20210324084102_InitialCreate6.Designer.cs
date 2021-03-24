@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebBRS.DAL;
 
 namespace WebBRS.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20210324084102_InitialCreate6")]
+    partial class InitialCreate6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,20 +68,12 @@ namespace WebBRS.Migrations
                     b.Property<Guid?>("PersonGuidPerson")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("Roleid_role")
+                    b.Property<int>("id_role")
                         .HasColumnType("int");
-
-                    b.Property<string>("login")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("password")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id_user");
 
                     b.HasIndex("PersonGuidPerson");
-
-                    b.HasIndex("Roleid_role");
 
                     b.ToTable("Users");
                 });
@@ -632,13 +626,7 @@ namespace WebBRS.Migrations
                         .WithMany()
                         .HasForeignKey("PersonGuidPerson");
 
-                    b.HasOne("WebBRS.Models.Auth.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("Roleid_role");
-
                     b.Navigation("Person");
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("WebBRS.Models.ClassWork", b =>

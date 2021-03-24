@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using WebBRS.Models.Auth;
+
+using System.Net.Http;
 
 namespace XUnitTestProject
 {
@@ -42,7 +45,7 @@ namespace XUnitTestProject
 			var mockRepo = new Mock<IBrainstormSessionRepository>();
 			mockRepo.Setup(repo => repo.ListAsync())
 				.ReturnsAsync(GetTestSessions());
-			var controller = new PersonController(/*mockRepo.Object*/);
+			var controller = new PersonController(mockRepo.Object);
 
 			//Act
 			var result = await controller.Index();
@@ -64,13 +67,7 @@ namespace XUnitTestProject
 			Guid guid = new Guid("E8F672BE-F086-E211-B260-0018FE865BEB");
 			var person = new Person(7, "Буракова", "Ольга", "Юрьевна");
 			person.Email = "kek@mail.com";
-			//string l = null;
-			//CreateHostBuilder(args).Build().Run();
-			//Assert.Throws<ArgumentNullException>(
-			//	() => person.PersonsEmailUpdate("kek")
-			//	); 
 			var exception = Record.Exception(() => person.PersonsEmailUpdate());
-			//Assert.IsType(typeof(DivideByZeroException), exception);
 			Assert.NotNull(person);
 
 		}
@@ -81,21 +78,10 @@ namespace XUnitTestProject
 			var mockRepo = new Mock<IBrainstormSessionRepository>();
 			mockRepo.Setup(repo => repo.ListAsync())
 				.ReturnsAsync(GetTestSessions());
-			var controller = new PersonController(/*mockRepo.Object*/);
-
-			// Act
+			var controller = new PersonController(mockRepo.Object);
 			var result = controller.GetPersons();
-
-			// Assert
-			//var viewResult = Assert.IsType<IEnumerable<Person>>(result);
-			//var model = Assert.IsAssignableFrom<IEnumerable<StormSessionViewModel>>(
-			//	viewResult);
 			var model = result.ToList();
-			Assert.Equal(1, model.Count());
-			////CreateHostBuilder(args).Build().Run();
-			//Assert.Throws<InvalidOperationException>(
-			//	()=>person.PersonsEmailUpdate("kek")
-			//	);
+			Assert.Equal(54406, model.Count());
 		}
 		[Fact]
 		public async void TestCreate()
@@ -104,27 +90,26 @@ namespace XUnitTestProject
 			var mockRepo = new Mock<IBrainstormSessionRepository>();
 			mockRepo.Setup(repo => repo.ListAsync())
 				.ReturnsAsync(GetTestSessions());
-			var controller = new PersonController(/*mockRepo.Object*/);
+			var controller = new PersonController(mockRepo.Object);
 			Guid guid = new Guid("E8F672BE-F086-E211-B260-0018FE865BEB");
 			var person = new Person(7, "Буракова", "Ольга", "Юрьевна");
 			person.Email = "kek@mail.com";
-			// Act
 			var result = controller.Create(person);
-			//return Json("Upload Successful.");
-			// Assert
-			//var viewResult = Assert.IsType<IEnumerable<Person>>(result);
-			//var model = Assert.IsAssignableFrom<IEnumerable<StormSessionViewModel>>(
-			//	viewResult);
 			var model = result;
 			var json = JsonConvert.SerializeObject(result.Value);
-
-			//var br = JsonConvert.DeserializeObject<Balance>(json);
 			Assert.Equal("\"Create Successful.\"", json) ;
-			////CreateHostBuilder(args).Build().Run();
-			//Assert.Throws<InvalidOperationException>(
-			//	()=>person.PersonsEmailUpdate("kek")
-			//	);
 		}
+		[Fact]
+		public async void TestAccount()
+		{
 
+			var mockRepo = new Mock<IBrainstormSessionRepository>();
+			mockRepo.Setup(repo => repo.ListAsync())
+				.ReturnsAsync(GetTestSessions());
+			var controller = new AccountController(mockRepo.Object);
+			var result = controller.Token("admin", "1234");
+			var json = JsonConvert.SerializeObject(result.Value);
+			Assert.Equal("{\"username\":\"admin\",\"access_role_id\":\"1\"}", json);
+		}
 	}
 }
