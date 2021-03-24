@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebBRS.Models;
+using WebBRS.Models.Auth;
 using WebBRS.Models.Views;
 
 namespace WebBRS.DAL
@@ -17,6 +18,8 @@ namespace WebBRS.DAL
 		public DbSet<WorkPersonStatus> WorkPersonStatuses { get; set; }
 		public DbSet<Department> Departments { get; set; }
 		public DbSet<DepartmentType> DepartmentTypes { get; set; }
+		public DbSet<User> Users { get; set; }
+		public DbSet<Role> Roles { get; set; }
 		public DbSet<DoClassWorkAttend> DoClassWorkAttends { get; set; }
 		public DbSet<ExactClass> ExactClasses { get; set; }
 		public DbSet<Group> Groups { get; set; }
@@ -64,9 +67,9 @@ namespace WebBRS.DAL
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBDRS;Integrated Security=True");
-			optionsBuilder.UseSqlServer("Data Source=DESKTOP-PBKSLRS\\SQLEXPRESS;Initial Catalog=DbBRS;Integrated Security=True");
+			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-PBKSLRS\\SQLEXPRESS;Initial Catalog=DbBRS;Integrated Security=True");
 
-			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBRS;Integrated Security=True");
+			optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBRS;Integrated Security=True");
 		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

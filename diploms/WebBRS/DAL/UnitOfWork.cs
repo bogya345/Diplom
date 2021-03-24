@@ -13,14 +13,14 @@ namespace WebBRS.DAL
 	{
 		public UnitOfWork()
 		{
-			try
-			{
-				AuthUsers.Get(x => x.id_employee == 1);
-			}
-			catch (Exception ex)
-			{
-				//DAL_Settings.localAccess = true;
-			}
+			//try
+			//{
+			//	Use.Get(x => x.id_employee == 1);
+			//}
+			//catch (Exception ex)
+			//{
+			//	//DAL_Settings.localAccess = true;
+			//}
 		}
 
 		public MyContext context = new MyContext();
@@ -44,6 +44,7 @@ namespace WebBRS.DAL
 		private ExactClassForLecturerRepo exactClassForLecturer;
 		private HomeWorkStudentsRepo homeWorkStudentsRepo;
 		private StudentGroupHistoryRepo studentGroupHistoryRepo;
+		private UsersRepo usersRepo;
 		//private EducFormsRepository educFormsRepository;
 		//private GroupsRepository groupsRepository;
 		//private QualificationRepository qualificationRepository;
@@ -73,6 +74,15 @@ namespace WebBRS.DAL
 
 
 		#region Repository Access
+		public UsersRepo Users
+		{
+			get
+			{
+				if (usersRepo == null)
+					usersRepo = new UsersRepo(context);
+				return usersRepo;
+			}
+		}
 		public AuthUsersRepo AuthUsers
 		{
 			get
