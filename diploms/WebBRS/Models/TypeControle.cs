@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace WebBRS.Models
 {
-	public class StudyYear
+	public class TypeControl
 	{
 		[Key]
-		public int IdStudyYear { get; set; }
+		public int IdTC { get; set; }
+		public bool _Marked { get; set; }
 		public string _Code { get; set; }
-		public string _Description { get; set; }
-		public DateTime DateTimeStart { get; set; }
-		public DateTime DateTimeEnd { get; set; }
+		public string _Descriptpion { get; set; }
+		public string _ShortDescr{ get; set; }
 	}
 }

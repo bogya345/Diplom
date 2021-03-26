@@ -91,10 +91,10 @@ namespace WebBRS.Controllers
 		}
 		private readonly IBrainstormSessionRepository _sessionRepository;
 
-		public PersonController(IBrainstormSessionRepository sessionRepository)
-		{
-			_sessionRepository = sessionRepository;
-		}
+		//public PersonController(IBrainstormSessionRepository sessionRepository)
+		//{
+		//	_sessionRepository = sessionRepository;
+		//}
 		private UnitOfWork unit = new UnitOfWork();
 		//public PersonController(UnitOfWork sessionRepository)
 		//{

@@ -13,6 +13,7 @@ namespace WebBRS.DAL
 	{
 		#region Tables
 		public DbSet<Attendance> Attendances { get; set; }
+		public DbSet<TypeControl> TypeControls { get; set; }
 		public DbSet<ExactClassForLecturerClass> ExactClassForLecturerClasses { get; set; }
 		public DbSet<ClassWork> ClassWorks { get; set; }
 		public DbSet<WorkPersonStatus> WorkPersonStatuses { get; set; }
@@ -67,9 +68,9 @@ namespace WebBRS.DAL
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBDRS;Integrated Security=True");
-			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-PBKSLRS\\SQLEXPRESS;Initial Catalog=DbBRS;Integrated Security=True");
+			optionsBuilder.UseSqlServer("Data Source=DESKTOP-PBKSLRS\\SQLEXPRESS;Initial Catalog=DbBRS;Integrated Security=True");
 
-			optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBRS;Integrated Security=True");
+			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBRS;Integrated Security=True");
 		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
