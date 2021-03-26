@@ -1,18 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\WebBRS.csproj": {}
+    "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj": {}
   },
   "projects": {
-    "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\WebBRS.csproj": {
+    "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\WebBRS.csproj",
+        "projectUniqueName": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj",
         "projectName": "WebBRS",
-        "projectPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\WebBRS.csproj",
+        "projectPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\obj\\",
+        "outputPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -115,7 +118,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
         }
       }
     }
