@@ -34,3 +34,5 @@ D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\obj\Debug\WebBRS-t
 D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.csproj.CopyComplete
 D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.dll
 D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS-testing\obj\Debug\WebBRS-testing.pdb
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\WebDriver.dll
+D:\Unic\Diplom\diploms\WebBRS-testing\bin\Debug\WebDriver.xml

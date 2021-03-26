@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using hod_back.DAL.Models;
-using hod_back.DAL.Models.Dictionaries;
-
-using hod_back.DAL;
-using hod_back.DAL.Contexts;
+using hod_back.Model;
 
 namespace hod_back.DAL.Models.ToSend
 {
@@ -20,8 +16,8 @@ namespace hod_back.DAL.Models.ToSend
         {
             try
             {
-                Groups = db.Groups.GetMany(x => x.id_department == currentCathedra).ToList();
-                TeachersCaths = db.Employees.GetAllTeachers().ToList();
+                //Groups = db.Groups.GetMany(x => x.DirectId == currentCathedra).ToList();
+                //TeachersCaths = db.Employees.GetAllTeachers().ToList();
             }
             catch (Exception ex)
             {

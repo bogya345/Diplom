@@ -20,18 +20,10 @@ namespace hod_back.DAL.Models.ToSend
 
             int dep_id = Convert.ToInt32(value: user_dep_id);
 
-            if (!DAL_Settings.localAccess)
-            {
-                List<CathInfo> tmp = unit.CathInfo.GetMany(x => x.id_cathedra == dep_id).ToList();
-                this.cathedra = unit.Departments.Get(x => x.dep_id == dep_id);
-                this.groups = unit.Groups.GetMany(x => x.id_department == dep_id).ToList();
-                if (this.cathedra == null) { throw new Exception(); }
-            }
-            else
-            {
-                this.cathedra = LocalStorage.deps.FirstOrDefault(x => x.dep_id == dep_id);
-                this.groups = LocalStorage.groups.Where(x => x.id_department == dep_id).ToList();
-            }
+            //List<CathInfo> tmp = unit.CathInfo.GetMany(x => x.id_cathedra == dep_id).ToList();
+            //this.cathedra = unit.Departments.Get(x => x.dep_id == dep_id);
+            //this.groups = unit.Groups.GetMany(x => x.id_department == dep_id).ToList();
+            if (this.cathedra == null) { throw new Exception(); }
 
         }
 

@@ -45,6 +45,8 @@ namespace hod_back
                                   });
             });
 
+            //services.AddSingleton<Context, SystemDateTime>();
+
             // services.AddResponseCaching();
             services.AddControllers();
         }

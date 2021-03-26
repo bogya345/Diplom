@@ -3,38 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using hod_back.DAL.Models;
-using hod_back.DAL.Models.Dictionaries;
-
-using hod_back.DAL.Contexts;
+using hod_back.Model;
 
 namespace hod_back.DAL.Repositories
 {
-    public class BlockRecsRepository : IRepository<BlockRecs>
+    public class BlockRecsRepository : IRepository<BlockRec>
     {
         public BlockRecsRepository(Context context) : base(context) { }
 
 
-        public override void Create(BlockRecs item)
+        public override void Create(BlockRec item)
         {
             db.BlockRecs.Add(item);
         }
 
-        public IEnumerable<BlockRecs> GetAll()
+        public IEnumerable<BlockRec> GetAll()
         {
-            if (DAL_Settings.localAccess)
-            {
-                return LocalStorage.blockrecs;
-            }
             return db.BlockRecs;
         }
 
-        public override IEnumerable<BlockRecs> GetMany(Func<BlockRecs, bool> func)
+        public override IEnumerable<BlockRec> GetMany(Func<BlockRec, bool> func)
         {
-            if (DAL_Settings.localAccess)
-            {
-                return LocalStorage.blockrecs.Where(func);
-            }
             return db.BlockRecs.Where(func);
         }
 

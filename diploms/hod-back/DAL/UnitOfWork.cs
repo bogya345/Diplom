@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using hod_back.DAL.Contexts;
+using hod_back.Model;
 using hod_back.DAL.Repositories;
 
 namespace hod_back.DAL
@@ -12,14 +12,15 @@ namespace hod_back.DAL
     {
         public UnitOfWork()
         {
-            try
-            {
-                AuthUsers.Get(x => x.id_employee == 1);
-            }
-            catch (Exception ex)
-            {
-                DAL_Settings.localAccess = true;
-            }
+            AuthUsers.Get(x => x.id_employee == 1);
+            //try
+            //{
+            //    AuthUsers.Get(x => x.id_employee == 1);
+            //}
+            //catch (Exception ex)
+            //{
+            //    DAL_Settings.localAccess = true;
+            //}
         }
 
         public Context context = new Context();
@@ -28,12 +29,12 @@ namespace hod_back.DAL
 
         #region Tables Reposes
 
-        private ApplyTypesRepository applyTypesRepository;
+        private WorkTypesRepository applyTypesRepository;
         private BlockRecsRepository blockRecsRepository;
         private DepartmentsRepository cathedrasRepository;
         private EducFormsRepository educFormsRepository;
         private GroupsRepository groupsRepository;
-        private QualificationRepository qualificationRepository;
+        //private QualificationRepository qualificationRepository;
         private SubjectsRepository subjectsRepository;
         //private TeacherCathedrasRepository teacherCathedrasRepository;
         private TeacherLoadRepository teacherLoadRepository;
@@ -48,8 +49,8 @@ namespace hod_back.DAL
         /// </summary>
         private AuthUsersRepository usersAuthRepository;
 
-        private ViewTeacherLoadRepository viewTeacherLoadRepository;
-        private CathInfoRepository cathInfoRepository;
+        //private ViewTeacherLoadRepository viewTeacherLoadRepository;
+        //private CathInfoRepository cathInfoRepository;
 
         #endregion
 
@@ -61,12 +62,12 @@ namespace hod_back.DAL
 
         #region Tables
 
-        public ApplyTypesRepository ApplyTypes
+        public WorkTypesRepository ApplyTypes
         {
             get
             {
                 if (applyTypesRepository == null)
-                    applyTypesRepository = new ApplyTypesRepository(context);
+                    applyTypesRepository = new WorkTypesRepository(context);
                 return applyTypesRepository;
             }
         }
@@ -106,15 +107,15 @@ namespace hod_back.DAL
                 return groupsRepository;
             }
         }
-        public QualificationRepository Qualifications
-        {
-            get
-            {
-                if (qualificationRepository == null)
-                    qualificationRepository = new QualificationRepository(context);
-                return qualificationRepository;
-            }
-        }
+        //public QualificationRepository Qualifications
+        //{
+        //    get
+        //    {
+        //        if (qualificationRepository == null)
+        //            qualificationRepository = new QualificationRepository(context);
+        //        return qualificationRepository;
+        //    }
+        //}
         public SubjectsRepository Subjects
         {
             get
@@ -167,25 +168,25 @@ namespace hod_back.DAL
 
         #region Views
 
-        public ViewTeacherLoadRepository ViewTeacherLoads
-        {
-            get
-            {
-                if (viewTeacherLoadRepository == null)
-                    viewTeacherLoadRepository = new ViewTeacherLoadRepository(context);
-                return viewTeacherLoadRepository;
-            }
-        }
+        //public ViewTeacherLoadRepository ViewTeacherLoads
+        //{
+        //    get
+        //    {
+        //        if (viewTeacherLoadRepository == null)
+        //            viewTeacherLoadRepository = new ViewTeacherLoadRepository(context);
+        //        return viewTeacherLoadRepository;
+        //    }
+        //}
 
-        public CathInfoRepository CathInfo
-        {
-            get
-            {
-                if (cathInfoRepository == null)
-                    cathInfoRepository = new CathInfoRepository(context);
-                return cathInfoRepository;
-            }
-        }
+        //public CathInfoRepository CathInfo
+        //{
+        //    get
+        //    {
+        //        if (cathInfoRepository == null)
+        //            cathInfoRepository = new CathInfoRepository(context);
+        //        return cathInfoRepository;
+        //    }
+        //}
 
         #endregion
 

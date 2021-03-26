@@ -7,7 +7,7 @@ using hod_back.DAL.Models;
 using hod_back.DAL.Models.Auth;
 using hod_back.DAL.Models.Views;
 
-using hod_back.DAL.Contexts;
+using hod_back.Model;
 
 namespace hod_back.DAL.Repositories
 {
@@ -16,53 +16,21 @@ namespace hod_back.DAL.Repositories
         public AuthUsersRepository(Context context) : base(context) { }
 
 
-        public override void Create(AuthUsers item)
-        {
-            throw new NotImplementedException();
-        }
+        //public override AuthUsers Get(Func<AuthUsers, bool> func)
+        //{
+        //    return db.AuthUsers.FirstOrDefault(func);
+        //}
 
-        public override void Delete(int itemId)
-        {
-            throw new NotImplementedException();
-        }
+        //public IEnumerable<AuthUsers> GetAll()
+        //{
+        //    throw new NotImplementedException();
+        //    //return db.AuthUsers;
+        //}
 
-        public override void Delete(string itemName)
-        {
-            throw new NotImplementedException();
-        }
+        //public override IEnumerable<AuthUsers> GetMany(Func<AuthUsers, bool> func)
+        //{
+        //    return db.AuthUsers.Where(func);
+        //}
 
-        public override void Delete(AuthUsers item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public AuthUsers Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-        public override AuthUsers Get(Func<AuthUsers, bool> func)
-        {
-            return db.AuthUsers.FirstOrDefault(func);
-        }
-
-        public IEnumerable<AuthUsers> GetAll()
-        {
-            throw new NotImplementedException();
-            //return db.AuthUsers;
-        }
-        public override IEnumerable<AuthUsers> GetMany(Func<AuthUsers, bool> func)
-        {
-            return db.AuthUsers.Where(func);
-        }
-
-        public override AuthUsers OnExist(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Update(AuthUsers item)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

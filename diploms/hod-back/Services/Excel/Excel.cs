@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 using ClosedXML.Excel;
 using System.IO;
 
+using hod_back.Model;
 using hod_back.DAL;
-using hod_back.DAL.Models;
-using hod_back.DAL.Models.Dictionaries;
 using hod_back.DAL.Models.ToParse;
               
 namespace hod_back.Services.Excel
@@ -16,7 +15,7 @@ namespace hod_back.Services.Excel
     public class Excel
     {
         private UnitOfWork unit;
-        private Groups group;
+        private Group group;
 
         public string path { get; set; }
 
@@ -131,7 +130,7 @@ namespace hod_back.Services.Excel
                         {
                             subs.Add(row.Cell(3).Value.ToString());
 
-                            unit.Subjects.Create(new Subjects { NAME = sub });
+                            unit.Subjects.Create(new Subject { SubName = sub });
                         }
                     }
                 }
@@ -152,7 +151,7 @@ namespace hod_back.Services.Excel
                 {
                     blocknum = 0;
                     blockName = value;
-                    blocks.Add(new Blocks { Name = value, recs = new List<BlockRecs>() });
+                    //blocks.Add(new Blocks { Name = value, recs = new List<BlockRec>() });
                     IgnoreList.Next();
                     foreach (char ch in value)
                     {
@@ -173,29 +172,29 @@ namespace hod_back.Services.Excel
                             string sub = row.Cell(3).Value.ToString() ?? "";   //subject
                             if (sub != "" && sub != null)
                             {
-                                if (!IgnoreList.ignoreList.Any(x => sub.ToLower().Contains(x)))
-                                {
-                                    blocks.Last().recs.Add(
-                                        new BlockRecs(
-                                            group.id_group.ToString(),    // id_group
-                                            (semIndex + 1).ToString(), // semestr
-                                            value,   // InPlan
-                                            //getData.FindSubjectIDWithAdding(sub).ToString(),   // subject
-                                            unit.Subjects.GetAll().Where(x => x.NAME == sub).FirstOrDefault().ID.ToString(),   // subject
-                                            blockName,    // blockNum
-                                            row.Cell(semest[semIndex].Column).Value.ToString() ?? "",
-                                            row.Cell(semest[semIndex].Column + 1).Value.ToString().Replace(".", ",") ?? "",
-                                            row.Cell(semest[semIndex].Column + 2).Value.ToString().Replace(".", ",") ?? "",
-                                            row.Cell(semest[semIndex].Column + 3).Value.ToString().Replace(".", ",") ?? "",
-                                            row.Cell(semest[semIndex].Column + 4).Value.ToString().Replace(".", ",") ?? "",
-                                            row.Cell(semest[semIndex].Column + 5).Value.ToString().Replace(".", ",") ?? "",
-                                            row.Cell(semest[semIndex].Column + 6).Value.ToString().Replace(".", ",") ?? "",
-                                            row.Cell(semest[semIndex].Column + 7).Value.ToString().Replace(".", ",") ?? "",
-                                            row.Cell(semest[semIndex].Column + 8).Value.ToString().Replace(".", ",") ?? "",
-                                            row.Cell(semest[semIndex].Column + 9).Value.ToString().Replace(".", ",") ?? ""
-                                            )
-                                        );
-                                }
+                                //if (!IgnoreList.ignoreList.Any(x => sub.ToLower().Contains(x)))
+                                //{
+                                //    blocks.Last().recs.Add(
+                                //        new BlockRec(
+                                //            group.id_group.ToString(),    // id_group
+                                //            (semIndex + 1).ToString(), // semestr
+                                //            value,   // InPlan
+                                //            //getData.FindSubjectIDWithAdding(sub).ToString(),   // subject
+                                //            unit.Subjects.GetAll().Where(x => x.SubName == sub).FirstOrDefault().SubId.ToString(),   // subject
+                                //            blockName,    // blockNum
+                                //            row.Cell(semest[semIndex].Column).Value.ToString() ?? "",
+                                //            row.Cell(semest[semIndex].Column + 1).Value.ToString().Replace(".", ",") ?? "",
+                                //            row.Cell(semest[semIndex].Column + 2).Value.ToString().Replace(".", ",") ?? "",
+                                //            row.Cell(semest[semIndex].Column + 3).Value.ToString().Replace(".", ",") ?? "",
+                                //            row.Cell(semest[semIndex].Column + 4).Value.ToString().Replace(".", ",") ?? "",
+                                //            row.Cell(semest[semIndex].Column + 5).Value.ToString().Replace(".", ",") ?? "",
+                                //            row.Cell(semest[semIndex].Column + 6).Value.ToString().Replace(".", ",") ?? "",
+                                //            row.Cell(semest[semIndex].Column + 7).Value.ToString().Replace(".", ",") ?? "",
+                                //            row.Cell(semest[semIndex].Column + 8).Value.ToString().Replace(".", ",") ?? "",
+                                //            row.Cell(semest[semIndex].Column + 9).Value.ToString().Replace(".", ",") ?? ""
+                                //            )
+                                //        );
+                                //}
                             }
 
                             if (blocks.Last().recs.Count != 0 && blocks.Last().recs.Last().IsEmpty)

@@ -5,10 +5,7 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-using hod_back.DAL.Models;
-using hod_back.DAL.Models.Dictionaries;
-
-using hod_back.DAL.Contexts;
+using hod_back.Model;
 
 namespace hod_back.DAL.Repositories
 {
@@ -19,11 +16,11 @@ namespace hod_back.DAL.Repositories
 
         public TeacherLoad Get(int id)
         {
-            return db.TeacherLoad.Find(id);
+            return db.TeacherLoads.Find(id);
         }
         public override TeacherLoad Get(Func<TeacherLoad, bool> func)
         {
-            return db.TeacherLoad.FirstOrDefault(func);
+            return db.TeacherLoads.FirstOrDefault(func);
         }
 
         public override TeacherLoad OnExist(string name)
@@ -33,35 +30,25 @@ namespace hod_back.DAL.Repositories
 
         public override void Create(TeacherLoad item)
         {
-            db.TeacherLoad.Add(item);
+            db.TeacherLoads.Add(item);
         }
 
         public override void Update(TeacherLoad item)
         {
             //db.Entry(book).State = EntityState.Modified;
-            db.TeacherLoad
-                .Where(x => (x.id_blockRec == item.id_blockRec))
+            db.TeacherLoads
+                .Where(x => (x.BlocRecId == item.BlocRecId))
                 .ToList()
-                .Where(y => (y.typeSubject.Trim(' ').ToLower() == item.typeSubject.Trim(' ').ToLower()))
+                .Where(y => (y.SubType.SubTypeName.Trim(' ').ToLower() == item.SubType.SubTypeName.Trim(' ').ToLower()))
                 .FirstOrDefault()
-                .id_employee = item.id_employee;
+                .FshId = item.FshId;
         }
 
         public override void Delete(int itemId)
         {
-            TeacherLoad book = db.TeacherLoad.Find(itemId);
+            TeacherLoad book = db.TeacherLoads.Find(itemId);
             if (book != null)
-                db.TeacherLoad.Remove(book);
-        }
-
-        public override void Delete(string itemName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Delete(TeacherLoad item)
-        {
-            throw new NotImplementedException();
+                db.TeacherLoads.Remove(book);
         }
 
         public IEnumerable<TeacherLoad> GetAll()
@@ -69,9 +56,10 @@ namespace hod_back.DAL.Repositories
             throw new NotImplementedException();
             //return db.TeacherLoad;
         }
+
         public override IEnumerable<TeacherLoad> GetMany(Func<TeacherLoad, bool> func)
         {
-            return db.TeacherLoad.Where(func);
+            return db.TeacherLoads.Where(func);
         }
     }
 }

@@ -7,7 +7,8 @@ using ClosedXML.Excel;
 using System.IO;
 
 using hod_back.DAL;
-using hod_back.DAL.Models;
+using hod_back.Model;
+
 using hod_back.DAL.Models.Views;
 using hod_back.DAL.Models.Dictionaries;
 using hod_back.DAL.Models.ToParse;
@@ -17,7 +18,7 @@ namespace hod_back.Services.Excel
     public class Excel_Property
     {
         private UnitOfWork unit;
-        private Groups group;
+        private Group group;
 
         public string path { get; set; } // @"D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\Plan_IST_-_16.xlsx"
 
@@ -51,7 +52,8 @@ namespace hod_back.Services.Excel
             var wb = new XLWorkbook(this.patternPath);
             var ws = wb.Worksheet(1);
 
-            List<ViewTeacherLoad> data = unit.context.ViewTeacherLoad.Where(x => x.id_group == this.group.id_group && x.id_employee != null).ToList();
+            //List<ViewTeacherLoad> data = unit.context.ViewTeacherLoad.Where(x => x.id_group == this.group.id_group && x.id_employee != null).ToList();
+            List<ViewTeacherLoad> data = null;
 
             var groupData = data.GroupBy(x => x.id_employee);
 

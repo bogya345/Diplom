@@ -6,8 +6,8 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
-using hod_back.DAL;
-using hod_back.DAL.Repositories;
+//using hod_back.DAL;
+//using hod_back.DAL.Repositories;
 
 namespace hod_back.Services.Auth
 {

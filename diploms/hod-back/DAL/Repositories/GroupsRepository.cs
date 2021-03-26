@@ -5,68 +5,38 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-using hod_back.DAL.Models;
-using hod_back.DAL.Models.Dictionaries;
-
-using hod_back.DAL.Contexts;
+using hod_back.Model;
 
 namespace hod_back.DAL.Repositories
 {
-    public class GroupsRepository : IRepository<Groups>
+    public class GroupsRepository : IRepository<Group>
     {
         public GroupsRepository(Context context) : base(context) { }
 
 
-        public override void Create(Groups item)
+        public override void Create(Group item)
         {
             db.Groups.Add(item);
         }
 
-        public override void Delete(int itemId)
+        public Group Get(int id)
         {
-            throw new NotImplementedException();
+            return db.Groups.Where(x => x.GroupId == id).FirstOrDefault();
         }
-
-        public override void Delete(string itemName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Delete(Groups item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Groups Get(int id)
-        {
-            return db.Groups.Where(x => x.id_group == id).FirstOrDefault();
-        }
-        public override Groups Get(Func<Groups, bool> func)
+        public override Group Get(Func<Group, bool> func)
         {
             return db.Groups.FirstOrDefault(func);
         }
 
-        public IEnumerable<Groups> GetAll()
+        public override IEnumerable<Group> GetMany(Func<Group, bool> func)
         {
-            throw new NotImplementedException();
-        }
-        public override IEnumerable<Groups> GetMany(Func<Groups, bool> func)
-        {
-            if (DAL_Settings.localAccess)
-            {
-                return LocalStorage.groups.Where(func);
-            }
             return db.Groups.Where(func);
         }
 
-        public override Groups OnExist(string name)
+        public override Group OnExist(string name)
         {
             throw new NotImplementedException();
         }
 
-        public override void Update(Groups item)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

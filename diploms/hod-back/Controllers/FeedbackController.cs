@@ -11,16 +11,18 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
 
-using hod_back.DAL.Models;
-using hod_back.DAL.Models.Views;
-using hod_back.DAL.Models.ToRecieve;
-using hod_back.DAL.Models.ToSend;
-using hod_back.DAL.Models.ToParse;
+using hod_back.Model;
 
-using hod_back.DAL;
-using hod_back.DAL.Contexts;
+//using hod_back.DAL.Models;
+//using hod_back.DAL.Models.Views;
+//using hod_back.DAL.Models.ToRecieve;
+//using hod_back.DAL.Models.ToSend;
+//using hod_back.DAL.Models.ToParse;
 
-using hod_back.Services.Excel;
+//using hod_back.DAL;
+//using hod_back.DAL.Contexts;
+
+//using hod_back.Services.Excel;
 
 
 namespace hod_back.Controllers
@@ -29,7 +31,7 @@ namespace hod_back.Controllers
     [Route("feedback")]
     public class FeedbackController : Controller
     {
-        private UnitOfWork unit = new UnitOfWork();
+        //private UnitOfWork unit = new UnitOfWork();
 
         public FeedbackController()
         {

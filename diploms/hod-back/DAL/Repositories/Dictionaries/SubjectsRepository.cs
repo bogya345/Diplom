@@ -5,72 +5,34 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-using hod_back.DAL.Models;
-using hod_back.DAL.Models.Dictionaries;
-
-using hod_back.DAL.Contexts;
+using hod_back.Model;
 
 namespace hod_back.DAL.Repositories
 {
-    public class SubjectsRepository : IRepository<Subjects>
+    public class SubjectsRepository : IRepository<Subject>
     {
         public SubjectsRepository(Context context) : base(context) { }
 
 
-        public override void Create(Subjects item)
+        public override void Create(Subject item)
         {
             db.Subjects.Add(item);
         }
 
-        public override void Delete(int itemId)
+        public IEnumerable<Subject> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public override void Delete(string itemName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Delete(Subjects item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Subjects Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-        public override Subjects Get(Func<Subjects, bool> func)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Subjects> GetAll()
-        {
-            if (DAL_Settings.localAccess)
-            {
-                return LocalStorage.subs;
-            }
             return db.Subjects;
         }
-        public override IEnumerable<Subjects> GetMany(Func<Subjects, bool> func)
+
+        public override IEnumerable<Subject> GetMany(Func<Subject, bool> func)
         {
-            if (DAL_Settings.localAccess)
-            {
-                return LocalStorage.subs.Where(func);
-            }
             return db.Subjects.Where(func);
         }
 
-        public override Subjects OnExist(string name)
+        public override Subject OnExist(string name)
         {
-            return db.Subjects.Where(x => x.NAME == name).FirstOrDefault();
+            return db.Subjects.Where(x => x.SubName == name).FirstOrDefault();
         }
 
-        public override void Update(Subjects item)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -55,7 +55,7 @@ namespace hod_back.DAL.Models.ToSend
             semestrNum = origin.semestrNum;
             InPlan = origin.InPlan;
 
-            subject = db.Subjects.GetAll().Where(x => x.ID == origin.id_subject).FirstOrDefault().NAME;
+            subject = db.Subjects.GetAll().Where(x => x.SubId == origin.id_subject).FirstOrDefault().SubName;
 
             blockNum = origin.blockNum;
             ze = origin.ze;

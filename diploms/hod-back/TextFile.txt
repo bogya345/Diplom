@@ -1,0 +1,2 @@
+﻿
+Scaffold-DbContext "Data Source=localhost,1402;Initial Catalog=hod;Persist Security Info=True;User ID=SA;Password=P@ssword_ugtu" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model -Context "AdventureContext" -DataAnnotations

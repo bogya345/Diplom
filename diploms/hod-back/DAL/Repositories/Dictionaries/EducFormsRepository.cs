@@ -5,64 +5,24 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-using hod_back.DAL.Models;
-using hod_back.DAL.Models.Dictionaries;
-
-using hod_back.DAL.Contexts;
+using hod_back.Model;
 
 namespace hod_back.DAL.Repositories
 {
-    public class EducFormsRepository : IRepository<EducForms>
+    public class EducFormsRepository : IRepository<EducForm>
     {
         public EducFormsRepository(Context context) : base(context) { }
 
 
-        public override void Create(EducForms item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Delete(int itemId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Delete(string itemName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Delete(EducForms item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public EducForms Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-        public override EducForms Get(Func<EducForms, bool> func)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<EducForms> GetAll()
+        public IEnumerable<EducForm> GetAll()
         {
             return db.EducForms;
         }
-        public override IEnumerable<EducForms> GetMany(Func<EducForms, bool> func)
+
+        public override IEnumerable<EducForm> GetMany(Func<EducForm, bool> func)
         {
             return db.EducForms.Where(func);
         }
 
-        public override EducForms OnExist(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Update(EducForms item)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
