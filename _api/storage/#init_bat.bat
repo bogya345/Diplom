@@ -1,1 +1,0 @@
-Powershell -File ./_commons/init.ps1
