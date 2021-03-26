@@ -10309,17 +10309,21 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {}
+    "C:\\Users\\Admin\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS_testingNetCore\\WebBRS_testingNetCore.csproj",
+      "projectUniqueName": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS_testingNetCore\\WebBRS_testingNetCore.csproj",
       "projectName": "WebBRS_testingNetCore",
-      "projectPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS_testingNetCore\\WebBRS_testingNetCore.csproj",
+      "projectPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS_testingNetCore\\WebBRS_testingNetCore.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS_testingNetCore\\obj\\",
+      "outputPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS_testingNetCore\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -10335,8 +10339,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\WebBRS.csproj": {
-              "projectPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\WebBRS.csproj"
+            "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj": {
+              "projectPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj"
             }
           }
         }
@@ -10386,7 +10390,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -22,6 +22,18 @@ export class AttedanceTableComponent implements OnInit {
       'б',
 
     ]
+  public AttedanceTest2: Array<string> =
+    [
+      '/',
+      '/','н',
+      'б','н',
+      'б','н',
+      'б','н',
+      'б','н',
+      'б','н',
+      '/',
+
+    ]
   public studentsTest: Array<Student> =
 
     [
@@ -33,7 +45,7 @@ export class AttedanceTableComponent implements OnInit {
       {
         IdStudent: 2,
         PersonFIO: 'Student2',
-        Attedanced: this.AttedanceTest
+        Attedanced: this.AttedanceTest2
       },
       {
         IdStudent: 3,
@@ -43,7 +55,7 @@ export class AttedanceTableComponent implements OnInit {
       {
         IdStudent: 4,
         PersonFIO: 'Student4',
-        Attedanced: this.AttedanceTest
+        Attedanced: this.AttedanceTest2
       },
       {
         IdStudent: 5,
@@ -53,7 +65,7 @@ export class AttedanceTableComponent implements OnInit {
       {
         IdStudent: 6,
         PersonFIO: 'Student6',
-        Attedanced: this.AttedanceTest
+        Attedanced: this.AttedanceTest2
       },
       {
         IdStudent: 7,
@@ -180,8 +192,8 @@ export class AttedanceTableComponent implements OnInit {
     {
       ExactClasses: this.exactClassesTest,
       Lecturer: this.lecturer,
-      Groups: this.groupsTest
-
+      Groups: this.groupsTest,
+      SubjectName: "subject"
   };
 
   constructor() { }
@@ -210,7 +222,8 @@ interface Group {
 interface ExactClassForLecturerClass {
   Lecturer: Lecturer,
   ExactClasses: ExactClass[],
-  Groups: Group[]
+  Groups: Group[],
+  SubjectName: string
 }
 interface Student {
   IdStudent: number,

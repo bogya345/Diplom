@@ -21,6 +21,10 @@ namespace WebBRS.DAL
 		public DbSet<DepartmentType> DepartmentTypes { get; set; }
 		public DbSet<User> Users { get; set; }
 		public DbSet<Role> Roles { get; set; }
+		public DbSet<TypeStudy> TypeStudies { get; set; }
+		public DbSet<StudyPlanRecord> StudyPlanRecords { get; set; }
+		public DbSet<StudyYear> StudyYears { get; set; }
+		public DbSet<TypeStudyPlanRecord> TypeStudyPlanRecords { get; set; }
 		public DbSet<DoClassWorkAttend> DoClassWorkAttends { get; set; }
 		public DbSet<ExactClass> ExactClasses { get; set; }
 		public DbSet<Group> Groups { get; set; }

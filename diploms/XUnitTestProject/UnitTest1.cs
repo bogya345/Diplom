@@ -69,7 +69,6 @@ namespace XUnitTestProject
 			person.Email = "kek@mail.com";
 			var exception = Record.Exception(() => person.PersonsEmailUpdate());
 			Assert.NotNull(person);
-
 		}
 		[Fact]
 		public async void Test3()
@@ -86,7 +85,6 @@ namespace XUnitTestProject
 		[Fact]
 		public async void TestCreate()
 		{
-
 			var mockRepo = new Mock<IBrainstormSessionRepository>();
 			mockRepo.Setup(repo => repo.ListAsync())
 				.ReturnsAsync(GetTestSessions());
