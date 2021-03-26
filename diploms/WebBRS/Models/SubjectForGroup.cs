@@ -23,6 +23,6 @@ namespace WebBRS.Models
 
 		public virtual TypeStudy TypeStudy { get; set; }
 		public DateTime SFGDate { get; set; }
-		public List<ExactClass> ExactClasses { get; set; } = new List<ExactClass>();
+		public virtual List<ExactClass> ExactClasses { get; set; } = new List<ExactClass>();
 	}
 }

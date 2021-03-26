@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,12 +7,12 @@ using WebBRS.Models;
 
 namespace WebBRS.DAL.Repositories
 {
-    public class AttendanceRepo : IRepository<Attendance>
+	public class GroupsRepo : IRepository<Group>
     {
-        public AttendanceRepo(MyContext context) : base(context) { }
+        public GroupsRepo(MyContext context) : base(context) { }
 
 
-        public override void Create(Attendance item)
+        public override void Create(Group item)
         {
             throw new NotImplementedException();
         }
@@ -26,18 +27,20 @@ namespace WebBRS.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public override void Delete(Attendance item)
+        public override void Delete(Group item)
         {
             throw new NotImplementedException();
         }
 
-        public Attendance Get(int id)
+        public Group Get(int id)
         {
             throw new NotImplementedException();
         }
-        public override Attendance Get(Func<Attendance, bool> func)
+        public override Group Get(Func<Group, bool> func)
         {
-            return db.Attendances.FirstOrDefault(func);
+            return db.Groups
+                .Include(g=>g.StudentsGroupHistories)
+                .FirstOrDefault(func);
         }
 
         public IEnumerable<Attendance> GetAll()
@@ -45,17 +48,17 @@ namespace WebBRS.DAL.Repositories
             throw new NotImplementedException();
             //return db.AuthUsers;
         }
-        public override IEnumerable<Attendance> GetAll(Func<Attendance, bool> func)
+        public override IEnumerable<Group> GetAll(Func<Group, bool> func)
         {
-            return db.Attendances.Where(func);
+            return db.Groups.Where(func);
         }
 
-        public override Attendance OnExist(string name)
+        public override Group OnExist(string name)
         {
             throw new NotImplementedException();
         }
 
-        public override void Update(Attendance item)
+        public override void Update(Group item)
         {
             throw new NotImplementedException();
         }

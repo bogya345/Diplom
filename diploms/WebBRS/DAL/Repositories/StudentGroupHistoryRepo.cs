@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,7 +38,10 @@ namespace WebBRS.DAL.Repositories
         }
         public override StudentsGroupHistory Get(Func<StudentsGroupHistory, bool> func)
         {
-            return db.StudentsGroupHistories.FirstOrDefault(func);
+            return db.StudentsGroupHistories
+                .Include(sgh=>sgh.Student)
+                .Include(sgh=>sgh.Attendances)
+                .FirstOrDefault(func);
         }
 
         public IEnumerable<StudentsGroupHistory> GetAll()
@@ -47,7 +51,9 @@ namespace WebBRS.DAL.Repositories
         }
         public override IEnumerable<StudentsGroupHistory> GetAll(Func<StudentsGroupHistory, bool> func)
         {
-            return db.StudentsGroupHistories.Where(func);
+            return db.StudentsGroupHistories
+                .Include(sgh=>sgh.Attendances)
+                .Where(func);
         }
 
         public override StudentsGroupHistory OnExist(string name)
