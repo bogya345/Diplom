@@ -39,6 +39,7 @@ namespace WebBRS.DAL
 		public DbSet<SubjectForGroup> SubjectForGroups { get; set; }
 		public DbSet<SubjectLecturer> SubjectLecturers { get; set; }
 		public DbSet<WorkType> WorkTypes { get; set; }
+		public DbSet<SemestrBase> SemestrBases { get; set; }
 		#endregion
 
 		#region Views

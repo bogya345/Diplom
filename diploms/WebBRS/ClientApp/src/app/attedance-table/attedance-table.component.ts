@@ -188,8 +188,9 @@ export class AttedanceTableComponent implements OnInit {
         Group: this.groupsTest[1]
       }
     ];
-  public exactClassForLecturerClass: ExactClassForLecturerClass =
+  public exactClassForLecturerClass: ExactClassForLecturerClassTable =
     {
+      IdECFLCT: 1,
       ExactClasses: this.exactClassesTest,
       Lecturer: this.lecturer,
       Groups: this.groupsTest,
@@ -219,7 +220,8 @@ interface Group {
   Specialty: string,
   Students: Student[]
 }
-interface ExactClassForLecturerClass {
+interface ExactClassForLecturerClassTable {
+  IdECFLCT: number,
   Lecturer: Lecturer,
   ExactClasses: ExactClass[],
   Groups: Group[],
