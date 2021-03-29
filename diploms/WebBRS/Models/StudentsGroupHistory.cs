@@ -16,12 +16,12 @@ namespace WebBRS.Models
 		public int IdSGH { get; set; }
 		public DateTime DateSGHStart { get; set; }
 		public DateTime DateSGHFinished { get; set; }
+		public Course Course { get; set; }
 
 		[ForeignKey("IdStudent")]
 		public Student Student { get; set; }
 		[ForeignKey("IdGroup")]
 		public Group Group { get; set; }
-
 		public List<Attendance> Attendances { get; set; } = new List<Attendance>();
 
 	}

@@ -24,10 +24,9 @@
               <div class="col-3">
                 <label>Группа</label>
                 <select class="form-control select2" style="width: 100%;">
-                  <option>ИСТ-17о-Б</option>
-                  <option>ИВТ-17о-Б</option>
-                  <option>РиСО-17о-б</option>
+                  <option *ngFor="let i of ECFLC.Groups">{{i.GroupName}}</option>
                 </select>
+                <button>Сохранить</button>
               </div>
             </div>
           </div>
@@ -58,82 +57,32 @@
                     <th>ФИО</th>
                     <th>Присутсвие</th>
                     <th>Балл</th>
+                    <th>Выполнение</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>657</td>
-                    <td>Волков Б.М.</td>
+                  <tr *ngFor="let i of ECFLC.Students;let n = index">
+                    <td>
+                      {{i.IdStudent}}
+                    </td>
+                    <td>
+                      {{i.PersonFIO}}
+                    </td>
                     <td>
                       <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                        <option selected="selected">П.</option>
-                        <option>О.</option>
-                        <option>О.у.п.</option>
-                        <option>Оп.</option>
-
+                        <option selected="selected" *ngFor="let j of ECFLC.Students[n].Attedanced">{{j}}</option>               
                       </select>
                     </td>
                     <td>
                       <div class="form-group">
-                        <input  class="form-control" id="exampleInputPassword1" placeholder="Балл">
+                        <input class="form-control" id="exampleInputPassword1" placeholder="Балл" value="{{i.Ball}}">
                       </div>
                     </td>
-                  </tr>
-                  <tr>
-                    <td>175</td>
-                    <td>Мяндин Е.С.</td>
                     <td>
-                      <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                        <option>П.</option>
-                        <option>О.</option>
-                        <option>О.у.п.</option>
-                        <option>Оп.</option>
-
-                      </select>
-                    </td>
-                    <td>
-                      <div class="form-group">
-                        <input class="form-control" id="exampleInputPassword1" placeholder="Балл">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>219</td>
-                    <td>Полищук С.А.</td>
-                    <td>
-                      <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                        <option>П.</option>
-                        <option>О.</option>
-                        <option>О.у.п.</option>
-                        <option>Оп.</option>
-
-                      </select>
-                    </td>
-                    <td>
-                      <div class="form-group">
-                        <input class="form-control" id="exampleInputPassword1" placeholder="Балл">
-                      </div>
+                      {{i.HW.ShortTextHW}}
                     </td>
                   </tr>
 
-                  <tr>
-                    <td>183</td>
-                    <td>Сычев С.А.</td>
-                    <td>
-                      <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                        <option>П.</option>
-                        <option>О.</option>
-                        <option>О.у.п.</option>
-                        <option>Оп.</option>
-
-                      </select>
-                    </td>
-                    <td>
-                      <div class="form-group">
-                        <input class="form-control" id="exampleInputPassword1" placeholder="Балл">
-                      </div>
-                    </td>
-                  </tr>
 
                 </tbody>
               </table>
@@ -142,7 +91,7 @@
           </div>
         </div>
       </div>
-    
+
     </div>
   </div>
 </section>
