@@ -10460,21 +10460,17 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Admin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\XUnitTestProject\\XUnitTestProject.csproj",
+      "projectUniqueName": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\XUnitTestProject\\XUnitTestProject.csproj",
       "projectName": "XUnitTestProject",
-      "projectPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\XUnitTestProject\\XUnitTestProject.csproj",
+      "projectPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\XUnitTestProject\\XUnitTestProject.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\XUnitTestProject\\obj\\",
+      "outputPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\XUnitTestProject\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -10490,8 +10486,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj": {
-              "projectPath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj"
+            "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\WebBRS.csproj": {
+              "projectPath": "F:\\Study\\Diploma\\DiplomTwo\\diploms\\WebBRS\\WebBRS.csproj"
             }
           }
         }
@@ -10545,7 +10541,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }
