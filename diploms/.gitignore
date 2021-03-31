@@ -1,3 +1,5 @@
 .vs
 WebBRS\bin
+WebBRS\obj
+XUnitTestProject\obj
 hod-back\obj
