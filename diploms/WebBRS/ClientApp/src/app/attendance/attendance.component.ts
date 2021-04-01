@@ -9,7 +9,7 @@ export class AttendanceComponent implements OnInit {
   public hw: HomeWorkStudent = {
     IdHWS: 1,
     ShortTextHW: 'Выполненное задание в прикрепленном файле',
-    StringFilePath:'files/hws/1'
+    StringFilePath: 'files/hws/1'
   };
   public cw: ClassWork = {
     IdCW: 1,
@@ -17,7 +17,11 @@ export class AttendanceComponent implements OnInit {
     FilePathWork: 'files/cw/1',
     MaxBall: 5
   };
-  public attedanced: Array<string>  = ['н', 'б', 'оу'];
+  public fileToUpload: File = null;
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+  }
+  public attedanced: Array<string> = ['н', 'б', 'оу'];
   public studentsTest: Array<Student> =
 
     [
@@ -152,17 +156,19 @@ export class AttendanceComponent implements OnInit {
     Lecturer: this.lecturer,
     Students: this.studentsTest,
     Groups: this.groupsTest,
-    SubjectName: 'Subject1'
+    SubjectName: 'Subject1',
+    DateTime: '08-03-2021'
   }
   ngOnInit() {
   }
 
 }
+
 interface ClassWork {
   IdCW: number,
   TextWork: string,
   FilePathWork: string,
-  MaxBall: number,
+  MaxBall: number
 }
 interface Group {
   idGroup: number,
@@ -176,6 +182,7 @@ interface ExactClassForLecturerClass {
   Students: Student[],
   Groups: Group[],
   SubjectName: string
+  DateTime: string
 }
 interface Student {
   IdStudent: number,

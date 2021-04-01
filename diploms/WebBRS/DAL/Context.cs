@@ -75,31 +75,18 @@ namespace WebBRS.DAL
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBDRS;Integrated Security=True");
-			optionsBuilder.UseSqlServer("Data Source=DESKTOP-PBKSLRS\\SQLEXPRESS;Initial Catalog=DbBRS;Integrated Security=True");
+			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-PBKSLRS\\SQLEXPRESS;Initial Catalog=DbBRS;Integrated Security=True");
 
-			//optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBRS;Integrated Security=True");
+			optionsBuilder.UseSqlServer("Data Source=DESKTOP-CBO4Q8H;Initial Catalog=DbBRS;Integrated Security=True");
 		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			//string adminRoleName = "admin";
-			//string userRoleName = "user";
 
-			//string adminEmail = "semen.sychevforedu@gmail.ru";
-			//string adminPassword = "123456";
-			//modelBuilder.Entity<RequisitionTypeUser>()
-			//   .HasOne(sc => sc.User)
-			//   .WithMany(s => s.RequisitionTypeUsers)
-			//   .HasForeignKey(sc => sc.IDUser);
-			//modelBuilder.Entity<Person>()
-			//	.HasKey(p => p.GuidPerson);
 			modelBuilder.Entity<Student>()
 				.HasOne(p => p.Person)
 				.WithMany(t => t.Students)
-				.HasForeignKey(st => st.GuidPerson);
-			//modelBuilder.Entity<Department>()
-			//	.HasOne(p => p.DepartmentType)
-			//	.WithMany(t => t.Departments)
-			//	.HasForeignKey(st => st.DepartmentTypeID);
+				.HasForeignKey(st => st.IdPerson);
+
 			modelBuilder.Entity<Lecturer>()
 				.HasMany(c => c.Subjects)
 				.WithMany(s => s.Lecturers)

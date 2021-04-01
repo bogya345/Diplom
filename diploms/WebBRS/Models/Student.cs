@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace WebBRS.Models
@@ -13,10 +14,11 @@ namespace WebBRS.Models
 		[Required, Key]
 		public int IdStudent { get; set; }
 
-		[ForeignKey("GuidPerson")]
-		public Guid? GuidPerson { get; set; }
+		[ForeignKey("IdPerson")]
+		public int IdPerson { get; set; }
 		public Person Person { get; set; }
 		public string ZachNumber { get; set; }
+		public byte[] ID_1c { get; set; }
 		public List<StudentsGroupHistory> StudentsGroupHistories { get; set; }
 
 	}

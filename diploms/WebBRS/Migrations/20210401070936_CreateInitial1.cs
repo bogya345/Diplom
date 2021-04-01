@@ -3,12 +3,39 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebBRS.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class CreateInitial1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
                 name: "dbo");
+
+            migrationBuilder.CreateTable(
+                name: "ConditionOfPersons",
+                columns: table => new
+                {
+                    IdConditionOfPerson = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    _Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConditionOfPersons", x => x.IdConditionOfPerson);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Courses",
+                columns: table => new
+                {
+                    IdCourse = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    _Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    _Number = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courses", x => x.IdCourse);
+                });
 
             migrationBuilder.CreateTable(
                 name: "DepartmentTypes",
@@ -29,8 +56,9 @@ namespace WebBRS.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    GuidPerson = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    nCode = table.Column<int>(type: "int", nullable: true),
+                    IdPerson = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    _Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PatronicName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -41,7 +69,33 @@ namespace WebBRS.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Persons", x => x.GuidPerson);
+                    table.PrimaryKey("PK_Persons", x => x.IdPerson);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    id_role = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name_role = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.id_role);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SemestrBases",
+                columns: table => new
+                {
+                    IdSemestr = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NameSemestr = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SemestrBases", x => x.IdSemestr);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,6 +110,22 @@ namespace WebBRS.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Specialties", x => x.IdSpec);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StudyYears",
+                columns: table => new
+                {
+                    IdStudyYear = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    _Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    _Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateTimeStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateTimeEnd = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudyYears", x => x.IdStudyYear);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,7 +144,23 @@ namespace WebBRS.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TypeStudy",
+                name: "TypeControls",
+                columns: table => new
+                {
+                    IdTC = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    _Marked = table.Column<bool>(type: "bit", nullable: false),
+                    _Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    _Descriptpion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    _ShortDescr = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TypeControls", x => x.IdTC);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TypeStudies",
                 columns: table => new
                 {
                     IdTS = table.Column<int>(type: "int", nullable: false)
@@ -84,7 +170,22 @@ namespace WebBRS.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TypeStudy", x => x.IdTS);
+                    table.PrimaryKey("PK_TypeStudies", x => x.IdTS);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TypeStudyPlanRecords",
+                columns: table => new
+                {
+                    IdTSPR = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    _Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    _Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    _Fld9231 = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TypeStudyPlanRecords", x => x.IdTSPR);
                 });
 
             migrationBuilder.CreateTable(
@@ -148,17 +249,17 @@ namespace WebBRS.Migrations
                 {
                     IdSLecturer = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PersonGuidPerson = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    PersonIdPerson = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Lectureres", x => x.IdSLecturer);
                     table.ForeignKey(
-                        name: "FK_Lectureres_Persons_PersonGuidPerson",
-                        column: x => x.PersonGuidPerson,
+                        name: "FK_Lectureres_Persons_PersonIdPerson",
+                        column: x => x.PersonIdPerson,
                         principalSchema: "dbo",
                         principalTable: "Persons",
-                        principalColumn: "GuidPerson",
+                        principalColumn: "IdPerson",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -168,18 +269,47 @@ namespace WebBRS.Migrations
                 {
                     IdStudent = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GuidPerson = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IdPerson = table.Column<int>(type: "int", nullable: false),
                     ZachNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.IdStudent);
                     table.ForeignKey(
-                        name: "FK_Students_Persons_GuidPerson",
-                        column: x => x.GuidPerson,
+                        name: "FK_Students_Persons_IdPerson",
+                        column: x => x.IdPerson,
                         principalSchema: "dbo",
                         principalTable: "Persons",
-                        principalColumn: "GuidPerson",
+                        principalColumn: "IdPerson",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    id_user = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PersonIdPerson = table.Column<int>(type: "int", nullable: true),
+                    Roleid_role = table.Column<int>(type: "int", nullable: true),
+                    login = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    password = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.id_user);
+                    table.ForeignKey(
+                        name: "FK_Users_Persons_PersonIdPerson",
+                        column: x => x.PersonIdPerson,
+                        principalSchema: "dbo",
+                        principalTable: "Persons",
+                        principalColumn: "IdPerson",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Users_Roles_Roleid_role",
+                        column: x => x.Roleid_role,
+                        principalTable: "Roles",
+                        principalColumn: "id_role",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -220,12 +350,78 @@ namespace WebBRS.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StudyPlanRecords",
+                columns: table => new
+                {
+                    IdStudyPlan = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FacultetDepartmentGUID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    StudyYearIdStudyYear = table.Column<int>(type: "int", nullable: true),
+                    SpecialtyIdSpec = table.Column<int>(type: "int", nullable: true),
+                    TypeControlIdTC = table.Column<int>(type: "int", nullable: true),
+                    TypeStudyPlanRecordIdTSPR = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudyPlanRecords", x => x.IdStudyPlan);
+                    table.ForeignKey(
+                        name: "FK_StudyPlanRecords_Departments_FacultetDepartmentGUID",
+                        column: x => x.FacultetDepartmentGUID,
+                        principalTable: "Departments",
+                        principalColumn: "DepartmentGUID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StudyPlanRecords_Specialties_SpecialtyIdSpec",
+                        column: x => x.SpecialtyIdSpec,
+                        principalTable: "Specialties",
+                        principalColumn: "IdSpec",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StudyPlanRecords_StudyYears_StudyYearIdStudyYear",
+                        column: x => x.StudyYearIdStudyYear,
+                        principalTable: "StudyYears",
+                        principalColumn: "IdStudyYear",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StudyPlanRecords_TypeControls_TypeControlIdTC",
+                        column: x => x.TypeControlIdTC,
+                        principalTable: "TypeControls",
+                        principalColumn: "IdTC",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StudyPlanRecords_TypeStudyPlanRecords_TypeStudyPlanRecordIdTSPR",
+                        column: x => x.TypeStudyPlanRecordIdTSPR,
+                        principalTable: "TypeStudyPlanRecords",
+                        principalColumn: "IdTSPR",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExactClassForLecturerClasses",
+                columns: table => new
+                {
+                    IdEXCFLC = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LecturerIdSLecturer = table.Column<int>(type: "int", nullable: true),
+                    ClassNumber = table.Column<byte>(type: "tinyint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExactClassForLecturerClasses", x => x.IdEXCFLC);
+                    table.ForeignKey(
+                        name: "FK_ExactClassForLecturerClasses_Lectureres_LecturerIdSLecturer",
+                        column: x => x.LecturerIdSLecturer,
+                        principalTable: "Lectureres",
+                        principalColumn: "IdSLecturer",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SubjectLecturers",
                 columns: table => new
                 {
                     IdLecturer = table.Column<int>(type: "int", nullable: false),
                     IdSubject = table.Column<int>(type: "int", nullable: false),
-                    IdSL = table.Column<int>(type: "int", nullable: false),
                     IdTS = table.Column<int>(type: "int", nullable: false),
                     SLDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
@@ -245,9 +441,9 @@ namespace WebBRS.Migrations
                         principalColumn: "IdSubject",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SubjectLecturers_TypeStudy_IdTS",
+                        name: "FK_SubjectLecturers_TypeStudies_IdTS",
                         column: x => x.IdTS,
-                        principalTable: "TypeStudy",
+                        principalTable: "TypeStudies",
                         principalColumn: "IdTS",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -260,12 +456,19 @@ namespace WebBRS.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateSGHStart = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateSGHFinished = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CourseIdCourse = table.Column<int>(type: "int", nullable: true),
                     IdStudent = table.Column<int>(type: "int", nullable: true),
                     IdGroup = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StudentsGroupHistories", x => x.IdSGH);
+                    table.ForeignKey(
+                        name: "FK_StudentsGroupHistories_Courses_CourseIdCourse",
+                        column: x => x.CourseIdCourse,
+                        principalTable: "Courses",
+                        principalColumn: "IdCourse",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_StudentsGroupHistories_Groups_IdGroup",
                         column: x => x.IdGroup,
@@ -322,9 +525,9 @@ namespace WebBRS.Migrations
                         principalColumn: "IdSubject",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_SubjectForGroups_TypeStudy_TypeStudyIdTS",
+                        name: "FK_SubjectForGroups_TypeStudies_TypeStudyIdTS",
                         column: x => x.TypeStudyIdTS,
-                        principalTable: "TypeStudy",
+                        principalTable: "TypeStudies",
                         principalColumn: "IdTS",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -336,16 +539,48 @@ namespace WebBRS.Migrations
                     IdClass = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdSFG = table.Column<int>(type: "int", nullable: true),
-                    DateClass = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateClassStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateClassEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ClassNumber = table.Column<byte>(type: "tinyint", nullable: false),
+                    ExactClassForLecturerClassIdEXCFLC = table.Column<int>(type: "int", nullable: true),
+                    SubjectLecturerIdLecturer = table.Column<int>(type: "int", nullable: true),
+                    SubjectLecturerIdSubject = table.Column<int>(type: "int", nullable: true),
+                    PersonLecturerIdPerson = table.Column<int>(type: "int", nullable: true),
+                    LecturerIdSLecturer = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ExactClasses", x => x.IdClass);
                     table.ForeignKey(
+                        name: "FK_ExactClasses_ExactClassForLecturerClasses_ExactClassForLecturerClassIdEXCFLC",
+                        column: x => x.ExactClassForLecturerClassIdEXCFLC,
+                        principalTable: "ExactClassForLecturerClasses",
+                        principalColumn: "IdEXCFLC",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ExactClasses_Lectureres_LecturerIdSLecturer",
+                        column: x => x.LecturerIdSLecturer,
+                        principalTable: "Lectureres",
+                        principalColumn: "IdSLecturer",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ExactClasses_Persons_PersonLecturerIdPerson",
+                        column: x => x.PersonLecturerIdPerson,
+                        principalSchema: "dbo",
+                        principalTable: "Persons",
+                        principalColumn: "IdPerson",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_ExactClasses_SubjectForGroups_IdSFG",
                         column: x => x.IdSFG,
                         principalTable: "SubjectForGroups",
                         principalColumn: "IdSFG",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ExactClasses_SubjectLecturers_SubjectLecturerIdLecturer_SubjectLecturerIdSubject",
+                        columns: x => new { x.SubjectLecturerIdLecturer, x.SubjectLecturerIdSubject },
+                        principalTable: "SubjectLecturers",
+                        principalColumns: new[] { "IdLecturer", "IdSubject" },
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -490,9 +725,34 @@ namespace WebBRS.Migrations
                 column: "IdWPS");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ExactClasses_ExactClassForLecturerClassIdEXCFLC",
+                table: "ExactClasses",
+                column: "ExactClassForLecturerClassIdEXCFLC");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ExactClasses_IdSFG",
                 table: "ExactClasses",
                 column: "IdSFG");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExactClasses_LecturerIdSLecturer",
+                table: "ExactClasses",
+                column: "LecturerIdSLecturer");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExactClasses_PersonLecturerIdPerson",
+                table: "ExactClasses",
+                column: "PersonLecturerIdPerson");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExactClasses_SubjectLecturerIdLecturer_SubjectLecturerIdSubject",
+                table: "ExactClasses",
+                columns: new[] { "SubjectLecturerIdLecturer", "SubjectLecturerIdSubject" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExactClassForLecturerClasses_LecturerIdSLecturer",
+                table: "ExactClassForLecturerClasses",
+                column: "LecturerIdSLecturer");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Groups_IdDepart",
@@ -510,14 +770,19 @@ namespace WebBRS.Migrations
                 column: "IdSpec");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lectureres_PersonGuidPerson",
+                name: "IX_Lectureres_PersonIdPerson",
                 table: "Lectureres",
-                column: "PersonGuidPerson");
+                column: "PersonIdPerson");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Students_GuidPerson",
+                name: "IX_Students_IdPerson",
                 table: "Students",
-                column: "GuidPerson");
+                column: "IdPerson");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentsGroupHistories_CourseIdCourse",
+                table: "StudentsGroupHistories",
+                column: "CourseIdCourse");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentsGroupHistories_IdGroup",
@@ -528,6 +793,31 @@ namespace WebBRS.Migrations
                 name: "IX_StudentsGroupHistories_IdStudent",
                 table: "StudentsGroupHistories",
                 column: "IdStudent");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudyPlanRecords_FacultetDepartmentGUID",
+                table: "StudyPlanRecords",
+                column: "FacultetDepartmentGUID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudyPlanRecords_SpecialtyIdSpec",
+                table: "StudyPlanRecords",
+                column: "SpecialtyIdSpec");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudyPlanRecords_StudyYearIdStudyYear",
+                table: "StudyPlanRecords",
+                column: "StudyYearIdStudyYear");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudyPlanRecords_TypeControlIdTC",
+                table: "StudyPlanRecords",
+                column: "TypeControlIdTC");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudyPlanRecords_TypeStudyPlanRecordIdTSPR",
+                table: "StudyPlanRecords",
+                column: "TypeStudyPlanRecordIdTSPR");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubjectForGroups_IdGroup",
@@ -563,12 +853,34 @@ namespace WebBRS.Migrations
                 name: "IX_SubjectLecturers_IdTS",
                 table: "SubjectLecturers",
                 column: "IdTS");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_PersonIdPerson",
+                table: "Users",
+                column: "PersonIdPerson");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Roleid_role",
+                table: "Users",
+                column: "Roleid_role");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ConditionOfPersons");
+
+            migrationBuilder.DropTable(
                 name: "DoClassWorkAttends");
+
+            migrationBuilder.DropTable(
+                name: "SemestrBases");
+
+            migrationBuilder.DropTable(
+                name: "StudyPlanRecords");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Attendances");
@@ -580,6 +892,18 @@ namespace WebBRS.Migrations
                 name: "WorkPersonStatuses");
 
             migrationBuilder.DropTable(
+                name: "StudyYears");
+
+            migrationBuilder.DropTable(
+                name: "TypeControls");
+
+            migrationBuilder.DropTable(
+                name: "TypeStudyPlanRecords");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
+
+            migrationBuilder.DropTable(
                 name: "StudentsGroupHistories");
 
             migrationBuilder.DropTable(
@@ -589,7 +913,13 @@ namespace WebBRS.Migrations
                 name: "WorkTypes");
 
             migrationBuilder.DropTable(
+                name: "Courses");
+
+            migrationBuilder.DropTable(
                 name: "Students");
+
+            migrationBuilder.DropTable(
+                name: "ExactClassForLecturerClasses");
 
             migrationBuilder.DropTable(
                 name: "SubjectForGroups");
@@ -613,7 +943,7 @@ namespace WebBRS.Migrations
                 name: "Subjects");
 
             migrationBuilder.DropTable(
-                name: "TypeStudy");
+                name: "TypeStudies");
 
             migrationBuilder.DropTable(
                 name: "DepartmentTypes");

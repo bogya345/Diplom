@@ -10,8 +10,8 @@ using WebBRS.DAL;
 namespace WebBRS.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210326083625_CreateInitial9")]
-    partial class CreateInitial9
+    [Migration("20210401070936_CreateInitial1")]
+    partial class CreateInitial1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,8 +65,8 @@ namespace WebBRS.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid?>("PersonGuidPerson")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("PersonIdPerson")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Roleid_role")
                         .HasColumnType("int");
@@ -79,7 +79,7 @@ namespace WebBRS.Migrations
 
                     b.HasKey("id_user");
 
-                    b.HasIndex("PersonGuidPerson");
+                    b.HasIndex("PersonIdPerson");
 
                     b.HasIndex("Roleid_role");
 
@@ -118,6 +118,39 @@ namespace WebBRS.Migrations
                     b.HasIndex("IdWT");
 
                     b.ToTable("ClassWorks");
+                });
+
+            modelBuilder.Entity("WebBRS.Models.ConditionOfPerson", b =>
+                {
+                    b.Property<int>("IdConditionOfPerson")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("_Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdConditionOfPerson");
+
+                    b.ToTable("ConditionOfPersons");
+                });
+
+            modelBuilder.Entity("WebBRS.Models.Course", b =>
+                {
+                    b.Property<int>("IdCourse")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("_Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("_Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdCourse");
+
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("WebBRS.Models.Department", b =>
@@ -239,8 +272,8 @@ namespace WebBRS.Migrations
                     b.Property<int?>("LecturerIdSLecturer")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PersonLecturerGuidPerson")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("PersonLecturerIdPerson")
+                        .HasColumnType("int");
 
                     b.Property<int?>("SubjectLecturerIdLecturer")
                         .HasColumnType("int");
@@ -256,7 +289,7 @@ namespace WebBRS.Migrations
 
                     b.HasIndex("LecturerIdSLecturer");
 
-                    b.HasIndex("PersonLecturerGuidPerson");
+                    b.HasIndex("PersonLecturerIdPerson");
 
                     b.HasIndex("SubjectLecturerIdLecturer", "SubjectLecturerIdSubject");
 
@@ -326,21 +359,22 @@ namespace WebBRS.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid?>("PersonGuidPerson")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("PersonIdPerson")
+                        .HasColumnType("int");
 
                     b.HasKey("IdSLecturer");
 
-                    b.HasIndex("PersonGuidPerson");
+                    b.HasIndex("PersonIdPerson");
 
                     b.ToTable("Lectureres");
                 });
 
             modelBuilder.Entity("WebBRS.Models.Person", b =>
                 {
-                    b.Property<Guid>("GuidPerson")
+                    b.Property<int>("IdPerson")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
@@ -363,12 +397,27 @@ namespace WebBRS.Migrations
                     b.Property<string>("PhotoFilePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("nCode")
-                        .HasColumnType("int");
+                    b.Property<string>("_Code")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("GuidPerson");
+                    b.HasKey("IdPerson");
 
                     b.ToTable("Persons", "dbo");
+                });
+
+            modelBuilder.Entity("WebBRS.Models.SemestrBase", b =>
+                {
+                    b.Property<int>("IdSemestr")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("NameSemestr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdSemestr");
+
+                    b.ToTable("SemestrBases");
                 });
 
             modelBuilder.Entity("WebBRS.Models.Specialty", b =>
@@ -396,15 +445,15 @@ namespace WebBRS.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid?>("GuidPerson")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("IdPerson")
+                        .HasColumnType("int");
 
                     b.Property<string>("ZachNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdStudent");
 
-                    b.HasIndex("GuidPerson");
+                    b.HasIndex("IdPerson");
 
                     b.ToTable("Students");
                 });
@@ -415,6 +464,9 @@ namespace WebBRS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CourseIdCourse")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateSGHFinished")
                         .HasColumnType("datetime2");
@@ -429,6 +481,8 @@ namespace WebBRS.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("IdSGH");
+
+                    b.HasIndex("CourseIdCourse");
 
                     b.HasIndex("IdGroup");
 
@@ -738,7 +792,7 @@ namespace WebBRS.Migrations
                 {
                     b.HasOne("WebBRS.Models.Person", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonGuidPerson");
+                        .HasForeignKey("PersonIdPerson");
 
                     b.HasOne("WebBRS.Models.Auth.Role", "Role")
                         .WithMany()
@@ -816,7 +870,7 @@ namespace WebBRS.Migrations
 
                     b.HasOne("WebBRS.Models.Person", "PersonLecturer")
                         .WithMany()
-                        .HasForeignKey("PersonLecturerGuidPerson");
+                        .HasForeignKey("PersonLecturerIdPerson");
 
                     b.HasOne("WebBRS.Models.SubjectLecturer", "SubjectLecturer")
                         .WithMany()
@@ -865,7 +919,7 @@ namespace WebBRS.Migrations
                 {
                     b.HasOne("WebBRS.Models.Person", "Person")
                         .WithMany("Lecturers")
-                        .HasForeignKey("PersonGuidPerson");
+                        .HasForeignKey("PersonIdPerson");
 
                     b.Navigation("Person");
                 });
@@ -874,13 +928,19 @@ namespace WebBRS.Migrations
                 {
                     b.HasOne("WebBRS.Models.Person", "Person")
                         .WithMany("Students")
-                        .HasForeignKey("GuidPerson");
+                        .HasForeignKey("IdPerson")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Person");
                 });
 
             modelBuilder.Entity("WebBRS.Models.StudentsGroupHistory", b =>
                 {
+                    b.HasOne("WebBRS.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseIdCourse");
+
                     b.HasOne("WebBRS.Models.Group", "Group")
                         .WithMany("StudentsGroupHistories")
                         .HasForeignKey("IdGroup");
@@ -888,6 +948,8 @@ namespace WebBRS.Migrations
                     b.HasOne("WebBRS.Models.Student", "Student")
                         .WithMany("StudentsGroupHistories")
                         .HasForeignKey("IdStudent");
+
+                    b.Navigation("Course");
 
                     b.Navigation("Group");
 

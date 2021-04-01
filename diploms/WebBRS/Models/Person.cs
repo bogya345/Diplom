@@ -15,14 +15,16 @@ namespace WebBRS.Models
 	{
 		//[Column("DepartTypeID")]
 		[Required, Key]
-		public Guid GuidPerson { get; set; }
-		public int? nCode { get; set; }
+		public int IdPerson { get; set; }
+		public string _Code { get; set; }
 		public string? FirstName { get; set; }
 		public string? LastName { get; set; }
 		public string? PatronicName { get; set; }
 		public string? Email { get; set; }
 		public DateTime? DateTimeReg { get; set; }  
 		public DateTime? BirthDate { get; set; }
+		public byte[] ID_1c { get; set; }
+
 		public string? PhotoFilePath { get; set; }
 		public Person()
 		{
@@ -32,14 +34,7 @@ namespace WebBRS.Models
 		{
 			return Email;
 		}
-		public Person(int? nCode, string fN, string lN, string pN)
-		{
-			this.GuidPerson = new Guid();
-			this.nCode = nCode;
-			this.FirstName = fN;
-			this.LastName = lN;
-			this.PatronicName = pN;
-		}
+
 		public virtual List<Student> Students { get; set; }
 		public virtual List<Lecturer> Lecturers { get; set; }
 	}

@@ -17,6 +17,8 @@ import { AttendanceComponent } from './attendance/attendance.component';
 import { AttendanceGroupselectedComponent } from './attendance-groupselected/attendance-groupselected.component';
 import { PersonListComponent } from './person-list/person-list.component';
 import { AttedanceTableComponent } from './attedance-table/attedance-table.component';
+import { AddHomeworkComponent } from './add-homework/add-homework.component';
+import { IonicModule } from '@ionic/angular';
 
 //const appRoutes: Routes = [
 //  {
@@ -45,7 +47,8 @@ import { AttedanceTableComponent } from './attedance-table/attedance-table.compo
     AttendanceComponent,
     AttendanceGroupselectedComponent,
     PersonListComponent,
-    AttedanceTableComponent
+    AttedanceTableComponent,
+    AddHomeworkComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -75,16 +78,21 @@ import { AttedanceTableComponent } from './attedance-table/attedance-table.compo
             path: 'attedancetable', component: AttedanceTableComponent
           },
           {
-            path: 'attedance', component: AttendanceComponent
+            path: 'attedance', component: AttendanceComponent,
+            children: [
+              { path: 'addhomework', component: AddHomeworkComponent }
+            ]
           },
           { path: 'homeworks/183', component: HomeworkComponent },
-          { path: 'personlist', component: PersonListComponent }
+          { path: 'personlist', component: PersonListComponent },
+          { path: 'addhomework', component: AddHomeworkComponent }
 
         ]
       },
       //{ path: 'login', component: LoginComponentComponent },
       { path: '**', redirectTo: '/dashboard/mainpage', pathMatch: 'full' }
-    ])
+    ]),
+    IonicModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
