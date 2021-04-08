@@ -1,0 +1,9 @@
+D:\Unic\Diplom\diploms\UnitTestProject1\bin\Debug\netcoreapp3.1\hod-testing.deps.json
+D:\Unic\Diplom\diploms\UnitTestProject1\bin\Debug\netcoreapp3.1\hod-testing.dll
+D:\Unic\Diplom\diploms\UnitTestProject1\bin\Debug\netcoreapp3.1\hod-testing.pdb
+D:\Unic\Diplom\diploms\UnitTestProject1\obj\Debug\netcoreapp3.1\hod-testing.csprojAssemblyReference.cache
+D:\Unic\Diplom\diploms\UnitTestProject1\obj\Debug\netcoreapp3.1\hod-testing.AssemblyInfoInputs.cache
+D:\Unic\Diplom\diploms\UnitTestProject1\obj\Debug\netcoreapp3.1\hod-testing.AssemblyInfo.cs
+D:\Unic\Diplom\diploms\UnitTestProject1\obj\Debug\netcoreapp3.1\hod-testing.csproj.CoreCompileInputs.cache
+D:\Unic\Diplom\diploms\UnitTestProject1\obj\Debug\netcoreapp3.1\hod-testing.dll
+D:\Unic\Diplom\diploms\UnitTestProject1\obj\Debug\netcoreapp3.1\hod-testing.pdb

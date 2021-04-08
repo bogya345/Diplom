@@ -12,74 +12,32 @@ namespace hod_back.DAL
     {
         public UnitOfWork()
         {
-            AuthUsers.Get(x => x.id_employee == 1);
-            //try
-            //{
-            //    AuthUsers.Get(x => x.id_employee == 1);
-            //}
-            //catch (Exception ex)
-            //{
-            //    DAL_Settings.localAccess = true;
-            //}
         }
 
         public Context context = new Context();
 
-        #region Repositories
+        #region Accounts (авторизация)
 
-        #region Tables Reposes
+        // tables
 
-        private WorkTypesRepository applyTypesRepository;
-        private BlockRecsRepository blockRecsRepository;
-        private DepartmentsRepository cathedrasRepository;
-        private EducFormsRepository educFormsRepository;
-        private GroupsRepository groupsRepository;
-        //private QualificationRepository qualificationRepository;
-        private SubjectsRepository subjectsRepository;
-        //private TeacherCathedrasRepository teacherCathedrasRepository;
-        private TeacherLoadRepository teacherLoadRepository;
-        private EmployeesRepository employeeRepository;
-
-        #endregion
-
-        #region Views Reposes
-
-        /// <summary>
-        /// авторизация
-        /// </summary>
+        // views
         private AuthUsersRepository usersAuthRepository;
-
-        //private ViewTeacherLoadRepository viewTeacherLoadRepository;
-        //private CathInfoRepository cathInfoRepository;
-
-        #endregion
-
-
-        #endregion
-
-
-        #region Repository Access
-
-        #region Tables
-
-        public WorkTypesRepository ApplyTypes
+        public AuthUsersRepository AuthUsers
         {
             get
             {
-                if (applyTypesRepository == null)
-                    applyTypesRepository = new WorkTypesRepository(context);
-                return applyTypesRepository;
+                if (usersAuthRepository == null)
+                    usersAuthRepository = new AuthUsersRepository(context);
+                return usersAuthRepository;
             }
         }
-        public BlockRecsRepository BlockRecs
-        {
-            get
-            {
-                if (blockRecsRepository == null)
-                    blockRecsRepository = new BlockRecsRepository(context);
-                return blockRecsRepository;
-            }
-        }
+
+        #endregion
+
+        #region Departments (кафедры)
+
+        // tables
+        private DepartmentsRepository cathedrasRepository;
         public DepartmentsRepository Departments
         {
             get
@@ -89,60 +47,7 @@ namespace hod_back.DAL
                 return cathedrasRepository;
             }
         }
-        public EducFormsRepository EducForms
-        {
-            get
-            {
-                if (educFormsRepository == null)
-                    educFormsRepository = new EducFormsRepository(context);
-                return educFormsRepository;
-            }
-        }
-        public GroupsRepository Groups
-        {
-            get
-            {
-                if (groupsRepository == null)
-                    groupsRepository = new GroupsRepository(context);
-                return groupsRepository;
-            }
-        }
-        //public QualificationRepository Qualifications
-        //{
-        //    get
-        //    {
-        //        if (qualificationRepository == null)
-        //            qualificationRepository = new QualificationRepository(context);
-        //        return qualificationRepository;
-        //    }
-        //}
-        public SubjectsRepository Subjects
-        {
-            get
-            {
-                if (subjectsRepository == null)
-                    subjectsRepository = new SubjectsRepository(context);
-                return subjectsRepository;
-            }
-        }
-        //public TeacherCathedrasRepository TeachersCathedras
-        //{
-        //    get
-        //    {
-        //        if (teacherCathedrasRepository == null)
-        //            teacherCathedrasRepository = new TeacherCathedrasRepository(context);
-        //        return teacherCathedrasRepository;
-        //    }
-        //}
-        public TeacherLoadRepository TeacherLoads
-        {
-            get
-            {
-                if (teacherLoadRepository == null)
-                    teacherLoadRepository = new TeacherLoadRepository(context);
-                return teacherLoadRepository;
-            }
-        }
+        private EmployeesRepository employeeRepository;
         public EmployeesRepository Employees
         {
             get
@@ -153,44 +58,162 @@ namespace hod_back.DAL
             }
         }
 
-
-        public AuthUsersRepository AuthUsers
+        // views
+        private DepsInfoRepository depsInfoRepository;
+        public DepsInfoRepository DepsInfo
         {
             get
             {
-                if (usersAuthRepository == null)
-                    usersAuthRepository = new AuthUsersRepository(context);
-                return usersAuthRepository;
+                if (depsInfoRepository == null)
+                    depsInfoRepository = new DepsInfoRepository(context);
+                return depsInfoRepository;
             }
         }
+
+        private DepDirFacRepository depDirFacRepository;
+        public DepDirFacRepository DepDirFac
+        {
+            get
+            {
+                if (depDirFacRepository == null)
+                    depDirFacRepository = new DepDirFacRepository(context);
+                return depDirFacRepository;
+            }
+        }
+
+        private DirGroupsRepository dirGroupsRepository;
+        public DirGroupsRepository DirGroups
+        {
+            get
+            {
+                if (dirGroupsRepository == null)
+                    dirGroupsRepository = new DirGroupsRepository(context);
+                return dirGroupsRepository;
+            }
+        }
+
+        private DirRequirsRepository dirRequirsRepository;
+        public DirRequirsRepository DirRequirs
+        {
+            get
+            {
+                if (dirRequirsRepository == null)
+                    dirRequirsRepository = new DirRequirsRepository(context);
+                return dirRequirsRepository;
+            }
+        }
+
+        #endregion
+
+        #region Directions (направления)
+
+        // tables
+        private DirectionRepository directionRepository;
+        public DirectionRepository Directions
+        {
+            get
+            {
+                if (directionRepository == null)
+                    directionRepository = new DirectionRepository(context);
+                return directionRepository;
+            }
+        }
+
+        #endregion
+
+        #region Groups (группы)
+
+        // tables
+        private GroupsRepository groupsRepository;
+        public GroupsRepository Groups
+        {
+            get
+            {
+                if (groupsRepository == null)
+                    groupsRepository = new GroupsRepository(context);
+                return groupsRepository;
+            }
+        }
+        private SubjectsRepository subjectsRepository;
+        public SubjectsRepository Subjects
+        {
+            get
+            {
+                if (subjectsRepository == null)
+                    subjectsRepository = new SubjectsRepository(context);
+                return subjectsRepository;
+            }
+        }
+        private BlockRecsRepository blockRecsRepository;
+        public BlockRecsRepository BlockRecs
+        {
+            get
+            {
+                if (blockRecsRepository == null)
+                    blockRecsRepository = new BlockRecsRepository(context);
+                return blockRecsRepository;
+            }
+        }
+        private EducFormsRepository educFormsRepository;
+        public EducFormsRepository EducForms
+        {
+            get
+            {
+                if (educFormsRepository == null)
+                    educFormsRepository = new EducFormsRepository(context);
+                return educFormsRepository;
+            }
+        }
+
+        //views
+
+        #endregion
+
+        #region AcPlans (учебные планы)
+
+        // tables
+        private AcPlanRepository acPlanRepository;
+        public AcPlanRepository AcPlans
+        {
+            get
+            {
+                if (acPlanRepository == null)
+                    acPlanRepository = new AcPlanRepository(context);
+                return acPlanRepository;
+            }
+        }
+        private BlockNumRepository blockNumRepository;
+        public BlockNumRepository BlockNums
+        {
+            get
+            {
+                if (blockNumRepository == null)
+                    blockNumRepository = new BlockNumRepository(context);
+                return blockNumRepository;
+            }
+        }
+
+        #endregion
+
+        #region Misc
+
+        // tables
+        private WorkTypesRepository applyTypesRepository;
+        public WorkTypesRepository ApplyTypes
+        {
+            get
+            {
+                if (applyTypesRepository == null)
+                    applyTypesRepository = new WorkTypesRepository(context);
+                return applyTypesRepository;
+            }
+        }
+
+        // views
+
         #endregion
 
 
-        #region Views
-
-        //public ViewTeacherLoadRepository ViewTeacherLoads
-        //{
-        //    get
-        //    {
-        //        if (viewTeacherLoadRepository == null)
-        //            viewTeacherLoadRepository = new ViewTeacherLoadRepository(context);
-        //        return viewTeacherLoadRepository;
-        //    }
-        //}
-
-        //public CathInfoRepository CathInfo
-        //{
-        //    get
-        //    {
-        //        if (cathInfoRepository == null)
-        //            cathInfoRepository = new CathInfoRepository(context);
-        //        return cathInfoRepository;
-        //    }
-        //}
-
-        #endregion
-
-        #endregion
 
         /// <summary>
         /// Save Changes

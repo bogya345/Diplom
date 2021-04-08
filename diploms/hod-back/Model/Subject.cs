@@ -15,13 +15,17 @@ namespace hod_back.Model
             BlockRecs = new HashSet<BlockRec>();
         }
 
+        [Column("sub_name")]
+        public string SubName { get; set; }
+        [Column("dep_id")]
+        public int? DepId { get; set; }
         [Key]
         [Column("sub_id")]
         public int SubId { get; set; }
-        [Column("sub_name")]
-        [StringLength(100)]
-        public string SubName { get; set; }
 
+        [ForeignKey(nameof(DepId))]
+        [InverseProperty(nameof(Department.Subjects))]
+        public virtual Department Dep { get; set; }
         [InverseProperty(nameof(BlockRec.Sub))]
         public virtual ICollection<BlockRec> BlockRecs { get; set; }
     }

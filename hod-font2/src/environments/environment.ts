@@ -9,7 +9,8 @@ export const environment = {
   client_kind_request: 'diplom_client_kind',
 
 // bogya
-  hod_api_url: "https://localhost:*/",
+  hod_api_url: "https://localhost:44316/",
+
   hod_sessionConst: {
     username: 'hod_username',
     role: 'hod_rolename',
@@ -17,27 +18,12 @@ export const environment = {
     accessTokenName: 'hod_accessToken',
     ownCookie: 'hodpart'
   },
+  
   hod_auth: {
     // втисит
     email: 'teach1@ugtu.net',
     pass: 'qwer',
-  },
-
-// semka
-  brs_api_url: "https://localhost:*/",
-  brs_sessionConst: {
-    username: '',
-    role: '',
-    department: '',
-    accessTokenName: '',
-    ownCookie: ''
-  },
-  brs_auth: {
-    // someone
-    email: '',
-    pass: '',
-  },
-  
+  }
 
 };
 

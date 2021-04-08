@@ -11,9 +11,9 @@ namespace hod_back.DAL.Repositories
     {
         public DepartmentsRepository(Context context) : base(context) { }
 
-        public override Department Get(Func<Department, bool> func)
+        public override Department GetOrDefault(Func<Department, bool> func, Department def = null)
         {
-            return db.Departments.FirstOrDefault(func);
+            return db.Departments.FirstOrDefault(func) ?? def;
         }
 
         public override IEnumerable<Department> GetMany(Func<Department, bool> func)

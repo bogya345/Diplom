@@ -11,26 +11,24 @@ namespace hod_back.Model
     [Table("Posts", Schema = "Import")]
     public partial class Post
     {
+        public Post()
+        {
+            PlanStaffs = new HashSet<PlanStaff>();
+        }
+
         [Key]
         [Column("post_id")]
         public int PostId { get; set; }
-        [Column("post_name")]
-        [StringLength(300)]
-        public string PostName { get; set; }
-        [Column("isManager")]
-        public bool? IsManager { get; set; }
         [Column("post_guid")]
         public Guid? PostGuid { get; set; }
-        [Column(TypeName = "date")]
-        public DateTime? DateEnd { get; set; }
-        [Column("post_code")]
+        [Column("postT_name")]
         [StringLength(100)]
+        public string PostTName { get; set; }
+        [Column("post_code")]
+        [StringLength(10)]
         public string PostCode { get; set; }
-        [Column("postType_id")]
-        public int? PostTypeId { get; set; }
 
-        [ForeignKey(nameof(PostTypeId))]
-        [InverseProperty("Posts")]
-        public virtual PostType PostType { get; set; }
+        [InverseProperty(nameof(PlanStaff.Post))]
+        public virtual ICollection<PlanStaff> PlanStaffs { get; set; }
     }
 }

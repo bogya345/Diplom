@@ -1,1 +1,135 @@
-<p>hod-promotion works!</p>
+<div class="common-indentation">
+
+    <div class="row bg-light">
+        <h2><i>Путь{{getPathString()}}</i></h2>
+    </div>
+
+    <mat-tab-group mat-align-tabs="start" [(selectedIndex)]="selectedIndex">
+        <!-- #enddocregion align-start -->
+
+        <mat-tab label="Кафедры">
+            <div class="row">
+                <p *ngIf="!deps; else elseBlock_deps"><em>Загрузка кафедр...</em></p>
+                <ng-template #elseBlock_deps>
+                    <table class='table table-striped groupstable' aria-labelledby="tableLabel" *ngIf="deps">
+
+                        <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Название</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tr *ngFor="let item of deps">
+                            <td></td>
+                            <td>{{ item.dep_name }}</td>
+                            <td></td>
+                            <td><button class="btn btn-light" (click)="setSelectedDepartment( item )">Выбрать</button>
+                            </td>
+                        </tr>
+
+                    </table>
+                </ng-template>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Направления" [disabled]="(selectedDep==null)">
+            <div class="row">
+                <p *ngIf="!selectedDep; else elseBlock_dirs"><em>Загрузка направлений...</em></p>
+                <ng-template #elseBlock_dirs>
+                    <table class='table table-striped groupstable' aria-labelledby="tableLabel"
+                        *ngIf="selectedDep.dirs">
+
+                        <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Название</th>
+                                <th>Год начала</th>
+                                <th>ФГОС требования</th>
+                                <th>Учебный план</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tr *ngFor="let item of selectedDep.dirs">
+                            <td></td>
+                            <td>{{ item.dir_name }}</td>
+                            <td>{{ item.startYear }}</td>
+                            <!-- <td><button class="btn btn-info" (click)="showFgosRequirs( item )">Просмотр</button></td> -->
+                            <td><button class="btn btn-info" mat-raised-button id="logout-button"
+                                    (click)="openModal( item )">Просмотр</button></td>
+                            <p *ngIf="item.acPlan_id == null; else elseBlock_acPlan">
+                                <td>
+                                    <p>Загрузить учебный план</p>
+                                    <input #file type="file" accept=".xlsx" multiple (change)="upload(file.files, item)" />
+                                </td>
+                            </p>
+                            <ng-template #elseBlock_acPlan>
+                                <td>
+                                    <a href="ms-excel:ofe|u|http://localhost:4200/assets/PlanIST16.xlsx">
+                                        Открыть учебный план
+                                    </a>
+                                </td>
+                            </ng-template>
+
+                            <td><button class="btn btn-primary" (click)="setSelectedDirection( item )">Выбрать</button>
+                            </td>
+                        </tr>
+
+                    </table>
+                </ng-template>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Группы" id="group_tab" [disabled]="(selectedDir==null)">
+            <div class="row">
+                <p *ngIf="!selectedDir; else elseBlock_groups"><em>Загрузка групп...</em></p>
+                <ng-template #elseBlock_groups>
+                    <table class='table table-striped groupstable' aria-labelledby="tableLabel"
+                        *ngIf="selectedDir.groups">
+
+                        <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Название</th>
+                                <th>Год начала</th>
+                                <th>Год выпуска</th>
+                                <th>Статус</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tr *ngFor="let item of selectedDir.groups">
+                            <td></td>
+                            <td>{{ item.group_name }}</td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <section class="example-section">
+                                    <mat-progress-bar class="example-margin" [color]="color" [mode]="mode"
+                                        [value]="value">
+                                    </mat-progress-bar>
+                                </section>
+                            </td>
+                            <td><button class="btn btn-link" (click)="setSelectedGroup( item )">Выбрать</button></td>
+                        </tr>
+
+                    </table>
+                </ng-template>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Учебный план" class="bg-info" [disabled]="(selectedGroup==null)">
+            <app-hod-acplan *ngIf="selectedGroup && selectedDir" [direction]="selectedDir" [group]="selectedGroup">
+            </app-hod-acplan>
+        </mat-tab>
+
+        <mat-tab label="Четыре">
+            Content 4
+        </mat-tab>
+
+    </mat-tab-group>
+
+</div>

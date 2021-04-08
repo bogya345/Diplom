@@ -18,7 +18,7 @@ namespace hod_back.Services.Excel
     public class Excel_Property
     {
         private UnitOfWork unit;
-        private Group group;
+        //private Group group;
 
         public string path { get; set; } // @"D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\Plan_IST_-_16.xlsx"
 
@@ -27,15 +27,15 @@ namespace hod_back.Services.Excel
         public List<Blocks> blocks { get; set; }
         public List<string> subs { get; set; }
 
-        public Excel_Property(string path, string id_group, UnitOfWork unit)
+        public Excel_Property(string path, int dep_id, int dir_id, UnitOfWork unit)
         {
             this.unit = unit;
 
-            this.group = this.unit.Groups.Get(int.Parse(id_group));
-            if (this.group == null)
-            {
-                throw new Exception();
-            }
+            //this.group = this.unit.Groups.Get());
+            //if (this.group == null)
+            //{
+            //    throw new Exception();
+            //}
 
         }
 

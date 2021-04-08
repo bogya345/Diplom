@@ -13,29 +13,26 @@ namespace hod_back.Model
     {
         public Employee()
         {
-            EmpDegrees = new HashSet<EmpDegree>();
+            FactStaffs = new HashSet<FactStaff>();
         }
 
         [Key]
         [Column("emp_id")]
         public int EmpId { get; set; }
+        [Column("emp_guid")]
+        public Guid? EmpGuid { get; set; }
         [Column("itab_n")]
         [StringLength(50)]
         public string ItabN { get; set; }
-        [StringLength(50)]
-        public string FirstName { get; set; }
-        [StringLength(50)]
+        [StringLength(100)]
         public string LastName { get; set; }
-        [StringLength(50)]
-        public string Otch { get; set; }
-        public bool? SexBit { get; set; }
-        [Column("emp_guid")]
-        public Guid? EmpGuid { get; set; }
-        [Column("emp_login")]
-        [StringLength(128)]
-        public string EmpLogin { get; set; }
+        [Column("FIrstName")]
+        [StringLength(100)]
+        public string FirstName { get; set; }
+        [StringLength(100)]
+        public string MiddleName { get; set; }
 
-        [InverseProperty(nameof(EmpDegree.Emp))]
-        public virtual ICollection<EmpDegree> EmpDegrees { get; set; }
+        [InverseProperty(nameof(FactStaff.Emp))]
+        public virtual ICollection<FactStaff> FactStaffs { get; set; }
     }
 }

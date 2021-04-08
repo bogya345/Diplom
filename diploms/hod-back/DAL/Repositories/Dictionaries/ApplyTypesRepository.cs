@@ -24,7 +24,7 @@ namespace hod_back.DAL.Repositories
         {
             return db.WorkTypes.Find(id);
         }
-        public override WorkType Get(Func<WorkType, bool> func)
+        public override WorkType GetOrDefault(Func<WorkType, bool> func, WorkType def = null)
         {
             return db.WorkTypes.FirstOrDefault(func);
         }

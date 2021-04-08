@@ -17,15 +17,13 @@ namespace hod_back.Model
         }
 
         [Key]
-        [Column("educDocType_id")]
-        public int EducDocTypeId { get; set; }
-        [Column("educDocType_name")]
-        [StringLength(50)]
-        public string EducDocTypeName { get; set; }
-        [Column("isOld")]
-        public bool? IsOld { get; set; }
+        [Column("eDocT_id")]
+        public int EDocTId { get; set; }
+        [Column("eDocT_name")]
+        [StringLength(100)]
+        public string EDocTName { get; set; }
 
-        [InverseProperty(nameof(EducDoc.EducDocType))]
+        [InverseProperty(nameof(EducDoc.EDocT))]
         public virtual ICollection<EducDoc> EducDocs { get; set; }
     }
 }

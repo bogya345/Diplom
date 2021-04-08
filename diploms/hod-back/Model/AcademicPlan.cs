@@ -26,12 +26,12 @@ namespace hod_back.Model
         public int? ExecutionProgresss { get; set; }
 
         [ForeignKey(nameof(DirectId))]
-        [InverseProperty(nameof(Direction.AcademicPlans))]
+        [InverseProperty(nameof(Direction.AcPl))]
         public virtual Direction Direct { get; set; }
         [ForeignKey(nameof(GroupId))]
         [InverseProperty("AcademicPlans")]
         public virtual Group Group { get; set; }
-        [InverseProperty(nameof(BlockRec.AcPlan))]
+        [InverseProperty(nameof(BlockRec.AcPl))]
         public virtual ICollection<BlockRec> BlockRecs { get; set; }
     }
 }

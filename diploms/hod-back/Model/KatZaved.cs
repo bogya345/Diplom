@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace hod_back.Model
 {
-    [Table("kat_zaved", Schema = "Import")]
+    [Table("KatZaveds", Schema = "Import")]
     public partial class KatZaved
     {
         public KatZaved()
@@ -17,19 +17,18 @@ namespace hod_back.Model
         }
 
         [Key]
-        [Column("katZaved_id")]
-        public int KatZavedId { get; set; }
-        [Column("katZaved_name")]
+        [Column("kZav_id")]
+        public int KZavId { get; set; }
+        [Column("kZav_name")]
         [StringLength(100)]
-        public string KatZavedName { get; set; }
-        [Column("katZaved_printName")]
+        public string KZavName { get; set; }
+        [Column("kZav_fullname")]
+        public string KZavFullname { get; set; }
+        [Column("kZav_adjective")]
         [StringLength(100)]
-        public string KatZavedPrintName { get; set; }
-        [Column("katZaved_abjective")]
-        [StringLength(100)]
-        public string KatZavedAbjective { get; set; }
+        public string KZavAdjective { get; set; }
 
-        [InverseProperty(nameof(Direction.KatZaved))]
+        [InverseProperty(nameof(Direction.KZav))]
         public virtual ICollection<Direction> Directions { get; set; }
     }
 }

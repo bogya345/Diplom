@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
+using hod_back.DAL;
+using AutoMapper;
+using hod_back.Dto;
 
 //using hod_back.DAL.Models;
 //using hod_back.DAL.Models.Views;
@@ -26,15 +29,42 @@ namespace hod_back.Controllers
 {
     [ApiController]
     [Produces("application/json")]
-    [Route("group")]
+    [Route("groups")]
     public class GroupController : Controller
     {
-        //private UnitOfWork unit = new UnitOfWork();
-        //private IHostingEnvironment _hostingEnvironment;
+        private UnitOfWork _unit;
+        private IMapper _mapper;
 
-        //public GroupController(IHostingEnvironment hostingEnvironment)
+        public GroupController(UnitOfWork unit, IMapper mapper)
+        {
+            this._unit = unit;
+            this._mapper = mapper;
+        }
+
+        /// <summary>
+        /// Получить записи учебного плана по группе
+        /// </summary>
+        /// <param name="dir_id">ID направления</param>
+        /// <returns></returns>
+        //[Authorize(Roles = "Преподаватель,Заведующий,Админ")]s
+        [HttpGet("get/plan/{group_id}")]
+        public IEnumerable<AcPlanDto> GetAcPlan(int group_id)
+        {
+            List<AcPlanDto> tmp = null;
+            return tmp;
+        }
+
+        ///// <summary>
+        ///// Получить все группы по направлению
+        ///// </summary>
+        ///// <param name="dir_id">ID направления</param>
+        ///// <returns></returns>
+        //[Authorize(Roles = "Преподаватель,Заведующий,Админ")]
+        //[HttpGet("direction/{dir_id}/groups")]
+        //public IEnumerable<Group> GetGroups(int dir_id)
         //{
-        //    _hostingEnvironment = hostingEnvironment;
+        //    var tmp = _unit.Groups.GetMany(x => x.DirectId == dir_id);
+        //    return tmp;
         //}
 
         ////public 

@@ -20,18 +20,16 @@ namespace hod_back.Model
         [Column("fac_id")]
         public int FacId { get; set; }
         [Column("fac_name")]
+        [StringLength(100)]
         public string FacName { get; set; }
         [Column("fac_shortname")]
-        [StringLength(100)]
+        [StringLength(50)]
         public string FacShortname { get; set; }
-        [Column("fDateExit", TypeName = "datetime")]
-        public DateTime? FDateExit { get; set; }
+        [Column("dateExit", TypeName = "datetime")]
+        public DateTime? DateExit { get; set; }
         [Column("dep_guid")]
         public Guid? DepGuid { get; set; }
 
-        [ForeignKey(nameof(DepGuid))]
-        [InverseProperty(nameof(Department.Facs))]
-        public virtual Department DepGu { get; set; }
         [InverseProperty(nameof(Direction.Fac))]
         public virtual ICollection<Direction> Directions { get; set; }
     }

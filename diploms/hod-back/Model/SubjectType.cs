@@ -12,20 +12,20 @@ namespace hod_back.Model
     {
         public SubjectType()
         {
-            TeacherLoads = new HashSet<TeacherLoad>();
+            AttachedAcPlans = new HashSet<AttachedAcPlan>();
         }
 
         [Key]
-        [Column("subType_id")]
-        public int SubTypeId { get; set; }
-        [Column("subType_name")]
-        [StringLength(50)]
-        public string SubTypeName { get; set; }
-        [Column("subType_shortname")]
-        [StringLength(10)]
-        public string SubTypeShortname { get; set; }
+        [Column("subT_id")]
+        public int SubTId { get; set; }
+        [Column("subT_name")]
+        [StringLength(100)]
+        public string SubTName { get; set; }
+        [Column("subT_nameInPlan")]
+        [StringLength(30)]
+        public string SubTNameInPlan { get; set; }
 
-        [InverseProperty(nameof(TeacherLoad.SubType))]
-        public virtual ICollection<TeacherLoad> TeacherLoads { get; set; }
+        [InverseProperty(nameof(AttachedAcPlan.SubT))]
+        public virtual ICollection<AttachedAcPlan> AttachedAcPlans { get; set; }
     }
 }

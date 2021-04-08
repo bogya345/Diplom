@@ -12,16 +12,16 @@ namespace hod_back.Model
     [Table("EmpRanks", Schema = "Import")]
     public partial class EmpRank
     {
-        [Column("educDoc_id")]
-        public int? EducDocId { get; set; }
-        [Column("emp_id")]
-        public int? EmpId { get; set; }
+        [Column("eDoc_id")]
+        public int? EDocId { get; set; }
         [Column("rank_id")]
         public int? RankId { get; set; }
         [Column("rankWhere")]
-        [StringLength(200)]
+        [StringLength(100)]
         public string RankWhere { get; set; }
 
+        [ForeignKey(nameof(EDocId))]
+        public virtual EducDoc EDoc { get; set; }
         [ForeignKey(nameof(RankId))]
         public virtual Rank Rank { get; set; }
     }

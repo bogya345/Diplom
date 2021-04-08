@@ -17,7 +17,7 @@ namespace hod_back.DAL.Repositories
         {
             return db.Employees.Find(id);
         }
-        public override Employee Get(Func<Employee, bool> func)
+        public override Employee GetOrDefault(Func<Employee, bool> func, Employee def = null)
         {
             return db.Employees.FirstOrDefault(func);
         }

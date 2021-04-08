@@ -1,1 +1,23 @@
-<p>hod-deps works!</p>
+<div class="common-indentation">
+
+  <h1>Кафедры</h1>
+
+  <p *ngIf="!depsInfo"><em>Загрузка кафедр...</em></p>
+
+  <div class="card" *ngFor="let i of depsInfo">
+    <mat-card>
+      <div>
+        <h3 class="card-title">{{i.dep_name}}</h3>
+        <p class="card-text mb-2 text-muted">Заведующий: <i>{{i.headTeach_name}}</i></p>
+        <p class="card-text text-muted">Заведующий: <i>{{i.headTeach_name}}</i></p>
+
+        <a [href]="'/hod/deps/promotion'" class="card-link button">Перейти к акктуальным группам</a>
+        <!-- <a [href]="'/hod/deps/promotion/'+i.dep_id" class="card-link button">Перейти к акктуальным группам</a> -->
+        <a class="card-link button">Перейти к архиву групп</a>
+      </div>
+    </mat-card>
+  </div>
+  <!-- Конец карточки -->
+
+
+</div>

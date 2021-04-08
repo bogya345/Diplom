@@ -12,13 +12,13 @@ namespace hod_back.Model
     [Table("EmpEducDocs", Schema = "Import")]
     public partial class EmpEducDoc
     {
-        [Column("educDoc_id")]
-        public int? EducDocId { get; set; }
+        [Column("eDoc_id")]
+        public int? EDocId { get; set; }
         [Column("emp_id")]
         public int? EmpId { get; set; }
 
-        [ForeignKey(nameof(EducDocId))]
-        public virtual EducDoc EducDoc { get; set; }
+        [ForeignKey(nameof(EDocId))]
+        public virtual EducDoc EDoc { get; set; }
         [ForeignKey(nameof(EmpId))]
         public virtual Employee Emp { get; set; }
     }

@@ -11,18 +11,34 @@ namespace hod_back.Model
     [Table("EducDocs", Schema = "Import")]
     public partial class EducDoc
     {
-        [Key]
-        [Column("educDoc_id")]
-        public int EducDocId { get; set; }
-        [Column("educDocType_id")]
-        public int? EducDocTypeId { get; set; }
-        [Column(TypeName = "date")]
-        public DateTime? DateExpired { get; set; }
-        [Column(TypeName = "date")]
-        public DateTime? DocDate { get; set; }
+        public EducDoc()
+        {
+            InverseOrg = new HashSet<EducDoc>();
+        }
 
-        [ForeignKey(nameof(EducDocTypeId))]
-        [InverseProperty("EducDocs")]
-        public virtual EducDocType EducDocType { get; set; }
+        [Key]
+        [Column("eDoc_id")]
+        public int EDocId { get; set; }
+        [Column("eDocT_id")]
+        public int? EDocTId { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? DateExpired { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? DocDate { get; set; }
+        [StringLength(100)]
+        public string DocSeries { get; set; }
+        [StringLength(100)]
+        public string DocNumber { get; set; }
+        [Column("org_id")]
+        public int? OrgId { get; set; }
+
+        [ForeignKey(nameof(EDocTId))]
+        [InverseProperty(nameof(EducDocType.EducDocs))]
+        public virtual EducDocType EDocT { get; set; }
+        [ForeignKey(nameof(OrgId))]
+        [InverseProperty(nameof(EducDoc.InverseOrg))]
+        public virtual EducDoc Org { get; set; }
+        [InverseProperty(nameof(EducDoc.Org))]
+        public virtual ICollection<EducDoc> InverseOrg { get; set; }
     }
 }

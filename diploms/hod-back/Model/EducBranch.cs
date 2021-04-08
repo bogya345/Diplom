@@ -17,24 +17,24 @@ namespace hod_back.Model
         }
 
         [Key]
-        [Column("educBr_id")]
-        public int EducBrId { get; set; }
-        [Column("educBr_name")]
-        public string EducBrName { get; set; }
-        [Column("educBr_shortName")]
+        [Column("eBr_id")]
+        public int EBrId { get; set; }
+        [Column("eBr_name")]
+        [StringLength(100)]
+        public string EBrName { get; set; }
+        [Column("eBr_shortname")]
         [StringLength(50)]
-        public string EducBrShortName { get; set; }
-        [Column("educLvl_id")]
-        public int? EducLvlId { get; set; }
-        [Column("dDate_spec", TypeName = "datetime")]
-        public DateTime? DDateSpec { get; set; }
-        [Column("spDateExit", TypeName = "datetime")]
-        public DateTime? SpDateExit { get; set; }
+        public string EBrShortname { get; set; }
+        [Column("eBr_code")]
+        [StringLength(10)]
+        public string EBrCode { get; set; }
+        [Column("eLvl_id")]
+        public int? ELvlId { get; set; }
 
-        [ForeignKey(nameof(EducLvlId))]
+        [ForeignKey(nameof(ELvlId))]
         [InverseProperty(nameof(EducLevel.EducBranches))]
-        public virtual EducLevel EducLvl { get; set; }
-        [InverseProperty(nameof(Direction.EducBr))]
+        public virtual EducLevel ELvl { get; set; }
+        [InverseProperty(nameof(Direction.EBr))]
         public virtual ICollection<Direction> Directions { get; set; }
     }
 }

@@ -12,23 +12,22 @@ namespace hod_back.Model
     {
         public BlockRec()
         {
-            TeacherLoads = new HashSet<TeacherLoad>();
+            AttachedAcPlans = new HashSet<AttachedAcPlan>();
         }
 
         [Key]
         [Column("blockRec_id")]
-        public int BlockRecId { get; set; }
-        [Column("acPlan_id")]
-        public int? AcPlanId { get; set; }
+        public long BlockRecId { get; set; }
+        [Column("acPl_id")]
+        public int? AcPlId { get; set; }
         [Column("semestrNum")]
         public int? SemestrNum { get; set; }
         [Column("inPlan")]
         public int? InPlan { get; set; }
         [Column("sub_id")]
         public int? SubId { get; set; }
-        [Column("blockNum")]
-        [StringLength(100)]
-        public string BlockNum { get; set; }
+        [Column("blockNum_id")]
+        public int? BlockNumId { get; set; }
         [Column("ze")]
         public float? Ze { get; set; }
         [Column("total")]
@@ -50,13 +49,16 @@ namespace hod_back.Model
         [Column("controll")]
         public float? Controll { get; set; }
 
-        [ForeignKey(nameof(AcPlanId))]
-        [InverseProperty(nameof(AcademicPlan.BlockRecs))]
-        public virtual AcademicPlan AcPlan { get; set; }
+        [ForeignKey(nameof(AcPlId))]
+        [InverseProperty(nameof(AcPlan.BlockRecs))]
+        public virtual AcPlan AcPl { get; set; }
+        [ForeignKey(nameof(BlockNumId))]
+        [InverseProperty("BlockRecs")]
+        public virtual BlockNum BlockNum { get; set; }
         [ForeignKey(nameof(SubId))]
         [InverseProperty(nameof(Subject.BlockRecs))]
         public virtual Subject Sub { get; set; }
-        [InverseProperty(nameof(TeacherLoad.BlocRec))]
-        public virtual ICollection<TeacherLoad> TeacherLoads { get; set; }
+        [InverseProperty(nameof(AttachedAcPlan.BlockRec))]
+        public virtual ICollection<AttachedAcPlan> AttachedAcPlans { get; set; }
     }
 }

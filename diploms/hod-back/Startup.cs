@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using hod_back.DAL;
+using hod_back.Profiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
+using AutoMapper;
 
 namespace hod_back
 {
@@ -44,6 +48,14 @@ namespace hod_back
                                         ;
                                   });
             });
+
+            services.AddAutoMapper(
+                typeof(DepsInfoProfile)
+                );
+
+            //services.Add
+
+            services.AddSingleton<UnitOfWork>();
 
             //services.AddSingleton<Context, SystemDateTime>();
 

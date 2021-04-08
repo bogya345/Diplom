@@ -3,6 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { NavigationEnd, Router } from '@angular/router';
 import { environment } from '../environments/environment';
 
+import { app_HttpService } from './http.serviceApp';
+
+import { ShareService } from './share.service';
+
+import { User } from './_models/accounts-models';
+import { DepInfo } from './_models/deps-models';
+import { SnackBarComponent } from './snack-bar/snack-bar.component';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,45 +18,68 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent {
 
-  title = 'our-front';
-
+  public title = 'our-front';
   public isAuth = -1;
+
+  public user: User;
+  public depsInfo: DepInfo[];
+
+  private httpOwn: app_HttpService;
 
   /**
    *
    */
-  constructor(http: HttpClient, private router: Router) {
+  constructor(
+    http: HttpClient,
+    private router: Router,
+    private share: ShareService,
+    private snack: SnackBarComponent
+  ) {
 
+    this.httpOwn = new app_HttpService(http);
+    this.depsInfo = this.httpOwn.getFakeDepsInfo();
+
+    this.share.doUser(this.user);
+    this.share.doDeps(this.depsInfo);
+
+    this.user = this.share.shareUser('token');
+
+    this.httpOwn.getDepsInfo()
+      .subscribe(result => {
+        this.depsInfo = result;
+        console.log('result/constructor', result);
+      }, error => {
+        console.log('error/constructor', error);
+        this.snack.openSnackBarWithMsg('Using fake data');
+      }
+      );
   }
 
   ngOnInit(): void {
+    console.log('INIT: app');
 
-    this.isAuth = -1;
+    if (false) {
+      this.isAuth = -1;
 
-    switch (sessionStorage.getItem(environment.client_kind_request)) {
+      switch (sessionStorage.getItem(environment.client_kind_request)) {
 
-      // bogya's users
-      case environment.hod_sessionConst.ownCookie:
-        {
-          this.isAuth = this.hod_auth();
-        };
+        // bogya's users
+        case environment.hod_sessionConst.ownCookie:
+          {
+            this.isAuth = this.hod_auth();
+          };
 
-      // semkas's users
-      case environment.brs_sessionConst.ownCookie:
-        {
-          this.isAuth = this.brs_auth();
-        };
+        // not autherizated
+        default:
+          {
+            this.isAuth = -1;
+          };
 
-      // not autherizated
-      default:
-        {
-          this.isAuth = -1;
-        };
+      }
 
-    }
-
-    if (this.isAuth == -1) {
-      this.hod_fakeAuth();
+      if (this.isAuth == -1) {
+        this.hod_fakeAuth();
+      }
     }
 
     //var tmp = this.authentication().then((value) => { return value; });
@@ -98,6 +129,9 @@ export class AppComponent {
 
   }
 
+  ngAfterContentInit(): void {
+  }
+
   // bogya
   hod_auth(): number {
 
@@ -125,39 +159,6 @@ export class AppComponent {
 
     if (res) {
       return 0; // pass values
-    } else {
-      return -1; // pass values
-    }
-
-  }
-
-  // semka
-  brs_auth(): number {
-
-    const token = sessionStorage.getItem(environment.brs_sessionConst.accessTokenName);
-
-    if (!token) {
-      console.log('no token');
-      this.router.events
-      return -1;
-    }
-
-    const role = sessionStorage.getItem(environment.brs_sessionConst.role);
-    console.log('role is ', role)
-
-    console.log('token is exist ==', token);
-    const res = fetch('testing/getlogin', {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }
-    });
-
-    console.log('result of authentification:', res);
-
-    if (res) {
-      return 1; // pass values
     } else {
       return -1; // pass values
     }
@@ -199,8 +200,14 @@ export class AppComponent {
       });
 
     // window.location.reload();
-    alert('await');
-    this.router.navigate(['hod/home']);
+    // alert('await');
+    if (true) {
+      // ok
+    }
+    else {
+      // auth failed - need to authorizate
+      this.router.navigate(['hod/home']);
+    }
   }
 
   async hod_authentication(): Promise<any> {

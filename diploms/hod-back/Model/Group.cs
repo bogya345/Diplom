@@ -13,28 +13,32 @@ namespace hod_back.Model
     {
         public Group()
         {
-            AcademicPlans = new HashSet<AcademicPlan>();
+            AttachedAcPlans = new HashSet<AttachedAcPlan>();
         }
 
         [Key]
         [Column("group_id")]
         public int GroupId { get; set; }
-        [Column("direct_id")]
-        public int? DirectId { get; set; }
+        [Column("dir_id")]
+        public int? DirId { get; set; }
         [Column("group_name")]
-        [StringLength(50)]
+        [StringLength(20)]
         public string GroupName { get; set; }
-        [Column("nYear_post")]
-        public int? NYearPost { get; set; }
+        public int? YearArrive { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? DateCreate { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? DateExit { get; set; }
+        [Column("acPl_id")]
+        public int? AcPlId { get; set; }
 
-        [ForeignKey(nameof(DirectId))]
+        [ForeignKey(nameof(AcPlId))]
+        [InverseProperty(nameof(AcPlan.Groups))]
+        public virtual AcPlan AcPl { get; set; }
+        [ForeignKey(nameof(DirId))]
         [InverseProperty(nameof(Direction.Groups))]
-        public virtual Direction Direct { get; set; }
-        [InverseProperty(nameof(AcademicPlan.Group))]
-        public virtual ICollection<AcademicPlan> AcademicPlans { get; set; }
+        public virtual Direction Dir { get; set; }
+        [InverseProperty(nameof(AttachedAcPlan.Group))]
+        public virtual ICollection<AttachedAcPlan> AttachedAcPlans { get; set; }
     }
 }

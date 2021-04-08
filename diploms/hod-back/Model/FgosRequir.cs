@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace hod_back.Model
 {
-    [Table("fgos_requirs")]
     public partial class FgosRequir
     {
         [Key]

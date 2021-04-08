@@ -18,14 +18,14 @@ namespace hod_back.Model
         [Column("user_password")]
         [StringLength(100)]
         public string UserPassword { get; set; }
-        [Column("fsh_id")]
-        public int? FshId { get; set; }
-        [Column("role_id")]
-        public int? RoleId { get; set; }
+        [Column("fs_id")]
+        public int? FsId { get; set; }
+        [Column("ps_id")]
+        public int? PsId { get; set; }
 
-        [ForeignKey(nameof(FshId))]
-        public virtual FactStaffHistory Fsh { get; set; }
-        [ForeignKey(nameof(RoleId))]
-        public virtual Role Role { get; set; }
+        [ForeignKey(nameof(FsId))]
+        public virtual FactStaff Fs { get; set; }
+        [ForeignKey(nameof(PsId))]
+        public virtual PlanStaff Ps { get; set; }
     }
 }

@@ -13,33 +13,42 @@ namespace hod_back.Model
     {
         public Department()
         {
-            Facs = new HashSet<Fac>();
+            Directions = new HashSet<Direction>();
+            PlanStaffs = new HashSet<PlanStaff>();
+            Subjects = new HashSet<Subject>();
         }
 
         [Key]
+        [Column("dep_id")]
+        public int DepId { get; set; }
         [Column("dep_guid")]
-        public Guid DepGuid { get; set; }
+        public Guid? DepGuid { get; set; }
         [Column("dep_name")]
+        [StringLength(100)]
         public string DepName { get; set; }
         [Column("dep_shortname")]
-        [StringLength(200)]
+        [StringLength(50)]
         public string DepShortname { get; set; }
-        [Column("depType_id")]
-        public int? DepTypeId { get; set; }
+        [Column("depT_id")]
+        public int? DepTId { get; set; }
+        [Column("dateCreate", TypeName = "date")]
+        public DateTime? DateCreate { get; set; }
         [Column("dateExit", TypeName = "date")]
         public DateTime? DateExit { get; set; }
-        [Column(TypeName = "date")]
-        public DateTime? DateCreate { get; set; }
         [Column("role_id")]
         public int? RoleId { get; set; }
 
-        [ForeignKey(nameof(DepTypeId))]
-        [InverseProperty(nameof(DepartmentType.Departments))]
-        public virtual DepartmentType DepType { get; set; }
+        [ForeignKey(nameof(DepTId))]
+        [InverseProperty(nameof(DepType.Departments))]
+        public virtual DepType DepT { get; set; }
         [ForeignKey(nameof(RoleId))]
         [InverseProperty("Departments")]
         public virtual Role Role { get; set; }
-        [InverseProperty(nameof(Fac.DepGu))]
-        public virtual ICollection<Fac> Facs { get; set; }
+        [InverseProperty(nameof(Direction.Dep))]
+        public virtual ICollection<Direction> Directions { get; set; }
+        [InverseProperty(nameof(PlanStaff.Dep))]
+        public virtual ICollection<PlanStaff> PlanStaffs { get; set; }
+        [InverseProperty(nameof(Subject.Dep))]
+        public virtual ICollection<Subject> Subjects { get; set; }
     }
 }

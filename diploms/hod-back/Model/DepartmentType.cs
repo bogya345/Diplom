@@ -23,7 +23,7 @@ namespace hod_back.Model
         [StringLength(20)]
         public string DepTypeName { get; set; }
 
-        [InverseProperty(nameof(Department.DepType))]
+        [InverseProperty(nameof(Department.DepT))]
         public virtual ICollection<Department> Departments { get; set; }
     }
 }

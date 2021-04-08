@@ -1,10 +1,13 @@
 import { Component, EventEmitter, Output, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Validators, FormBuilder } from '@angular/forms';
+import { ShareService } from '../share.service';
 
 import { environment } from '../../environments/environment';
 
 import { login_HttpService } from './http.serviceLogin';
+
+import { User } from '../_models/accounts-models';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +28,12 @@ export class LoginComponent implements OnInit {
 
   @Output("onAuth") onAuth: EventEmitter<any> = new EventEmitter();
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(
+    http: HttpClient,
+    @Inject('BASE_URL') baseUrl: string,
+
+    private share: ShareService
+  ) {
 
     this.http = new login_HttpService(http);
     this.baseUrl = baseUrl;
@@ -34,20 +42,14 @@ export class LoginComponent implements OnInit {
     this.email = environment.hod_auth.email;
     this.password = environment.hod_auth.pass;
 
-    // semka
-    // this.email = environment.brs_auth.email;
-    // this.password = environment.brs_auth.pass;
-
-    // втисит
-    //this.email = "teach1@ugtu.net"; this.password = "qwer";
-
-    // пгс
-    // this.email = "teach6@ugtu.net"; this.password = "qwer";
-
     this.tokenKey = 'accessToken';
   }
 
   ngOnInit(): void {
+    console.log('INIT: login');
+    let user: User;
+    this.share.doUser(user);
+    // alert();
   }
 
   update_email(value: string) { this.email = value; console.log(value); }
@@ -57,7 +59,7 @@ export class LoginComponent implements OnInit {
 
     console.log(`email:${this.email}\tpass:{this.password}`)
 
-    // пусть будет тут, не буду переносить
+    // пусть будет тут, не буду переносить в services
     const formData = new FormData();
     formData.append("grant_type", "password");
     formData.append("username", this.email);

@@ -11,25 +11,17 @@ namespace hod_back.Model
     [Table("ScienceTypes", Schema = "Import")]
     public partial class ScienceType
     {
-        public ScienceType()
-        {
-            EmpDegrees = new HashSet<EmpDegree>();
-        }
-
         [Key]
-        [Column("sciType_id")]
-        public int SciTypeId { get; set; }
-        [Column("sciType_name")]
-        [StringLength(200)]
-        public string SciTypeName { get; set; }
-        [Column("sciType_abbrev")]
+        [Column("sciT_id")]
+        public int SciTId { get; set; }
+        [Column("sciT_name")]
+        [StringLength(100)]
+        public string SciTName { get; set; }
+        [Column("sciT_abbrev")]
         [StringLength(50)]
-        public string SciTypeAbbrev { get; set; }
-        [Column("sciType_shortName")]
+        public string SciTAbbrev { get; set; }
+        [Column("sciT_shortname")]
         [StringLength(50)]
-        public string SciTypeShortName { get; set; }
-
-        [InverseProperty(nameof(EmpDegree.SciType))]
-        public virtual ICollection<EmpDegree> EmpDegrees { get; set; }
+        public string SciTShortname { get; set; }
     }
 }

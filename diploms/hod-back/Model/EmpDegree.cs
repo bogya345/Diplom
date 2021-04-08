@@ -8,40 +8,33 @@ using Microsoft.EntityFrameworkCore;
 
 namespace hod_back.Model
 {
+    [Keyless]
     [Table("EmpDegrees", Schema = "Import")]
     public partial class EmpDegree
     {
-        [Key]
-        [Column("educDoc_id")]
-        public int EducDocId { get; set; }
-        [Column("empDeg_date", TypeName = "datetime")]
-        public DateTime? EmpDegDate { get; set; }
-        [Column("dissertCouncil")]
-        [StringLength(200)]
+        [Column("eDoc_id")]
+        public int? EDocId { get; set; }
+        [Column("deg_date", TypeName = "datetime")]
+        public DateTime? DegDate { get; set; }
+        [StringLength(100)]
         public string DissertCouncil { get; set; }
         [Column("diplWhere")]
-        [StringLength(200)]
+        [StringLength(100)]
         public string DiplWhere { get; set; }
         [Column("deg_id")]
         public int? DegId { get; set; }
-        [Column("sciType_id")]
-        public int? SciTypeId { get; set; }
-        [Column("emp_id")]
-        public int? EmpId { get; set; }
+        [Column("sciT_id")]
+        public int? SciTId { get; set; }
         [Column("listSpec_id")]
         public int? ListSpecId { get; set; }
 
         [ForeignKey(nameof(DegId))]
-        [InverseProperty(nameof(Degree.EmpDegrees))]
         public virtual Degree Deg { get; set; }
-        [ForeignKey(nameof(EmpId))]
-        [InverseProperty(nameof(Employee.EmpDegrees))]
-        public virtual Employee Emp { get; set; }
+        [ForeignKey(nameof(EDocId))]
+        public virtual EducDoc EDoc { get; set; }
         [ForeignKey(nameof(ListSpecId))]
-        [InverseProperty(nameof(ListSpeciality.EmpDegrees))]
         public virtual ListSpeciality ListSpec { get; set; }
-        [ForeignKey(nameof(SciTypeId))]
-        [InverseProperty(nameof(ScienceType.EmpDegrees))]
-        public virtual ScienceType SciType { get; set; }
+        [ForeignKey(nameof(SciTId))]
+        public virtual ScienceType SciT { get; set; }
     }
 }

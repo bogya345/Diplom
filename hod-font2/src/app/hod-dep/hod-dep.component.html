@@ -1,1 +1,70 @@
-<p>hod-dep works!</p>
+<div class="common-indentation">
+
+    <div class="row bg-light">
+        <h2><i>Путь{{getPathString()}}</i></h2>
+    </div>
+
+    <mat-tab-group mat-align-tabs="start" [(selectedIndex)]="selectedIndex">
+        <!-- #enddocregion align-start -->
+
+        <mat-tab label="Направления">
+            <div class="row">
+                <p *ngIf="!dep"><em>Загрузка направлений...</em></p>
+                <table class='table table-striped groupstable' aria-labelledby="tableLabel" *ngIf="dep.dirs">
+
+                    <thead>
+                        <tr>
+                            <th>Номер</th>
+                            <th>Название</th>
+                            <th>Год начала</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tr *ngFor="let item of dep.dirs">
+                        <td></td>
+                        <td>{{ item.dir_name }}</td>
+                        <td>{{ item.startYear }}</td>
+                        <td><button (click)="setSelectedDirection( item )">Выбрать</button></td>
+                    </tr>
+
+                </table>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Группы" id="group_tab">
+            <div class="row">
+                <p *ngIf="!selectedDir"><em>Загрузка групп...</em></p>
+                <table class='table table-striped groupstable' aria-labelledby="tableLabel" *ngIf="selectedDir.groups">
+
+                    <thead>
+                        <tr>
+                            <th>Номер</th>
+                            <th>Название</th>
+                            <th>Год начала</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tr *ngFor="let item of selectedDir.groups">
+                        <td></td>
+                        <td>{{ item.group_name }}</td>
+                        <td></td>
+                        <td><button (click)="setSelectedGroup( item )">Выбрать</button></td>
+                    </tr>
+
+                </table>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Учебный план">
+            <app-hod-acplan [direction]="selectedDir" [group]="selectedGroup"></app-hod-acplan>
+        </mat-tab>
+
+        <mat-tab label="Четыре">
+            Content 4
+        </mat-tab>
+
+    </mat-tab-group>
+
+</div>

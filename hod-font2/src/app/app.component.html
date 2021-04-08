@@ -141,7 +141,7 @@
       <a href="index3.html" class="brand-link">
         <img src="assets/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8" />
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">HOD</span>
       </a>
 
       <!-- Sidebar -->
@@ -149,10 +149,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="assets/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" />
+            <img src="assets/own-user1.jpg" class="img-circle elevation-2" alt="User Image" />
           </div>
           <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <a href="#" class="d-block">{{user.name}}</a>
           </div>
         </div>
 
@@ -172,43 +172,61 @@
               </a>
             </li>
 
-            <li class="nav-item">
-              <a href="pages/widgets.html" class="nav-link">
+            <!-- <li class="nav-item">
+              <a href="" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  Список кафедр
+                  Кафедры
                   <span class="right badge badge-danger">New</span>
                 </p>
               </a>
-            </li>
+            </li> -->
 
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
-                  Кафедры
+                  Список кафедр
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="hod/department/1" class="nav-link">
+                  <a href="hod/deps" class="nav-link">
+                    <!-- <a [msg]="'kek'" [routerLink]="'hod/deps'"class="nav-link"> -->
+                    <!-- <a msg="title" routerLink="hod/deps"></a> -->
+                    <!-- <a [title]="product.name + ' details'" [routerLink]="['/hod', product.id]"></a> -->
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Все кафедры</p>
+                  </a>
+                </li>
+
+                <li class="nav-item" *ngFor="let i of depsInfo">
+                  <a [href]="'hod/deps/promotion'" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>{{i.dep_name}}</p>
+                  </a>
+                </li>
+                
+                <!-- <li class="nav-item">
+                  <a href="hod/dep/1" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>ВТИСИТ</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="hod/department/2" class="nav-link">
+                  <a href="hod/dep/2" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Кафедра 2</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="hod/department/3" class="nav-link active">
+                  <a href="hod/dep/3" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Кафедра 3</p>
                   </a>
-                </li>
+                </li> -->
+
               </ul>
             </li>
 
@@ -712,12 +730,12 @@
     <!-- /.control-sidebar -->
 
     <!-- Main Footer -->
-    <footer class="main-footer">
-      <strong>Copyright &copy; 2014-2019
-        <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    <!-- <footer class="main-footer">
+      <strong>Copyright &copy; 2021
+        <a href="http://adminlte.io">UGTU</a>.</strong>
       All rights reserved.
-      <div class="float-right d-none d-sm-inline-block"><b>Version</b> 3.0.0</div>
-    </footer>
+      <div class="float-right d-none d-sm-inline-block"><b>Version</b> 1.0.0</div>
+    </footer> -->
   </div>
 
 </ng-template>

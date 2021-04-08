@@ -20,12 +20,20 @@ namespace hod_back.DAL.Repositories
 
         public virtual IEnumerable<T> GetMany(Func<T, bool> func) { throw new NotImplementedException(); }
 
-        public virtual T Get(Func<T, bool> func) { throw new NotImplementedException(); }
+        public virtual T GetOrDefault(Func<T, bool> func, T def = null) { throw new NotImplementedException(); }
         public virtual T OnExist(string name) { throw new NotImplementedException(); }
 
         public virtual void Create(T item) { }
+        public virtual T CreateWithReturn(T item) { return item; }
+
+        /// <summary>
+        /// Ты можешь это использовать, но убедись что ты не закинешь дубли
+        /// </summary>
+        /// <param name="items"></param>
+        public virtual void CreateRange(T[] items) { }
 
         public virtual void Update(T item) { }
+        public virtual void UpdateRande(T[] items) { }
 
         public virtual void Delete(int itemId) { }
         public virtual void Delete(string itemName) { }

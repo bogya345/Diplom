@@ -14,9 +14,13 @@ namespace hod_back.DAL.Repositories
         public SubjectsRepository(Context context) : base(context) { }
 
 
-        public override void Create(Subject item)
+        public override void Create(Subject item) { db.Subjects.Add(item); }
+
+        public override void CreateRange(Subject[] items) { db.Subjects.AddRange(items); }
+
+        public override Subject GetOrDefault(Func<Subject, bool> func, Subject def = null)
         {
-            db.Subjects.Add(item);
+            return db.Subjects.FirstOrDefault(func) ?? def;
         }
 
         public IEnumerable<Subject> GetAll()

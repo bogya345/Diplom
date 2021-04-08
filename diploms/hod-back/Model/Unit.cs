@@ -16,8 +16,5 @@ namespace hod_back.Model
         [Column("unit_name")]
         [StringLength(50)]
         public string UnitName { get; set; }
-        [Column("unit_shortName")]
-        [StringLength(10)]
-        public string UnitShortName { get; set; }
     }
 }

@@ -17,16 +17,16 @@ namespace hod_back.Model
         }
 
         [Key]
-        [Column("educLvl_id")]
-        public int EducLvlId { get; set; }
-        [Column("educLvl_name")]
+        [Column("eLvl_id")]
+        public int ELvlId { get; set; }
+        [Column("eLvl_name")]
         [StringLength(100)]
-        public string EducLvlName { get; set; }
-        [Column("educLvl_shortName")]
-        [StringLength(100)]
-        public string EducLvlShortName { get; set; }
+        public string ELvlName { get; set; }
+        [Column("eLvl_shortname")]
+        [StringLength(50)]
+        public string ELvlShortname { get; set; }
 
-        [InverseProperty(nameof(EducBranch.EducLvl))]
+        [InverseProperty(nameof(EducBranch.ELvl))]
         public virtual ICollection<EducBranch> EducBranches { get; set; }
     }
 }

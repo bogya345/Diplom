@@ -13,20 +13,23 @@ namespace hod_back.Model
     {
         public WorkType()
         {
-            FactStaffHistories = new HashSet<FactStaffHistory>();
+            FactStaffs = new HashSet<FactStaff>();
+            FactStaffsHistories = new HashSet<FactStaffsHistory>();
         }
 
         [Key]
-        [Column("workType_id")]
-        public int WorkTypeId { get; set; }
-        [Column("workType_name")]
+        [Column("workT_id")]
+        public int WorkTId { get; set; }
+        [Column("workT_name")]
+        [StringLength(100)]
+        public string WorkTName { get; set; }
+        [Column("workT_shortname")]
         [StringLength(50)]
-        public string WorkTypeName { get; set; }
-        [Column("workType_shortName")]
-        [StringLength(50)]
-        public string WorkTypeShortName { get; set; }
+        public string WorkTShortname { get; set; }
 
-        [InverseProperty(nameof(FactStaffHistory.WorkType))]
-        public virtual ICollection<FactStaffHistory> FactStaffHistories { get; set; }
+        [InverseProperty(nameof(FactStaff.WorkT))]
+        public virtual ICollection<FactStaff> FactStaffs { get; set; }
+        [InverseProperty(nameof(FactStaffsHistory.WorkT))]
+        public virtual ICollection<FactStaffsHistory> FactStaffsHistories { get; set; }
     }
 }

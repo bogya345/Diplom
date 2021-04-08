@@ -1,0 +1,24 @@
+<div id="modal-content-wrapper">
+    <header id="modal-header">
+        <h1 id="modal-title">{{selectedDir.dir_name}}</h1>
+    </header>
+    <section id="modal-body">
+        <p>Требования ФГОС:</p>
+        <p *ngIf="!selectedDir; else elseBlock_dirs"><em>Загрузка требований...</em></p>
+        <ng-template #elseBlock_dirs>
+
+            <p *ngIf="selectedDir.requirs.length == 0; else elseBlock_dirs"><em>Список требований пуст.</em></p>
+            <ng-template #elseBlock_dirs>
+                <ul>
+                    <li *ngFor="let i of selectedDir.requirs">{{i.fgos_num}} = {{i.settedValue}} {{i.unit_name}}</li>
+                </ul>
+            </ng-template>
+
+        </ng-template>
+    </section>
+    <footer id="modal-footer">
+        <!-- <button mat-raised-button id="modal-action-button" (click)="actionFunction()">Logout</button> -->
+        <button mat-raised-button id="btn btn-info" (click)="closeModal()">Go back</button>
+    </footer>
+</div>
+<!-- https://teamtreehouse.com/community/why-is-it-common-practice-to-wrap-everything-within-the-body-tag-with-a-div-tag -->

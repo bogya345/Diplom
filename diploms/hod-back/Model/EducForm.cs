@@ -17,16 +17,16 @@ namespace hod_back.Model
         }
 
         [Key]
-        [Column("educForm_id")]
-        public int EducFormId { get; set; }
-        [Column("educForm_name")]
-        [StringLength(50)]
-        public string EducFormName { get; set; }
-        [Column("educForm_adjective")]
-        [StringLength(50)]
-        public string EducFormAdjective { get; set; }
+        [Column("eForm_id")]
+        public int EFormId { get; set; }
+        [Column("eForm_name")]
+        [StringLength(100)]
+        public string EFormName { get; set; }
+        [Column("eForm_adjactive")]
+        [StringLength(100)]
+        public string EFormAdjactive { get; set; }
 
-        [InverseProperty(nameof(Direction.EducForm))]
+        [InverseProperty(nameof(Direction.EForm))]
         public virtual ICollection<Direction> Directions { get; set; }
     }
 }

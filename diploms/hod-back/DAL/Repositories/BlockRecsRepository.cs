@@ -7,24 +7,37 @@ using hod_back.Model;
 
 namespace hod_back.DAL.Repositories
 {
-    public class BlockRecsRepository : IRepository<BlockRec>
+    public class AcPlanRepository : IRepository<AcPlan>
     {
-        public BlockRecsRepository(Context context) : base(context) { }
+        public AcPlanRepository(Context context) : base(context) { }
 
 
-        public override void Create(BlockRec item)
+        public override AcPlan CreateWithReturn(AcPlan item) { db.AcPlans.Add(item); db.SaveChanges(); return item; }
+        public override void CreateRange(AcPlan[] items) { db.AddRange(items); }
+
+        public override AcPlan GetOrDefault(Func<AcPlan, bool> func, AcPlan def = null)
         {
-            db.BlockRecs.Add(item);
+            return db.AcPlans.FirstOrDefault(func) ?? def;
         }
 
-        public IEnumerable<BlockRec> GetAll()
+        public IEnumerable<AcPlan> GetAll()
         {
-            return db.BlockRecs;
+            return db.AcPlans;
         }
 
-        public override IEnumerable<BlockRec> GetMany(Func<BlockRec, bool> func)
+        public override IEnumerable<AcPlan> GetMany(Func<AcPlan, bool> func)
         {
-            return db.BlockRecs.Where(func);
+            return db.AcPlans.Where(func);
+        }
+
+        public override void Update(AcPlan item)
+        {
+            db.AcPlans.Update(item);
+            db.SaveChanges();
+        }
+        public override void UpdateRande(AcPlan[] items)
+        {
+            db.UpdateRange(items);
         }
 
     }

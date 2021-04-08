@@ -23,7 +23,7 @@ namespace hod_back.DAL.Repositories
         {
             return db.Groups.Where(x => x.GroupId == id).FirstOrDefault();
         }
-        public override Group Get(Func<Group, bool> func)
+        public override Group GetOrDefault(Func<Group, bool> func, Group def = null)
         {
             return db.Groups.FirstOrDefault(func);
         }

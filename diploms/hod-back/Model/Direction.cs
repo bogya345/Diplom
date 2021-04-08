@@ -13,43 +13,48 @@ namespace hod_back.Model
     {
         public Direction()
         {
-            AcademicPlans = new HashSet<AcademicPlan>();
             Groups = new HashSet<Group>();
         }
 
         [Key]
-        [Column("direct_id")]
-        public int DirectId { get; set; }
-        [Column("educBr_id")]
-        public int? EducBrId { get; set; }
+        [Column("dir_id")]
+        public int DirId { get; set; }
+        [Column("eBr_id")]
+        public int? EBrId { get; set; }
         [Column("fac_id")]
         public int? FacId { get; set; }
         public int? YearObuch { get; set; }
-        [Column("educForm_id")]
-        public int? EducFormId { get; set; }
-        [Column("katZaved_id")]
-        public int? KatZavedId { get; set; }
+        [Column("eForm_id")]
+        public int? EFormId { get; set; }
+        [Column("kZav_id")]
+        public int? KZavId { get; set; }
         public int? MonthObuch { get; set; }
-        [Column("is_short")]
-        public bool? IsShort { get; set; }
         [Column("is_old")]
         public bool? IsOld { get; set; }
+        [Column("acPl_id")]
+        public int? AcPlId { get; set; }
+        [Column("dep_id")]
+        public int? DepId { get; set; }
 
-        [ForeignKey(nameof(EducBrId))]
+        [ForeignKey(nameof(AcPlId))]
+        [InverseProperty(nameof(AcPlan.Directions))]
+        public virtual AcPlan AcPl { get; set; }
+        [ForeignKey(nameof(DepId))]
+        [InverseProperty(nameof(Department.Directions))]
+        public virtual Department Dep { get; set; }
+        [ForeignKey(nameof(EBrId))]
         [InverseProperty(nameof(EducBranch.Directions))]
-        public virtual EducBranch EducBr { get; set; }
-        [ForeignKey(nameof(EducFormId))]
-        [InverseProperty("Directions")]
-        public virtual EducForm EducForm { get; set; }
+        public virtual EducBranch EBr { get; set; }
+        [ForeignKey(nameof(EFormId))]
+        [InverseProperty(nameof(EducForm.Directions))]
+        public virtual EducForm EForm { get; set; }
         [ForeignKey(nameof(FacId))]
         [InverseProperty("Directions")]
         public virtual Fac Fac { get; set; }
-        [ForeignKey(nameof(KatZavedId))]
-        [InverseProperty("Directions")]
-        public virtual KatZaved KatZaved { get; set; }
-        [InverseProperty(nameof(AcademicPlan.Direct))]
-        public virtual ICollection<AcademicPlan> AcademicPlans { get; set; }
-        [InverseProperty(nameof(Group.Direct))]
+        [ForeignKey(nameof(KZavId))]
+        [InverseProperty(nameof(KatZaved.Directions))]
+        public virtual KatZaved KZav { get; set; }
+        [InverseProperty(nameof(Group.Dir))]
         public virtual ICollection<Group> Groups { get; set; }
     }
 }
