@@ -33,7 +33,8 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Группа</label>
-                    <select class="form-control select2" style="width: 100%;">
+
+                    <select class="form-control select2" style="width: 100%;" (change)="selectChangeHandler($event)">
                       <option selected="selected" *ngFor="let i of exactClassForLecturerClass.Groups">{{i.GroupName}}</option>
                     </select>
                   </div>
@@ -57,7 +58,7 @@
                     <thead>
                       <tr>
                         <th>ФИО</th>
-                        <th *ngFor="let j of exactClassForLecturerClass.ExactClasses">{{j.DateExactClass}}</th>
+                        <th *ngFor="let j of exactClassForLecturerClass.ExactClasses"> <a href="/dashboard/attendance-current" class="nav-link">{{j.DateExactClass}}</a></th>
                       </tr>
                     </thead>
                     <tbody>

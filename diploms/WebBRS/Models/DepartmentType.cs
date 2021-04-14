@@ -12,6 +12,7 @@ namespace WebBRS.Models
 		//[Column("DepartTypeID")]
 		[Required, Key]
 		public int DepartTypeID { get; set; }
+		public byte[] ID_1c { get; set; }
 
 		[Required]
 		public string FullDepartTypeName { get; set; }

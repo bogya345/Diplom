@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebBRS.Migrations
 {
-    public partial class CreateInitial1 : Migration
+    public partial class InitialCreate1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,7 @@ namespace WebBRS.Migrations
                 {
                     IdConditionOfPerson = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     _Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -29,6 +30,7 @@ namespace WebBRS.Migrations
                 {
                     IdCourse = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     _Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     _Number = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -43,6 +45,7 @@ namespace WebBRS.Migrations
                 {
                     DepartTypeID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     FullDepartTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShortDepartTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -58,6 +61,7 @@ namespace WebBRS.Migrations
                 {
                     IdPerson = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     _Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -91,6 +95,7 @@ namespace WebBRS.Migrations
                 {
                     IdSemestr = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     NameSemestr = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -104,6 +109,7 @@ namespace WebBRS.Migrations
                 {
                     IdSpec = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     NameSpec = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShortNameSpec = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -118,6 +124,7 @@ namespace WebBRS.Migrations
                 {
                     IdStudyYear = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     _Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     _Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateTimeStart = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -134,6 +141,7 @@ namespace WebBRS.Migrations
                 {
                     IdSubject = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     NameSubject = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SubjectShortName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateTimeSubject = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -149,6 +157,7 @@ namespace WebBRS.Migrations
                 {
                     IdTC = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     _Marked = table.Column<bool>(type: "bit", nullable: false),
                     _Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     _Descriptpion = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -165,6 +174,7 @@ namespace WebBRS.Migrations
                 {
                     IdTS = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     TypeStudyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShortTypeStudyName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -179,6 +189,7 @@ namespace WebBRS.Migrations
                 {
                     IdTSPR = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     _Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     _Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     _Fld9231 = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -194,6 +205,7 @@ namespace WebBRS.Migrations
                 {
                     IdWPS = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     WorkpersonStatusName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     WorkpersonStatusNameShort = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -208,6 +220,7 @@ namespace WebBRS.Migrations
                 {
                     IdWT = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     WorkTypeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShortWorkTypeName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -220,24 +233,26 @@ namespace WebBRS.Migrations
                 name: "Departments",
                 columns: table => new
                 {
-                    DepartmentGUID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DepartmentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     FullNameDepart = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShortNameDepart = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HeadDepartId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    DepartmentTypeID = table.Column<int>(type: "int", nullable: true)
+                    HeadDepartId = table.Column<int>(type: "int", nullable: true),
+                    DepartmentTypeDepartTypeID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Departments", x => x.DepartmentGUID);
+                    table.PrimaryKey("PK_Departments", x => x.DepartmentID);
                     table.ForeignKey(
                         name: "FK_Departments_Departments_HeadDepartId",
                         column: x => x.HeadDepartId,
                         principalTable: "Departments",
-                        principalColumn: "DepartmentGUID",
+                        principalColumn: "DepartmentID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Departments_DepartmentTypes_DepartmentTypeID",
-                        column: x => x.DepartmentTypeID,
+                        name: "FK_Departments_DepartmentTypes_DepartmentTypeDepartTypeID",
+                        column: x => x.DepartmentTypeDepartTypeID,
                         principalTable: "DepartmentTypes",
                         principalColumn: "DepartTypeID",
                         onDelete: ReferentialAction.Restrict);
@@ -270,7 +285,8 @@ namespace WebBRS.Migrations
                     IdStudent = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdPerson = table.Column<int>(type: "int", nullable: false),
-                    ZachNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ZachNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -319,10 +335,11 @@ namespace WebBRS.Migrations
                 {
                     IdGroup = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     GroupName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdSpec = table.Column<int>(type: "int", nullable: true),
-                    IdDepart = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IdGroupPrev = table.Column<int>(type: "int", nullable: true),
+                    SpecialtyIdSpec = table.Column<int>(type: "int", nullable: true),
+                    DepartmentGroupDepartmentID = table.Column<int>(type: "int", nullable: true),
+                    GroupPrevIdGroup = table.Column<int>(type: "int", nullable: true),
                     DateCreate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateExit = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -330,20 +347,20 @@ namespace WebBRS.Migrations
                 {
                     table.PrimaryKey("PK_Groups", x => x.IdGroup);
                     table.ForeignKey(
-                        name: "FK_Groups_Departments_IdDepart",
-                        column: x => x.IdDepart,
+                        name: "FK_Groups_Departments_DepartmentGroupDepartmentID",
+                        column: x => x.DepartmentGroupDepartmentID,
                         principalTable: "Departments",
-                        principalColumn: "DepartmentGUID",
+                        principalColumn: "DepartmentID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Groups_Groups_IdGroupPrev",
-                        column: x => x.IdGroupPrev,
+                        name: "FK_Groups_Groups_GroupPrevIdGroup",
+                        column: x => x.GroupPrevIdGroup,
                         principalTable: "Groups",
                         principalColumn: "IdGroup",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Groups_Specialties_IdSpec",
-                        column: x => x.IdSpec,
+                        name: "FK_Groups_Specialties_SpecialtyIdSpec",
+                        column: x => x.SpecialtyIdSpec,
                         principalTable: "Specialties",
                         principalColumn: "IdSpec",
                         onDelete: ReferentialAction.Restrict);
@@ -355,7 +372,8 @@ namespace WebBRS.Migrations
                 {
                     IdStudyPlan = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FacultetDepartmentGUID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    FacultetDepartmentID = table.Column<int>(type: "int", nullable: true),
                     StudyYearIdStudyYear = table.Column<int>(type: "int", nullable: true),
                     SpecialtyIdSpec = table.Column<int>(type: "int", nullable: true),
                     TypeControlIdTC = table.Column<int>(type: "int", nullable: true),
@@ -365,10 +383,10 @@ namespace WebBRS.Migrations
                 {
                     table.PrimaryKey("PK_StudyPlanRecords", x => x.IdStudyPlan);
                     table.ForeignKey(
-                        name: "FK_StudyPlanRecords_Departments_FacultetDepartmentGUID",
-                        column: x => x.FacultetDepartmentGUID,
+                        name: "FK_StudyPlanRecords_Departments_FacultetDepartmentID",
+                        column: x => x.FacultetDepartmentID,
                         principalTable: "Departments",
-                        principalColumn: "DepartmentGUID",
+                        principalColumn: "DepartmentID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_StudyPlanRecords_Specialties_SpecialtyIdSpec",
@@ -454,6 +472,7 @@ namespace WebBRS.Migrations
                 {
                     IdSGH = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ID_1c = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     DateSGHStart = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateSGHFinished = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CourseIdCourse = table.Column<int>(type: "int", nullable: true),
@@ -620,7 +639,7 @@ namespace WebBRS.Migrations
                     TextWork = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FilePathWork = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MaxBall = table.Column<double>(type: "float", nullable: false),
-                    IdWT = table.Column<int>(type: "int", nullable: true),
+                    WorkTypeIdWT = table.Column<int>(type: "int", nullable: true),
                     DateGiven = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -633,8 +652,8 @@ namespace WebBRS.Migrations
                         principalColumn: "IdClass",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ClassWorks_WorkTypes_IdWT",
-                        column: x => x.IdWT,
+                        name: "FK_ClassWorks_WorkTypes_WorkTypeIdWT",
+                        column: x => x.WorkTypeIdWT,
                         principalTable: "WorkTypes",
                         principalColumn: "IdWT",
                         onDelete: ReferentialAction.Restrict);
@@ -654,7 +673,7 @@ namespace WebBRS.Migrations
                     Ball = table.Column<double>(type: "float", nullable: false),
                     Done = table.Column<bool>(type: "bit", nullable: false),
                     DatePass = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IdWPS = table.Column<int>(type: "int", nullable: true)
+                    WorkPersonStatusIdWPS = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -672,8 +691,8 @@ namespace WebBRS.Migrations
                         principalColumn: "IdClassWork",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DoClassWorkAttends_WorkPersonStatuses_IdWPS",
-                        column: x => x.IdWPS,
+                        name: "FK_DoClassWorkAttends_WorkPersonStatuses_WorkPersonStatusIdWPS",
+                        column: x => x.WorkPersonStatusIdWPS,
                         principalTable: "WorkPersonStatuses",
                         principalColumn: "IdWPS",
                         onDelete: ReferentialAction.Restrict);
@@ -695,14 +714,14 @@ namespace WebBRS.Migrations
                 column: "IdClasss");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClassWorks_IdWT",
+                name: "IX_ClassWorks_WorkTypeIdWT",
                 table: "ClassWorks",
-                column: "IdWT");
+                column: "WorkTypeIdWT");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Departments_DepartmentTypeID",
+                name: "IX_Departments_DepartmentTypeDepartTypeID",
                 table: "Departments",
-                column: "DepartmentTypeID");
+                column: "DepartmentTypeDepartTypeID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_HeadDepartId",
@@ -720,9 +739,9 @@ namespace WebBRS.Migrations
                 column: "IdClassWork");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DoClassWorkAttends_IdWPS",
+                name: "IX_DoClassWorkAttends_WorkPersonStatusIdWPS",
                 table: "DoClassWorkAttends",
-                column: "IdWPS");
+                column: "WorkPersonStatusIdWPS");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExactClasses_ExactClassForLecturerClassIdEXCFLC",
@@ -755,19 +774,19 @@ namespace WebBRS.Migrations
                 column: "LecturerIdSLecturer");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Groups_IdDepart",
+                name: "IX_Groups_DepartmentGroupDepartmentID",
                 table: "Groups",
-                column: "IdDepart");
+                column: "DepartmentGroupDepartmentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Groups_IdGroupPrev",
+                name: "IX_Groups_GroupPrevIdGroup",
                 table: "Groups",
-                column: "IdGroupPrev");
+                column: "GroupPrevIdGroup");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Groups_IdSpec",
+                name: "IX_Groups_SpecialtyIdSpec",
                 table: "Groups",
-                column: "IdSpec");
+                column: "SpecialtyIdSpec");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lectureres_PersonIdPerson",
@@ -795,9 +814,9 @@ namespace WebBRS.Migrations
                 column: "IdStudent");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudyPlanRecords_FacultetDepartmentGUID",
+                name: "IX_StudyPlanRecords_FacultetDepartmentID",
                 table: "StudyPlanRecords",
-                column: "FacultetDepartmentGUID");
+                column: "FacultetDepartmentID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudyPlanRecords_SpecialtyIdSpec",

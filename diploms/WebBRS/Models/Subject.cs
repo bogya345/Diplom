@@ -11,6 +11,7 @@ namespace WebBRS.Models
 		[Required, Key]
 
 		public int IdSubject { get; set; }
+		public byte[] ID_1c { get; set; }
 		public string NameSubject { get; set; }
 		public string SubjectShortName { get; set; }
 		public DateTime DateTimeSubject { get; set; }

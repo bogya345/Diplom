@@ -12,13 +12,15 @@ namespace WebBRS.Models
 		//[Column("DepartTypeID")]
 		[Required, Key]
 		public int IdGroup { get; set; }
+		public byte[] ID_1c { get; set; }
 		public string GroupName { get; set; }
-		[ForeignKey("IdSpec")]
+
 		public Specialty Specialty { get; set; }
-		[ForeignKey("IdDepart")]
+	
 		public Department DepartmentGroup { get; set; }
-		[ForeignKey("IdGroupPrev")]
+
 		public Group GroupPrev { get; set; }
+		public byte[] GroupPrev_ID_1c { get; set; }
 		public DateTime? DateCreate { get; set; }
 		public DateTime? DateExit { get; set; }
 

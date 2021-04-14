@@ -11,6 +11,8 @@ namespace WebBRS.Models
 		[Required, Key]
 
 		public int Ik_zach { get; set; }
+		public byte[] ID_1c { get; set; }
+		public byte[] ID_Person_1c { get; set; }
 		public int? nCode { get; set; }
 		public Person Person { get; set; }
 		public string Nn_zach { get; set; }

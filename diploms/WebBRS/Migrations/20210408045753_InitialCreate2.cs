@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebBRS.Migrations
 {
-    public partial class CreateInitial2 : Migration
+    public partial class InitialCreate2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<byte[]>(
-                name: "ID_1c",
-                table: "Students",
+                name: "GroupPrev_ID_1c",
+                table: "Groups",
                 type: "varbinary(max)",
                 nullable: true);
         }
@@ -17,8 +17,8 @@ namespace WebBRS.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ID_1c",
-                table: "Students");
+                name: "GroupPrev_ID_1c",
+                table: "Groups");
         }
     }
 }

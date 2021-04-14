@@ -9,8 +9,9 @@ namespace WebBRS.Models
 	public class Course
 	{
 		[Required, Key]
-
+		
 		public int IdCourse { get; set; }
+		public byte[] ID_1c { get; set; }
 		public string _Description { get; set; }
 		public string _Number { get; set; }
 	}

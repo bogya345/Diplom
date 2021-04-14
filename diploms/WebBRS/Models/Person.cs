@@ -16,6 +16,7 @@ namespace WebBRS.Models
 		//[Column("DepartTypeID")]
 		[Required, Key]
 		public int IdPerson { get; set; }
+		public byte[] ID_1c { get; set; }
 		public string _Code { get; set; }
 		public string? FirstName { get; set; }
 		public string? LastName { get; set; }
@@ -23,7 +24,6 @@ namespace WebBRS.Models
 		public string? Email { get; set; }
 		public DateTime? DateTimeReg { get; set; }  
 		public DateTime? BirthDate { get; set; }
-		public byte[] ID_1c { get; set; }
 
 		public string? PhotoFilePath { get; set; }
 		public Person()

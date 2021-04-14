@@ -18,7 +18,7 @@ import { AttendanceGroupselectedComponent } from './attendance-groupselected/att
 import { PersonListComponent } from './person-list/person-list.component';
 import { AttedanceTableComponent } from './attedance-table/attedance-table.component';
 import { AddHomeworkComponent } from './add-homework/add-homework.component';
-import { IonicModule } from '@ionic/angular';
+
 
 //const appRoutes: Routes = [
 //  {
@@ -91,8 +91,8 @@ import { IonicModule } from '@ionic/angular';
       },
       //{ path: 'login', component: LoginComponentComponent },
       { path: '**', redirectTo: '/dashboard/mainpage', pathMatch: 'full' }
-    ]),
-    IonicModule.forRoot()
+    ])
+
   ],
   providers: [],
   bootstrap: [AppComponent]

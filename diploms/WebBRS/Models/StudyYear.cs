@@ -10,6 +10,7 @@ namespace WebBRS.Models
 	{
 		[Key]
 		public int IdStudyYear { get; set; }
+		public byte[] ID_1c { get; set; }
 		public string _Code { get; set; }
 		public string _Description { get; set; }
 		public DateTime DateTimeStart { get; set; }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using WebBRS.DAL;
 using WebBRS.Models;
@@ -36,26 +37,26 @@ namespace WebBRS.Controllers
 				return null;
 			}
 		}
-		[HttpGet("get/{id_student}")]
+		//[HttpGet("get/{id_student}")]
 
-		public IEnumerable<DoClassWorkAttend> GetNotDoned(string id_student)
-		{
-			try
-			{
-				int id_stud = Convert.ToInt32(id_student);
-				Student student = unit.Students.Get(s => s.IdStudent == id_stud);
-				StudentsGroupHistory studentsGroupHistory = unit.StudentGroupHistories.Get(sgh => sgh.Student.IdStudent == student.IdStudent);
-				Attendance attendance = unit.Attendances.Get(att => att.SGH.IdSGH == studentsGroupHistory.IdSGH);
-				IEnumerable<DoClassWorkAttend> tmp = unit.PersonHomeworks.GetAll( x=>x.Attendance.IdAtt == attendance.IdAtt);
-				//int i;
-				return tmp;
-				//return unit.CathInfo.GetAll();
-			}
-			catch (Exception ex)
-			{
-				return null;
-			}
-		}
+		//public IEnumerable<Attendance> GetNotDoned(string id_student)
+		//{
+		//	try
+		//	{
+		//		int id_stud = Convert.ToInt32(id_student);
+		//		Student student = unit.Students.Get(s => s.IdStudent.ToString() ==  id_student);
+		//		StudentsGroupHistory studentsGroupHistory = unit.StudentGroupHistories.Get(sgh => sgh.Student.IdStudent == student.IdStudent);
+		//		Attendance attendance = unit.Attendances.GetAll(att => att.SGH.IdSGH == studentsGroupHistory.IdSGH);
+		//		//IEnumerable<DoClassWorkAttend> tmp = unit.PersonHomeworks.GetAll( x=>x.Attendance.IdAtt == attendance.IdAtt);
+		//		//int i;
+		//		return attendance;
+		//		//return unit.CathInfo.GetAll();
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return null;
+		//	}
+		//}
 		// GET: HomeWorkController/Details/5
 		public ActionResult Details(int id)
 		{

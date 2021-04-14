@@ -11,6 +11,7 @@ namespace WebBRS.Models
 		[Required, Key]
 
 		public int IdSemestr { get; set; }
+		public byte[] ID_1c { get; set; }
 		public string NameSemestr { get; set; }
 	}
 	public class Semestr : SemestrBase

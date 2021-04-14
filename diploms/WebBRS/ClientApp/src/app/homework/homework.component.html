@@ -18,12 +18,8 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12">
-          <div class="callout callout-info">
-            <h5><i class="fas fa-info"></i> Note:</h5>
-            This page has been enhanced for printing. Click the print button at the bottom of the invoice to test.
-          </div>
-
+        <div class="col-6">
+        
 
           <!-- Main content -->
           <div class="invoice p-3 mb-3">
@@ -31,8 +27,8 @@
             <div class="row">
               <div class="col-12">
                 <h4>
-                  <i class="fas fa-globe"></i> AdminLTE, Inc.
-                  <small class="float-right">Date: 2/10/2014</small>
+                  <i class="fas fa-globe"></i> {{cw.SubjectGroup.NameSubject}}
+                  <small class="float-right">Выдано:{{cw.DateTimeGiven}}</small>
                 </h4>
               </div>
               <!-- /.col -->
@@ -40,145 +36,136 @@
             <!-- info row -->
             <div class="row invoice-info">
               <div class="col-sm-4 invoice-col">
-                From
+                Выдано
                 <address>
-                  <strong>Admin, Inc.</strong><br>
-                  795 Folsom Ave, Suite 600<br>
-                  San Francisco, CA 94107<br>
-                  Phone: (804) 123-5432<br>
-                  Email: info@almasaeedstudio.com
+                  <strong>{{cw.Lecturer.PersonFIO}}</strong><br>
+
+                  Email:  {{cw.Lecturer.email}}
                 </address>
               </div>
               <!-- /.col -->
               <div class="col-sm-4 invoice-col">
-                To
+                Исполнитель
                 <address>
                   <strong>John Doe</strong><br>
-                  795 Folsom Ave, Suite 600<br>
-                  San Francisco, CA 94107<br>
-                  Phone: (555) 539-1037<br>
+
                   Email: john.doe@example.com
                 </address>
               </div>
               <!-- /.col -->
-              <div class="col-sm-4 invoice-col">
-                <b>Invoice #007612</b><br>
-                <br>
-                <b>Order ID:</b> 4F3S8J<br>
-                <b>Payment Due:</b> 2/22/2014<br>
-                <b>Account:</b> 968-34567
-              </div>
+              
               <!-- /.col -->
             </div>
             <!-- /.row -->
-            <!-- Table row -->
-            <div class="row">
-              <div class="col-12 table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Qty</th>
-                      <th>Product</th>
-                      <th>Serial #</th>
-                      <th>Description</th>
-                      <th>Subtotal</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Call of Duty</td>
-                      <td>455-981-221</td>
-                      <td>El snort testosterone trophy driving gloves handsome</td>
-                      <td>$64.50</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Need for Speed IV</td>
-                      <td>247-925-726</td>
-                      <td>Wes Anderson umami biodiesel</td>
-                      <td>$50.00</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Monsters DVD</td>
-                      <td>735-845-642</td>
-                      <td>Terry Richardson helvetica tousled street art master</td>
-                      <td>$10.70</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Grown Ups Blue Ray</td>
-                      <td>422-568-642</td>
-                      <td>Tousled lomo letterpress</td>
-                      <td>$25.99</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.col -->
-            </div>
+     
             <!-- /.row -->
 
-            <div class="row">
-              <!-- accepted payments column -->
-              <div class="col-6">
-                <p class="lead">Payment Methods:</p>
-                <img src="../../assets/img/credit/visa.png" alt="Visa">
-                <img src="../../assets/img/credit/mastercard.png" alt="Mastercard">
-                <img src="../../assets/img/credit/american-express.png" alt="American Express">
-                <img src="../../assets/img/credit/paypal2.png" alt="Paypal">
-
-                <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                  Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
-                  plugg
-                  dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-                </p>
-              </div>
-              <!-- /.col -->
-              <div class="col-6">
-                <p class="lead">Amount Due 2/22/2014</p>
-
-                <div class="table-responsive">
-                  <table class="table">
-                    <tr>
-                      <th style="width:50%">Subtotal:</th>
-                      <td>$250.30</td>
-                    </tr>
-                    <tr>
-                      <th>Tax (9.3%)</th>
-                      <td>$10.34</td>
-                    </tr>
-                    <tr>
-                      <th>Shipping:</th>
-                      <td>$5.80</td>
-                    </tr>
-                    <tr>
-                      <th>Total:</th>
-                      <td>$265.24</td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-              <!-- /.col -->
-            </div>
+        
             <!-- /.row -->
             <!-- this row will not appear when printing -->
             <div class="row no-print">
               <div class="col-12">
-                <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                <button type="button" class="btn btn-success float-right">
-                  <i class="far fa-credit-card"></i> Submit
-                  Payment
-                </button>
+                <div class="form-group">
+                  <!-- /.mailbox-controls -->
+                  <div class="mailbox-read-message">
+                    <p>Hello John,</p>
+
+                    <p>
+                      Keffiyeh blog actually fashion axe vegan, irony biodiesel. Cold-pressed hoodie chillwave put a bird
+                      on it aesthetic, bitters brunch meggings vegan iPhone. Dreamcatcher vegan scenester mlkshk. Ethical
+                      master cleanse Bushwick, occupy Thundercats banjo cliche ennui farm-to-table mlkshk fanny pack
+                      gluten-free. Marfa butcher vegan quinoa, bicycle rights disrupt tofu scenester chillwave 3 wolf moon
+                      asymmetrical taxidermy pour-over. Quinoa tote bag fashion axe, Godard disrupt migas church-key tofu
+                      blog locavore. Thundercats cronut polaroid Neutra tousled, meh food truck selfies narwhal American
+                      Apparel.
+                    </p>
+
+                    <p>
+                      Raw denim McSweeney's bicycle rights, iPhone trust fund quinoa Neutra VHS kale chips vegan PBR&amp;B
+                      literally Thundercats +1. Forage tilde four dollar toast, banjo health goth paleo butcher. Four dollar
+                      toast Brooklyn pour-over American Apparel sustainable, lumbersexual listicle gluten-free health goth
+                      umami hoodie. Synth Echo Park bicycle rights DIY farm-to-table, retro kogi sriracha dreamcatcher PBR&amp;B
+                      flannel hashtag irony Wes Anderson. Lumbersexual Williamsburg Helvetica next level. Cold-pressed
+                      slow-carb pop-up normcore Thundercats Portland, cardigan literally meditation lumbersexual crucifix.
+                      Wayfarers raw denim paleo Bushwick, keytar Helvetica scenester keffiyeh 8-bit irony mumblecore
+                      whatever viral Truffaut.
+                    </p>
+
+                    <p>
+                      Post-ironic shabby chic VHS, Marfa keytar flannel lomo try-hard keffiyeh cray. Actually fap fanny
+                      pack yr artisan trust fund. High Life dreamcatcher church-key gentrify. Tumblr stumptown four dollar
+                      toast vinyl, cold-pressed try-hard blog authentic keffiyeh Helvetica lo-fi tilde Intelligentsia. Lomo
+                      locavore salvia bespoke, twee fixie paleo cliche brunch Schlitz blog McSweeney's messenger bag swag
+                      slow-carb. Odd Future photo booth pork belly, you probably haven't heard of them actually tofu ennui
+                      keffiyeh lo-fi Truffaut health goth. Narwhal sustainable retro disrupt.
+                    </p>
+
+                    <p>
+                      Skateboard artisan letterpress before they sold out High Life messenger bag. Bitters chambray
+                      leggings listicle, drinking vinegar chillwave synth. Fanny pack hoodie American Apparel twee. American
+                      Apparel PBR listicle, salvia aesthetic occupy sustainable Neutra kogi. Organic synth Tumblr viral
+                      plaid, shabby chic single-origin coffee Etsy 3 wolf moon slow-carb Schlitz roof party tousled squid
+                      vinyl. Readymade next level literally trust fund. Distillery master cleanse migas, Vice sriracha
+                      flannel chambray chia cronut.
+                    </p>
+
+                    <p>Thanks,<br>Jane</p>
+                  </div>
+                </div>
                 <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                  <i class="fas fa-download"></i> Generate PDF
+                  <i class="fas fa-download"></i> Скачать файл
                 </button>
               </div>
             </div>
           </div>
           <!-- /.invoice -->
         </div><!-- /.col -->
+        <div class="col-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Выполненное задание </h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Ответ</label>
+                  <textarea class="textarea" placeholder="Введите текст"
+                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                  <p class="text-sm mb-0">
+                    Editor <a href="https://github.com/summernote/summernote">
+                      Documentation and license
+                      information.
+                    </a>
+                  </p>
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputFile">Файл ответа</label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="exampleInputFile">
+                      <label class="custom-file-label" for="exampleInputFile">Прикрепите файл</label>
+                    </div>
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="">Загрузить</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Подтверждение</label>
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </section>

@@ -17,7 +17,7 @@ namespace WebBRS.Models
 		public string  FilePathWork { get; set; }
 		public double MaxBall { get; set; }
 		public List<DoClassWorkAttend> DoClassWorkAttends { get; set; } = new List<DoClassWorkAttend>();
-		[ForeignKey("IdWT")]
+
 		public WorkType WorkType { get; set; }
 		public DateTime DateGiven { get; set; }
 	}

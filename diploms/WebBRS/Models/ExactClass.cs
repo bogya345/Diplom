@@ -22,6 +22,10 @@ namespace WebBRS.Models
 		public ExactClassForLecturerClass ExactClassForLecturerClass { get; set; }
 		public virtual SubjectLecturer SubjectLecturer { get; set; }
 		public  Person PersonLecturer { get; set; }
+		public byte[] ID_1c_person { get; set; }
+		public byte[] ID_1c_audit { get; set; }
+		public Department Auditory { get; set; }
+
 		public virtual List<ClassWork> ClassWorks { get; set; } = new List<ClassWork>();
 		public virtual List<Attendance> Attendances { get; set; } = new List<Attendance>();
 		

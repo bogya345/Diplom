@@ -9,7 +9,8 @@ namespace WebBRS.Models
 	public class TypeStudy
 	{
 		[Required, Key]
-		public int IdTS { get; set; }
+		public int  IdTS { get; set; }
+		public byte[] ID_1c { get; set; }
 		public string TypeStudyName { get; set; }
 		public string ShortTypeStudyName { get; set; }
 		public List<SubjectForGroup> SubjectForGroups { get; set; }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using WebBRS.DAL;
 using WebBRS.Models;
@@ -32,12 +33,12 @@ namespace WebBRS.Controllers
 				if (actual=="true") 
 				{
 					List<StudentsGroupHistory> students = unit.StudentGroupHistories
-								.GetAll(s => s.Group.IdGroup == Convert.ToInt32(id_selected_group) && s.DateSGHFinished == null).ToList();
+								.GetAll(s => s.Group.IdGroup.ToString() == id_selected_group && s.DateSGHFinished == null).ToList();
 				}
 				else
 				{
 					List<StudentsGroupHistory> students = unit.StudentGroupHistories
-							.GetAll(s => s.Group.IdGroup == Convert.ToInt32(id_selected_group)).ToList();
+							.GetAll(s => s.Group.IdGroup.ToString() ==id_selected_group).ToList();
 				}
 
 				foreach (ExactClass exactClass in exactClasses)

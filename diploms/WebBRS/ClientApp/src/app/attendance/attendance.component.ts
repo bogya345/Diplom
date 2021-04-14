@@ -22,7 +22,7 @@ export class AttendanceComponent implements OnInit {
     this.fileToUpload = files.item(0);
   }
   public attedanced: Array<string> = ['н', 'б', 'оу'];
-  public studentsTest: Array<Student> =
+  public studentsTest: Array<StudentEXC> =
 
     [
       {
@@ -45,6 +45,48 @@ export class AttendanceComponent implements OnInit {
         Attedanced: this.attedanced,
         Ball: 1,
         HW: this.hw
+      },
+      {
+        IdStudent: 4,
+        PersonFIO: 'Student3',
+        Attedanced: this.attedanced,
+        Ball: 1,
+        HW: this.hw
+      },
+      {
+        IdStudent: 5,
+        PersonFIO: 'Student3',
+        Attedanced: this.attedanced,
+        Ball: 1,
+        HW: this.hw
+      },
+      {
+        IdStudent: 6,
+        PersonFIO: 'Student3',
+        Attedanced: this.attedanced,
+        Ball: 1,
+        HW: this.hw
+      },
+      {
+        IdStudent: 7,
+        PersonFIO: 'Student3',
+        Attedanced: this.attedanced,
+        Ball: 1,
+        HW: this.hw
+      },
+      {
+        IdStudent: 8,
+        PersonFIO: 'Student3',
+        Attedanced: this.attedanced,
+        Ball: 1,
+        HW: this.hw
+      },
+      {
+        IdStudent: 9,
+        PersonFIO: 'Student3',
+        Attedanced: this.attedanced,
+        Ball: 1,
+        HW: this.hw
       }
     ];
   public groupsTest: Array<Group> =
@@ -60,7 +102,7 @@ export class AttendanceComponent implements OnInit {
   public lecturer: Lecturer =
     {
       IdLecturer: 1,
-      PesonFIO: 'Lecturer1'
+      PersonFIO: 'Lecturer1'
     }
   public exactClassesTest: Array<ExactClass> =
     [
@@ -157,7 +199,7 @@ export class AttendanceComponent implements OnInit {
     Students: this.studentsTest,
     Groups: this.groupsTest,
     SubjectName: 'Subject1',
-    DateTime: '08-03-2021'
+    DateTime: '08-03-21'
   }
   ngOnInit() {
   }
@@ -174,17 +216,17 @@ interface Group {
   idGroup: number,
   GroupName: string,
   Specialty: string,
-  Students: Student[]
+  Students: StudentEXC[]
 }
 interface ExactClassForLecturerClass {
   IdECFLC: number,
   Lecturer: Lecturer,
-  Students: Student[],
+  Students: StudentEXC[],
   Groups: Group[],
   SubjectName: string
   DateTime: string
 }
-interface Student {
+interface StudentEXC {
   IdStudent: number,
   PersonFIO: string,
   Attedanced: string[],
@@ -198,7 +240,7 @@ interface HomeWorkStudent {
 }
 interface Lecturer {
   IdLecturer: number,
-  PesonFIO: string
+  PersonFIO: string
 
 }
 

@@ -34,7 +34,7 @@ export class AttedanceTableComponent implements OnInit {
       '/',
 
     ]
-  public studentsTest: Array<Student> =
+  public studentsTest: Array<StudentTable> =
 
     [
       {
@@ -83,8 +83,8 @@ export class AttedanceTableComponent implements OnInit {
         Attedanced: this.AttedanceTest
       }
     ];
-
-  public groupsTest: Array<Group> =
+  public selectedGroup: GroupAttedanceTable;
+  public groupsTest: Array<GroupAttedanceTable> =
     [
       {
         idGroup: 1, GroupName: 'ИСТ-17', Specialty: 'ИСТ', Students: this.studentsTest
@@ -99,91 +99,91 @@ export class AttedanceTableComponent implements OnInit {
   public lecturer: Lecturer =
     {
       IdLecturer: 1,
-      PesonFIO:'Lecturer1'
+      PersonFIO:'Lecturer1'
     }
   public exactClassesTest: Array<ExactClass> =
     [
       {
         IdClass: 1,
-        DateExactClass: '06-03-2021',
+        DateExactClass: '06-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       },
       {
         IdClass: 2,
-        DateExactClass: '08-03-2021',
+        DateExactClass: '08-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       },
       {
         IdClass: 3,
-        DateExactClass: '08-03-2021',
+        DateExactClass: '08-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       },
       {
         IdClass: 4,
-        DateExactClass: '08-03-2021',
+        DateExactClass: '08-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       },
       {
         IdClass: 5,
-        DateExactClass: '08-03-2021',
+        DateExactClass: '08-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       },
       {
         IdClass: 6,
-        DateExactClass: '08-03-2021',
+        DateExactClass: '08-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       },
       {
         IdClass: 6,
-        DateExactClass: '08-03-2021',
+        DateExactClass: '08-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       },
       {
         IdClass: 6,
-        DateExactClass: '08-03-2021',
+        DateExactClass: '08-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       },
       {
         IdClass: 6,
-        DateExactClass: '08-03-2021',
+        DateExactClass: '08-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       },
       {
         IdClass: 6,
-        DateExactClass: '08-03-2021',
+        DateExactClass: '08-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       },
       {
         IdClass: 6,
-        DateExactClass: '08-03-2021',
+        DateExactClass: '08-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       },
       {
         IdClass: 6,
-        DateExactClass: '08-03-2021',
+        DateExactClass: '08-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       },
       {
         IdClass: 6,
-        DateExactClass: '08-03-2021',
+        DateExactClass: '08-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       },
       {
         IdClass: 6,
-        DateExactClass: '08-03-2021',
+        DateExactClass: '08-03-21',
         numberClass: 1,
         Group: this.groupsTest[1]
       }
@@ -196,7 +196,10 @@ export class AttedanceTableComponent implements OnInit {
       Groups: this.groupsTest,
       SubjectName: "subject"
   };
-
+  selectChangeHandler(event: any) {
+    //update the ui
+    this.selectedGroup = event.target.value;
+  }
   constructor() { }
 
   ngOnInit() {
@@ -205,36 +208,38 @@ export class AttedanceTableComponent implements OnInit {
     //    this.exactClassForLecturerClass = result;
     //    console.log('result/constructor', result);
     console.log(this.exactClassForLecturerClass)
+    console.log(this.selectedGroup);
     //  }, error => {
     //    console.log('error/constructor', error);
     //  }
     //  );
+
   }
 
 
 
 }
-interface Group {
+interface GroupAttedanceTable {
   idGroup: number,
   GroupName: string,
   Specialty: string,
-  Students: Student[]
+  Students: StudentTable[]
 }
 interface ExactClassForLecturerClassTable {
   IdECFLCT: number,
   Lecturer: Lecturer,
   ExactClasses: ExactClass[],
-  Groups: Group[],
+  Groups: GroupAttedanceTable[],
   SubjectName: string
 }
-interface Student {
+interface StudentTable {
   IdStudent: number,
   PersonFIO: string,
   Attedanced: string[]
 }
 interface Lecturer {
   IdLecturer: number,
-  PesonFIO: string
+  PersonFIO: string
 
 }
 
@@ -242,5 +247,5 @@ interface ExactClass {
   IdClass: number,
   DateExactClass: string,
   numberClass: number,
-  Group: Group
+  Group: GroupAttedanceTable
 }

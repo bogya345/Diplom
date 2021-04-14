@@ -10,6 +10,7 @@ namespace WebBRS.Models
 	{
 		[Required, Key]
 		public int IdWT { get; set; }
+		public byte[] ID_1c { get; set; }
 		public string WorkTypeName { get; set; }
 		public string ShortWorkTypeName { get; set; }
 		public List<ClassWork> ClassWorks { get; set; } = new List<ClassWork>();

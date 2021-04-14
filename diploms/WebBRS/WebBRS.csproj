@@ -1827,7 +1827,7 @@
     <Folder Include="ClientApp\src\dist\" />
     <Folder Include="ClientApp\src\Новая папка\" />
     <Folder Include="Services\Excel\" />
-    <Folder Include="ViewModels\" />
+    <Folder Include="ViewModels\toSend\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

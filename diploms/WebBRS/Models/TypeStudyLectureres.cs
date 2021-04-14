@@ -8,9 +8,9 @@ namespace WebBRS.Models
 {
 	public class TypeStudyLectureres
 	{
-		public int IdSL { get; set; }
-		public int IdLecturer { get; set; }
-		public int IdTypeStudy { get; set; }
+		public byte[] IdSL { get; set; }
+		public byte[] IdLecturer { get; set; }
+		public byte[] IdTypeStudy { get; set; }
 
 		[ForeignKey("IdLecturer")]
 		public virtual Lecturer Lecturer { get; set; }

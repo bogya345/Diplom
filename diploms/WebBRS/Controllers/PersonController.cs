@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using WebBRS.Models;
 using WebBRS.DAL;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace WebBRS.Controllers
 {
@@ -31,6 +34,7 @@ namespace WebBRS.Controllers
 			Ideas.Add(idea);
 		}
 	}
+
 	public class StormSessionViewModel
 	{
 		public int Id { get; set; }
@@ -49,6 +53,11 @@ namespace WebBRS.Controllers
 	{
 		[Required]
 		public string SessionName { get; set; }
+	}
+	public class SerTest
+	{
+		public string TITLE { get; set; }
+		public string NAME { get; set; }
 	}
 
 
@@ -69,14 +78,47 @@ namespace WebBRS.Controllers
 
 			return View(model);
 		}
+		[Route("testSerioja")]
 
+		public async Task PostRequestAsync()
+		{
+			
+			SerTest serTest = new SerTest();
+			serTest.TITLE = "kek1";
+			serTest.NAME = "kekName";
+			WebRequest request = WebRequest.CreateHttp("https://avdetailing.bitrix24.ru/rest/1/h5ygusbnly052bsc/crm.lead.add.json?" + "FIELDS[TITLE] =" + serTest.TITLE +" & FIELDS[NAME] = " + serTest.NAME);
+			request.Method = "POST"; // для отправки используется метод Post
+			//						 // данные для отправки
+			//string data = JsonConvert.SerializeObject(serTest);
+			//// преобразуем данные в массив байтов
+			//byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(data);
+			//// устанавливаем тип содержимого - параметр ContentType
+			//request.ContentType = "application/x-www-form-urlencoded";
+			//// Устанавливаем заголовок Content-Length запроса - свойство ContentLength
+			//request.ContentLength = byteArray.Length;
+			////записываем данные в поток запроса
+			//using (Stream dataStream = request.GetRequestStream())
+			//{
+			//	dataStream.Write(byteArray, 0, byteArray.Length);
+			//}
 
+			WebResponse response =  request.GetResponse();
+			//using (Stream stream = response.GetResponseStream())
+			//{
+			//	using (StreamReader reader = new StreamReader(stream))
+			//	{
+			//		Console.WriteLine(reader.ReadToEnd());
+			//	}
+			//}
+			response.Close();
+			Console.WriteLine("Запрос выполнен...");
+		}
 		[HttpPost]
 		public async Task<IActionResult> Index(NewSessionModel model)
 		{
 			if (!ModelState.IsValid)
 			{
-				return BadRequest(ModelState);
+				//return BadRequest(ModelState);
 			}
 			else
 			{
@@ -91,10 +133,10 @@ namespace WebBRS.Controllers
 		}
 		private readonly IBrainstormSessionRepository _sessionRepository;
 
-		public PersonController(IBrainstormSessionRepository sessionRepository)
-		{
-			_sessionRepository = sessionRepository;
-		}
+		//public PersonController(IBrainstormSessionRepository sessionRepository)
+		//{
+		//	_sessionRepository = sessionRepository;
+		//}
 		private UnitOfWork unit = new UnitOfWork();
 		//public PersonController(UnitOfWork sessionRepository)
 		//{

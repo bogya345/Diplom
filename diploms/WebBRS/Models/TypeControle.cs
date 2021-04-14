@@ -10,6 +10,7 @@ namespace WebBRS.Models
 	{
 		[Key]
 		public int IdTC { get; set; }
+		public byte[] ID_1c { get; set; }
 		public bool _Marked { get; set; }
 		public string _Code { get; set; }
 		public string _Descriptpion { get; set; }

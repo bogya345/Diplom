@@ -11,7 +11,8 @@ namespace WebBRS.Models
 	{
 		//[Column("IdDepart")]
 		[Required, Key]
-		public Guid DepartmentGUID { get; set; }
+		public int DepartmentID { get; set; }
+		public byte[] ID_1c { get; set; }
 		[Required]
 		public string FullNameDepart { get; set; }
 		[Required]
@@ -19,7 +20,7 @@ namespace WebBRS.Models
 
 		[ForeignKey("HeadDepartId")]
 		public Department HeadDepart { get; set; }
-		[ForeignKey("DepartmentTypeID")]
+
 		public DepartmentType DepartmentType { get; set; }
 		public List<Department> Departments { get; set; }
 		public List<Group> Groups { get; set; }

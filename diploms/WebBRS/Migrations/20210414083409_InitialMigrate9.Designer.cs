@@ -10,8 +10,8 @@ using WebBRS.DAL;
 namespace WebBRS.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210401083220_CreateInitial4")]
-    partial class CreateInitial4
+    [Migration("20210414083409_InitialMigrate9")]
+    partial class InitialMigrate9
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,11 +34,16 @@ namespace WebBRS.Migrations
                     b.Property<int?>("SGHIdSGH")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TypeAttedanceIdTA")
+                        .HasColumnType("int");
+
                     b.HasKey("IdAtt");
 
                     b.HasIndex("ExactClassIdClass");
 
                     b.HasIndex("SGHIdSGH");
+
+                    b.HasIndex("TypeAttedanceIdTA");
 
                     b.ToTable("Attendances");
                 });
@@ -102,20 +107,20 @@ namespace WebBRS.Migrations
                     b.Property<int?>("IdClasss")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdWT")
-                        .HasColumnType("int");
-
                     b.Property<double>("MaxBall")
                         .HasColumnType("float");
 
                     b.Property<string>("TextWork")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("WorkTypeIdWT")
+                        .HasColumnType("int");
+
                     b.HasKey("IdClassWork");
 
                     b.HasIndex("IdClasss");
 
-                    b.HasIndex("IdWT");
+                    b.HasIndex("WorkTypeIdWT");
 
                     b.ToTable("ClassWorks");
                 });
@@ -126,6 +131,9 @@ namespace WebBRS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("_Description")
                         .HasColumnType("nvarchar(max)");
@@ -142,6 +150,9 @@ namespace WebBRS.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("_Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -153,29 +164,64 @@ namespace WebBRS.Migrations
                     b.ToTable("Courses");
                 });
 
+            modelBuilder.Entity("WebBRS.Models.Curator", b =>
+                {
+                    b.Property<int>("CuratorID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Actual")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("DateTimeEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateTimeStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("GroupIdGroup")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PersonIdPerson")
+                        .HasColumnType("int");
+
+                    b.HasKey("CuratorID");
+
+                    b.HasIndex("GroupIdGroup");
+
+                    b.HasIndex("PersonIdPerson");
+
+                    b.ToTable("Curators");
+                });
+
             modelBuilder.Entity("WebBRS.Models.Department", b =>
                 {
-                    b.Property<Guid>("DepartmentGUID")
+                    b.Property<int>("DepartmentID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DepartmentTypeID")
+                    b.Property<int?>("DepartmentTypeDepartTypeID")
                         .HasColumnType("int");
 
                     b.Property<string>("FullNameDepart")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("HeadDepartId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("HeadDepartId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("ShortNameDepart")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DepartmentGUID");
+                    b.HasKey("DepartmentID");
 
-                    b.HasIndex("DepartmentTypeID");
+                    b.HasIndex("DepartmentTypeDepartTypeID");
 
                     b.HasIndex("HeadDepartId");
 
@@ -192,6 +238,9 @@ namespace WebBRS.Migrations
                     b.Property<string>("FullDepartTypeName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("ShortDepartTypeName")
                         .IsRequired()
@@ -230,11 +279,11 @@ namespace WebBRS.Migrations
                     b.Property<int?>("IdClassWork")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdWPS")
-                        .HasColumnType("int");
-
                     b.Property<string>("TextDoClassWork")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("WorkPersonStatusIdWPS")
+                        .HasColumnType("int");
 
                     b.HasKey("IdDCWA");
 
@@ -242,7 +291,7 @@ namespace WebBRS.Migrations
 
                     b.HasIndex("IdClassWork");
 
-                    b.HasIndex("IdWPS");
+                    b.HasIndex("WorkPersonStatusIdWPS");
 
                     b.ToTable("DoClassWorkAttends");
                 });
@@ -253,6 +302,9 @@ namespace WebBRS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AuditoryDepartmentID")
+                        .HasColumnType("int");
 
                     b.Property<byte>("ClassNumber")
                         .HasColumnType("tinyint");
@@ -265,6 +317,12 @@ namespace WebBRS.Migrations
 
                     b.Property<int?>("ExactClassForLecturerClassIdEXCFLC")
                         .HasColumnType("int");
+
+                    b.Property<byte[]>("ID_1c_audit")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("ID_1c_person")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int?>("IdSFG")
                         .HasColumnType("int");
@@ -282,6 +340,8 @@ namespace WebBRS.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("IdClass");
+
+                    b.HasIndex("AuditoryDepartmentID");
 
                     b.HasIndex("ExactClassForLecturerClassIdEXCFLC");
 
@@ -329,25 +389,31 @@ namespace WebBRS.Migrations
                     b.Property<DateTime?>("DateExit")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DepartmentGroupDepartmentID")
+                        .HasColumnType("int");
+
                     b.Property<string>("GroupName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("IdDepart")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("IdGroupPrev")
+                    b.Property<int?>("GroupPrevIdGroup")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdSpec")
+                    b.Property<byte[]>("GroupPrev_ID_1c")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int?>("SpecialtyIdSpec")
                         .HasColumnType("int");
 
                     b.HasKey("IdGroup");
 
-                    b.HasIndex("IdDepart");
+                    b.HasIndex("DepartmentGroupDepartmentID");
 
-                    b.HasIndex("IdGroupPrev");
+                    b.HasIndex("GroupPrevIdGroup");
 
-                    b.HasIndex("IdSpec");
+                    b.HasIndex("SpecialtyIdSpec");
 
                     b.ToTable("Groups");
                 });
@@ -415,6 +481,9 @@ namespace WebBRS.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("NameSemestr")
                         .HasColumnType("nvarchar(max)");
 
@@ -429,6 +498,9 @@ namespace WebBRS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("NameSpec")
                         .HasColumnType("nvarchar(max)");
@@ -451,6 +523,9 @@ namespace WebBRS.Migrations
                     b.Property<byte[]>("ID_1c")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<byte[]>("ID_Person_1c")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<int>("IdPerson")
                         .HasColumnType("int");
 
@@ -471,14 +546,32 @@ namespace WebBRS.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ConditionOfPersonIdConditionOfPerson")
+                        .HasColumnType("int");
+
                     b.Property<int?>("CourseIdCourse")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateSGHFinished")
+                    b.Property<DateTime?>("DateSGHFinished")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateSGHStart")
                         .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("ID_1c_CounditionOfPerson")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("ID_1c_Course")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("ID_1c_Group")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("ID_1c_Person")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int?>("IdGroup")
                         .HasColumnType("int");
@@ -487,6 +580,8 @@ namespace WebBRS.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("IdSGH");
+
+                    b.HasIndex("ConditionOfPersonIdConditionOfPerson");
 
                     b.HasIndex("CourseIdCourse");
 
@@ -504,8 +599,11 @@ namespace WebBRS.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid?>("FacultetDepartmentGUID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("FacultetDepartmentID")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int?>("SpecialtyIdSpec")
                         .HasColumnType("int");
@@ -521,7 +619,7 @@ namespace WebBRS.Migrations
 
                     b.HasKey("IdStudyPlan");
 
-                    b.HasIndex("FacultetDepartmentGUID");
+                    b.HasIndex("FacultetDepartmentID");
 
                     b.HasIndex("SpecialtyIdSpec");
 
@@ -547,6 +645,9 @@ namespace WebBRS.Migrations
                     b.Property<DateTime>("DateTimeStart")
                         .HasColumnType("datetime2");
 
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("_Code")
                         .HasColumnType("nvarchar(max)");
 
@@ -567,6 +668,9 @@ namespace WebBRS.Migrations
 
                     b.Property<DateTime>("DateTimeSubject")
                         .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("NameSubject")
                         .HasColumnType("nvarchar(max)");
@@ -647,12 +751,33 @@ namespace WebBRS.Migrations
                     b.ToTable("SubjectLecturers");
                 });
 
+            modelBuilder.Entity("WebBRS.Models.TypeAttedance", b =>
+                {
+                    b.Property<int>("IdTA")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("TAName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TAShortName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdTA");
+
+                    b.ToTable("TypeAttedances");
+                });
+
             modelBuilder.Entity("WebBRS.Models.TypeControl", b =>
                 {
                     b.Property<int>("IdTC")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("_Code")
                         .HasColumnType("nvarchar(max)");
@@ -678,6 +803,9 @@ namespace WebBRS.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("ShortTypeStudyName")
                         .HasColumnType("nvarchar(max)");
 
@@ -695,6 +823,9 @@ namespace WebBRS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("_Code")
                         .HasColumnType("nvarchar(max)");
@@ -749,6 +880,9 @@ namespace WebBRS.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("WorkpersonStatusName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -767,6 +901,9 @@ namespace WebBRS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("ID_1c")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("ShortWorkTypeName")
                         .HasColumnType("nvarchar(max)");
@@ -789,9 +926,15 @@ namespace WebBRS.Migrations
                         .WithMany("Attendances")
                         .HasForeignKey("SGHIdSGH");
 
+                    b.HasOne("WebBRS.Models.TypeAttedance", "TypeAttedance")
+                        .WithMany()
+                        .HasForeignKey("TypeAttedanceIdTA");
+
                     b.Navigation("ExactClass");
 
                     b.Navigation("SGH");
+
+                    b.Navigation("TypeAttedance");
                 });
 
             modelBuilder.Entity("WebBRS.Models.Auth.User", b =>
@@ -817,18 +960,33 @@ namespace WebBRS.Migrations
 
                     b.HasOne("WebBRS.Models.WorkType", "WorkType")
                         .WithMany("ClassWorks")
-                        .HasForeignKey("IdWT");
+                        .HasForeignKey("WorkTypeIdWT");
 
                     b.Navigation("ExactClass");
 
                     b.Navigation("WorkType");
                 });
 
+            modelBuilder.Entity("WebBRS.Models.Curator", b =>
+                {
+                    b.HasOne("WebBRS.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupIdGroup");
+
+                    b.HasOne("WebBRS.Models.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonIdPerson");
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Person");
+                });
+
             modelBuilder.Entity("WebBRS.Models.Department", b =>
                 {
                     b.HasOne("WebBRS.Models.DepartmentType", "DepartmentType")
                         .WithMany("Departments")
-                        .HasForeignKey("DepartmentTypeID");
+                        .HasForeignKey("DepartmentTypeDepartTypeID");
 
                     b.HasOne("WebBRS.Models.Department", "HeadDepart")
                         .WithMany("Departments")
@@ -851,7 +1009,7 @@ namespace WebBRS.Migrations
 
                     b.HasOne("WebBRS.Models.WorkPersonStatus", "WorkPersonStatus")
                         .WithMany()
-                        .HasForeignKey("IdWPS");
+                        .HasForeignKey("WorkPersonStatusIdWPS");
 
                     b.Navigation("Attendance");
 
@@ -862,6 +1020,10 @@ namespace WebBRS.Migrations
 
             modelBuilder.Entity("WebBRS.Models.ExactClass", b =>
                 {
+                    b.HasOne("WebBRS.Models.Department", "Auditory")
+                        .WithMany()
+                        .HasForeignKey("AuditoryDepartmentID");
+
                     b.HasOne("WebBRS.Models.ExactClassForLecturerClass", "ExactClassForLecturerClass")
                         .WithMany("ExactClasses")
                         .HasForeignKey("ExactClassForLecturerClassIdEXCFLC");
@@ -881,6 +1043,8 @@ namespace WebBRS.Migrations
                     b.HasOne("WebBRS.Models.SubjectLecturer", "SubjectLecturer")
                         .WithMany()
                         .HasForeignKey("SubjectLecturerIdLecturer", "SubjectLecturerIdSubject");
+
+                    b.Navigation("Auditory");
 
                     b.Navigation("ExactClassForLecturerClass");
 
@@ -904,15 +1068,15 @@ namespace WebBRS.Migrations
                 {
                     b.HasOne("WebBRS.Models.Department", "DepartmentGroup")
                         .WithMany("Groups")
-                        .HasForeignKey("IdDepart");
+                        .HasForeignKey("DepartmentGroupDepartmentID");
 
                     b.HasOne("WebBRS.Models.Group", "GroupPrev")
                         .WithMany("PrevGroups")
-                        .HasForeignKey("IdGroupPrev");
+                        .HasForeignKey("GroupPrevIdGroup");
 
                     b.HasOne("WebBRS.Models.Specialty", "Specialty")
                         .WithMany("Groups")
-                        .HasForeignKey("IdSpec");
+                        .HasForeignKey("SpecialtyIdSpec");
 
                     b.Navigation("DepartmentGroup");
 
@@ -943,6 +1107,10 @@ namespace WebBRS.Migrations
 
             modelBuilder.Entity("WebBRS.Models.StudentsGroupHistory", b =>
                 {
+                    b.HasOne("WebBRS.Models.ConditionOfPerson", "ConditionOfPerson")
+                        .WithMany()
+                        .HasForeignKey("ConditionOfPersonIdConditionOfPerson");
+
                     b.HasOne("WebBRS.Models.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseIdCourse");
@@ -955,6 +1123,8 @@ namespace WebBRS.Migrations
                         .WithMany("StudentsGroupHistories")
                         .HasForeignKey("IdStudent");
 
+                    b.Navigation("ConditionOfPerson");
+
                     b.Navigation("Course");
 
                     b.Navigation("Group");
@@ -966,7 +1136,7 @@ namespace WebBRS.Migrations
                 {
                     b.HasOne("WebBRS.Models.Department", "Facultet")
                         .WithMany()
-                        .HasForeignKey("FacultetDepartmentGUID");
+                        .HasForeignKey("FacultetDepartmentID");
 
                     b.HasOne("WebBRS.Models.Specialty", "Specialty")
                         .WithMany()

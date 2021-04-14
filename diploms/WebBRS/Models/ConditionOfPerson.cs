@@ -10,7 +10,8 @@ namespace WebBRS.Models
 	{
 		[Required, Key]
 
-		public int IdConditionOfPerson { get; set; }
+		public int  IdConditionOfPerson { get; set; }
+		public byte[] ID_1c { get; set; }
 		public string _Description { get; set; }
 
 	}

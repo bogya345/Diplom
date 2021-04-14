@@ -13,15 +13,15 @@ namespace WebBRS.Models
 		public int IdDCWA { get; set; }
 		[ForeignKey("IdClassWork")]
 		public ClassWork ClassWork { get; set; }
-		[ForeignKey("IdAtt")]
-		public Attendance Attendance { get; set; }
+		//[ForeignKey("IdAtt")]
+		//public Attendance Attendance { get; set; }
 		public DateTime DateTimePass { get; set; }
 		public string TextDoClassWork { get; set; }
 		public string FilePath { get; set; }
 		public double Ball { get; set; }
 		public bool Done { get; set; }
 		public DateTime? DatePass { get; set; }
-		[ForeignKey("IdWPS")]
+
 
 		public WorkPersonStatus WorkPersonStatus { get; set; }
 	}

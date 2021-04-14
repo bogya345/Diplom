@@ -13,6 +13,8 @@ namespace WebBRS.Models
 		//[Column("DepartTypeID")]
 		[Required, Key]
 		public int IdStudent { get; set; }
+		public byte[] ID_Person_1c { get; set; }
+
 
 		[ForeignKey("IdPerson")]
 		public int IdPerson { get; set; }

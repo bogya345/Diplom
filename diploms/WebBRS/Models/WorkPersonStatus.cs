@@ -10,7 +10,8 @@ namespace WebBRS.Models
 	{
 		[Required, Key]
 
-		public int IdWPS { get; set; }
+		public int  IdWPS { get; set; }
+		public byte[] ID_1c { get; set; }
 		[Required]
 
 		public string WorkpersonStatusName { get; set; }

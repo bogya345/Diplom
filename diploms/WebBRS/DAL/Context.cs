@@ -13,9 +13,11 @@ namespace WebBRS.DAL
 	{
 		#region Tables
 		public DbSet<Attendance> Attendances { get; set; }
+		public DbSet<TypeAttedance> TypeAttedances { get; set; }
 		public DbSet<TypeControl> TypeControls { get; set; }
 		public DbSet<ExactClassForLecturerClass> ExactClassForLecturerClasses { get; set; }
 		public DbSet<ClassWork> ClassWorks { get; set; }
+		public DbSet<Curator> Curators { get; set; }
 		public DbSet<ConditionOfPerson> ConditionOfPersons { get; set; }
 		public DbSet<Course> Courses { get; set; }
 		public DbSet<WorkPersonStatus> WorkPersonStatuses { get; set; }
@@ -51,8 +53,8 @@ namespace WebBRS.DAL
 		}
 		public MyContext()
 		{
-			//Database.EnsureDeleted();   // удаляем бд со старой схемой
-			//Database.EnsureCreated();   // создаем бд с новой схемой
+			Database.EnsureDeleted();   // удаляем бд со старой схемой
+			Database.EnsureCreated();   // создаем бд с новой схемой
 		}
 
 		public MyContext getContext()

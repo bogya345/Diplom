@@ -21,68 +21,27 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-3">
-          <div class="sticky-top mb-3">
+
+          <div class=" mb-3" *ngFor="let i of Days1; let n = index">
 
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Понедельник</h4>
+                <h4 class="card-title">{{i.DayName}}</h4>
               </div>
               <div class="card-body">
                 <!-- the events -->
                 <div class="row">
                   <div class="col-md-8">
-                    <div id="external-events">
-                      <div class="external-event bg-gradient-blue">Математика</div>
-                      <div class="external-event bg-gray">Схемотехника</div>
-                      <div class="external-event  bg-gradient-blue">Философия</div>
-                      <div class="external-event  bg-gradient-red">Алгоритмы численных методов</div>
-                    </div>
-
-                  </div>
-
-                  <div class="col-md-4">
-                    <div id="external-events">
-                      <div class="external-event ">413 Л</div>
-                      <div class="external-event">212 К</div>
-                      <div class="external-event ">215 Л</div>
-                      <div class="external-event ">515 К</div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-
-          </div>
-          <div class="sticky-top mb-3">
-
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">Вторник</h4>
-              </div>
-              <div class="card-body">
-                <!-- the events -->
-                <div class="row">
-                  <div class="col-md-8">
-                    <div id="external-events">
-                      <div class="external-event bg-gradient-blue">Математика</div>
-                      <div class="external-event bg-gray">Схемотехника</div>
-                      <div class="external-event  bg-gradient-blue">Философия</div>
-                      <div class="external-event  bg-gradient-red">Алгоритмы численных методов</div>
-
+                    <div id="external-events" *ngFor="let k of Days1[n].Classes">
+                      <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
 
                     </div>
 
                   </div>
 
                   <div class="col-md-4">
-                    <div id="external-events">
-                      <div class="external-event ">413 Л</div>
-                      <div class="external-event">212 К</div>
-                      <div class="external-event ">215 Л</div>
-                      <div class="external-event ">515 К</div>
-
+                    <div id="external-events" *ngFor="let k of Days1[n].Classes">
+                      <div class="external-event ">{{k.CabNumber}}</div>
 
                     </div>
 
@@ -93,148 +52,30 @@
             </div>
 
           </div>
-          <div class="sticky-top mb-3">
 
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">Среда</h4>
-              </div>
-              <div class="card-body">
-                <!-- the events -->
-                <div class="row">
-                  <div class="col-md-8">
-                    <div id="external-events">
-                      <div class="external-event bg-gradient-blue">Математика</div>
-                      <div class="external-event bg-gray">Схемотехника</div>
-                      <div class="external-event  bg-gradient-blue">Философия</div>
-                      <div class="external-event  bg-gradient-red">Алгоритмы численных методов</div>
-
-
-                    </div>
-
-                  </div>
-
-                  <div class="col-md-4">
-                    <div id="external-events">
-                      <div class="external-event ">413 Л</div>
-                      <div class="external-event">212 К</div>
-                      <div class="external-event ">215 Л</div>
-                      <div class="external-event ">515 К</div>
-
-
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-
-          </div>
         </div>
         <!-- /.col -->
-
         <div class="col-md-3">
-          <div class="sticky-top mb-3">
+          <div class=" mb-3" *ngFor="let i of Days2; let n = index">
 
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Четверг</h4>
+                <h4 class="card-title">{{i.DayName}}</h4>
               </div>
               <div class="card-body">
                 <!-- the events -->
                 <div class="row">
                   <div class="col-md-8">
-                    <div id="external-events">
-                      <div class="external-event bg-gradient-blue">Математика</div>
-                      <div class="external-event bg-gray">Схемотехника</div>
-                      <div class="external-event  bg-gradient-blue">Философия</div>
-                      <div class="external-event  bg-gradient-red">Алгоритмы численных методов</div>
-                    </div>
-
-                  </div>
-
-                  <div class="col-md-4">
-                    <div id="external-events">
-                      <div class="external-event ">413 Л</div>
-                      <div class="external-event">212 К</div>
-                      <div class="external-event ">215 Л</div>
-                      <div class="external-event ">515 К</div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-
-          </div>
-          <div class="sticky-top mb-3">
-
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">Пятница</h4>
-              </div>
-              <div class="card-body">
-                <!-- the events -->
-                <div class="row">
-                  <div class="col-md-8">
-                    <div id="external-events">
-                      <div class="external-event bg-gradient-blue">Математика</div>
-                      <div class="external-event bg-gray">Схемотехника</div>
-                      <div class="external-event  bg-gradient-blue">Философия</div>
-                      <div class="external-event  bg-gradient-red">Алгоритмы численных методов</div>
-
+                    <div id="external-events" *ngFor="let k of Days2[n].Classes">
+                      <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
 
                     </div>
 
                   </div>
 
                   <div class="col-md-4">
-                    <div id="external-events">
-                      <div class="external-event ">413 Л</div>
-                      <div class="external-event">212 К</div>
-                      <div class="external-event ">215 Л</div>
-                      <div class="external-event ">515 К</div>
-
-
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-
-          </div>
-          <div class="sticky-top mb-3">
-
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">Суббота</h4>
-              </div>
-              <div class="card-body">
-                <!-- the events -->
-                <div class="row">
-                  <div class="col-md-8">
-                    <div id="external-events">
-                      <div class="external-event bg-gradient-blue">Математика</div>
-                      <div class="external-event bg-gray">Схемотехника</div>
-                      <div class="external-event  bg-gradient-blue">Философия</div>
-                      <div class="external-event  bg-gradient-red">Алгоритмы численных методов</div>
-
-
-                    </div>
-
-                  </div>
-
-                  <div class="col-md-4">
-                    <div id="external-events">
-                      <div class="external-event ">413 Л</div>
-                      <div class="external-event">212 К</div>
-                      <div class="external-event ">215 Л</div>
-                      <div class="external-event ">515 К</div>
-
+                    <div id="external-events" *ngFor="let k of Days2[n].Classes">
+                      <div class="external-event ">{{k.CabNumber}}</div>
 
                     </div>
 
@@ -246,6 +87,7 @@
 
           </div>
         </div>
+
         <!-- /.col -->
         <div class="col-md-6">
           <section class="content">
@@ -270,7 +112,7 @@
                     <div class="card-body table-responsive p-0">
                       <table class="table table-hover text-nowrap">
                         <thead>
-                          <tr>
+                          <tr >
                             <th>ID</th>
                             <th>Преподаватель</th>
                             <th>Дата выдачи задания</th>
@@ -279,21 +121,16 @@
                           </tr>
                         </thead>
                         <tbody>
-                        
-                          <tr>
-                            <td>657</td>
-                            <td>Григорьевых А.</td>
-                            <td>11-7-2020</td>
-                            <td><span class="tag tag-primary">Не выполнено</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                         
+        
+                          <tr *ngFor="let k of HWActual">
+                            <td>{{k.idHW}}</td>
+                            <td>{{k.Lecturer.PersonFIO}}</td>
+                            <td>{{k.DateTimeGiven}}</td>
+                            <td><span class="tag tag-primary">{{k.StatusHW.StatusName}}</span></td>
+                            <td>{{k.HWText}}</td>
                           </tr>
-                          <tr>
-                            <td>175</td>
-                            <td>Кунцев В.</td>
-                            <td>11-7-2020</td>
-                            <td><span class="tag tag-danger">Не выполнено</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                          </tr>
+
                         </tbody>
                       </table>
                     </div>
