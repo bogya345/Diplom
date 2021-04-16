@@ -1,3 +1,5 @@
+- 
+-- BE AWARE THAT U DELETE ABSULUTE ALL DATA
 
 -- отключение ограничений
 EXEC sys.sp_msforeachtable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL' 
