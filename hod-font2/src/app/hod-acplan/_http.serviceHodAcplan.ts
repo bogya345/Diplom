@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { MethodCall } from '@angular/compiler';
 
-import { BlockRec, AcPlan } from '../_models/groups-models';
+import { BlockRec, AcPlan, BlockNum } from '../_models/groups-models';
 
 export class acplan_HttpService {
 
@@ -15,22 +15,33 @@ export class acplan_HttpService {
   /////// GET REGION START ///////
 
   /// 
-  getBlockRecs(group_id): Observable<BlockRec[]> {
-    return this.http.get<BlockRec[]>(`groups/blockrecs/get/${group_id}`,
+  getBlockNums(acPl_id, group_id): Observable<BlockNum[]> {
+    return this.http.get<BlockNum[]>(`${environment.hod_api_url}acplans/get/${acPl_id}/${group_id}`,
       {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
-        }
+        // headers: {
+        //   'Accept': 'application/json',
+        //   'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+        // }
       });
   }
-  getAcPlan(group_id): Observable<AcPlan[]> {
-    return this.http.get<AcPlan[]>(`groups/acplan/get/${group_id}`,
+
+  getCorrespondBlockNums(dep_id = -1, acPl_id, group_id): Observable<BlockNum[]> {
+    return this.http.get<BlockNum[]>(`${environment.hod_api_url}acplans/get/${acPl_id}/${group_id}/correspond/${dep_id}`,
       {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
-        }
+        // headers: {
+        //   'Accept': 'application/json',
+        //   'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+        // }
+      });
+  }
+
+  getAcPlan(group_id): Observable<BlockNum[]> {
+    return this.http.get<BlockNum[]>(`groups/acplan/get/${group_id}`,
+      {
+        // headers: {
+        //   'Accept': 'application/json',
+        //   'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+        // }
       });
   }
 
@@ -38,107 +49,113 @@ export class acplan_HttpService {
     let data: AcPlan;
     data =
     {
-      BlockNums: [
+      blockNums: [
         {
-          BlockName: '1 blockNum',
-          Subjects: [
+          blockName: '1 blockNum',
+          subjects: [
             {
-              SubjectName: 'subject 1',
-              Loads: [
+              subjectName: 'subject 1',
+              depsDto: null,
+              semestrNum: 1,
+              loads: [
                 {
                   atAcPlId: 1,
-                  FshId: 1,
-                  BlocRecId: 1,
-                  SemNum: 1,
-                  SubTypeId: 1,
-                  SubTypeName: 'Lab',
-                  LoadValue: 321
+                  fshId: 1,
+                  blocRecId: 1,
+                  semNum: 1,
+                  subTypeId: 1,
+                  subTypeName: 'Lab',
+                  loadValue: 321
                 },
                 {
                   atAcPlId: 1,
-                  FshId: 1,
-                  BlocRecId: 1,
-                  SemNum: 1,
-                  SubTypeId: 1,
-                  SubTypeName: 'Control',
-                  LoadValue: 1234567
+                  fshId: 1,
+                  blocRecId: 1,
+                  semNum: 1,
+                  subTypeId: 1,
+                  subTypeName: 'Lab',
+                  loadValue: 321
+                }
+              ]
+            }, {
+              subjectName: 'subject 1',
+              depsDto: null,
+              semestrNum: 1,
+              loads: [
+                {
+                  atAcPlId: 1,
+                  fshId: 1,
+                  blocRecId: 1,
+                  semNum: 1,
+                  subTypeId: 1,
+                  subTypeName: 'Lab',
+                  loadValue: 321
+                },
+                {
+                  atAcPlId: 1,
+                  fshId: 1,
+                  blocRecId: 1,
+                  semNum: 1,
+                  subTypeId: 1,
+                  subTypeName: 'Lab',
+                  loadValue: 321
                 }
               ]
             },
-            {
-              SubjectName: 'subject 2',
-              Loads: [
-                {
-                  atAcPlId: 1,
-                  FshId: 1,
-                  BlocRecId: 1,
-                  SemNum: 1,
-                  SubTypeId: 1,
-                  SubTypeName: 'Lab',
-                  LoadValue: 321
-                },
-                {
-                  atAcPlId: 1,
-                  FshId: 1,
-                  BlocRecId: 1,
-                  SemNum: 1,
-                  SubTypeId: 1,
-                  SubTypeName: 'Control',
-                  LoadValue: 1234567
-                }
-              ]
-            }
           ]
         },
         {
-          BlockName: '2 blockNum',
-          Subjects: [
+          blockName: '1 blockNum',
+          subjects: [
             {
-              SubjectName: 'subject 1',
-              Loads: [
+              subjectName: 'subject 1',
+              depsDto: null,
+              semestrNum: 1,
+              loads: [
                 {
                   atAcPlId: 1,
-                  FshId: 1,
-                  BlocRecId: 1,
-                  SemNum: 1,
-                  SubTypeId: 1,
-                  SubTypeName: 'Lab',
-                  LoadValue: 321
+                  fshId: 1,
+                  blocRecId: 1,
+                  semNum: 1,
+                  subTypeId: 1,
+                  subTypeName: 'Lab',
+                  loadValue: 321
                 },
                 {
                   atAcPlId: 1,
-                  FshId: 1,
-                  BlocRecId: 1,
-                  SemNum: 1,
-                  SubTypeId: 1,
-                  SubTypeName: 'Control',
-                  LoadValue: 1234567
+                  fshId: 1,
+                  blocRecId: 1,
+                  semNum: 1,
+                  subTypeId: 1,
+                  subTypeName: 'Lab',
+                  loadValue: 321
+                }
+              ]
+            }, {
+              subjectName: 'subject 1',
+              depsDto: null,
+              semestrNum: 1,
+              loads: [
+                {
+                  atAcPlId: 1,
+                  fshId: 1,
+                  blocRecId: 1,
+                  semNum: 1,
+                  subTypeId: 1,
+                  subTypeName: 'Lab',
+                  loadValue: 321
+                },
+                {
+                  atAcPlId: 1,
+                  fshId: 1,
+                  blocRecId: 1,
+                  semNum: 1,
+                  subTypeId: 1,
+                  subTypeName: 'Lab',
+                  loadValue: 321
                 }
               ]
             },
-            {
-              SubjectName: 'subject 2',
-              Loads: [
-                {
-                  atAcPlId: 1,
-                  FshId: 1,
-                  BlocRecId: 1,
-                  SemNum: 1,
-                  SubTypeId: 1,
-                  SubTypeName: 'Lab',
-                  LoadValue: 321
-                },
-                {
-                  atAcPlId: null,
-                  FshId: 1,
-                  BlocRecId: 1,
-                  SemNum: 1,
-                  SubTypeId: 1,
-                  SubTypeName: 'Control',
-                  LoadValue: 1234567
-                }
-              ]
-            }
           ]
         }
       ]

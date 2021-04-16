@@ -1,0 +1,19 @@
+<div id="modal-content-wrapper">
+    <header id="modal-header">
+        <h1 id="modal-title">{{selectedDir.dir_name}}</h1>
+    </header>
+    <section id="modal-body">
+        <h3>Статус реализации учебного плана на группе {{selectedGroup.group_name}}</h3>
+        <br/>
+        <p><b>Предупреждение:</b> будут перезагружены только записи </p>
+        <br/>
+
+        <br/>
+        <br/>
+    </section>
+    <footer id="modal-footer">
+        <!-- <button mat-raised-button id="modal-action-button" (click)="actionFunction()">Logout</button> -->
+        <button mat-raised-button id="btn btn-info" (click)="closeModal()">Go back</button>
+    </footer>
+</div>
+<!-- https://teamtreehouse.com/community/why-is-it-common-practice-to-wrap-everything-within-the-body-tag-with-a-div-tag -->

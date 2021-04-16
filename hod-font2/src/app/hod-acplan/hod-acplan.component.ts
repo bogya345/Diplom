@@ -2,10 +2,14 @@ import { Component, Inject, OnDestroy, OnInit, Input, ViewChild } from '@angular
 import { MatAccordion } from '@angular/material/expansion';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 // import { NgbdModalOptions } from './modal-options';
+
+import { ShareService } from '../share.service';
 
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -15,11 +19,14 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { acplan_HttpService } from './_http.serviceHodAcPlan';
 import {
   Group, BlockRec, AcPlan,
-  BlocNum, Subject, Semester, Load
+  BlockNum, Subject, Semester, Load
 } from '../_models/groups-models';
 import { Direction } from '../_models/deps-models';
 
 import { HodPromoteComponent } from '../hod-promote/hod-promote.component'
+
+import { HodModalPromoteComponent } from '../hod-modal-promote/hod-modal-promote.component';
+import { SnackBarComponent } from '../snack-bar/snack-bar.component';
 
 // @NgModule({
 //   imports: [BrowserModule, NgbModule],
@@ -56,24 +63,30 @@ export class HodAcplanComponent implements OnInit {
   expandedElement: Subject | null;
 
   public selectedIndex_plan: number;
-  public selectedBlockNum: BlocNum;
+  public selectedBlockNum: BlockNum;
   public selectedSubject: Subject;
   public selectedLoad: Load;
 
   public blockRecs: BlockRec[];
-  public acPlan: AcPlan;
+  // public acPlan: AcPlan;
+  public acPlan: BlockNum[];
 
   private _httpOwn: acplan_HttpService;
+  private _user: any;
   constructor(
     private _router: Router,
-    private _http: HttpClient
+    private _http: HttpClient,
+    private share: ShareService,
+    // private _user: User,
+    private matDialog: MatDialog,
+    private snack: SnackBarComponent,
   ) {
     this._httpOwn = new acplan_HttpService(_http);
   }
 
   ngOnInit(): void {
+    this._user = this.share.shareUser('token');
   }
-
   ngOnChanges(): void {
     // this._httpOwn.getAcPlan(this.group.group_id)
     //   .subscribe(result => {
@@ -83,10 +96,62 @@ export class HodAcplanComponent implements OnInit {
     //   }
     //   );
 
-    this.acPlan = this._httpOwn.getFakeAcPlan(this.group.group_id);
+    this._user = this.share.shareUser('token');
+    console.log('changed: user is ', this._user);
+
+    console.log(this.direction);
+    console.log(this.group);
+
+    this._httpOwn.getBlockNums(this.direction.acPl_id, this.group.group_id)
+      .subscribe(result => {
+        this.acPlan = result
+        console.log(this.acPlan);
+        // this.snack.openSnackBarWithMsg('Учебный план был загружен и обработан.');
+      });
+
+    // this._httpOwn.getCorrespondBlockNums(this._user.dep_id = -1, this.direction.acPl_id, this.group.group_id)
+    //   .subscribe(result => {
+    //     this.acPlan = result
+    //     console.log(this.acPlan);
+    //     // this.snack.openSnackBarWithMsg('Учебный план был загружен и обработан.');
+    //   });
 
     console.log('variables changes');
     console.log(this.blockRecs);
+  }
+
+  openModal(direction, group, acPlan, subject, item) {
+    let isUnmapped = false;
+    if (subject.DepsDto == null || subject.DepsDto.dep_id == null) {
+      if (!confirm(`К выбранной дисциплине не привазяна кафедра, продолжить со всем перечнем преподавателей?`)) { return; }
+      isUnmapped = true;
+    }
+    else {
+      if (
+        this._user.dep_id != subject.depsDto.dep_id
+      ) {
+        this.snack.openSnackBarFull(`Вы не можете назначить преподавателя на '${subject.subjectName}'`, 'center', '', 3000);
+        return;
+      }
+    }
+    // this.share.doSelectedDir(item);
+    const dialogConfig = new MatDialogConfig();
+    // The user can't close the dialog by clicking outside its body
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modalPromote-component";
+    dialogConfig.height = "500px";
+    dialogConfig.width = "750px";
+    dialogConfig.data = {}
+
+    // https://material.angular.io/components/dialog/overview
+    const modalDialog = this.matDialog.open(HodModalPromoteComponent, dialogConfig);
+    modalDialog.componentInstance.isUnmappedSubject = isUnmapped;
+    modalDialog.componentInstance.subjectDepId = subject.DepsDto?.dep_id;
+    modalDialog.componentInstance.selectedDir = direction;
+    modalDialog.componentInstance.selectedGroup = group;
+    modalDialog.componentInstance.selectedAcPl = acPlan;
+    modalDialog.componentInstance.selectedSubject = subject;
+    modalDialog.componentInstance.selectedAttRec = item;
   }
 
   applyFilter(event: Event) {
@@ -107,138 +172,13 @@ export class HodAcplanComponent implements OnInit {
     }
   }
 
-  onPromote(event: any) {
-
-    // this.clickedOnPromote = false;
-
-    console.log('callback value', event);
-    // console.log('selectedBlockRecord', this.selectedBlockRecord);
-
-    // for (let i = 0; i < event.length; i++) {
-
-    //   console.log('in', event[i]);
-
-    //   if (event[i].typeSubject.toLowerCase().includes('лек'))
-    //     if (event[i].id_teacherCath) { // !(check on null and undefinded)
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-les`).classList.remove("donotpromoted");
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-les`).classList.add("promoted");
-    //     }
-
-    //   if (event[i].typeSubject.toLowerCase().includes('лаб'))
-    //     if (event[i].id_teacherCath) {
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-lab`).classList.remove("donotpromoted");
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-lab`).classList.add("promoted");
-    //     }
-
-    //   if (event[i].typeSubject.toLowerCase().includes('пр'))
-    //     if (event[i].id_teacherCath) {
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-pr`).classList.remove("donotpromoted");
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-pr`).classList.add("promoted");
-    //     }
-
-    //   if (event[i].typeSubject.toLowerCase().includes('из'))
-    //     if (event[i].id_teacherCath) {
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-iz`).classList.remove("donotpromoted");
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-iz`).classList.add("promoted");
-    //     }
-
-    //   if (event[i].typeSubject.toLowerCase().includes('ак'))
-    //     if (event[i].id_teacherCath) {
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-ak`).classList.remove("donotpromoted");
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-ak`).classList.add("promoted");
-    //     }
-
-    //   if (event[i].typeSubject.toLowerCase().includes('кпр'))
-    //     if (event[i].id_teacherCath) {
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-kpr`).classList.remove("donotpromoted");
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-kpr`).classList.add("promoted");
-    //     }
-
-    //   if (event[i].typeSubject.toLowerCase().includes('ср'))
-    //     if (event[i].id_teacherCath) {
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-sr`).classList.remove("donotpromoted");
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-sr`).classList.add("promoted");
-    //     }
-
-    //   if (event[i].typeSubject.toLowerCase().includes('контроль'))
-    //     if (event[i].id_teacherCath) {
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-controll`).classList.remove("donotpromoted");
-    //       document.getElementById(`${this.selectedBlockRecord.id_blockRec}-controll`).classList.add("promoted");
-    //     }
-
-    // }
-
-    console.log('did it');
-  }
-
-  public openPromoteDialog(event: any, item: any) {
-    console.log(event);
-    console.log(item);
-    this.selectedLoad = item;
-
-    // let temp = this.viewTeacherLoad.filter((element) => { return element.blockrecs_id_blockRec == j.id_blockRec; });;
-
-    console.log('temp', this.selectedLoad);
-
-    // this.promotionData = temp;
-
-    document.getElementById('popup-selector-promotion').hidden = false;
-
-    // console.log(i, j);
-  }
-
-  teacherPromoted(event: any, element: any) {
-    // call pop-up menu
-    // i - mapped blockRec  - object
-    // j - blockRec         - object
-
-    console.log(event);
-    console.log(element);
-
-
-    document.getElementById('popup-selector-promotion').hidden = false;
-  }
-
-  // callback
-  teacherPromoted1(event: any, i: any, j: any) {
-    // call pop-up menu
-    // i - mapped blockRec  - object
-    // j - blockRec         - object
-
-    // this.clickedOnPromote = true;
-
-    // console.log('this.indexOfRow', this.indexOfRow);
-
-    // this.selectedBlockRecord = j;
-    // let temp = this.viewTeacherLoad.filter((element) => { return element.blockrecs_id_blockRec == j.id_blockRec; });
-
-    // console.log('temp', temp);
-
-    // this.promotionData = temp;
-
-    // document.getElementById('popup-selector-promotion').hidden = false;
-
-    // console.log(i, j);
-  }
-
   public setSelectedBlockNum(item) {
     this.selectedBlockNum = item;
     // this.pathString = `::/${item.dir_name}`;
-    this.dataSource_subjects = new MatTableDataSource(this.selectedBlockNum.Subjects);
+    this.dataSource_subjects = new MatTableDataSource(this.selectedBlockNum.subjects);
     this.selectedIndex_plan = 2;
     console.log(item);
     console.log(this.selectedBlockNum);
-  }
-
-
-
-  public showSearch(el_id) {
-    // this.accordion.nativeElement.focus();
-    // this.show = !this.show;
-    // document.getElementById(el_id).focus();
-    // setTimeout(() => { // this will make the execution after the above boolean has changed
-    //   this.searchElement.nativeElement.focus();
-    // }, 0);
   }
 
 }

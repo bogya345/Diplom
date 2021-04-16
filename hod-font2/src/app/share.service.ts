@@ -49,6 +49,11 @@ export class ShareService {
     this.printLogs('user', this.user);
   }
   public shareUser(token: string) {
+    if(this.user == null)
+    {
+      console.log('user is null');
+      this.user = new UserCl();
+    }
     return this.user;
   }
 
@@ -61,15 +66,21 @@ export class ShareService {
 
 class UserCl implements User {
   public name: string;
-  public role: number;
-  public department: string;
+  public login: string;
+  public role_id: number;
+  public role_name: string;
+  public dep_id: number;
+  public dep_name: string;
   /**
    *
    */
   constructor() {
-    this.name = 'def_user';
-    this.department = 'def_dep';
-    this.role = 0;
+    this.name = 'def_username';
+    this.login = 'def_login';
+    this.dep_id = -1;
+    this.dep_name = 'def_dep';
+    this.role_id = 0;
+    this.role_name = 'def_role';
   }
 }
 

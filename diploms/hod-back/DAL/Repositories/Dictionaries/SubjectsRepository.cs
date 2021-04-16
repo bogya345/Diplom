@@ -33,6 +33,14 @@ namespace hod_back.DAL.Repositories
             return db.Subjects.Where(func);
         }
 
+        public override IEnumerable<Subject> GetManyWithInclude(Func<Subject, bool> func)
+        {
+            return db.Subjects
+                .Include(x => x.AcPlDep)
+                .ThenInclude(y => y.Dep)
+                .Where(func);
+        }
+
         public override Subject OnExist(string name)
         {
             return db.Subjects.Where(x => x.SubName == name).FirstOrDefault();

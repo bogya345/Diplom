@@ -41,7 +41,7 @@ export class dep_HttpService {
           'dir_id': 1,
           'dir_name': 'direction 1',
           'startYear': 2020,
-          'acPlan_id': null,
+          'acPl_id': null,
           'requirs': null,
           'groups': [
             {
@@ -60,7 +60,7 @@ export class dep_HttpService {
           'dir_id': 2,
           'dir_name': 'direction 2',
           'startYear': 2020,
-          'acPlan_id': null,
+          'acPl_id': null,
           'requirs': null,
           'groups': [
             {
@@ -79,7 +79,7 @@ export class dep_HttpService {
           'dir_id': 3,
           'dir_name': 'direction 3',
           'startYear': 2020,
-          'acPlan_id': null,
+          'acPl_id': null,
           'requirs': null,
           'groups': [
             {

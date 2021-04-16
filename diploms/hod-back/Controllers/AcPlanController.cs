@@ -15,6 +15,11 @@ using hod_back.Model;
 using AutoMapper;
 using hod_back.Dto;
 using hod_back.Services.Excel;
+using Microsoft.AspNetCore.Http;
+using hod_back.Models;
+using Microsoft.Extensions.Configuration;
+
+using hod_back.Extentions;
 
 //using hod_back.DAL.Models;
 //using hod_back.DAL.Models.Views;
@@ -36,12 +41,101 @@ namespace hod_back.Controllers
         private UnitOfWork _unit;
         private IMapper _mapper;
         private IHostingEnvironment _hostEnv;
+        private IConfiguration _config;
 
-        public AcPlanController(UnitOfWork unit, IMapper mapper, IHostingEnvironment hostEnv)
+        public AcPlanController(UnitOfWork unit, IMapper mapper, IHostingEnvironment hostEnv, IConfiguration config)
         {
             this._unit = unit;
             this._mapper = mapper;
             this._hostEnv = hostEnv;
+            this._config = config;
+        }
+
+        [HttpGet("get/subDep")]
+        public async Task<IEnumerable<SubDepDto>> GetSubDep()
+        {
+            var tmp = _unit.Subjects.GetManyWithInclude(x => x.SubId > 0)
+                //.ToList()
+                ;
+
+            var res = _mapper.Map<IEnumerable<SubDepDto>>(tmp);
+            return res;
+        }
+
+        [HttpPost("test/{dep_id}/{dir_id}/{group_id}"), DisableRequestSizeLimit]
+        public async Task<string> Test([FromRoute] int dep_id, [FromRoute] int dir_id, [FromRoute] int group_id)
+        {
+            var formCollection = await Request.ReadFormAsync();
+            //var file_t = formCollection.Files.First();
+
+            return "nahuo";
+        }
+
+        [HttpGet("/weatherforecast"), DisableRequestSizeLimit]
+        public async Task<object> Test2([FromRoute] int dep_id, [FromRoute] int dir_id, [FromRoute] int group_id)
+        {
+            var tmp = _unit.Subjects.GetManyWithInclude(x => x.AcPlDepId > 0)
+                //.ToList()
+                ;
+
+            var res = _mapper.Map<IEnumerable<SubDepDto>>(tmp);
+            return res;
+        }
+
+        [HttpPost("post/promote/{attAcPl_id}")]
+        public async Task<AttAcPlanDto> PostPromotedTeacher([FromRoute] int attAcPl_id, [FromForm] int fsh_id)
+        {
+            var tmp = _unit.AttAcPlans.GetOrDefault(x => x.AttAcPlId == attAcPl_id);
+            tmp.FshId = fsh_id;
+            _unit.AttAcPlans.Update(tmp);
+
+            var res = _mapper.Map<AttAcPlanDto>(tmp);
+            return res;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="acPl_id"></param>
+        /// <param name="group_id"></param>
+        /// <returns>Дисциплины по группе</returns>
+        [HttpGet("get/{acPl_id}/{group_id}")]
+        public async Task<BlockNumDto[]> GetFullAttAcPlan([FromRoute] int acPl_id, [FromRoute] int group_id)
+        {
+            var tmp = _unit.BlockNums.GetManyWithInclude(x => x.BlockNumId != 0).ToList();
+
+            var res = from i in tmp
+                      select new BlockNumDto()
+                      {
+                          BlockNumId = i.BlockNumId,
+                          BlockName = i.BlockNumName,
+                          Subjects = i.BlockRecs.TransformToSubjectDtoArray(acPl_id, group_id)
+                      };
+
+            return res.ToArray();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="acPl_id">ID Учебного плана</param>
+        /// <param name="group_id">ID группы</param>
+        /// <param name="dep_id">ID кафедры</param>
+        /// <returns>Множество соответствующих (по кафедре) дисциплины по группе</returns>
+        [HttpGet("get/{acPl_id}/{group_id}/correspond/{dep_id}")]
+        public async Task<BlockNumDto[]> GetCorrespondAttAcPlan([FromRoute] int acPl_id, [FromRoute] int group_id, [FromRoute] int dep_id)
+        {
+            var tmp = _unit.BlockNums.GetManyWithInclude(x => x.BlockNumId != 0).ToList();
+
+            var res = from i in tmp
+                      select new BlockNumDto()
+                      {
+                          BlockNumId = i.BlockNumId,
+                          BlockName = i.BlockNumName,
+                          Subjects = i.BlockRecs.TransformToSubjectDtoArray(acPl_id, group_id)
+                      };
+
+            return res.ToArray();
         }
 
         /// <summary>
@@ -50,17 +144,40 @@ namespace hod_back.Controllers
         /// <param name="id_group">ID группы</param>
         /// <returns></returns>
         //[Authorize(Roles = "Преподаватель,Заведующий,Админ")]
-        [HttpPost("post/{dep_id}/{dir_id}"), DisableRequestSizeLimit]
-        public JsonResult UploadFile(int dep_id, int dir_id)
+        //[Produces("application/json")]
+        [HttpPost("post/{dep_id}/{dir_id}")]
+        [DisableRequestSizeLimit]
+        public async Task<JsonResult> UploadFile([FromRoute] int dep_id, [FromRoute] int dir_id, [FromForm] AcPlanModel model)
         {
             //try
             //{
 
-            if (_unit.DepDirFac.GetOrDefault(x => x.DepId == dep_id && x.DirId == dir_id).AcPlId != null) return Json("The plan has already been uploaded.");
+            if (model.file == null)
+                return Json("LOX");
+
+            if (model.message == "loxNO")
+                return Json("ok-ok");
+
+            //if (_unit.DepDirFac.GetOrDefault(x => x.DepId == dep_id && x.DirId == dir_id).AcPlId != null) return Json("The plan has already been uploaded.");
+
+            var formCollection = await Request.ReadFormAsync();
+            var file_t = formCollection.Files.First();
+
+            //if (!Request.ContentType.Contains("json"))
+            //{
+            //    //return Json("Files not found.");
+            //    return"Files not found.";
+            //}
+
+            if (Request.Form == null || Request.Form.Files.Count == 0)
+            {
+                return Json("Files not found.");
+                //return "Files not found.";
+            }
 
             var file = Request.Form.Files[0];
             string folderName = "Upload";
-            string webRootPath = _hostEnv.WebRootPath;
+            string webRootPath = _config.GetSection("WebRootPath").Value.ToString();
             string newPath = Path.Combine(webRootPath, folderName);
 
             string fileName = "";
@@ -79,121 +196,43 @@ namespace hod_back.Controllers
                 }
             }
 
+
             byte[] docBuf;
             using (FileStream fs = new FileStream($"{newPath}/{fileName}", FileMode.Open, FileAccess.Read))
             {
                 docBuf = ReadFully(fs);
             }
 
-            Excel ex = new Excel($"{newPath}/{fileName}", dep_id, dir_id, _unit, docBuf);
+            _unit.DepDirFac.GetOrDefault(x => x.DepId == dep_id && x.DirId == dir_id);
 
-            if (!ex.Parse()) return Json("Ошибка при обработке документа учебного плана.");
+            Excel ex = new Excel(
+                $"{newPath}/{fileName}",
+                dep_id,
+                dir_id,
+                _unit,
+                docBuf
+                );
+            // 'D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\ExcelPattern_Property.xlsx'."
+            int a = 1;
+
+            if (!ex.Parse())
+            {
+                return Json("Ошибка при обработке документа учебного плана.");
+                //return "Ошибка при обработке документа учебного плана.";
+            }
             else
             //{ _unit.AttachedAcPlan.Create(ex.blocks); }
             {
-                //foreach (Blocks item in ex.blocks)
-                //{
-                //    foreach (BlockRecs item2 in item.recs)
-                //    {
-                //        unit.BlockRecs.Create(item2);
+                // проверка на добавление в таблицу нагрузки (AttachedAcPlan)
 
-                //        unit.Save();
-
-                //        if (item2.les != 0)
-                //        {
-                //            unit.TeacherLoads.Create(new TeacherLoad
-                //            {
-                //                id_blockRec = item2.id_blockRec,
-                //                typeSubject = "Лек",
-                //                id_employee = null,
-                //                hours = item2.les
-                //            });
-                //        }
-
-                //        if (item2.lab != 0)
-                //        {
-                //            unit.TeacherLoads.Create(new TeacherLoad
-                //            {
-                //                id_blockRec = item2.id_blockRec,
-                //                typeSubject = "Лаб",
-                //                id_employee = null,
-                //                hours = item2.lab
-                //            });
-                //        }
-
-                //        if (item2.pr != 0)
-                //        {
-                //            unit.TeacherLoads.Create(new TeacherLoad
-                //            {
-                //                id_blockRec = item2.id_blockRec,
-                //                typeSubject = "Пр",
-                //                id_employee = null,
-                //                hours = item2.pr
-                //            });
-                //        }
-
-                //        if (item2.iz != 0)
-                //        {
-                //            unit.TeacherLoads.Create(new TeacherLoad
-                //            {
-                //                id_blockRec = item2.id_blockRec,
-                //                typeSubject = "ИЗ",
-                //                id_employee = null,
-                //                hours = item2.iz
-                //            });
-                //        }
-
-                //        if (item2.ak != 0)
-                //        {
-                //            unit.TeacherLoads.Create(new TeacherLoad
-                //            {
-                //                id_blockRec = item2.id_blockRec,
-                //                typeSubject = "АК",
-                //                id_employee = null,
-                //                hours = item2.ak
-                //            });
-                //        }
-
-                //        if (item2.kpr != 0)
-                //        {
-                //            unit.TeacherLoads.Create(new TeacherLoad
-                //            {
-                //                id_blockRec = item2.id_blockRec,
-                //                typeSubject = "КПр",
-                //                id_employee = null,
-                //                hours = item2.kpr
-                //            });
-                //        }
-
-                //        if (item2.sr != 0)
-                //        {
-                //            unit.TeacherLoads.Create(new TeacherLoad
-                //            {
-                //                id_blockRec = item2.id_blockRec,
-                //                typeSubject = "СР",
-                //                id_employee = null,
-                //                hours = item2.sr
-                //            });
-                //        }
-
-                //        if (item2.controll != 0)
-                //        {
-                //            unit.TeacherLoads.Create(new TeacherLoad
-                //            {
-                //                id_blockRec = item2.id_blockRec,
-                //                typeSubject = "Контроль",
-                //                id_employee = null,
-                //                hours = item2.controll
-                //            });
-                //        }
-
-                //        unit.Save();
-                //    }
-                //}
-
+                // создание нагрузки
+                InsertAttAcPlanRecords(ex);
             }
 
+            System.IO.File.Delete($"{newPath}/{fileName}");
+
             return Json("Upload Successful.");
+            //return "Upload Successful.";
             //}
             //catch (System.Exception ex)
             //{
@@ -201,7 +240,16 @@ namespace hod_back.Controllers
             //}
         }
 
-        public byte[] ReadFully(Stream input)
+        /// <summary>
+        /// Привязка групп к планам направлений
+        /// </summary>
+        /// <param name="ex"></param>
+        private void InsertAttAcPlanRecords(Excel ex)
+        {
+            /// так как в TRIGGER низя делать вставку нескольких полей, то приходиться делать это через сервер
+        }
+
+        private byte[] ReadFully(Stream input)
         {
             byte[] buffer = new byte[16 * 1024];
             using (MemoryStream ms = new MemoryStream())

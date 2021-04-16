@@ -8,6 +8,8 @@ namespace hod_back.Dto
     public class SubjectDto
     {
         public string SubjectName { get; set; }
-        public LoadDto Loads { get; set; }
+        public DepsDto CorrespDep { get; set; }
+        public int? SemestrNum { get; set; }
+        public LoadDto[] Loads { get; set; }
     }
 }

@@ -1,7 +1,8 @@
+import { DepsDto } from "./deps-models";
 
 export {
     Group, BlockRec, AcPlan,
-    BlocNum, Subject, Semester, Load
+    BlockNum, Subject, Semester, Load
 }
 interface Group {
     group_id: number,
@@ -30,37 +31,39 @@ interface BlockRec {
 }
 
 interface AcPlan {
-    BlockNums: BlocNum[]
+    blockNums: BlockNum[]
 }
-interface BlocNum {
-    BlockName: string,
-    Subjects: Subject[],
+interface BlockNum {
+    blockName: string,
+    subjects: Subject[],
 }
 interface Subject {
-    SubjectName: string,
-    Loads: Load[],
+    subjectName: string,
+    depsDto: DepsDto,
+    semestrNum: number,
+    loads: Load[],
 }
 interface Semester {
     
 }
 interface Load {
     atAcPlId: number,
-    FshId: number,
-    BlocRecId: number,
-    SemNum: number,
-    SubTypeId: number,
-    SubTypeName: string,
-    LoadValue: number,
+    fshId: number,
+    blocRecId: number,
+    semNum: number,
+    subTypeId: number,
+    subTypeName: string,
+    loadValue: number,
 }
 interface Rec {
-    Ze: number,
-    Total: number,
-    Les: number,
-    Lab: number,
-    Pr: number,
-    Iz: number,
-    Ak: number,
-    Kpr: number,
-    Sr: number,
-    Controll: number
+    ze: number,
+    total: number,
+    les: number,
+    lab: number,
+    pr: number,
+    iz: number,
+    ak: number,
+    kpr: number,
+    sr: number,
+    controll: number
 }

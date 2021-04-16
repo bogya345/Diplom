@@ -27,8 +27,8 @@ namespace hod_testing_
 
         public string path { get; set; } // @"D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\Plan_IST_-_16.xlsx"
 
-        //private string patternPath { get; set; } = @"D:\Unic\Diplom\@_test_docs\bogya\PlanIST16.xlsx";
-        private string patternPath { get; set; } = @"D:\Unic\Diplom\@_test_docs\bogya\PlanIST16_2.xlsx";
+        private string patternPath { get; set; } = @"D:\Unic\Diplom\@_test_docs\bogya\PlanIST16.xlsx";
+        //private string patternPath { get; set; } = @"D:\Unic\Diplom\@_test_docs\bogya\PlanIST16_2.xlsx";
 
         [TestMethod]
         public void TestMethod1()
@@ -49,7 +49,7 @@ namespace hod_testing_
                 docBuf
                 );
             // 'D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\ExcelPattern_Property.xlsx'."
-
+            int a = 1;
             ex.Parse();
 
         }

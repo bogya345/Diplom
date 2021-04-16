@@ -13,7 +13,9 @@ import { promotion_HttpService } from './_http.serviceHodPromotion';
 import { DepInfo, DepsDto, Direction } from '../_models/deps-models';
 import { Group } from '../_models/groups-models';
 import { SnackBarComponent } from '../snack-bar/snack-bar.component';
-import { HodModalComponent } from '../hod-modal/hod-modal.component';
+import { HodModalShowRequirsComponent } from '../hod-modal-show-requirs/hod-modalShowRequirs.component';
+import { HodModalReloadAcPlanComponent } from '../hod-modal-reload-ac-plan/hod-modal-reload-ac-plan.component';
+import { HodModalShowGroupStatusComponent } from '../hod-modal-show-group-status/hod-modal-show-group-status.component';
 
 @Component({
   selector: 'app-hod-promotion',
@@ -34,7 +36,9 @@ export class HodPromotionComponent implements OnInit {
   public progress: number;
   public message: string;
 
-  color: ThemePalette = 'primary';
+  colorPrimary: ThemePalette = 'primary';
+  colorWarn: ThemePalette = 'warn';
+  colorAccent: ThemePalette = 'accent';
   mode: ProgressBarMode = 'determinate';
   value = 50;
   bufferValue = 75;
@@ -76,9 +80,9 @@ export class HodPromotionComponent implements OnInit {
   }
 
   upload(files, item) {
-    console.log(item);
+    console.log(files);
     if (files.length === 0) return;
-    this._httpOwn.postUploadRequest(files, this.selectedDep.dirs, item.dir_id)
+    this._httpOwn.postUploadRequest(files, this.selectedDep.dep_id, item.dir_id)
       .subscribe(event => {
 
         if (event.type === HttpEventType.UploadProgress)
@@ -86,10 +90,19 @@ export class HodPromotionComponent implements OnInit {
         else if (event.type === HttpEventType.Response)
           this.message = event.body.toString();
 
-        // window.location.reload();
+          // this.selectedDep.
+
+        this.snack.openSnackBarWithMsg('Учебный план был загружен и обработан.');
+        setTimeout(()=>{ window.location.reload(); }, 2000)
       });
+  }
 
+  // reloadAcPlan(item){
 
+  // }
+
+  openAcPlan(item) {
+    window.open('ms-excel:ofe|u|http://localhost:4200/assets/PlanIST16.xlsx', "_blank");
   }
 
   public getPathString() {
@@ -108,14 +121,47 @@ export class HodPromotionComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
-    dialogConfig.id = "modal-component";
+    dialogConfig.id = "modalShowRequirs-component";
     dialogConfig.height = "350px";
     dialogConfig.width = "600px";
     dialogConfig.data = {}
 
     // https://material.angular.io/components/dialog/overview
-    const modalDialog = this.matDialog.open(HodModalComponent, dialogConfig);
+    const modalDialog = this.matDialog.open(HodModalShowRequirsComponent, dialogConfig);
     modalDialog.componentInstance.selectedDir = item;
+  }
+
+  openModalReloadAcPlan(item) {
+    // this.share.doSelectedDir(item);
+    const dialogConfig = new MatDialogConfig();
+    // The user can't close the dialog by clicking outside its body
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modalReloadAcPlan-component";
+    dialogConfig.height = "350px";
+    dialogConfig.width = "600px";
+    dialogConfig.data = {}
+
+    // https://material.angular.io/components/dialog/overview
+    const modalDialog = this.matDialog.open(HodModalReloadAcPlanComponent, dialogConfig);
+    modalDialog.componentInstance.selectedDep = this.selectedDep;
+    modalDialog.componentInstance.selectedDir = item;
+  }
+
+  openModalGroupStatus(item) {
+    // this.share.doSelectedDir(item);
+    const dialogConfig = new MatDialogConfig();
+    // The user can't close the dialog by clicking outside its body
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "modalShowGroupStatus-component";
+    dialogConfig.height = "350px";
+    dialogConfig.width = "600px";
+    dialogConfig.data = {}
+
+    // https://material.angular.io/components/dialog/overview
+    const modalDialog = this.matDialog.open(HodModalShowGroupStatusComponent, dialogConfig);
+    modalDialog.componentInstance.selectedDep = this.selectedDep;
+    modalDialog.componentInstance.selectedDir = this.selectedDir;
+    modalDialog.componentInstance.selectedGroup = item;
   }
 
   public setSelectedDepartment(item) {
@@ -140,5 +186,7 @@ export class HodPromotionComponent implements OnInit {
     // this.pathString += `/${item.group_name}`;
     this.selectedIndex = 3;
   }
+
+  public debugger(item) { console.log(item); }
 
 }

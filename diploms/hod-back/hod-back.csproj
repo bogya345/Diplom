@@ -5,13 +5,13 @@
     <RootNamespace>hod_back</RootNamespace>
     <UserSecretsId>2b3fd53b-86f0-4a2f-a2df-5d84f0c0e5f3</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="ClosedXML" Version="0.95.4" />
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Services\Crypto\" />
+    <Folder Include="_Resources\Upload\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

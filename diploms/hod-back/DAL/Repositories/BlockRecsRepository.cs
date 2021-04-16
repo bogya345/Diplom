@@ -5,39 +5,65 @@ using System.Threading.Tasks;
 
 using hod_back.Model;
 
+using hod_back.Extentions;
+using Microsoft.EntityFrameworkCore;
+
 namespace hod_back.DAL.Repositories
 {
-    public class AcPlanRepository : IRepository<AcPlan>
+    public class BlockRecsRepository : IRepository<BlockRec>
     {
-        public AcPlanRepository(Context context) : base(context) { }
+        public BlockRecsRepository(Context context) : base(context) { }
 
 
-        public override AcPlan CreateWithReturn(AcPlan item) { db.AcPlans.Add(item); db.SaveChanges(); return item; }
-        public override void CreateRange(AcPlan[] items) { db.AddRange(items); }
-
-        public override AcPlan GetOrDefault(Func<AcPlan, bool> func, AcPlan def = null)
+        public override void Create(BlockRec item)
         {
-            return db.AcPlans.FirstOrDefault(func) ?? def;
-        }
+            db.BlockRecs.Add(item);
+            db.SaveChanges();
 
-        public IEnumerable<AcPlan> GetAll()
-        {
-            return db.AcPlans;
-        }
+            List<Group> groups = db.Groups.Where(x => x.DirId == db.Directions.FirstOrDefault(y => y.AcPlId == item.AcPlId).DirId).ToList(); 
+            // оно будет высчитываться для каждой записи - надо бы придумать как это дело оптимизировать
 
-        public override IEnumerable<AcPlan> GetMany(Func<AcPlan, bool> func)
-        {
-            return db.AcPlans.Where(func);
-        }
-
-        public override void Update(AcPlan item)
-        {
-            db.AcPlans.Update(item);
+            var attRecs = item.TransformToAttAcPlan(groups);
+            db.AttachedAcPlans.AddRange(attRecs);
             db.SaveChanges();
         }
-        public override void UpdateRande(AcPlan[] items)
+
+        public override void CreateRange(BlockRec[] items)
+        { 
+            //db.AddRange(items);
+            foreach(var i in items)
+            {
+                Create(i);
+            }
+            db.SaveChanges(); 
+        }
+
+        public IEnumerable<BlockRec> GetAll()
+        {
+            return db.BlockRecs;
+        }
+
+        public override IEnumerable<BlockRec> GetMany(Func<BlockRec, bool> func)
+        {
+            return db.BlockRecs.Where(func);
+        }
+
+        public override IEnumerable<BlockRec> GetManyWithInclude(Func<BlockRec, bool> func)
+        {
+            return db.BlockRecs
+                .Include(x => x.BlockNum)
+                .Where(func);
+        }
+
+        public override void UpdateRange(BlockRec[] items)
         {
             db.UpdateRange(items);
+            db.SaveChanges();
+        }
+
+        public override void DeleteRange(BlockRec[] items)
+        {
+            db.BlockRecs.RemoveRange(items);
         }
 
     }

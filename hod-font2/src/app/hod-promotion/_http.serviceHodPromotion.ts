@@ -1,15 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { MethodCall } from '@angular/compiler';
 
 //import { Cath } from './cathedras.component';
 
 import { DepsDto, Direction } from '../_models/deps-models';
-import { Group } from '../_models/groups-models';
 
 export class promotion_HttpService {
 
@@ -98,29 +95,40 @@ export class promotion_HttpService {
   /////// POST REGION START ///////
 
   postUploadRequest(files, dep_id, dir_id): any {
-    const formData = new FormData();
 
-    for (let file of files)
-      formData.append(file.name, file);
+    let fileToUpload = <File>files[0];
+    console.log(fileToUpload);
 
+    let form = new FormData();
+    form.append('file', fileToUpload);
+    form.append('reportProgress', 'true');
+    form.append('message', 'message#1');
 
-    const req = new HttpRequest(
-      'POST',
-      `deps/${dep_id}/${dir_id}`,
+    console.log(form.get('message'));
+
+    // let opts = new Http
+
+    let t = this.http.post(
+      `${environment.hod_api_url}acplans/post/${dep_id}/${dir_id}`,
+      form,
       {
-
-        formData: {
-          reportProgress: true,
-        },
-
-        // headers: {
-        //   'Accept': 'application/json',
-        //   'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
-        // }
+        headers: new HttpHeaders
+          ({
+            // 'Accept': '*/*',
+            // 'Content-Type': 'undefined',
+            // 'Content-Type': 'multipart/form-data; boundary=------WebKitFormBoundaryqy14R5oY6FqgxfWA',//charset=utf-8;
+            // 'Content-Type': 'multipart/form-data',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+            'X-Content-Type-Options': 'nosniff',
+            'Connetion': 'keep-alive'
+          })
       }
     );
 
-    return this.http.request(req);
+    console.log();
+
+    return t;
+
   }
 
   /////// POST REGION END ///////

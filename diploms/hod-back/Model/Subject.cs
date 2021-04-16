@@ -17,15 +17,15 @@ namespace hod_back.Model
 
         [Column("sub_name")]
         public string SubName { get; set; }
-        [Column("dep_id")]
-        public int? DepId { get; set; }
         [Key]
         [Column("sub_id")]
         public int SubId { get; set; }
+        [Column("acPlDep_id")]
+        public int? AcPlDepId { get; set; }
 
-        [ForeignKey(nameof(DepId))]
-        [InverseProperty(nameof(Department.Subjects))]
-        public virtual Department Dep { get; set; }
+        [ForeignKey(nameof(AcPlDepId))]
+        [InverseProperty(nameof(AcPlanDep.Subjects))]
+        public virtual AcPlanDep AcPlDep { get; set; }
         [InverseProperty(nameof(BlockRec.Sub))]
         public virtual ICollection<BlockRec> BlockRecs { get; set; }
     }

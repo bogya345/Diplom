@@ -7,31 +7,35 @@ using hod_back.Model;
 
 namespace hod_back.DAL.Repositories
 {
-    public class BlockNumRepository : IRepository<BlockNum>
+    public class AcPlanRepository : IRepository<AcPlan>
     {
-        public BlockNumRepository(Context context) : base(context) { }
+        public AcPlanRepository(Context context) : base(context) { }
 
 
-        public override void Create(BlockNum item) { db.BlockNums.Add(item); }
-        public override BlockNum CreateWithReturn(BlockNum item)
+        public override AcPlan CreateWithReturn(AcPlan item) { db.AcPlans.Add(item); db.SaveChanges(); return item; }
+        public override void CreateRange(AcPlan[] items) { db.AddRange(items); }
+
+        public override AcPlan GetOrDefault(Func<AcPlan, bool> func, AcPlan def = null)
         {
-            db.BlockNums.Add(item);
+            return db.AcPlans.FirstOrDefault(func) ?? def;
+        }
+
+        public IEnumerable<AcPlan> GetAll()
+        {
+            return db.AcPlans;
+        }
+
+        public override IEnumerable<AcPlan> GetMany(Func<AcPlan, bool> func)
+        {
+            return db.AcPlans.Where(func);
+        }
+
+        public override void Update(AcPlan item)
+        {
+            db.AcPlans.Update(item);
             db.SaveChanges();
-            return item;
         }
-        public override void CreateRange(BlockNum[] items) { db.AddRange(items); db.SaveChanges(); }
-
-        public IEnumerable<BlockRec> GetAll()
-        {
-            return db.BlockRecs;
-        }
-
-        public override IEnumerable<BlockNum> GetMany(Func<BlockNum, bool> func)
-        {
-            return db.BlockNums.Where(func);
-        }
-
-        public override void UpdateRande(BlockNum[] items)
+        public override void UpdateRange(AcPlan[] items)
         {
             db.UpdateRange(items);
         }

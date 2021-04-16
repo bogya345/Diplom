@@ -152,3 +152,4 @@ D:\Unic\Diplom\diploms\hod-testing_\bin\Debug\netcoreapp3.1\hod-back.pdb
 D:\Unic\Diplom\diploms\hod-testing_\obj\Debug\netcoreapp3.1\hod-testing_.csproj.CoreCompileInputs.cache
 D:\Unic\Diplom\diploms\hod-testing_\obj\Debug\netcoreapp3.1\hod-testing_.dll
 D:\Unic\Diplom\diploms\hod-testing_\obj\Debug\netcoreapp3.1\hod-testing_.pdb
+D:\Unic\Diplom\diploms\hod-testing_\bin\Debug\netcoreapp3.1\Configs\baseConfig.json

@@ -24,6 +24,8 @@ namespace hod_back.Model
         [Column("subT_nameInPlan")]
         [StringLength(30)]
         public string SubTNameInPlan { get; set; }
+        [Column("colIndex")]
+        public int? ColIndex { get; set; }
 
         [InverseProperty(nameof(AttachedAcPlan.SubT))]
         public virtual ICollection<AttachedAcPlan> AttachedAcPlans { get; set; }

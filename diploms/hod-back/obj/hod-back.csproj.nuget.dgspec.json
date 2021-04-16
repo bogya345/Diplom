@@ -50,10 +50,6 @@
               "target": "Package",
               "version": "[0.95.4, )"
             },
-            "EntityFramework": {
-              "target": "Package",
-              "version": "[6.4.4, )"
-            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.4, )"

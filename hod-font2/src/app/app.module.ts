@@ -16,6 +16,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 //
@@ -39,8 +42,12 @@ import { HodAcplanComponent } from './hod-acplan/hod-acplan.component';
 import { HodDepComponent } from './hod-dep/hod-dep.component';
 import { SnackBarComponent } from './snack-bar/snack-bar.component';
 import { HodPromoteComponent } from './hod-promote/hod-promote.component';
-import { HodModalComponent } from './hod-modal/hod-modal.component';
+import { HodModalShowRequirsComponent } from './hod-modal-show-requirs/hod-modalShowRequirs.component';
 import { HodShowAcPlanComponent } from './hod-show-ac-plan/hod-show-ac-plan.component';
+import { HodModalReloadAcPlanComponent } from './hod-modal-reload-ac-plan/hod-modal-reload-ac-plan.component';
+import { HodModalShowGroupStatusComponent } from './hod-modal-show-group-status/hod-modal-show-group-status.component';
+import { HodModalPromoteComponent } from './hod-modal-promote/hod-modal-promote.component';
+import { HodMapSubDepComponent } from './hod-map-sub-dep/hod-map-sub-dep.component';
 
 @NgModule({
   declarations: [
@@ -55,8 +62,12 @@ import { HodShowAcPlanComponent } from './hod-show-ac-plan/hod-show-ac-plan.comp
     HodDepComponent,
     SnackBarComponent,
     HodPromoteComponent,
-    HodModalComponent,
-    HodShowAcPlanComponent
+    HodModalShowRequirsComponent,
+    HodShowAcPlanComponent,
+    HodModalReloadAcPlanComponent,
+    HodModalShowGroupStatusComponent,
+    HodModalPromoteComponent,
+    HodMapSubDepComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +94,9 @@ import { HodShowAcPlanComponent } from './hod-show-ac-plan/hod-show-ac-plan.comp
     MatFormFieldModule,
     MatInputModule,
 
+    MatRadioModule,
+    MatSelectModule,
+
     MatProgressBarModule,
     MatProgressSpinnerModule,
 
@@ -93,6 +107,12 @@ import { HodShowAcPlanComponent } from './hod-show-ac-plan/hod-show-ac-plan.comp
   ],
   providers: [ShareService, SnackBarComponent, MatDialog],
   bootstrap: [AppComponent],
-  entryComponents: [HodModalComponent]
+  entryComponents: [
+    HodModalShowRequirsComponent,
+    HodShowAcPlanComponent,
+    HodModalReloadAcPlanComponent,
+    HodModalShowGroupStatusComponent,
+    HodModalPromoteComponent
+  ]
 })
 export class AppModule { }

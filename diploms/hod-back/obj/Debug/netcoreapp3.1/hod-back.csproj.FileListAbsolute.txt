@@ -1,198 +1,3 @@
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\appsettings.Development.json
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\appsettings.json
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
-D:\Unic\Diploma\_project_back\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfoInputs.cache
-D:\Unic\Diploma\_project_back\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfo.cs
-D:\Unic\Diploma\_project_back\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.RazorTargetAssemblyInfo.cache
-D:\Unic\Diploma\_project_back\hod-back\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back.StaticWebAssets.Manifest.cache
-D:\Unic\Diploma\_project_back\hod-back\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back.StaticWebAssets.xml
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\hod-back.exe
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\hod-back.deps.json
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\hod-back.runtimeconfig.json
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\hod-back.runtimeconfig.dev.json
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\hod-back.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\hod-back.pdb
-D:\Unic\Diploma\_project_back\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.pdb
-D:\Unic\Diploma\_project_back\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.genruntimeconfig.cache
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.ComponentModel.Annotations.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CopyComplete
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CoreCompileInputs.cache
-D:\Unic\Diploma\_project_back\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.MvcApplicationPartsAssemblyInfo.cache
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\ClosedXML.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\DocumentFormat.OpenXml.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\ExcelNumberFormat.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.IO.Packaging.dll
-D:\Unic\Diploma\_project_back\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.csprojAssemblyReference.cache
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\appsettings.Development.json
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\appsettings.json
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\hod-back.exe
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\hod-back.deps.json
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\hod-back.runtimeconfig.json
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\hod-back.runtimeconfig.dev.json
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\hod-back.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\hod-back.pdb
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\ClosedXML.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\DocumentFormat.OpenXml.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\ExcelNumberFormat.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.ComponentModel.Annotations.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.IO.Packaging.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
-D:\Unic\Diplom\hod-back\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Unic\Diplom\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.csprojAssemblyReference.cache
-D:\Unic\Diplom\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfoInputs.cache
-D:\Unic\Diplom\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfo.cs
-D:\Unic\Diplom\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CoreCompileInputs.cache
-D:\Unic\Diplom\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.MvcApplicationPartsAssemblyInfo.cache
-D:\Unic\Diplom\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.RazorTargetAssemblyInfo.cache
-D:\Unic\Diplom\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CopyComplete
-D:\Unic\Diplom\hod-back\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back.StaticWebAssets.Manifest.cache
-D:\Unic\Diplom\hod-back\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back.StaticWebAssets.xml
-D:\Unic\Diplom\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.dll
-D:\Unic\Diplom\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.pdb
-D:\Unic\Diplom\hod-back\hod-back\obj\Debug\netcoreapp3.1\hod-back.genruntimeconfig.cache
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\appsettings.Development.json
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\appsettings.json
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.exe
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.deps.json
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.runtimeconfig.json
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.runtimeconfig.dev.json
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.pdb
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\ClosedXML.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\DocumentFormat.OpenXml.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\ExcelNumberFormat.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\System.ComponentModel.Annotations.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\System.IO.Packaging.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csprojAssemblyReference.cache
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfoInputs.cache
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfo.cs
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CoreCompileInputs.cache
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.MvcApplicationPartsAssemblyInfo.cache
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back.StaticWebAssets.Manifest.cache
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back.StaticWebAssets.xml
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\obj\Debug\netcoreapp3.1\scopedcss\bundle\hod-back.styles.css
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.RazorTargetAssemblyInfo.cache
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CopyComplete
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.dll
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.pdb
-D:\Diploma\Projects\Test 1\Diplom_main\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.genruntimeconfig.cache
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\appsettings.json
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
@@ -202,22 +7,16 @@ D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.runtimeconfig.j
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.runtimeconfig.dev.json
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.pdb
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfoInputs.cache
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfo.cs
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.RazorTargetAssemblyInfo.cache
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back.StaticWebAssets.Manifest.cache
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back.StaticWebAssets.xml
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.dll
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.pdb
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.genruntimeconfig.cache
+D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\AutoMapper.dll
+D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\ClosedXML.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\DocumentFormat.OpenXml.dll
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\EntityFramework.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\ExcelNumberFormat.dll
+D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Humanizer.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
@@ -236,11 +35,9 @@ D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\System.CodeDom.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\System.ComponentModel.Annotations.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\System.IO.Packaging.dll
@@ -256,97 +53,18 @@ D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CopyComplete
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Humanizer.dll
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csprojAssemblyReference.cache
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfoInputs.cache
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfo.cs
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CoreCompileInputs.cache
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.MvcApplicationPartsAssemblyInfo.cache
-<<<<<<< HEAD
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csprojAssemblyReference.cache
-=======
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\appsettings.Development.json
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\appsettings.json
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.exe
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.deps.json
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.runtimeconfig.json
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.runtimeconfig.dev.json
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.pdb
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\ClosedXML.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\DocumentFormat.OpenXml.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\EntityFramework.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\ExcelNumberFormat.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\System.CodeDom.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\System.ComponentModel.Annotations.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\System.IO.Packaging.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csprojAssemblyReference.cache
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfoInputs.cache
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfo.cs
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CoreCompileInputs.cache
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.MvcApplicationPartsAssemblyInfo.cache
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back.StaticWebAssets.Manifest.cache
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back.StaticWebAssets.xml
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\scopedcss\bundle\hod-back.styles.css
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.RazorTargetAssemblyInfo.cache
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CopyComplete
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.dll
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.pdb
-F:\Study\Diploma\DiplomTwo\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.genruntimeconfig.cache
->>>>>>> 1e492fbcea487760ab4fd5ffabb146f0ea9fc516
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.AutoHistory.dll
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.UnitOfWork.dll
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\AutoMapper.dll
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.RazorTargetAssemblyInfo.cache
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CopyComplete
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back.StaticWebAssets.Manifest.cache
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back.StaticWebAssets.xml
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.dll
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.pdb
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.genruntimeconfig.cache
+D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Configs\baseConfig.json

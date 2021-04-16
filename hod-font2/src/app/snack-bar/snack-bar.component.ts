@@ -30,7 +30,7 @@ export class SnackBarComponent implements OnInit {
     });
   }
 
-  openSnackBarFull(msg: string, hor: string, ver: string) {
+  openSnackBarFull(msg: string, hor: string, ver: string, durationMs: number) {
     
     let hor_;
     switch(hor){
@@ -52,7 +52,7 @@ export class SnackBarComponent implements OnInit {
     }
 
     this._snackBar.open(`${msg}`, 'Close', {
-      duration: 2000,
+      duration: durationMs,
       horizontalPosition: hor_,
       verticalPosition: ver_,
     });

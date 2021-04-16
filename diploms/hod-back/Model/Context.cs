@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+//using System.Data.Entity;
 
 #nullable disable
 
@@ -18,6 +19,7 @@ namespace hod_back.Model
         }
 
         public virtual DbSet<AcPlan> AcPlans { get; set; }
+        public virtual DbSet<AcPlanDep> AcPlanDeps { get; set; }
         public virtual DbSet<AttachedAcPlan> AttachedAcPlans { get; set; }
         public virtual DbSet<BlockNum> BlockNums { get; set; }
         public virtual DbSet<BlockRec> BlockRecs { get; set; }
@@ -78,12 +80,23 @@ namespace hod_back.Model
                     .HasName("PK__AcPlans__5BFF92491FC8360D");
             });
 
+            modelBuilder.Entity<AcPlanDep>(entity =>
+            {
+                entity.HasKey(e => e.AcPlDepId)
+                    .HasName("PK__AcPlanDe__DE0245C6CA2B04EE");
+
+                entity.Property(e => e.AcPlDepId).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Dep)
+                    .WithMany(p => p.AcPlanDeps)
+                    .HasForeignKey(d => d.DepId)
+                    .HasConstraintName("AcPlanDeps_department");
+            });
+
             modelBuilder.Entity<AttachedAcPlan>(entity =>
             {
                 entity.HasKey(e => e.AttAcPlId)
-                    .HasName("PK__Attached__96BCE5863BF03315");
-
-                entity.Property(e => e.AttAcPlId).ValueGeneratedNever();
+                    .HasName("PK__Attached__96BCE5867F77FF6E");
 
                 entity.HasOne(d => d.BlockRec)
                     .WithMany(p => p.AttachedAcPlans)
@@ -493,10 +506,10 @@ namespace hod_back.Model
                 entity.HasKey(e => e.SubId)
                     .HasName("PK__Subjects__694106B0F7AF68A6");
 
-                entity.HasOne(d => d.Dep)
+                entity.HasOne(d => d.AcPlDep)
                     .WithMany(p => p.Subjects)
-                    .HasForeignKey(d => d.DepId)
-                    .HasConstraintName("Subjects_department");
+                    .HasForeignKey(d => d.AcPlDepId)
+                    .HasConstraintName("Subjects_acPlanDep");
             });
 
             modelBuilder.Entity<SubjectType>(entity =>

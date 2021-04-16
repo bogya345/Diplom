@@ -13,9 +13,9 @@ namespace hod_back.Model
     {
         public Department()
         {
+            AcPlanDeps = new HashSet<AcPlanDep>();
             Directions = new HashSet<Direction>();
             PlanStaffs = new HashSet<PlanStaff>();
-            Subjects = new HashSet<Subject>();
         }
 
         [Key]
@@ -37,6 +37,8 @@ namespace hod_back.Model
         public DateTime? DateExit { get; set; }
         [Column("role_id")]
         public int? RoleId { get; set; }
+        [Column("nameInAcPlan")]
+        public string NameInAcPlan { get; set; }
 
         [ForeignKey(nameof(DepTId))]
         [InverseProperty(nameof(DepType.Departments))]
@@ -44,11 +46,11 @@ namespace hod_back.Model
         [ForeignKey(nameof(RoleId))]
         [InverseProperty("Departments")]
         public virtual Role Role { get; set; }
+        [InverseProperty(nameof(AcPlanDep.Dep))]
+        public virtual ICollection<AcPlanDep> AcPlanDeps { get; set; }
         [InverseProperty(nameof(Direction.Dep))]
         public virtual ICollection<Direction> Directions { get; set; }
         [InverseProperty(nameof(PlanStaff.Dep))]
         public virtual ICollection<PlanStaff> PlanStaffs { get; set; }
-        [InverseProperty(nameof(Subject.Dep))]
-        public virtual ICollection<Subject> Subjects { get; set; }
     }
 }

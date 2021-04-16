@@ -19,6 +19,9 @@ namespace hod_back.DAL.Repositories
         }
 
         public virtual IEnumerable<T> GetMany(Func<T, bool> func) { throw new NotImplementedException(); }
+        public virtual IEnumerable<T> GetManyWithInclude(Func<T, bool> func) { throw new NotImplementedException(); }
+
+        public virtual IEnumerable<T> GetAll() { throw new NotImplementedException(); }
 
         public virtual T GetOrDefault(Func<T, bool> func, T def = null) { throw new NotImplementedException(); }
         public virtual T OnExist(string name) { throw new NotImplementedException(); }
@@ -33,11 +36,12 @@ namespace hod_back.DAL.Repositories
         public virtual void CreateRange(T[] items) { }
 
         public virtual void Update(T item) { }
-        public virtual void UpdateRande(T[] items) { }
+        public virtual void UpdateRange(T[] items) { }
 
         public virtual void Delete(int itemId) { }
         public virtual void Delete(string itemName) { }
         public virtual void Delete(T item) { }
+        public virtual void DeleteRange(T[] items) { }
     }
 
 }

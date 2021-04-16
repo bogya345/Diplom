@@ -60,17 +60,22 @@
                             <!-- <td><button class="btn btn-info" (click)="showFgosRequirs( item )">Просмотр</button></td> -->
                             <td><button class="btn btn-info" mat-raised-button id="logout-button"
                                     (click)="openModal( item )">Просмотр</button></td>
-                            <p *ngIf="item.acPlan_id == null; else elseBlock_acPlan">
+                            <p *ngIf="item.acPl_id == null; else elseBlock_acPlan">
                                 <td>
                                     <p>Загрузить учебный план</p>
-                                    <input #file type="file" accept=".xlsx" multiple (change)="upload(file.files, item)" />
+                                    <input #file type="file" accept=".xlsx" multiple
+                                        (change)="upload(file.files, item)" />
                                 </td>
                             </p>
                             <ng-template #elseBlock_acPlan>
                                 <td>
-                                    <a href="ms-excel:ofe|u|http://localhost:4200/assets/PlanIST16.xlsx">
+                                    <!-- <a href="ms-excel:ofe|u|http://localhost:4200/assets/PlanIST16.xlsx">
                                         Открыть учебный план
-                                    </a>
+                                    </a> -->
+                                    <button class="btn btn-info" (click)="openAcPlan(item)">Открыть учебный
+                                        план</button>
+                                    <button class="btn btn-info" mat-raised-button id="reload-acplan"
+                                        (click)="openModalReloadAcPlan( item )">Изменить</button>
                                 </td>
                             </ng-template>
 
@@ -107,11 +112,31 @@
                             <td></td>
                             <td></td>
                             <td>
-                                <section class="example-section">
-                                    <mat-progress-bar class="example-margin" [color]="color" [mode]="mode"
+                                <section *ngIf="selectedDir.acPl_id == null; else elseBlock_first" class="">
+                                    <p>{{debugger(selectedDir)}}</p>
+                                    <mat-progress-bar class="example-margin" [color]="colorWarn" [mode]="mode"
                                         [value]="value">
                                     </mat-progress-bar>
                                 </section>
+                                <!-- Статус назначений преподавателей -->
+                                <ng-template #elseBlock_first>
+                                    <section *ngIf="true; else elseBlock_second" class="example-section">
+                                        <mat-progress-bar class="example-margin" [color]="colorPrimary" [mode]="mode"
+                                            [value]="value">
+                                        </mat-progress-bar>
+                                    </section>
+                                    <ng-template #elseBlock_second>
+                                        <section class="example-section">
+                                            <mat-progress-bar class="example-margin" [color]="colorAccent" [mode]="mode"
+                                                [value]="value">
+                                            </mat-progress-bar>
+                                        </section>
+                                    </ng-template>
+                                </ng-template>
+
+                                <br />
+                                <button class="btn btn-info" mat-raised-button id="group-status"
+                                    (click)="openModalGroupStatus( item )">Подробнее</button>
                             </td>
                             <td><button class="btn btn-link" (click)="setSelectedGroup( item )">Выбрать</button></td>
                         </tr>
@@ -122,7 +147,7 @@
         </mat-tab>
 
         <mat-tab label="Учебный план" class="bg-info" [disabled]="(selectedGroup==null)">
-            <app-hod-acplan *ngIf="selectedGroup && selectedDir" [direction]="selectedDir" [group]="selectedGroup">
+            <app-hod-acplan *ngIf="selectedGroup" [direction]="selectedDir" [group]="selectedGroup">
             </app-hod-acplan>
         </mat-tab>
 

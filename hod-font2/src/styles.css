@@ -12,10 +12,33 @@ body {
     padding: 20px 10px 10px 20px;
     margin: 10px 10px 10px 10px;
 }
+
 .common-indentation p {
     margin-left: 10px;
 }
 
 .mat-snack-bar-container {
     max-width: 800px;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: #1E457C;
+}
+
+::ng-deep .mat-progress-bar {
+    border-radius: 2px;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+    background: #E4E8EB;
+}
+mat-progress-bar .mat-progress-bar-buffer {
+    background: #E4E8EB;
+}
+
+::ng-deep .mat-progress-bar-red {
+    background: #e92828;
+}
+mat-progress-bar .mat-progress-bar-red {
+    background: #e9b7bc;
 }

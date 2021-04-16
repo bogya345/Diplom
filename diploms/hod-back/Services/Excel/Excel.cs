@@ -12,18 +12,26 @@ using hod_back.DAL.Models.ToParse;
 using AutoMapper;
 using hod_back.Profiles;
 
+using hod_back.Extentions;
+
 namespace hod_back.Services.Excel
 {
     public class Excel
     {
         private UnitOfWork unit;
 
-        private Direction dir;
-        private AcPlan acPl;
-        private Department dep;
+        private readonly List<AcPlanDep> acPlanDeps;
+
+        private readonly Department dep;
+        private readonly Direction dir;
+        private readonly AcPlan acPl;
+
+        private List<BlockNum> blockNums;
+        public List<BlockRec> recs;
+
         private bool isNewAcPl;
 
-        private IMapper _mapper;
+        //private IMapper _mapper;
 
         public string path { get; set; }
 
@@ -35,14 +43,23 @@ namespace hod_back.Services.Excel
 
             this.unit = unit;
 
+            this.acPlanDeps = unit.AcPlanDeps.GetAll().ToList();
 
             this.dep = unit.Departments.GetOrDefault(x => x.DepId == dep_id);// new Department { DepId = dep_id }
 
             this.dir = unit.Directions.GetOrDefault(x => x.DirId == dir_id); // ?? new Direction() { DirId = dir_id }
 
-            this.acPl = dir.AcPlId != null 
+            this.acPl = dir.AcPlId != null
                 ? unit.AcPlans.GetOrDefault(x => x.AcPlId == dir.AcPlId) : new AcPlan { Document = docAcPlan };
             this.isNewAcPl = dir.AcPlId == null;
+
+            this.blockNums = unit.BlockNums.GetAll().ToList();
+
+
+            if (!this.isNewAcPl)
+            {
+                this.recs = unit.BlockRecs.GetMany(x => x.AcPlId == this.dir.AcPlId).ToList();
+            }
 
             if (this.isNewAcPl)
             {
@@ -55,18 +72,16 @@ namespace hod_back.Services.Excel
                 unit.AcPlans.Update(acPl);
             }
 
-            this._mapper = new Mapper(new MapperConfiguration(c =>
-            {
-                c.AddProfile(new BlockRecsProfile());
-            }));
-
+            //this._mapper = new Mapper(new MapperConfiguration(c =>
+            //{
+            //    c.AddProfile(new BlockRecsProfile());
+            //}));
             //this.dir = unit.DepDirFac.
-
         }
 
         private static class IgnoreList
         {
-            private static List<string> ignoreBlock1List = new List<string> { "дисциплины", "по", "выбору", "-" };
+            private static List<string> ignoreBlock1List = new List<string> { "дисциплины", "выбору" }; // дисциплины по выбору
             private static List<string> ignoreBlock2List = new List<string> { "учебная практика", "производственная практика" };
 
             public static List<string> ignoreList;
@@ -101,11 +116,6 @@ namespace hod_back.Services.Excel
             //{
 
             List<ExCell> semest = new List<ExCell>();
-            blocks = new List<Blocks>();
-
-            //List<SubjectRecord> blocks = new List<SubjectRecord>();
-
-            List<int> blockcount = new List<int>();
 
             var wb = new XLWorkbook(path);
             var worksheet = wb.Worksheet(1);
@@ -129,7 +139,7 @@ namespace hod_back.Services.Excel
                             int sem = int.Parse(val.ToLower().Last().ToString());
                             semest.Add(new ExCell(cell.Address.ColumnNumber, cell.Address.RowNumber, cell.Address.ColumnLetter));
                         }
-                        catch (Exception e) { }
+                        catch (Exception e) { throw new Exception(); }
                     }
 
                     if (val.Contains("код"))
@@ -156,15 +166,40 @@ namespace hod_back.Services.Excel
 
                 if (IgnoreList.ignoreList != null)
                 {
-                    string sub = row.Cell(3).Value.ToString() ?? "";   //subject
+                    string sub = row.Cell(3).Value.ToString() ?? "";    //subject
                     if (sub != "")
                     {
                         if (!IgnoreList.ignoreList.Any(x => sub.ToLower().Contains(x)))
                         {
                             if (buf_subs.FirstOrDefault(x => string.Equals(x.SubName, sub, StringComparison.InvariantCultureIgnoreCase)) == null)
                             {
-                                buf_subs.Add(new Subject { SubName = sub });
-                                subs_new.Add(new Subject { SubName = sub });
+                                Subject sub_ = new Subject();
+                                sub_.SubName = sub;
+
+                                string dep_uid = row.Cell("CW").Value.ToString();   //dep uid
+                                string dep_name = row.Cell("CX").Value.ToString();  //dep name
+
+                                var tmp = this.acPlanDeps.FirstOrDefault(x => string.Equals(x.AcPlDepName, dep_name, StringComparison.InvariantCultureIgnoreCase));
+                                if (tmp == null)
+                                {
+                                    var tmp_acPlDep = new AcPlanDep()
+                                    {
+                                        AcPlDepId = Convert.ToInt32(dep_uid),
+                                        AcPlDepName = dep_name
+                                    };
+
+                                    unit.AcPlanDeps.Create(tmp_acPlDep);
+                                    this.acPlanDeps.Add(tmp_acPlDep);
+
+                                    sub_.AcPlDepId = tmp_acPlDep.AcPlDepId;
+                                }
+                                else
+                                {
+                                    sub_.AcPlDepId = tmp.AcPlDepId;
+                                }
+
+                                buf_subs.Add(sub_);
+                                subs_new.Add(sub_);
                             }
                         }
                     }
@@ -180,7 +215,7 @@ namespace hod_back.Services.Excel
 
             #region Блоки
 
-            List<BlockNum> buf_bNums = new List<BlockNum>();
+            //List<BlockNum> buf_bNums = new List<BlockNum>();
             //List<BlockNum> blockNums = unit.BlockNums.GetAll();
 
             List<BlockRec> buf_bRecs = new List<BlockRec>();
@@ -201,17 +236,18 @@ namespace hod_back.Services.Excel
                 {
                     blocknum = 0;
                     blockName = value;
+                    BlockNum curBlockNum = blockNums.FirstOrDefault(x => string.Equals(x.BlockNumName, blockName));
 
-                    if (buf_bNums.FirstOrDefault(x => string.Equals(x.BlockNumName, value)) == null)
+                    if (curBlockNum == null)
                     {
-                        BlockNum bNum = new BlockNum { BlockNumName = value };
+                        curBlockNum = new BlockNum { BlockNumName = value };
 
-                        bNum = unit.BlockNums.CreateWithReturn(bNum);
-                        buf_bNums.Add(bNum);
-                        
-                        bNumId = bNum.BlockNumId;
+                        curBlockNum = unit.BlockNums.CreateWithReturn(curBlockNum);
+                        blockNums.Add(curBlockNum);
                     }
-                    
+
+                    bNumId = curBlockNum.BlockNumId;
+
                     IgnoreList.Next();
                     foreach (char ch in value)
                     {
@@ -223,7 +259,7 @@ namespace hod_back.Services.Excel
                     }
                 }
 
-                if ((value == "-" || value == "+") && buf_bNums.Count != 0)
+                if ((value == "-" || value == "+") && bNumId != -1)
                 {
                     if (true)
                     {
@@ -236,55 +272,66 @@ namespace hod_back.Services.Excel
                                 {
                                     ExCell tmp = semest[semIndex];
 
+                                    string ze_ = row.Cell(semest[semIndex].Column).Value.ToString().Replace('.', ',');
                                     float? ze =
                                         (float?)Convert.ToDouble(
-                                            string.IsNullOrWhiteSpace(row.Cell(semest[semIndex].Column).Value.ToString())
-                                            ? 0 : row.Cell(semest[semIndex].Column + 1).Value); //итого
+                                            string.IsNullOrWhiteSpace(ze_)
+                                            ? "0" : ze_); //итого
 
+                                    string total_ = row.Cell(semest[semIndex].Column + 1).Value.ToString().Replace('.', ',');
                                     float? total =
                                         (float?)Convert.ToDouble(
-                                            string.IsNullOrWhiteSpace(row.Cell(semest[semIndex].Column + 1).Value.ToString())
-                                            ? 0 : row.Cell(semest[semIndex].Column + 1).Value); //итого
+                                            string.IsNullOrWhiteSpace(total_)
+                                            ? "0" : total_); //итого
 
+                                    string les_ = row.Cell(semest[semIndex].Column + 2).Value.ToString().Replace('.', ',');
                                     float? les =
                                         (float?)Convert.ToDouble(
-                                            string.IsNullOrWhiteSpace(row.Cell(semest[semIndex].Column + 2).Value.ToString())
-                                            ? 0 : row.Cell(semest[semIndex].Column + 1).Value); //лек
+                                            string.IsNullOrWhiteSpace(les_)
+                                            ? "0" : les_); //лек
 
+                                    string lab_ = row.Cell(semest[semIndex].Column + 3).Value.ToString().Replace('.', ',');
                                     float? lab =
                                         (float?)Convert.ToDouble(
-                                            string.IsNullOrWhiteSpace(row.Cell(semest[semIndex].Column + 3).Value.ToString())
-                                            ? 0 : row.Cell(semest[semIndex].Column + 1).Value); //лаб
+                                            string.IsNullOrWhiteSpace(lab_)
+                                            ? "0" : lab_); //лаб
 
+                                    string pr_ = row.Cell(semest[semIndex].Column + 4).Value.ToString().Replace('.', ',');
                                     float? pr =
                                         (float?)Convert.ToDouble(
-                                            string.IsNullOrWhiteSpace(row.Cell(semest[semIndex].Column + 4).Value.ToString())
-                                            ? 0 : row.Cell(semest[semIndex].Column + 1).Value); //пр
+                                            string.IsNullOrWhiteSpace(pr_)
+                                            ? "0" : pr_); //пр
 
+                                    string iz_ = row.Cell(semest[semIndex].Column + 5).Value.ToString().Replace('.', ',');
                                     float? iz =
                                         (float?)Convert.ToDouble(
-                                            string.IsNullOrWhiteSpace(row.Cell(semest[semIndex].Column + 5).Value.ToString())
-                                            ? 0 : row.Cell(semest[semIndex].Column + 1).Value); //из
+                                            string.IsNullOrWhiteSpace(iz_)
+                                            ? "0" : iz_); //из
 
+                                    string ak_ = row.Cell(semest[semIndex].Column + 6).Value.ToString().Replace('.', ',');
                                     float? ak =
                                         (float?)Convert.ToDouble(
-                                            string.IsNullOrWhiteSpace(row.Cell(semest[semIndex].Column + 6).Value.ToString())
-                                            ? 0 : row.Cell(semest[semIndex].Column + 1).Value); //ак
+                                            string.IsNullOrWhiteSpace(ak_)
+                                            ? "0" : ak_); //ак
 
+                                    string kpr_ = row.Cell(semest[semIndex].Column + 7).Value.ToString().Replace('.', ',');
                                     float? kpr =
                                         (float?)Convert.ToDouble(
-                                            string.IsNullOrWhiteSpace(row.Cell(semest[semIndex].Column + 7).Value.ToString())
-                                            ? 0 : row.Cell(semest[semIndex].Column + 1).Value); //кпр
+                                            string.IsNullOrWhiteSpace(kpr_)
+                                            ? "0" : kpr_); //кпр
 
+                                    string sr_ = row.Cell(semest[semIndex].Column + 8).Value.ToString().Replace('.', ',');
                                     float? sr =
                                         (float?)Convert.ToDouble(
-                                            string.IsNullOrWhiteSpace(row.Cell(semest[semIndex].Column + 8).Value.ToString())
-                                            ? 0 : row.Cell(semest[semIndex].Column + 1).Value); //ср
+                                            string.IsNullOrWhiteSpace(sr_)
+                                            ? "0" : sr_); //ср
 
+                                    string control_ = row.Cell(semest[semIndex].Column + 9).Value.ToString().Replace('.', ',');
                                     float? control =
                                         (float?)Convert.ToDouble(
-                                            string.IsNullOrWhiteSpace(row.Cell(semest[semIndex].Column + 9).Value.ToString())
-                                            ? 0 : row.Cell(semest[semIndex].Column + 1).Value); //контроль
+                                            string.IsNullOrWhiteSpace(control_)
+                                            ? "0" : control_); //контроль
+
 
                                     int subId = unit.Subjects.GetOrDefault(x => string.Equals(sub, x.SubName, StringComparison.InvariantCultureIgnoreCase)).SubId;
 
@@ -307,32 +354,6 @@ namespace hod_back.Services.Excel
                                         Controll = control,
                                     });
 
-                                    //buf_bRecs.Add(new BlockRec
-                                    //{
-                                    //    BlockNumId = buf_bNums.Last().BlockNumId,
-                                    //    AcPlId = 
-                                    //}
-                                    //);
-                                    //blocks.Last().recs.Add(
-                                    //    new BlockRec {
-                                    //        dir dir.DirId,    // id_group
-                                    //        (semIndex + 1).ToString(), // semestr
-                                    //        value,   // InPlan
-                                    //                 //getData.FindSubjectIDWithAdding(sub).ToString(),   // subject
-                                    //        unit.Subjects.GetAll().Where(x => x.SubName == sub).FirstOrDefault().SubId.ToString(),   // subject
-                                    //        blockName,    // blockNum
-                                    //        row.Cell(semest[semIndex].Column).Value.ToString() ?? "",
-                                    //        row.Cell(semest[semIndex].Column + 1).Value.ToString().Replace(".", ",") ?? "",
-                                    //        row.Cell(semest[semIndex].Column + 2).Value.ToString().Replace(".", ",") ?? "",
-                                    //        row.Cell(semest[semIndex].Column + 3).Value.ToString().Replace(".", ",") ?? "",
-                                    //        row.Cell(semest[semIndex].Column + 4).Value.ToString().Replace(".", ",") ?? "",
-                                    //        row.Cell(semest[semIndex].Column + 5).Value.ToString().Replace(".", ",") ?? "",
-                                    //        row.Cell(semest[semIndex].Column + 6).Value.ToString().Replace(".", ",") ?? "",
-                                    //        row.Cell(semest[semIndex].Column + 7).Value.ToString().Replace(".", ",") ?? "",
-                                    //        row.Cell(semest[semIndex].Column + 8).Value.ToString().Replace(".", ",") ?? "",
-                                    //        row.Cell(semest[semIndex].Column + 9).Value.ToString().Replace(".", ",") ?? ""
-                                    //        }
-                                    //    );
                                 }
                             }
 
@@ -362,18 +383,55 @@ namespace hod_back.Services.Excel
 
         private void UpdateRange(List<BlockRec> items)
         {
-            List<BlockRec> buf = unit.BlockRecs.GetMany(x => x.AcPlId == this.acPl.AcPlId)
-                .OrderBy(x => x.SemestrNum)
-                .ThenBy(x => x.SubId)
-                .ToList();
             items = items
-                .OrderBy(x => x.SemestrNum)
-                .ThenBy(x => x.SubId)
+                .OrderBy(x => x.SubId)
+                .ThenBy(x => x.SemestrNum)
                 .ToList();
 
-            var tmp = _mapper.Map(buf, items);
+            this.recs = this.recs
+                .OrderBy(x => x.SubId)
+                .ThenBy(x => x.SemestrNum)
+                .ToList();
 
-            //unit.BlockRecs.UpdateRande(tmp.ToArray());
+            List<BlockRec> buf = new List<BlockRec>();
+            if (this.recs.Count != 0)
+            {
+                foreach (BlockRec i in items)
+                {
+                    int index = i.IsSameSubject(this.recs);
+                    if (index != -1)
+                    {
+                        // значит новых предметов не появилось
+                        var t = this.recs[index];
+                        this.recs[index].RewriteValues(i);
+                    }
+                    else
+                    {
+                        // новый предмет
+                        buf.Add(i);
+                    }
+                }
+
+                if (buf.Count != 0)
+                {
+                    unit.BlockRecs.CreateRange(buf.ToArray());
+                }
+
+                unit.BlockRecs.UpdateRange(this.recs.ToArray());
+            }
+            else
+            {
+                unit.BlockRecs.CreateRange(items.ToArray());
+            }
+
+            //if (this.recs.Count != 0)
+            //{
+            //    unit.BlockRecs.DeleteRange(this.recs.ToArray());
+            //}
+            //unit.BlockRecs.CreateRange(items.ToArray());
+
+            // необходимо будет сделать фиксацию изменения (для дальнейшего уведомления пользователей о изменениях)
+
         }
 
 

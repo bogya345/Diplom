@@ -17,7 +17,14 @@ import { HodShowAcPlanComponent } from './hod-show-ac-plan/hod-show-ac-plan.comp
 
 // test
 import { SnackBarComponent } from './snack-bar/snack-bar.component';
+import { HodMapSubDepComponent } from './hod-map-sub-dep/hod-map-sub-dep.component';
 
+const hod_mapper: Routes = [
+  
+  // маппинг дисциплины с кафедрой
+  { path: 'subdep', component: HodMapSubDepComponent },
+  
+];
 
 const hod_routes: Routes = [
 
@@ -39,6 +46,9 @@ const hod_routes: Routes = [
 
   // просмотр учебного плана направления
   { path: 'acplan/:acPl_id', component: HodShowAcPlanComponent },
+
+  // просмотр учебного плана направления
+  { path: 'mapper', children: hod_mapper },
 
 ];
 ///

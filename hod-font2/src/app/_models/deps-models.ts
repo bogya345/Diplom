@@ -39,7 +39,7 @@ interface Direction {
     dir_id: number,
     dir_name: string,
     startYear: number,
-    acPlan_id: number,
+    acPl_id: number,
     requirs: DirRequir[]
     groups: Group[],
 }

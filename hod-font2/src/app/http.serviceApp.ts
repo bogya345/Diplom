@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -17,13 +17,20 @@ export class app_HttpService {
     /////// GET REGION START ///////
 
     getDepsInfo(): Observable<DepInfo[]> {
-        return this.http.get<DepInfo[]>(`${environment.hod_api_url}deps/info`,
-            {
-                // headers: {
-                //     'Accept': 'application/json',
-                //     'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
-                // }
-            });
+
+        let t = this.http.get<DepInfo[]>(`${environment.hod_api_url}deps/info`,
+        {
+            headers: new HttpHeaders().set('Hui', 'nahioy')
+            // headers: {
+            //     'Accept': 'application/json',
+            //     'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+            // }
+        });
+
+        console.log(t);
+        // console.log(t)
+
+        return t;
     }
 
     getFakeDepsInfo(): DepInfo[] {

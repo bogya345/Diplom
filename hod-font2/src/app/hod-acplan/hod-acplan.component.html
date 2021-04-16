@@ -1,9 +1,7 @@
 <div>
 
-  <app-hod-promote [load]="selectedLoad != null ? selectedLoad : ''" (onPromote)="onPromote($event)"
-    id="popup-selector-promotion" hidden="false">
-  </app-hod-promote>
-
+  <br />
+  
   <mat-tab-group mat-align-tabs=" start" [(selectedIndex)]="selectedIndex_plan">
     <!-- #enddocregion align-start -->
 
@@ -22,11 +20,11 @@
               </tr>
             </thead>
 
-            <tr *ngFor="let item of acPlan.BlockNums">
+            <tr *ngFor="let item of acPlan">
               <td></td>
-              <td>{{ item.BlockName }}</td>
+              <td>{{ item.blockName }}</td>
               <td></td>
-              <td><button (click)="setSelectedBlockNum( item )">Выбрать</button></td>
+              <td><button (click)="setSelectedBlockNum(item)">Выбрать</button></td>
             </tr>
 
           </table>
@@ -44,8 +42,8 @@
 
           <!-- SubjectName Column -->
           <ng-container matColumnDef="SubjectName">
-            <th mat-header-cell *matHeaderCellDef> SubjectName </th>
-            <td mat-cell *matCellDef="let element"> {{element.SubjectName}} </td>
+            <th mat-header-cell *matHeaderCellDef> Название дисциплины </th>
+            <td mat-cell *matCellDef="let element"> {{element.subjectName}} (<b>Семестр {{element.semestrNum}}</b>) </td>
           </ng-container>
 
           <ng-container matColumnDef="expandedDetail">
@@ -66,17 +64,20 @@
                     </ul> -->
 
                     <div class="row">
-                      <mat-card *ngFor="let i of selectedSubject.Loads">
+                      <mat-card *ngFor="let i of selectedSubject.loads">
                         <div>
 
-                          <h3 class="card-title">{{i.SubTypeName}}</h3>
+                          <h3 class="card-title">{{i.subTypeName}} Часы:<b>{{i.loadValue}}</b></h3>
                           <p class="card-text mb-2 text-muted">
                             Преподаватель:
-                            <i>{{i.TeachLoadId == null ? '<не назначен>' : i.TeachLoadId}}</i>
+                            <i>{{i.teachLoadId == null ? '<не назначен>' : i.teachLoadId}}</i>
                           </p>
-                          <button class="btn btn-outline-primary mb-2 mr-2">
+                          <button class="btn btn-primary" (click)="openModal( direction, group, acPlan, element, i )">
                             Назначить
                           </button>
+                          <!-- <button class="btn btn-outline-primary mb-2 mr-2">
+                            Назначить
+                          </button> -->
                           <!-- <button class="btn btn-outline-primary mb-2 mr-2" (click)="openXl(content)">
                             Назначить
                           </button> -->

@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable
@@ -36,5 +40,6 @@ namespace hod_back.Model
         [ForeignKey(nameof(SubTId))]
         [InverseProperty(nameof(SubjectType.AttachedAcPlans))]
         public virtual SubjectType SubT { get; set; }
+
     }
 }

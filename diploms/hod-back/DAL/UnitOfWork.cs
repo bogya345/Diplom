@@ -16,6 +16,17 @@ namespace hod_back.DAL
 
         public Context context = new Context();
 
+        private SandBoxRepository sandBoxRepos;
+        public SandBoxRepository SandBoxRepository
+        {
+            get
+            {
+                if (sandBoxRepos == null)
+                    sandBoxRepos = new SandBoxRepository(context);
+                return sandBoxRepos;
+            }
+        }
+
         #region Accounts (авторизация)
 
         // tables
@@ -172,6 +183,16 @@ namespace hod_back.DAL
         #region AcPlans (учебные планы)
 
         // tables
+        private AttAcPlanRepository attAcPlanRepository;
+        public AttAcPlanRepository AttAcPlans
+        {
+            get
+            {
+                if (attAcPlanRepository == null)
+                    attAcPlanRepository = new AttAcPlanRepository(context);
+                return attAcPlanRepository;
+            }
+        }
         private AcPlanRepository acPlanRepository;
         public AcPlanRepository AcPlans
         {
@@ -192,6 +213,17 @@ namespace hod_back.DAL
                 return blockNumRepository;
             }
         }
+        private AcPlanDepRepository acPlanDepRepository;
+        public AcPlanDepRepository AcPlanDeps
+        {
+            get
+            {
+                if (acPlanDepRepository == null)
+                    acPlanDepRepository = new AcPlanDepRepository(context);
+                return acPlanDepRepository;
+            }
+        }
+
 
         #endregion
 

@@ -14,6 +14,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using AutoMapper;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
+using hod_back.Configs;
 
 namespace hod_back
 {
@@ -31,6 +36,11 @@ namespace hod_back
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.Configure<FormOptions>(options =>
+            //{
+            //    options.MemoryBufferThreshold = Int32.MaxValue;
+            //});
+
             services.AddCors(options =>
             {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -45,12 +55,15 @@ namespace hod_back
                                           )
                                         .AllowAnyHeader()
                                         .AllowAnyMethod()
+                                        .AllowAnyOrigin()
                                         ;
                                   });
             });
 
+            services.Configure<BaseConfig>(Configuration);
+
             services.AddAutoMapper(
-                typeof(DepsInfoProfile)
+                typeof(DepartmentsProfile)
                 );
 
             //services.Add
@@ -72,7 +85,14 @@ namespace hod_back
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"_Resources")),
+                RequestPath = new PathString("/_Resources")
+            });
+
             app.UseRouting();
 
             app.UseCors(MyAllowSpecificOrigins);

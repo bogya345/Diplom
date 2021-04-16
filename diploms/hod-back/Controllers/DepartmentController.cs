@@ -50,7 +50,23 @@ namespace hod_back.Controllers
         /// <returns></returns>
         //[Authorize(Roles = "Преподаватель,Заведующий,Админ,Уму")]
         [HttpGet("info")]
-        public async Task<IEnumerable<DepsInfoDto>> GetCathedra() => _mapper.Map<IEnumerable<DepsInfo>, IEnumerable<DepsInfoDto>>(_unit.DepsInfo.GetAll());
+        public async Task<IEnumerable<DepsInfoDto>> GetCathedra()
+        {
+            var t = Request.Headers;
+            return _mapper.Map<IEnumerable<DepsInfo>, IEnumerable<DepsInfoDto>>(_unit.DepsInfo.GetAll());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("get/all")]
+        public async Task<IEnumerable<DepsDto>> GetAllDeps()
+        {
+            var tmp = _unit.Departments.GetAll();
+            var res = _mapper.Map<IEnumerable<DepsDto>>(tmp);
+            return res;
+        }
 
         /// <summary>
         /// получить все кафедры
@@ -62,7 +78,7 @@ namespace hod_back.Controllers
         {
             var tmp = _unit.DepDirFac.GetAll().ToList();
 
-            var tmp2 = from i in tmp
+            IEnumerable<DepsDto> tmp2 = from i in tmp
                        group i by new
                        {
                            i.DepId,
