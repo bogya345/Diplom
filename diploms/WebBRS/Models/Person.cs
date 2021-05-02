@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace WebBRS.Models
@@ -34,8 +35,17 @@ namespace WebBRS.Models
 		{
 			return Email;
 		}
-
+		public string PersonFIOShort()
+		{
+			return LastName + FirstName[0]+"." + PatronicName[0]+".";
+		}
+		[JsonIgnore]
 		public virtual List<Student> Students { get; set; }
+		[JsonIgnore]
 		public virtual List<Lecturer> Lecturers { get; set; }
+		[JsonIgnore]
+
+		public virtual List<SubjectForGroup> SubjectsForGroup { get; set; } = new List<SubjectForGroup>();
+
 	}
 }

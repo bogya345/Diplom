@@ -14,7 +14,7 @@ namespace WebBRS.Models
 		public Lecturer Lecturer { get; set; }
 		public byte ClassNumber { get; set; }
 
-		//public List<Attendance> Attendances { get; set; }
+		public List<Attendance> Attendances { get; set; }
 		public virtual List<ExactClass> ExactClasses { get; set; }
 		//public List<Group> Groups { get; set; }
 		[NotMapped]

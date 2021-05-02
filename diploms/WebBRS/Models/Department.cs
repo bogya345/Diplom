@@ -24,6 +24,10 @@ namespace WebBRS.Models
 		public DepartmentType DepartmentType { get; set; }
 		public List<Department> Departments { get; set; }
 		public List<Group> Groups { get; set; }
+		public virtual List<SubjectForGroup> SubjectForGroups { get; set; } = new List<SubjectForGroup>();
+
+		//public virtual List<InformationForTimeTable> InformationForTimeTables { get; set; } = new List<InformationForTimeTable>();
+
 
 	}
 }

@@ -61,13 +61,19 @@ interface ExactClassForLecturerClass {
   IdECFLC: number,
   Lecturer: Lecturer,
   Students: Student[],
+  TypeAttedances: TypeAttedance[],
   Groups: Group[],
   SubjectName: string
+}
+interface TypeAttedance {
+  IdTA: number,
+  TAName: string,
+  TAShortNam: string
 }
 interface Student {
   IdStudent: number,
   PersonFIO: string,
-  Attedanced: string[],
+  Attedanced: TypeAttedance,
   Ball: number,
   HW: HomeWorkStudent
 }

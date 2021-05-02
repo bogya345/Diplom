@@ -31,6 +31,7 @@ namespace WebBRS.DAL
 
 		private PersonsRepo personsRepository;
 		private AttendancesRepo attendanceRepository;
+		private TypeAttedancesRepo typeAttedancesRepo;
 		private GroupsRepo groupsRepo;
 		private ExactClassesRepo exactClassRepo;
 		private LecturersRepo lecturersRepo;
@@ -208,6 +209,15 @@ namespace WebBRS.DAL
 				if (homeworksRepository == null)
 					homeworksRepository = new HomeWorkRepo(context);
 				return homeworksRepository;
+			}
+		}	
+		public TypeAttedancesRepo TypeAttedances
+		{
+			get
+			{
+				if (typeAttedancesRepo == null)
+					typeAttedancesRepo = new TypeAttedancesRepo(context);
+				return typeAttedancesRepo;
 			}
 		}
 		#endregion

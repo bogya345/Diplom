@@ -83,12 +83,10 @@
             <div class="card" *ngFor="let i of personinfo">
               <div class="card-body">
                 <!-- Начало текстового контента -->
-                <h4 class="card-title">{{ i.nCode }}</h4>
-                <h6 class="card-subtitle mb-2"> <i>{{ i.GuidPerson }}</i></h6>
-                <p class="card-text text-muted">Кол-во групп: {{ i.FirstName }}.</p>
-                <p class="card-text text-muted">Кол-во групп: {{ i.LastName }}.</p>
-                <p class="card-text text-muted">Кол-во групп: {{ i.PatronicName }}.</p>
-                <p class="card-text text-muted">Кол-во групп: {{ i.Email }}.</p>
+                <p class="card-text text-muted"> {{ i.FirstName }} {{ i.LastName }} {{ i.PatronicName }}.</p>
+                <!--<p class="card-text text-muted">Кол-во групп: .</p>
+  <p class="card-text text-muted">Кол-во групп: {{ i.PatronicName }}.</p>
+  <p class="card-text text-muted">Кол-во групп: {{ i.Email }}.</p>-->
               </div><!-- Конец текстового контента -->
 
             </div>

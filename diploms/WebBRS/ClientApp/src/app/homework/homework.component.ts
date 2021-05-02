@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeworkComponent implements OnInit {
   
-  public cw: ClassWork = {
+  public cw: HomeWorksModelView = {
     IdClassWork: 1,
     IdClass: 1,
     SubjectGroup: {
@@ -24,7 +24,8 @@ export class HomeworkComponent implements OnInit {
     MaxBall: 6,
     MyBall: 5,
     DateTimeGiven: '25.03.21',
-    DateTimePassed: '25.03.21',
+    DateTimeLoaded: '29.03.21',
+    DateTimePassed: '01.04.21',
     Passed: 'сдал'
   };
   constructor() { }
@@ -44,7 +45,7 @@ interface Lecturer {
   email: string
 
 }
-interface ClassWork {
+interface HomeWorksModelView {
   IdClassWork: number,
   IdClass: number,
   Lecturer: Lecturer,
@@ -54,6 +55,7 @@ interface ClassWork {
   MaxBall: number,
   MyBall: number,
   DateTimeGiven: string,
+  DateTimeLoaded: string,
   DateTimePassed: string,
   Passed: string
 }

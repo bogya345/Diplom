@@ -19,5 +19,6 @@ namespace WebBRS.Models
 		public List<Group> Groups { get; set; } = new List<Group>();
 		public List<SubjectLecturer> SubjectLecturers { get; set; } = new List<SubjectLecturer>();
 		public List<Lecturer> Lecturers { get; set; } = new List<Lecturer>();
+
 	}
 }

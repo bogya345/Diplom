@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace WebBRS.Models
 {
-	public class SubjectForGroup
+	public class InformationForTimeTable
 	{
 		[Required, Key]
-		public int IdSFG { get; set; }
+
+		public int IdIDTB { get; set; }
 		public int IdStudyPlan { get; set; }
 		[ForeignKey("IdStudyPlan")]
 
@@ -37,11 +38,5 @@ namespace WebBRS.Models
 		[ForeignKey("IdSubject")]
 
 		public Subject Subject { get; set; }
-
-		public virtual SubjectLecturer Lecturer { get; set; }
-
-		public virtual TypeStudy TypeStudy { get; set; }
-		public DateTime SFGDate { get; set; }
-		public virtual List<ExactClass> ExactClasses { get; set; } = new List<ExactClass>();
 	}
 }

@@ -40,6 +40,7 @@ namespace WebBRS.DAL.Repositories
 		{
 			return db.ExactClassForLecturerClasses
 				.Include(ecflc=>ecflc.ExactClasses)
+				
 				.Include(ecflc=>ecflc.Lecturer).FirstOrDefault(func);
 		}
 

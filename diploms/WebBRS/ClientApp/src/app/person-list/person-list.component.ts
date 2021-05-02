@@ -38,14 +38,14 @@ export class PersonListComponent implements OnInit {
 
 }
 interface Person {
-  nCode: number,
-  GuidPerson: string,
+  IdPerson: number,
+  //GuidPerson: string,
   //dateCreated: Date,
   //dateEnd: Date
   FirstName: string,
   LastName: string,
   PatronicName: string,
-  Email: string,
-  DateTimeReg: Date,
-  BirthDate: Date
+  Email: string
+  //DateTimeReg: Date,
+  //BirthDate: Date
 }

@@ -16,5 +16,8 @@ namespace WebBRS.Models
 		public Specialty Specialty { get; set; }
 		public TypeControl TypeControl { get; set; }
 		public TypeStudyPlanRecord TypeStudyPlanRecord { get; set; }
+		//public virtual List<InformationForTimeTable> InformationForTimeTables { get; set; } = new List<InformationForTimeTable>();
+		public virtual List<SubjectForGroup> SubjectForGroups { get; set; } = new List<SubjectForGroup>();
+
 	}
 }

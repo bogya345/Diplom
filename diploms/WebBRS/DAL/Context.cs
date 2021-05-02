@@ -15,6 +15,7 @@ namespace WebBRS.DAL
 		public DbSet<Attendance> Attendances { get; set; }
 		public DbSet<TypeAttedance> TypeAttedances { get; set; }
 		public DbSet<TypeControl> TypeControls { get; set; }
+		//public DbSet<InformationForTimeTable> InformationForTimeTables { get; set; }
 		public DbSet<ExactClassForLecturerClass> ExactClassForLecturerClasses { get; set; }
 		public DbSet<ClassWork> ClassWorks { get; set; }
 		public DbSet<Curator> Curators { get; set; }
@@ -53,8 +54,8 @@ namespace WebBRS.DAL
 		}
 		public MyContext()
 		{
-			Database.EnsureDeleted();   // удаляем бд со старой схемой
-			Database.EnsureCreated();   // создаем бд с новой схемой
+			//Database.EnsureDeleted();   // удаляем бд со старой схемой
+			//Database.EnsureCreated();   // создаем бд с новой схемой
 		}
 
 		public MyContext getContext()
@@ -88,7 +89,75 @@ namespace WebBRS.DAL
 				.HasOne(p => p.Person)
 				.WithMany(t => t.Students)
 				.HasForeignKey(st => st.IdPerson);
+			modelBuilder.Entity<Attendance>()
+			.HasOne(p => p.SGH)
+			.WithMany(t => t.Attendances)
+			.HasForeignKey(st => st.IdAtt);
+			modelBuilder.Entity<StudentsGroupHistory>()
+			.HasOne(p => p.Course)
+			.WithMany(t => t.StudentsGroupHistories)
+			.HasForeignKey(st => st.CourseIdCourse);
+			modelBuilder.Entity<StudentsGroupHistory>()
+			.HasOne(p => p.Group)
+			.WithMany(t => t.StudentsGroupHistories)
+			.HasForeignKey(st => st.GroupIdGroup);
+		//	modelBuilder.Entity<StudentsGroupHistory>()
+		//.HasOne(p => p.ConditionOfPerson)
+		//.WithMany(t => t.StudentsGroupHistories)
+		//.HasForeignKey(st => st.ConditionOfPersonIdConditionOfPerson);
 
+
+
+			modelBuilder.Entity<StudentsGroupHistory>()
+			.HasOne(p => p.Student)
+			.WithMany(t => t.StudentsGroupHistories)
+			.HasForeignKey(st => st.IdStudent);
+			//modelBuilder.Entity<ExactClass>()
+			//.HasOne(p => p.ExactClassForLecturerClass)
+			//.WithMany(t => t.ExactClasses)
+			//.HasForeignKey(st => st.ExactClassForLecturerClass.IdEXCFLC);	
+			modelBuilder.Entity<ExactClass>()
+			.HasOne(p => p.SubjectForGroup)
+			.WithMany(t => t.ExactClasses)
+			.HasForeignKey(st => st.IdSFG);
+			modelBuilder.Entity<ClassWork>()
+			.HasOne(p => p.ExactClass)
+			.WithMany(t => t.ClassWorks)
+			.HasForeignKey(st => st.IdClassWork);
+			#region SubjectForGroup
+			modelBuilder.Entity<SubjectForGroup>()
+			.HasOne(p => p.Person)
+			.WithMany(t => t.SubjectsForGroup)
+			.HasForeignKey(st => st.IdPerson);
+			modelBuilder.Entity<SubjectForGroup>()
+			.HasOne(p => p.Group)
+			.WithMany(t => t.SubjectForGroups)
+			.HasForeignKey(st => st.IdGroup);
+			modelBuilder.Entity<SubjectForGroup>()
+			.HasOne(p => p.Subject)
+			.WithMany(t => t.SubjectForGroups)
+			.HasForeignKey(st => st.IdSubject);
+			modelBuilder.Entity<SubjectForGroup>()
+			.HasOne(p => p.Department)
+			.WithMany(t => t.SubjectForGroups)
+			.HasForeignKey(st => st.DepartmentID);
+			modelBuilder.Entity<SubjectForGroup>()
+			.HasOne(p => p.Course)
+			.WithMany(t => t.SubjectForGroups)
+			.HasForeignKey(st => st.IdCourse);
+			modelBuilder.Entity<SubjectForGroup>()
+			.HasOne(p => p.StudyPlanRecord)
+			.WithMany(t => t.SubjectForGroups)
+			.HasForeignKey(st => st.IdStudyPlan);
+			#endregion
+			modelBuilder.Entity<Student>()
+			.HasOne(p => p.Person)
+			.WithMany(t => t.Students)
+			.HasForeignKey(st => st.IdPerson);
+			modelBuilder.Entity<ClassWork>()
+			.HasOne(p => p.WorkType)
+			.WithMany(t => t.ClassWorks)
+			.HasForeignKey(st => st.IdClassWork);
 			modelBuilder.Entity<Lecturer>()
 				.HasMany(c => c.Subjects)
 				.WithMany(s => s.Lecturers)

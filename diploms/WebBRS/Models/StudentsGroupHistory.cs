@@ -17,16 +17,25 @@ namespace WebBRS.Models
 		public byte[] ID_1c { get; set; }
 		public DateTime DateSGHStart { get; set; }
 		public DateTime? DateSGHFinished { get; set; }
+		[ForeignKey("CourseIdCourse")]
+
 		public Course? Course { get; set; }
+
+		public StudyYear? StudyYear { get; set; }
 		public byte[] ID_1c_Course { get; set; }
 		public byte[] ID_1c_Person { get; set; }
 		public byte[] ID_1c_Group { get; set; }
 		public byte[] ID_1c_CounditionOfPerson { get; set; }
+		//public int ConditionOfPersonIdConditionOfPerson { get; set; }
+
 
 		public ConditionOfPerson? ConditionOfPerson { get; set; }
 		[ForeignKey("IdStudent")]
 		public Student? Student { get; set; }
-		[ForeignKey("IdGroup")]
+		public int GroupIdGroup { get; set; }
+		public int  IdStudent { get; set; }
+		public int CourseIdCourse { get; set; }
+		[ForeignKey("GroupIdGroup")]
 		public Group? Group { get; set; }
 		public List<Attendance> Attendances { get; set; } = new List<Attendance>();
 

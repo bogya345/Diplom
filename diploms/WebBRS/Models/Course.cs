@@ -14,5 +14,9 @@ namespace WebBRS.Models
 		public byte[] ID_1c { get; set; }
 		public string _Description { get; set; }
 		public string _Number { get; set; }
+		public virtual List<StudentsGroupHistory> StudentsGroupHistories { get; set; } = new List<StudentsGroupHistory>();
+		//public virtual List<InformationForTimeTable> InformationForTimeTables { get; set; } = new List<InformationForTimeTable>();
+		public virtual List<SubjectForGroup> SubjectForGroups { get; set; } = new List<SubjectForGroup>();
+
 	}
 }

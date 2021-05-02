@@ -21,7 +21,12 @@ export class AttendanceComponent implements OnInit {
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
   }
-  public attedanced: Array<string> = ['н', 'б', 'оу'];
+  public attedanced: TypeAttedance =
+    {
+      IdTA: 1,
+      TAName: 'O',
+      TAShortNam: 'O'
+    };
   public studentsTest: Array<StudentEXC> =
 
     [
@@ -226,10 +231,15 @@ interface ExactClassForLecturerClass {
   SubjectName: string
   DateTime: string
 }
+interface TypeAttedance {
+  IdTA: number,
+  TAName: string,
+  TAShortNam: string
+}
 interface StudentEXC {
   IdStudent: number,
   PersonFIO: string,
-  Attedanced: string[],
+  Attedanced: TypeAttedance,
   Ball: number,
   HW: HomeWorkStudent
 }

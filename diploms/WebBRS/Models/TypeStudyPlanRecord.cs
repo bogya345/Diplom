@@ -14,5 +14,7 @@ namespace WebBRS.Models
 		public string  _Code { get; set; }
 		public string  _Description { get; set; }
 		public string  _Fld9231 { get; set; }
+		public TypeStudyPlanRecord Roditel { get; set; }
+
 	}
 }

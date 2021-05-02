@@ -82,27 +82,27 @@ namespace WebBRS.Controllers
 
 		public async Task PostRequestAsync()
 		{
-			
+
 			SerTest serTest = new SerTest();
 			serTest.TITLE = "kek1";
 			serTest.NAME = "kekName";
-			WebRequest request = WebRequest.CreateHttp("https://avdetailing.bitrix24.ru/rest/1/h5ygusbnly052bsc/crm.lead.add.json?" + "FIELDS[TITLE] =" + serTest.TITLE +" & FIELDS[NAME] = " + serTest.NAME);
+			WebRequest request = WebRequest.CreateHttp("https://avdetailing.bitrix24.ru/rest/1/h5ygusbnly052bsc/crm.lead.add.json?" + "FIELDS[TITLE] =" + serTest.TITLE + " & FIELDS[NAME] = " + serTest.NAME);
 			request.Method = "POST"; // для отправки используется метод Post
-			//						 // данные для отправки
-			//string data = JsonConvert.SerializeObject(serTest);
-			//// преобразуем данные в массив байтов
-			//byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(data);
-			//// устанавливаем тип содержимого - параметр ContentType
-			//request.ContentType = "application/x-www-form-urlencoded";
-			//// Устанавливаем заголовок Content-Length запроса - свойство ContentLength
-			//request.ContentLength = byteArray.Length;
-			////записываем данные в поток запроса
-			//using (Stream dataStream = request.GetRequestStream())
-			//{
-			//	dataStream.Write(byteArray, 0, byteArray.Length);
-			//}
+									 //						 // данные для отправки
+									 //string data = JsonConvert.SerializeObject(serTest);
+									 //// преобразуем данные в массив байтов
+									 //byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(data);
+									 //// устанавливаем тип содержимого - параметр ContentType
+									 //request.ContentType = "application/x-www-form-urlencoded";
+									 //// Устанавливаем заголовок Content-Length запроса - свойство ContentLength
+									 //request.ContentLength = byteArray.Length;
+									 ////записываем данные в поток запроса
+									 //using (Stream dataStream = request.GetRequestStream())
+									 //{
+									 //	dataStream.Write(byteArray, 0, byteArray.Length);
+									 //}
 
-			WebResponse response =  request.GetResponse();
+			WebResponse response = request.GetResponse();
 			//using (Stream stream = response.GetResponseStream())
 			//{
 			//	using (StreamReader reader = new StreamReader(stream))
@@ -158,8 +158,21 @@ namespace WebBRS.Controllers
 		{
 			try
 			{
+				IEnumerable<StudentsGroupHistory> tmp1 = unit.StudentGroupHistories.GetAll(sgh=>(sgh.GroupIdGroup == 1739436558) &&( sgh.CourseIdCourse== 1363575543));
+				//tmp1 =
+				List<Student> students = new List<Student>();
+				foreach (var item in tmp1)
+				{
+					students.Add(item.Student);
+				}
+				List<Person> tmpPersons = new List<Person>();
+				foreach (var item in students)
+				{
+					Person person = unit.Persons.Get(p => p.IdPerson == item.IdPerson);
+					tmpPersons.Add(person);
+				}
 				IEnumerable<Person> tmp = unit.Persons.GetAll();
-				return tmp;
+				return tmpPersons.ToArray();
 			}
 			catch (Exception ex)
 			{

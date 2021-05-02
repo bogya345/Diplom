@@ -24,9 +24,9 @@ namespace WebBRS.Models
 		public DateTime? DateCreate { get; set; }
 		public DateTime? DateExit { get; set; }
 
-		public List<Group> PrevGroups { get; set; } = new List<Group>();
-		public List<Subject> Subjects { get; set; } = new List<Subject>();
-		public List<StudentsGroupHistory> StudentsGroupHistories { get; set; } = new List<StudentsGroupHistory>();
-		public List<SubjectForGroup> SubjectForGroups { get; set; } = new List<SubjectForGroup>();
+		//public List<Group> PrevGroups { get; set; } = new List<Group>();
+		public virtual List<Subject> Subjects { get; set; } = new List<Subject>();
+		public  virtual List<StudentsGroupHistory> StudentsGroupHistories { get; set; } = new List<StudentsGroupHistory>();
+		public virtual List<SubjectForGroup> SubjectForGroups { get; set; } = new List<SubjectForGroup>();
 	}
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "iBvHUQjXxk/oNAKX/M9S7XpN9FKG44Iy9LGTEwWibHSZ8XsJu3GeCqDFMg6WPPC61QLCVrAEdDcZRCdMXYxHYA==",
+  "dgSpecHash": "5gG9RtxJisfeEdIOvJCUzyC3AHg88gWUL52z3ZV+gdiSUPLHvdiWzE3MznSLhEUxothAQQ5y0PgPsOEDFCC75w==",
   "success": true,
   "projectFilePath": "D:\\Diploma\\Projects\\Test 1\\Diplom_main\\diploms\\WebBRS\\WebBRS.csproj",
   "expectedPackageFiles": [
@@ -191,7 +191,8 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.13\\microsoft.netcore.app.host.win-x64.3.1.13.nupkg.sha512"
   ],
   "logs": []
 }

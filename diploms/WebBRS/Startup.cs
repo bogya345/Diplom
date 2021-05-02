@@ -41,26 +41,26 @@ namespace WebBRS
 						   options.RequireHttpsMetadata = false;
 						   options.TokenValidationParameters = new TokenValidationParameters
 						   {
-								// укзывает, будет ли валидироваться издатель при валидации токена
-								ValidateIssuer = true,
+							   // укзывает, будет ли валидироваться издатель при валидации токена
+							   ValidateIssuer = true,
 
-								// строка, представляющая издателя
-								ValidIssuer = AuthOptions.ISSUER,
+							   // строка, представляющая издателя
+							   ValidIssuer = AuthOptions.ISSUER,
 
-								// будет ли валидироваться потребитель токена
-								ValidateAudience = true,
+							   // будет ли валидироваться потребитель токена
+							   ValidateAudience = true,
 
-								// установка потребителя токена
-								ValidAudience = AuthOptions.AUDIENCE,
+							   // установка потребителя токена
+							   ValidAudience = AuthOptions.AUDIENCE,
 
-								// будет ли валидироваться время существования
-								ValidateLifetime = true,
+							   // будет ли валидироваться время существования
+							   ValidateLifetime = true,
 
-								// установка ключа безопасности
-								IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+							   // установка ключа безопасности
+							   IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
 
-								// валидация ключа безопасности
-								ValidateIssuerSigningKey = true,
+							   // валидация ключа безопасности
+							   ValidateIssuerSigningKey = true,
 						   };
 					   });
 			services.AddControllersWithViews();
@@ -71,6 +71,10 @@ namespace WebBRS
 				options.JsonSerializerOptions.PropertyNamingPolicy = null;
 				//options.JsonSerializerOptions.Converters.Add(MyCu)
 			});
+	//		services.AddControllersWithViews()
+	//.AddNewtonsoftJson(options =>
+	//options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+//);
 			services.AddSpaStaticFiles(configuration =>
 			{
 				configuration.RootPath = "ClientApp/dist";

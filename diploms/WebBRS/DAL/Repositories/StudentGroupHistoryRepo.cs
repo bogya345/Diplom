@@ -46,14 +46,28 @@ namespace WebBRS.DAL.Repositories
 
         public IEnumerable<StudentsGroupHistory> GetAll()
         {
-            throw new NotImplementedException();
+            List < StudentsGroupHistory > tmp  = new List<StudentsGroupHistory>();
+            tmp=  db.StudentsGroupHistories
+				.Include(sgh => sgh.Group)
+				.Include(sgh => sgh.Course)
+				//.Include(sgh => sgh.Attendances)
+				//.Include(sgh => sgh.Student)
+				.ToList();
+            return db.StudentsGroupHistories
+                                .Include(sgh => sgh.Group)
+                .Include(sgh => sgh.Course)
+                //.Include(sgh => sgh.Attendances)
+                .Include(sgh => sgh.Student);
             //return db.AuthUsers;
         }
         public override IEnumerable<StudentsGroupHistory> GetAll(Func<StudentsGroupHistory, bool> func)
         {
             return db.StudentsGroupHistories
-                .Include(sgh=>sgh.Attendances)
-                .Where(func);
+				.Include(sgh => sgh.Group)
+				.Include(sgh => sgh.Course)
+				//.Include(sgh => sgh.Attendances)
+                .Include(sgh=>sgh.Student)
+				.Where(func);
         }
 
         public override StudentsGroupHistory OnExist(string name)

@@ -13,6 +13,7 @@ namespace WebBRS.Models
 		public int  IdConditionOfPerson { get; set; }
 		public byte[] ID_1c { get; set; }
 		public string _Description { get; set; }
+		public virtual List<StudentsGroupHistory> StudentsGroupHistories { get; set; }
 
 	}
 }

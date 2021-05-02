@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebBRS.DAL;
 using WebBRS.Models;
-
+using WebBRS.ViewModels.toRecieve;
 
 namespace WebBRS.Controllers
 {
@@ -36,6 +36,50 @@ namespace WebBRS.Controllers
 			{
 				return null;
 			}
+		}
+		[HttpPost("addHW")]
+
+		public IActionResult AddHomeWork()
+		{
+			return null;
+		}
+		[HttpPost("addMyHW")]
+		public JsonResult AddCW([FromBody] HomeWorksModelView data)
+		{
+		//			public int IdClassWork { get; set; }
+		//public int IdClass { get; set; }
+		//public string TextWork { get; set; }
+		//public string FilePathWork { get; set; }
+		//public double MaxBall { get; set; }
+
+		//public DateTime DateTimeGiven { get; set; }
+		//goto skip;
+
+		HomeWorksModelView tmp = new HomeWorksModelView
+			{
+			IdClassWork = 1,
+			IdClass = 1,
+			TextWork = "Задание тест 1",
+			FilePathWork = "/homework/tasks/",
+			DateTimeGiven = new DateTime(),
+			MaxBall = 25
+			};
+			Attendance attendance = unit.Attendances.Get(a => a.ExactClass.IdClass == tmp.IdClass);
+			ClassWork cw = new ClassWork();
+			attendance.DateTimePass = DateTime.Now;
+			attendance.FilePath = tmp.FilePathWork;
+			attendance.TextDoClassWork = "kek";
+
+			//cw.DateGiven = DateTime.Now;
+			//cw.MaxBall = tmp.MaxBall;
+			//cw.FilePathWork = tmp.FilePathWork;
+			//cw.ExactClass.IdClass = tmp.IdClass;
+			unit.Attendances.Update(attendance);
+			unit.Save();
+
+		skip:
+
+			return Json("nice");
 		}
 		//[HttpGet("get/{id_student}")]
 

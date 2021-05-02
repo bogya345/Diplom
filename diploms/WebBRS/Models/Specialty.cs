@@ -15,6 +15,9 @@ namespace WebBRS.Models
 		[Required, Key]
 		public int  IdSpec { get; set; }
 		public byte[] ID_1c { get; set; }
+		[Required]
+
+		public int ID_1c_int { get; set; }
 		public string NameSpec { get; set; }
 		public string ShortNameSpec { get; set; }
 		public List<Group> Groups { get; set; }

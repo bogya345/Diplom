@@ -13,9 +13,12 @@ namespace WebBRS.Models
 		[Required, Key]
 
 		public int IdClass { get; set; }
+		public int? IdSFG { get; set; }
+
 
 		[ForeignKey("IdSFG")]
-		public SubjectForGroup SubjectForGroup { get; set; }
+
+		public virtual SubjectForGroup SubjectForGroup { get; set; }
 		public DateTime DateClassStart { get; set; }
 		public DateTime DateClassEnd { get; set; }
 		public byte ClassNumber { get; set; }
