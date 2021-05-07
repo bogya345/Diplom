@@ -306,6 +306,29 @@ namespace WebBRS.Migrations
                     b.ToTable("DoClassWorkAttends");
                 });
 
+            modelBuilder.Entity("WebBRS.Models.DraftTimeTable", b =>
+                {
+                    b.Property<int>("IdDFTT")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("IdStudyYear")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StudyYearIdStudyYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("_Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdDFTT");
+
+                    b.HasIndex("StudyYearIdStudyYear");
+
+                    b.ToTable("DraftTimeTable");
+                });
+
             modelBuilder.Entity("WebBRS.Models.ExactClass", b =>
                 {
                     b.Property<int>("IdClass")
@@ -316,14 +339,14 @@ namespace WebBRS.Migrations
                     b.Property<int?>("AuditoryDepartmentID")
                         .HasColumnType("int");
 
-                    b.Property<byte>("ClassNumber")
-                        .HasColumnType("tinyint");
-
                     b.Property<DateTime>("DateClassEnd")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateClassStart")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("DraftTimeTableIdDFTT")
+                        .HasColumnType("int");
 
                     b.Property<int?>("ExactClassForLecturerClassIdEXCFLC")
                         .HasColumnType("int");
@@ -334,34 +357,31 @@ namespace WebBRS.Migrations
                     b.Property<byte[]>("ID_1c_person")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int?>("IdSFG")
+                    b.Property<int>("ID_reff")
                         .HasColumnType("int");
 
                     b.Property<int?>("LecturerIdSLecturer")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PersonLecturerIdPerson")
+                    b.Property<int>("PersonLecturerIdPerson")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SubjectLecturerIdLecturer")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubjectLecturerIdSubject")
+                    b.Property<int?>("TypeTimeTableidTTT")
                         .HasColumnType("int");
 
                     b.HasKey("IdClass");
 
                     b.HasIndex("AuditoryDepartmentID");
 
-                    b.HasIndex("ExactClassForLecturerClassIdEXCFLC");
+                    b.HasIndex("DraftTimeTableIdDFTT");
 
-                    b.HasIndex("IdSFG");
+                    b.HasIndex("ExactClassForLecturerClassIdEXCFLC");
 
                     b.HasIndex("LecturerIdSLecturer");
 
                     b.HasIndex("PersonLecturerIdPerson");
 
-                    b.HasIndex("SubjectLecturerIdLecturer", "SubjectLecturerIdSubject");
+                    b.HasIndex("TypeTimeTableidTTT");
 
                     b.ToTable("ExactClasses");
                 });
@@ -373,15 +393,23 @@ namespace WebBRS.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte>("ClassNumber")
-                        .HasColumnType("tinyint");
+                    b.Property<int?>("AuditoryaDepartmentID")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("LecturerIdSLecturer")
+                    b.Property<DateTime>("DateEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("LecturerIdPerson")
                         .HasColumnType("int");
 
                     b.HasKey("IdEXCFLC");
 
-                    b.HasIndex("LecturerIdSLecturer");
+                    b.HasIndex("AuditoryaDepartmentID");
+
+                    b.HasIndex("LecturerIdPerson");
 
                     b.ToTable("ExactClassForLecturerClasses");
                 });
@@ -711,6 +739,12 @@ namespace WebBRS.Migrations
                     b.Property<int>("DepartmentID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("DraftTimeTableIdDFTT")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ID_reff")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdCourse")
                         .HasColumnType("int");
 
@@ -720,7 +754,7 @@ namespace WebBRS.Migrations
                     b.Property<int>("IdPerson")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdStudyPlan")
+                    b.Property<int?>("IdStudyPlan")
                         .HasColumnType("int");
 
                     b.Property<int>("IdSubject")
@@ -744,6 +778,8 @@ namespace WebBRS.Migrations
                     b.HasKey("IdSFG");
 
                     b.HasIndex("DepartmentID");
+
+                    b.HasIndex("DraftTimeTableIdDFTT");
 
                     b.HasIndex("IdCourse");
 
@@ -882,6 +918,21 @@ namespace WebBRS.Migrations
                     b.HasIndex("RoditelIdTSPR");
 
                     b.ToTable("TypeStudyPlanRecords");
+                });
+
+            modelBuilder.Entity("WebBRS.Models.TypeTimeTable", b =>
+                {
+                    b.Property<int>("idTTT")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("idTTT");
+
+                    b.ToTable("TypeTimeTable");
                 });
 
             modelBuilder.Entity("WebBRS.Models.Views.AuthUsers", b =>
@@ -1077,19 +1128,28 @@ namespace WebBRS.Migrations
                     b.Navigation("WorkPersonStatus");
                 });
 
+            modelBuilder.Entity("WebBRS.Models.DraftTimeTable", b =>
+                {
+                    b.HasOne("WebBRS.Models.StudyYear", "StudyYear")
+                        .WithMany()
+                        .HasForeignKey("StudyYearIdStudyYear");
+
+                    b.Navigation("StudyYear");
+                });
+
             modelBuilder.Entity("WebBRS.Models.ExactClass", b =>
                 {
                     b.HasOne("WebBRS.Models.Department", "Auditory")
                         .WithMany()
                         .HasForeignKey("AuditoryDepartmentID");
 
-                    b.HasOne("WebBRS.Models.ExactClassForLecturerClass", "ExactClassForLecturerClass")
+                    b.HasOne("WebBRS.Models.DraftTimeTable", "DraftTimeTable")
+                        .WithMany()
+                        .HasForeignKey("DraftTimeTableIdDFTT");
+
+                    b.HasOne("WebBRS.Models.ExactClassForLecturerClass", null)
                         .WithMany("ExactClasses")
                         .HasForeignKey("ExactClassForLecturerClassIdEXCFLC");
-
-                    b.HasOne("WebBRS.Models.SubjectForGroup", "SubjectForGroup")
-                        .WithMany("ExactClasses")
-                        .HasForeignKey("IdSFG");
 
                     b.HasOne("WebBRS.Models.Lecturer", null)
                         .WithMany("ExactClasses")
@@ -1097,28 +1157,34 @@ namespace WebBRS.Migrations
 
                     b.HasOne("WebBRS.Models.Person", "PersonLecturer")
                         .WithMany()
-                        .HasForeignKey("PersonLecturerIdPerson");
+                        .HasForeignKey("PersonLecturerIdPerson")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("WebBRS.Models.SubjectLecturer", "SubjectLecturer")
+                    b.HasOne("WebBRS.Models.TypeTimeTable", "TypeTimeTable")
                         .WithMany()
-                        .HasForeignKey("SubjectLecturerIdLecturer", "SubjectLecturerIdSubject");
+                        .HasForeignKey("TypeTimeTableidTTT");
 
                     b.Navigation("Auditory");
 
-                    b.Navigation("ExactClassForLecturerClass");
+                    b.Navigation("DraftTimeTable");
 
                     b.Navigation("PersonLecturer");
 
-                    b.Navigation("SubjectForGroup");
-
-                    b.Navigation("SubjectLecturer");
+                    b.Navigation("TypeTimeTable");
                 });
 
             modelBuilder.Entity("WebBRS.Models.ExactClassForLecturerClass", b =>
                 {
-                    b.HasOne("WebBRS.Models.Lecturer", "Lecturer")
+                    b.HasOne("WebBRS.Models.Department", "Auditorya")
                         .WithMany()
-                        .HasForeignKey("LecturerIdSLecturer");
+                        .HasForeignKey("AuditoryaDepartmentID");
+
+                    b.HasOne("WebBRS.Models.Person", "Lecturer")
+                        .WithMany()
+                        .HasForeignKey("LecturerIdPerson");
+
+                    b.Navigation("Auditorya");
 
                     b.Navigation("Lecturer");
                 });
@@ -1244,6 +1310,10 @@ namespace WebBRS.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WebBRS.Models.DraftTimeTable", "DraftTimeTable")
+                        .WithMany()
+                        .HasForeignKey("DraftTimeTableIdDFTT");
+
                     b.HasOne("WebBRS.Models.Course", "Course")
                         .WithMany("SubjectForGroups")
                         .HasForeignKey("IdCourse")
@@ -1264,9 +1334,7 @@ namespace WebBRS.Migrations
 
                     b.HasOne("WebBRS.Models.StudyPlanRecord", "StudyPlanRecord")
                         .WithMany("SubjectForGroups")
-                        .HasForeignKey("IdStudyPlan")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdStudyPlan");
 
                     b.HasOne("WebBRS.Models.Subject", "Subject")
                         .WithMany("SubjectForGroups")
@@ -1289,6 +1357,8 @@ namespace WebBRS.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("Department");
+
+                    b.Navigation("DraftTimeTable");
 
                     b.Navigation("Group");
 
@@ -1434,11 +1504,6 @@ namespace WebBRS.Migrations
                     b.Navigation("SubjectForGroups");
 
                     b.Navigation("SubjectLecturers");
-                });
-
-            modelBuilder.Entity("WebBRS.Models.SubjectForGroup", b =>
-                {
-                    b.Navigation("ExactClasses");
                 });
 
             modelBuilder.Entity("WebBRS.Models.TypeStudy", b =>

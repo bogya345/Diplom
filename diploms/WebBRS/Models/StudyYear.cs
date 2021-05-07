@@ -15,5 +15,6 @@ namespace WebBRS.Models
 		public string _Description { get; set; }
 		public DateTime DateTimeStart { get; set; }
 		public DateTime DateTimeEnd { get; set; }
+		public virtual List<DraftTimeTable> DraftTimeTables { get; set; }  = new List<DraftTimeTable>();
 	}
 }

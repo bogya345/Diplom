@@ -11,10 +11,10 @@ namespace WebBRS.Models
 	{
 		[Required, Key]
 		public int IdSFG { get; set; }
-		public int IdStudyPlan { get; set; }
+		public int? IdStudyPlan { get; set; }
 		[ForeignKey("IdStudyPlan")]
 
-		public StudyPlanRecord StudyPlanRecord { get; set; }
+		public StudyPlanRecord? StudyPlanRecord { get; set; }
 		public int IdGroup { get; set; }
 		[ForeignKey("IdGroup")]
 
@@ -23,6 +23,11 @@ namespace WebBRS.Models
 		[ForeignKey("IdCourse")]
 
 		public Course Course { get; set; }
+		public int? DraftTimeTableIdDFTT { get; set; }
+
+		[ForeignKey("DraftTimeTableIdDFTT")]
+
+		public DraftTimeTable DraftTimeTable { get; set; }
 
 		public int DepartmentID { get; set; }
 		[ForeignKey("DepartmentID")]
@@ -38,10 +43,19 @@ namespace WebBRS.Models
 
 		public Subject Subject { get; set; }
 
-		public virtual SubjectLecturer Lecturer { get; set; }
+		public virtual SubjectLecturer? Lecturer { get; set; }
 
 		public virtual TypeStudy TypeStudy { get; set; }
+		/// <summary>
+		/// _Fld6093
+		/// </summary>
+		/// 
+		public int ID_reff { get; set; }
 		public DateTime SFGDate { get; set; }
-		public virtual List<ExactClass> ExactClasses { get; set; } = new List<ExactClass>();
+		//public virtual List<ExactClass> ExactClasses { get; set; } = new List<ExactClass>();
+		public override string ToString()
+		{
+			return Subject.ToString();
+		}
 	}
 }

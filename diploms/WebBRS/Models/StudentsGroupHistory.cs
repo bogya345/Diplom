@@ -26,9 +26,10 @@ namespace WebBRS.Models
 		public byte[] ID_1c_Person { get; set; }
 		public byte[] ID_1c_Group { get; set; }
 		public byte[] ID_1c_CounditionOfPerson { get; set; }
+		public int? ConditionOfPersonIdConditionOfPerson { get; set; }
 		//public int ConditionOfPersonIdConditionOfPerson { get; set; }
 
-
+		[ForeignKey("ConditionOfPersonIdConditionOfPerson")]
 		public ConditionOfPerson? ConditionOfPerson { get; set; }
 		[ForeignKey("IdStudent")]
 		public Student? Student { get; set; }

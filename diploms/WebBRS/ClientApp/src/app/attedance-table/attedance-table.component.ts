@@ -8,236 +8,100 @@ import { HttpClient, HttpRequest, HttpResponse, HttpEventType } from '@angular/c
   templateUrl: './attedance-table.component.html',
   styleUrls: ['./attedance-table.component.css']
 })
+//export class SelectOverviewExample {
+//  foods: GroupAttedanceTable[] = [
+//    { value: 'steak-0', viewValue: 'Steak' },
+//    { value: 'pizza-1', viewValue: 'Pizza' },
+//    { value: 'tacos-2', viewValue: 'Tacos' }
+//  ];
+//}
 export class AttedanceTableComponent implements OnInit {
   public http: attedanceTable_HttpService;
-  public AttedanceTest: Array<string> =
-    [
-      'н',
-      'б','н',
-      'б','н',
-      'б','н',
-      'б','н',
-      'б','н',
-      'б','н',
-      'б',
-
-    ]
-  public AttedanceTest2: Array<string> =
-    [
-      '/',
-      '/','н',
-      'б','н',
-      'б','н',
-      'б','н',
-      'б','н',
-      'б','н',
-      '/',
-
-    ]
-  public studentsTest: Array<StudentTable> =
-
-    [
-      {
-        IdStudent: 1,
-        PersonFIO: 'Student1',
-        Attedanced: this.AttedanceTest
-      },
-      {
-        IdStudent: 2,
-        PersonFIO: 'Student2',
-        Attedanced: this.AttedanceTest2
-      },
-      {
-        IdStudent: 3,
-        PersonFIO: 'Student3',
-        Attedanced: this.AttedanceTest
-      },
-      {
-        IdStudent: 4,
-        PersonFIO: 'Student4',
-        Attedanced: this.AttedanceTest2
-      },
-      {
-        IdStudent: 5,
-        PersonFIO: 'Student5',
-        Attedanced: this.AttedanceTest
-      },
-      {
-        IdStudent: 6,
-        PersonFIO: 'Student6',
-        Attedanced: this.AttedanceTest2
-      },
-      {
-        IdStudent: 7,
-        PersonFIO: 'Student7',
-        Attedanced: this.AttedanceTest
-      },
-      {
-        IdStudent: 8,
-        PersonFIO: 'Student8',
-        Attedanced: this.AttedanceTest
-      },
-      {
-        IdStudent: 9,
-        PersonFIO: 'Student9',
-        Attedanced: this.AttedanceTest
-      }
-    ];
+  public baseUrl: string;
+  public ecflct: ExactClassForLecturerClassTable;
   public selectedGroup: GroupAttedanceTable;
-  public groupsTest: Array<GroupAttedanceTable> =
-    [
-      {
-        idGroup: 1, GroupName: 'ИСТ-17', Specialty: 'ИСТ', Students: this.studentsTest
-      },
-      {
-        idGroup: 2, GroupName: 'РиСО-17', Specialty: 'РиСО', Students: this.studentsTest
-      }
-    ];
   public now: Date;
- 
+  //public onOptionsSelected(event) {
+  //  const value = event.target.value;
+  //  this.selectedGroup = value;
+  //  console.log(value);
+  //}
 
-  public lecturer: Lecturer =
-    {
-      IdLecturer: 1,
-      PersonFIO:'Lecturer1'
-    }
-  public exactClassesTest: Array<ExactClass> =
-    [
-      {
-        IdClass: 1,
-        DateExactClass: '06-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      },
-      {
-        IdClass: 2,
-        DateExactClass: '08-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      },
-      {
-        IdClass: 3,
-        DateExactClass: '08-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      },
-      {
-        IdClass: 4,
-        DateExactClass: '08-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      },
-      {
-        IdClass: 5,
-        DateExactClass: '08-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      },
-      {
-        IdClass: 6,
-        DateExactClass: '08-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      },
-      {
-        IdClass: 6,
-        DateExactClass: '08-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      },
-      {
-        IdClass: 6,
-        DateExactClass: '08-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      },
-      {
-        IdClass: 6,
-        DateExactClass: '08-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      },
-      {
-        IdClass: 6,
-        DateExactClass: '08-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      },
-      {
-        IdClass: 6,
-        DateExactClass: '08-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      },
-      {
-        IdClass: 6,
-        DateExactClass: '08-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      },
-      {
-        IdClass: 6,
-        DateExactClass: '08-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      },
-      {
-        IdClass: 6,
-        DateExactClass: '08-03-21',
-        numberClass: 1,
-        Group: this.groupsTest[1]
-      }
-    ];
-  public exactClassForLecturerClass: ExactClassForLecturerClassTable =
-    {
-      IdECFLCT: 1,
-      ExactClasses: this.exactClassesTest,
-      Lecturer: this.lecturer,
-      Groups: this.groupsTest,
-      SubjectName: "subject"
-  };
+  
   selectChangeHandler(event: any) {
     //update the ui
-    this.selectedGroup = event.target.value;
+    this.selectedGroup.idGroup = event.target.value;
+    console.log(this.selectedGroup.idGroup);
+    this.http.getAttedanceForLecturerClasses(this.ecflct.IdECFLCT, this.selectedGroup.idGroup)
+      .subscribe(result => {
+        this.ecflct = result;
+
+        this.ecflct.SubjectName = result.SubjectName;
+
+        this.ecflct.Groups = result.Groups;
+        this.ecflct.Students = result.Students;
+        console.log('keks', this.ecflct.Groups);
+        console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+      );
   }
-  constructor() { }
+  //public http: personList_HttpService;
+
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string ) {
+    this.http = new attedanceTable_HttpService(http);
+    this.baseUrl = baseUrl;
+    this.selectedGroup = { idGroup: 1739436558, GroupName: '', Specialty: ''}
+  }
 
   ngOnInit() {
-    //this.http.getAttedanceForLecturerClasses()
-    //  .subscribe(result => {
-    //    this.exactClassForLecturerClass = result;
-    //    console.log('result/constructor', result);
-    console.log(this.exactClassForLecturerClass)
-    console.log(this.selectedGroup);
-    //  }, error => {
-    //    console.log('error/constructor', error);
-    //  }
-    //  );
+    this.http.getAttedanceForLecturerClasses(-1194773169, this.selectedGroup.idGroup)
+      .subscribe(result => {
+        this.ecflct = result;
+
+        this.ecflct.SubjectName = result.SubjectName;
+
+        this.ecflct.Groups = result.Groups;
+        this.ecflct.Students = result.Students;
+        this.ecflct.IdECFLCT = result.IdECFLCT;
+        console.log('keks', this.ecflct.Groups);
+        console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+      );
 
   }
+  
 
 
 
 }
+
 interface GroupAttedanceTable {
   idGroup: number,
   GroupName: string,
-  Specialty: string,
-  Students: StudentTable[]
+  Specialty: string
 }
-interface ExactClassForLecturerClassTable {
-  IdECFLCT: number,
-  Lecturer: Lecturer,
-  ExactClasses: ExactClass[],
-  Groups: GroupAttedanceTable[],
-  SubjectName: string
+export interface  ExactClassForLecturerClassTable {
+  IdECFLCT: number;
+  Lecturer: Lecturer2;
+  ExactClasses: ExactClass[];
+  Groups: GroupAttedanceTable[];
+  Students: StudentTable[];
+  SubjectName: string;
+  IdSFG: number;
+  SelectedGroup: number;
 }
 interface StudentTable {
   IdStudent: number,
   PersonFIO: string,
   Attedanced: string[]
 }
-interface Lecturer {
+interface Lecturer2 {
   IdLecturer: number,
   PersonFIO: string
 
@@ -247,5 +111,5 @@ interface ExactClass {
   IdClass: number,
   DateExactClass: string,
   numberClass: number,
-  Group: GroupAttedanceTable
+  //Group: GroupAttedanceTable
 }

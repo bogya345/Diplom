@@ -4,12 +4,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>{{exactClassForLecturerClass.ExactClasses[0].DateExactClass}}</h1>
+          <!--<h1>{ecflct.ExactClasses[0].DateExactClass}}</h1>-->
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Занятие {{exactClassForLecturerClass.ExactClasses[0].DateExactClass}}</li>
+            <li class="breadcrumb-item active">Занятие по     {{ecflct.SubjectName}}  </li>
           </ol>
         </div>
       </div>
@@ -21,8 +21,8 @@
         <div class="col-6">
           <div class="card card-default">
             <div class="card-header">
-              <h3 class="card-title">{{exactClassForLecturerClass.SubjectName}}</h3>
-
+              <h3 class="card-title"></h3>
+          
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                 <!--<button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>-->
@@ -35,7 +35,8 @@
                     <label>Группа</label>
 
                     <select class="form-control select2" style="width: 100%;" (change)="selectChangeHandler($event)">
-                      <option selected="selected" *ngFor="let i of exactClassForLecturerClass.Groups">{{i.GroupName}}</option>
+                      
+                      <option *ngFor="let i of ecflct.Groups" value="{{i.idGroup}}"> {{i.GroupName}}  </option>
                     </select>
                   </div>
                 </div>
@@ -50,7 +51,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">{{ exactClassForLecturerClass.Groups[0].GroupName }}</h3>
+                  <h3 class="card-title">{{ ecflct.Groups[0].GroupName }}</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -58,13 +59,13 @@
                     <thead>
                       <tr>
                         <th>ФИО</th>
-                        <th *ngFor="let j of exactClassForLecturerClass.ExactClasses"> <a href="/dashboard/attendance-current" class="nav-link">{{j.DateExactClass}}</a></th>
+                      <th *ngFor="let j of ecflct.ExactClasses"> <a href="/dashboard/attendance-current" class="nav-link">{{j.DateExactClass}}</a></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let j of exactClassForLecturerClass.Groups[0].Students; let n = index">
+                      <tr *ngFor="let j of ecflct.Students; let n = index">
                         <td>{{j.PersonFIO}}</td>
-                        <td *ngFor="let k of exactClassForLecturerClass.Groups[0].Students[n].Attedanced">{{k}}</td>
+                        <td *ngFor="let k of ecflct.Students[n].Attedanced">{{k}}</td>
                       </tr>
                     </tbody>
                     <!--<tfoot>

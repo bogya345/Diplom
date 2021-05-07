@@ -11,8 +11,10 @@ namespace WebBRS.Models
 	{
 		[Required, Key]
 		public int IdEXCFLC { get; set; }
-		public Lecturer Lecturer { get; set; }
-		public byte ClassNumber { get; set; }
+		public Person Lecturer { get; set; }
+		public Department Auditorya { get; set; }
+		public DateTime DateStart { get; set; }
+		public DateTime DateEnd { get; set; }
 
 		public List<Attendance> Attendances { get; set; }
 		public virtual List<ExactClass> ExactClasses { get; set; }

@@ -34,7 +34,7 @@ namespace WebBRS.DAL.Repositories
 
         public Person Get(int id)
         {
-            throw new NotImplementedException();
+            return db.Persons.FirstOrDefault(p=>p.IdPerson == id);
         }
         public override Person Get(Func<Person, bool> func)
         {

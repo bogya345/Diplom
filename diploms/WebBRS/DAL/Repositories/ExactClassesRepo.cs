@@ -39,8 +39,7 @@ namespace WebBRS.DAL.Repositories
         public override ExactClass Get(Func<ExactClass, bool> func)
         {
             return db.ExactClasses
-                .Include(ec=>ec.SubjectForGroup)
-
+                .Include(ec=>ec.PersonLecturer)
                 .FirstOrDefault(func);
         }
 
@@ -51,7 +50,10 @@ namespace WebBRS.DAL.Repositories
         }
         public override IEnumerable<ExactClass> GetAll(Func<ExactClass, bool> func)
         {
-            return db.ExactClasses.Where(func);
+            return db.ExactClasses
+                .Include(ex=>ex.PersonLecturer)
+                .Include(ex=>ex.Auditory)
+                .Where(func);
         }
 
         public override ExactClass OnExist(string name)

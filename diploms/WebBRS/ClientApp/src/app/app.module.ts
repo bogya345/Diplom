@@ -18,6 +18,7 @@ import { AttendanceGroupselectedComponent } from './attendance-groupselected/att
 import { PersonListComponent } from './person-list/person-list.component';
 import { AttedanceTableComponent } from './attedance-table/attedance-table.component';
 import { AddHomeworkComponent } from './add-homework/add-homework.component';
+import { TimetableTeacherComponent } from './timetable-teacher/timetable-teacher.component';
 
 
 //const appRoutes: Routes = [
@@ -48,7 +49,8 @@ import { AddHomeworkComponent } from './add-homework/add-homework.component';
     AttendanceGroupselectedComponent,
     PersonListComponent,
     AttedanceTableComponent,
-    AddHomeworkComponent
+    AddHomeworkComponent,
+    TimetableTeacherComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -85,7 +87,10 @@ import { AddHomeworkComponent } from './add-homework/add-homework.component';
           },
           { path: 'homeworks/183', component: HomeworkComponent },
           { path: 'personlist', component: PersonListComponent },
-          { path: 'addhomework', component: AddHomeworkComponent }
+          { path: 'addhomework', component: AddHomeworkComponent },
+          { path: 'timetableTeacher', component: TimetableTeacherComponent },
+
+
 
         ]
       },

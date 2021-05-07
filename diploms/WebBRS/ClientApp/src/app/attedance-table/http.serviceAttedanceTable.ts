@@ -9,8 +9,8 @@ import { MethodCall } from '@angular/compiler';
 export class attedanceTable_HttpService {
 
   constructor(private http: HttpClient) { }
-  getAttedanceForLecturerClasses(): Observable<ExactClassForLecturerClass> {
-    return this.http.get<ExactClassForLecturerClass>(`attedance/getAttdance/1/2/1`,
+  getAttedanceForLecturerClasses(ID_reff, group_id): Observable<ExactClassForLecturerClass> {
+    return this.http.get<ExactClassForLecturerClass>(`attedance/GetAttedanceTable/${ID_reff}/${group_id}/true`,
       {
         //headers: {
         //  'Accept': 'application/json',
@@ -18,6 +18,15 @@ export class attedanceTable_HttpService {
         //}
       });
   }
+  //getBlockNums(acPl_id, group_id): Observable<BlockNum[]> {
+  //  return this.http.get<BlockNum[]>(`${environment.hod_api_url}acplans/get/${acPl_id}/${group_id}`,
+  //    {
+  //      // headers: {
+  //      // 'Accept': 'application/json',
+  //      // 'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+  //      // }
+  //    });
+  //}
   getAttedanceExactClass(): Observable<ExactClass> {
     return this.http.get<ExactClass>(`attedance/getExactClass/1/2/1`,
       {
@@ -35,26 +44,30 @@ interface Group {
   Students: Student[]
 }
 interface ExactClassForLecturerClass {
-  Groups: Group[],
+  IdECFLCT: number,
   Lecturer: Lecturer,
   ExactClasses: ExactClass[],
-  Students: Student[]
+  Groups: Group[],
+  Students: Student[],
+  SubjectName: string,
+  SelectedGroup: number,
+  IdSFG: number
 }
 interface Student {
   IdStudent: number,
-  PesonFIO: string,
+  PersonFIO: string,
   Attedanced: string[]
 }
 interface Lecturer {
-  IdStudent: number,
-  PesonFIO: string
+  IdLecturer: number,
+  PersonFIO: string
 
 }
 
 interface ExactClass {
   IdClass: number,
-  DateExactClass: Date,
-  numberClass: number
+  DateExactClass: string,
+  numberClass: number,
 }
 interface AttedanceTableRow {
   id: number,

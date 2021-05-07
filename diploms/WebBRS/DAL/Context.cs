@@ -13,6 +13,8 @@ namespace WebBRS.DAL
 	{
 		#region Tables
 		public DbSet<Attendance> Attendances { get; set; }
+		public DbSet<DraftTimeTable> DraftTimeTables { get; set; }
+		public DbSet<TypeTimeTable> TypeTimeTable { get; set; }
 		public DbSet<TypeAttedance> TypeAttedances { get; set; }
 		public DbSet<TypeControl> TypeControls { get; set; }
 		//public DbSet<InformationForTimeTable> InformationForTimeTables { get; set; }
@@ -93,6 +95,10 @@ namespace WebBRS.DAL
 			.HasOne(p => p.SGH)
 			.WithMany(t => t.Attendances)
 			.HasForeignKey(st => st.IdAtt);
+			modelBuilder.Entity<DraftTimeTable>()
+			.HasOne(p => p.StudyYear)
+			.WithMany(t => t.DraftTimeTables)
+			.HasForeignKey(st => st.StudyYearIdStudyYear);
 			modelBuilder.Entity<StudentsGroupHistory>()
 			.HasOne(p => p.Course)
 			.WithMany(t => t.StudentsGroupHistories)
@@ -101,10 +107,10 @@ namespace WebBRS.DAL
 			.HasOne(p => p.Group)
 			.WithMany(t => t.StudentsGroupHistories)
 			.HasForeignKey(st => st.GroupIdGroup);
-		//	modelBuilder.Entity<StudentsGroupHistory>()
-		//.HasOne(p => p.ConditionOfPerson)
-		//.WithMany(t => t.StudentsGroupHistories)
-		//.HasForeignKey(st => st.ConditionOfPersonIdConditionOfPerson);
+			//	modelBuilder.Entity<StudentsGroupHistory>()
+			//.HasOne(p => p.ConditionOfPerson)
+			//.WithMany(t => t.StudentsGroupHistories)
+			//.HasForeignKey(st => st.ConditionOfPersonIdConditionOfPerson);
 
 
 
@@ -116,19 +122,24 @@ namespace WebBRS.DAL
 			//.HasOne(p => p.ExactClassForLecturerClass)
 			//.WithMany(t => t.ExactClasses)
 			//.HasForeignKey(st => st.ExactClassForLecturerClass.IdEXCFLC);	
-			modelBuilder.Entity<ExactClass>()
-			.HasOne(p => p.SubjectForGroup)
-			.WithMany(t => t.ExactClasses)
-			.HasForeignKey(st => st.IdSFG);
+			//modelBuilder.Entity<ExactClass>()
+			//.HasOne(p => p.SubjectForGroup)
+			//.WithMany(t => t.ExactClasses)
+			//.HasForeignKey(st => st.IdSFG);
 			modelBuilder.Entity<ClassWork>()
 			.HasOne(p => p.ExactClass)
 			.WithMany(t => t.ClassWorks)
 			.HasForeignKey(st => st.IdClassWork);
+			//данные для расписания
 			#region SubjectForGroup
 			modelBuilder.Entity<SubjectForGroup>()
 			.HasOne(p => p.Person)
 			.WithMany(t => t.SubjectsForGroup)
 			.HasForeignKey(st => st.IdPerson);
+			modelBuilder.Entity<SubjectForGroup>()
+			.HasOne(p => p.DraftTimeTable)
+			.WithMany(t => t.SubjectsForGroup)
+			.HasForeignKey(st => st.DraftTimeTableIdDFTT);
 			modelBuilder.Entity<SubjectForGroup>()
 			.HasOne(p => p.Group)
 			.WithMany(t => t.SubjectForGroups)
@@ -149,6 +160,16 @@ namespace WebBRS.DAL
 			.HasOne(p => p.StudyPlanRecord)
 			.WithMany(t => t.SubjectForGroups)
 			.HasForeignKey(st => st.IdStudyPlan);
+			modelBuilder.Entity<SubjectForGroup>()
+			.HasOne(p => p.Person)
+			.WithMany(t => t.SubjectsForGroup)
+			.HasForeignKey(st => st.IdPerson);
+			//modelBuilder.Entity<SubjectForGroup>()
+			//.HasOne(p => p.Group)
+			//.WithMany(t => t.SubjectForGroups)
+			//.HasForeignKey(st => st.IdGroup);
+
+
 			#endregion
 			modelBuilder.Entity<Student>()
 			.HasOne(p => p.Person)
@@ -158,6 +179,7 @@ namespace WebBRS.DAL
 			.HasOne(p => p.WorkType)
 			.WithMany(t => t.ClassWorks)
 			.HasForeignKey(st => st.IdClassWork);
+
 			modelBuilder.Entity<Lecturer>()
 				.HasMany(c => c.Subjects)
 				.WithMany(s => s.Lecturers)
