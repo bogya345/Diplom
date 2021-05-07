@@ -13,12 +13,13 @@ namespace WebBRS.DAL.Repositories
 
         public override void Create(Attendance item)
         {
-            throw new NotImplementedException();
+           db.Attendances.Add(item);
         }
 
         public override void Delete(int itemId)
         {
             throw new NotImplementedException();
+
         }
 
         public override void Delete(string itemName)
@@ -28,7 +29,7 @@ namespace WebBRS.DAL.Repositories
 
         public override void Delete(Attendance item)
         {
-            throw new NotImplementedException();
+            db.Attendances.Remove(item); 
         }
 
         public Attendance Get(int id)

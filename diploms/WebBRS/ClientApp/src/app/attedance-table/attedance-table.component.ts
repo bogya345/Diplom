@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 import { attedanceTable_HttpService } from './http.serviceAttedanceTable';
 import { HttpClient, HttpRequest, HttpResponse, HttpEventType } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
 //import moment = require('moment');
 @Component({
   selector: 'app-attedance-table',
@@ -27,7 +28,7 @@ export class AttedanceTableComponent implements OnInit {
   //  console.log(value);
   //}
 
-  
+
   selectChangeHandler(event: any) {
     //update the ui
     this.selectedGroup.idGroup = event.target.value;
@@ -49,15 +50,17 @@ export class AttedanceTableComponent implements OnInit {
       );
   }
   //public http: personList_HttpService;
-
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string ) {
+  
+  constructor(http: HttpClient, private router: Router, private _route: ActivatedRoute, @Inject('BASE_URL') baseUrl: string ) {
     this.http = new attedanceTable_HttpService(http);
     this.baseUrl = baseUrl;
-    this.selectedGroup = { idGroup: 1739436558, GroupName: '', Specialty: ''}
+    this.selectedGroup = { idGroup: null, GroupName: '', Specialty: ''}
   }
 
   ngOnInit() {
-    this.http.getAttedanceForLecturerClasses(-1194773169, this.selectedGroup.idGroup)
+    let IdECFLCT = this._route.snapshot.paramMap.get('IdECFLCT');
+    //const id = Number(this.route.snapshot);
+    this.http.getAttedanceForLecturerClasses(IdECFLCT, this.selectedGroup.idGroup)
       .subscribe(result => {
         this.ecflct = result;
 
@@ -66,6 +69,7 @@ export class AttedanceTableComponent implements OnInit {
         this.ecflct.Groups = result.Groups;
         this.ecflct.Students = result.Students;
         this.ecflct.IdECFLCT = result.IdECFLCT;
+        this.ecflct.SelectedGroup = result.SelectedGroup;
         console.log('keks', this.ecflct.Groups);
         console.log('result/constructor', result);
 

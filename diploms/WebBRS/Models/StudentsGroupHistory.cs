@@ -38,7 +38,7 @@ namespace WebBRS.Models
 		public int CourseIdCourse { get; set; }
 		[ForeignKey("GroupIdGroup")]
 		public Group? Group { get; set; }
-		public List<Attendance> Attendances { get; set; } = new List<Attendance>();
+		public virtual List<Attendance> Attendances { get; set; } = new List<Attendance>();
 
 	}
 }

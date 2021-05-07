@@ -37,7 +37,7 @@ namespace WebBRS.DAL.Repositories
         }
         public override TypeTimeTable Get(Func<TypeTimeTable, bool> func)
         {
-            return db.TypeTimeTable
+            return db.TypeTimeTables
                 .FirstOrDefault(func);
         }
 
@@ -50,13 +50,13 @@ namespace WebBRS.DAL.Repositories
             //    //.Include(sgh => sgh.Attendances)
             //    //.Include(sgh => sgh.Student)
             //    .ToList();
-            return db.TypeTimeTable;
+            return db.TypeTimeTables;
                                 
             //return db.AuthUsers;
         }
         public override IEnumerable<TypeTimeTable> GetAll(Func<TypeTimeTable, bool> func)
         {
-            return db.TypeTimeTable
+            return db.TypeTimeTables
                  .Where(func);
         }
 

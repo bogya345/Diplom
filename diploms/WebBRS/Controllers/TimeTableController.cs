@@ -55,9 +55,13 @@ namespace WebBRS.Controllers
 			{
 				IdSelectedDraftType = (-1045036686).ToString();
 			}
+			if (DateTimeExact == "undefined")
+			{
+				DateTimeExact = DateTime.Now.ToString();
+			}
 			DateTime dateChoosen = Convert.ToDateTime(DateTimeExact);
-			//int IdPerson = 1739436573;
-			int IdPerson = 237609111;
+			int IdPerson = 1739436573;
+			//int IdPerson = 237609111;
 			TeacherSubjects teacherSubjects = new TeacherSubjects();
 			TimeTable timeTable = new TimeTable();
 			int currentDoW = Convert.ToInt32(dateChoosen.DayOfWeek);
@@ -187,7 +191,23 @@ namespace WebBRS.Controllers
 			{
 				item.EXTCforTimeTables.Distinct();
 			}
+			#region SwapDrafts
+			var buf = timeTable.Drafts.Find(g => g.IdDFTT.ToString() == IdSelectedDraft);
+			var buf2 = timeTable.Drafts[timeTable.Drafts.Count() - 1];
+			timeTable.Drafts[timeTable.Drafts.Count() - 1] = buf;
+			timeTable.Drafts[timeTable.Drafts.FindIndex(g => g.IdDFTT.ToString() == IdSelectedDraft)] = buf2;
+			timeTable.Drafts.Reverse();
+			#endregion
 
+
+			#region SwapDraftTypes
+			var buf3 = timeTable.DraftTypes.Find(g => g.IdDTTT.ToString() == IdSelectedDraftType);
+			var buf4 = timeTable.DraftTypes[timeTable.DraftTypes.Count() - 1];
+			timeTable.DraftTypes[timeTable.DraftTypes.Count() - 1] = buf3;
+			timeTable.DraftTypes[timeTable.DraftTypes.FindIndex(g => g.IdDTTT.ToString() == IdSelectedDraftType)] = buf4;
+			timeTable.DraftTypes.Reverse();
+			#endregion
+			timeTable.IdDateSelected = DateTimeExact;
 			timeTable.IdSelectedDraft = Convert.ToInt32(IdSelectedDraft);
 			timeTable.IdSelectedDraftType = Convert.ToInt32(IdSelectedDraftType);
 			return timeTable;

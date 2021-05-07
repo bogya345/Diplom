@@ -43,9 +43,11 @@ namespace WebBRS.DAL.Repositories
                 .FirstOrDefault(func);
         }
 
-        public IEnumerable<Attendance> GetAll()
+        public IEnumerable<ExactClass> GetAll()
         {
-            throw new NotImplementedException();
+            return db.ExactClasses
+                .Include(ex => ex.PersonLecturer)
+                .Include(ex => ex.Auditory);
             //return db.AuthUsers;
         }
         public override IEnumerable<ExactClass> GetAll(Func<ExactClass, bool> func)

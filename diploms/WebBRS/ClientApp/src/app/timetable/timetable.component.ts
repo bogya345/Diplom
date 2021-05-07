@@ -1,13 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { TimetablePartComponent } from '../timetable-part/timetable-part.component';
+import { FormGroup, FormControl } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+
 @Component({
   selector: 'app-timetable',
   templateUrl: './timetable.component.html',
   styleUrls: ['./timetable.component.css']
+
 })
+
 export class TimetableComponent implements OnInit {
 
   constructor() { }
+
   public ClassesTest: Array<TimeTableExactClass> =
     [
       {
@@ -124,6 +133,8 @@ export class TimetableComponent implements OnInit {
   }
 
 }
+
+
 interface TimeTableExactClass {
   idEC: number,
   SubjectName: string,

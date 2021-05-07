@@ -40,7 +40,7 @@ namespace WebBRS.DAL.Repositories
         }
         public override DraftTimeTable Get(Func<DraftTimeTable, bool> func)
         {
-            return db.DraftTimeTables
+            return db.DraftTimeTable
                 .FirstOrDefault(func);
         }
 
@@ -53,13 +53,13 @@ namespace WebBRS.DAL.Repositories
             //    //.Include(sgh => sgh.Attendances)
             //    //.Include(sgh => sgh.Student)
             //    .ToList();
-            return db.DraftTimeTables;
+            return db.DraftTimeTable;
 
             //return db.AuthUsers;
         }
         public override IEnumerable<DraftTimeTable> GetAll(Func<DraftTimeTable, bool> func)
         {
-            return db.DraftTimeTables
+            return db.DraftTimeTable
                  .Where(func);
         }
 

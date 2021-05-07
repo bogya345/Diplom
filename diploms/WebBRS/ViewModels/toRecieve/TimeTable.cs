@@ -12,6 +12,7 @@ namespace WebBRS.ViewModels.toRecieve
 		public List<DraftTimeTableVM> Drafts { get; set; } = new List<DraftTimeTableVM>();
 		public int IdSelectedDraft { get; set; }
 		public int IdSelectedDraftType { get; set; }
+		public string IdDateSelected { get; set; }
 		public List<TypeTimeTableVM> DraftTypes { get; set; } = new List<TypeTimeTableVM>();
 
 

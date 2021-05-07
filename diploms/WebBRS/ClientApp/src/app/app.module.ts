@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { AppComponent } from './app.component';
 
@@ -19,6 +20,7 @@ import { PersonListComponent } from './person-list/person-list.component';
 import { AttedanceTableComponent } from './attedance-table/attedance-table.component';
 import { AddHomeworkComponent } from './add-homework/add-homework.component';
 import { TimetableTeacherComponent } from './timetable-teacher/timetable-teacher.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 //const appRoutes: Routes = [
@@ -66,7 +68,7 @@ import { TimetableTeacherComponent } from './timetable-teacher/timetable-teacher
         children: [
           { path: 'profile', component: ProfileComponent },
           { path: 'mainpage', component: MainPageComponent },
-          { path: 'attendance-current', component: AttendanceComponent },
+          { path: 'attendance-current/:IdECFLCT', component: AttendanceComponent },
           {
             path: 'timetable', component: TimetableComponent,
             children: [
@@ -77,7 +79,7 @@ import { TimetableTeacherComponent } from './timetable-teacher/timetable-teacher
             path: 'homeworks', component: HomeworksComponent
           },
           {
-            path: 'attedancetable', component: AttedanceTableComponent
+            path: 'attedancetable/:IdECFLCT', component: AttedanceTableComponent
           },
           {
             path: 'attedance', component: AttendanceComponent,
@@ -96,7 +98,8 @@ import { TimetableTeacherComponent } from './timetable-teacher/timetable-teacher
       },
       //{ path: 'login', component: LoginComponentComponent },
       { path: '**', redirectTo: '/dashboard/mainpage', pathMatch: 'full' }
-    ])
+    ]),
+    BrowserAnimationsModule
 
   ],
   providers: [],

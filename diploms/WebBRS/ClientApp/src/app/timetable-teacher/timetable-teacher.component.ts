@@ -16,8 +16,53 @@ export class TimetableTeacherComponent implements OnInit {
     this.baseUrl = baseUrl;
     
   }
+  selectChangeHandler(event: any) {
+    //update the ui
+    this.TimeTable2.IdSelectedDraft = event.target.value;
+    console.log(this.TimeTable2.IdSelectedDraft);
+    this.http.getTeacherClassList(this.TimeTable2.IdSelectedDraft, this.TimeTable2.IdSelectedDraftType, this.TimeTable2.IdDateSelected )
+      .subscribe(result => {
+        this.TimeTable2 = result;
+        this.TimeTable2.Days = result.Days;
+        console.log('keks', this.TimeTable2);
+        console.log('result/constructor', result);
+      }, error => {
+        console.log('error/constructor', error);
+      }
+      );
+  }
+  selectChangeHandler2(event: any) {
+    //update the ui
+    this.TimeTable2.IdSelectedDraftType = event.target.value;
+    console.log(this.TimeTable2.IdSelectedDraft);
+    this.http.getTeacherClassList(this.TimeTable2.IdSelectedDraft, this.TimeTable2.IdSelectedDraftType, this.TimeTable2.IdDateSelected)
+      .subscribe(result => {
+        this.TimeTable2 = result;
+        this.TimeTable2.Days = result.Days;
+        console.log('keks', this.TimeTable2);
+        console.log('result/constructor', result);
+      }, error => {
+        console.log('error/constructor', error);
+      }
+      );
+  }
+  selectChangeHandler3(event: any) {
+    //update the ui
+    this.TimeTable2.IdDateSelected = event.target.value;
+    console.log(this.TimeTable2.IdSelectedDraft);
+    this.http.getTeacherClassList(this.TimeTable2.IdSelectedDraft, this.TimeTable2.IdSelectedDraftType, this.TimeTable2.IdDateSelected )
+      .subscribe(result => {
+        this.TimeTable2 = result;
+        this.TimeTable2.Days = result.Days;
+        console.log('keks', this.TimeTable2);
+        console.log('result/constructor', result);
+      }, error => {
+        console.log('error/constructor', error);
+      }
+      );
+  }
   ngOnInit() {
-    this.http.getTeacherClassList()
+    this.http.getTeacherClassList(-1096224834, 2007228761, '2001 - 01 - 08T00: 00: 00')
       .subscribe(result => {
         this.TimeTable2 = result;
         this.TimeTable2.Days = result.Days;
@@ -98,8 +143,8 @@ interface TimeTable2 {
   IdSelectedDraft: number,
   DraftTypes: TypeTimeTable[],
   IdSelectedDraftType: number,
-  Days: Day[]
-
+  Days: Day[],
+  IdDateSelected: string
 }
 interface Day {
   DayOfWeek: string,

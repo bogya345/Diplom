@@ -9,8 +9,9 @@ import { MethodCall } from '@angular/compiler';
 export class serviceTimeTableTeacher {
 
   constructor(private http: HttpClient) { }
-  getTeacherClassList(): Observable<TimeTable2> {
-    return this.http.get<TimeTable2>(`timeTable/GetTimeTable/-1096224834/2007228761/2001-01-08T00:00:00`,
+  getTeacherClassList(IdSelectedDraft, IdSelectedDraftType, DateTimeExact): Observable<TimeTable2> {
+    //return this.http.get<TimeTable2>(`timeTable/GetTimeTable/-1096224834/2007228761/2001-01-08T00:00:00`,
+    return this.http.get<TimeTable2>(`timeTable/GetTimeTable/${IdSelectedDraft}/${IdSelectedDraftType}/${DateTimeExact}`,
       {
         //headers: {
         //  'Accept': 'application/json',
@@ -85,7 +86,8 @@ interface TimeTable2 {
   IdSelectedDraft: number,
   DraftTypes: TypeTimeTable[],
   IdSelectedDraftType: number,
-  Days: Day[]
+  Days: Day[],
+  IdDateSelected: string
 
 }
 interface Day {
