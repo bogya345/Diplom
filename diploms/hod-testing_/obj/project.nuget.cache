@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "r+WnkzjG+LLLD3ASJdJlx4a4ZqPlvJ6jk2qO0rCYLsf2bxWjA0I4F//hZAvoqNxUBiu5YltPCjecozved4bN/w==",
+  "dgSpecHash": "SnGvMbNRbc6I/y7glaLyOya8WNR8cLCQcAJRShipPrJJR12ja4x7s6xpbu4reyrN8hvngPDxuP86iNkAT7zUrA==",
   "success": true,
   "projectFilePath": "D:\\Unic\\Diplom\\diploms\\hod-testing_\\hod-testing_.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "C:\\Users\\пк\\.nuget\\packages\\coverlet.collector\\1.2.0\\coverlet.collector.1.2.0.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\documentformat.openxml\\2.7.2\\documentformat.openxml.2.7.2.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\excelnumberformat\\1.0.10\\excelnumberformat.1.0.10.nupkg.sha512",
+    "C:\\Users\\пк\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.15\\microsoft.aspnetcore.authentication.jwtbearer.3.1.15.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\microsoft.codecoverage\\16.5.0\\microsoft.codecoverage.16.5.0.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",

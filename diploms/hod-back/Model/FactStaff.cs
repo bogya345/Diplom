@@ -25,7 +25,12 @@ namespace hod_back.Model
         public int? EmpId { get; set; }
         [Column("workT_id")]
         public int? WorkTId { get; set; }
+        [Column("applyT_id")]
+        public int? ApplyTId { get; set; }
 
+        [ForeignKey(nameof(ApplyTId))]
+        [InverseProperty(nameof(ApplyType.FactStaffs))]
+        public virtual ApplyType ApplyT { get; set; }
         [ForeignKey(nameof(EmpId))]
         [InverseProperty(nameof(Employee.FactStaffs))]
         public virtual Employee Emp { get; set; }

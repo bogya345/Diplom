@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Threading;
 
 namespace hod_back.DAL.Repositories
 {
@@ -12,9 +14,24 @@ namespace hod_back.DAL.Repositories
 
         public override IEnumerable<DirRequir> GetMany(Func<DirRequir, bool> func)
         {
-            return db.DirRequirs.Where(func);
+            try
+            {
+                return db.DirRequirs.Where(func);
+            }
+            catch(InvalidOperationException ex)
+            {
+                return new Context().DirRequirs.Where(func);
+            }
         }
-        public IEnumerable<DirRequir> GetAll()
+        public override DirRequir GetOrDefault(Func<DirRequir, bool> func, DirRequir def = null)
+        {
+            return db.DirRequirs.FirstOrDefault(func) ?? def;
+        }
+        //public override async Task<DirRequir> GetOrDefaultAsync(Func<DirRequir, bool> func, DirRequir def = null)
+        //{
+        //    return db.DirRequirs.FirstOrDefaultAsync(func, CancellationToken.None);
+        //}
+        public override IEnumerable<DirRequir> GetAll()
         {
             return db.DirRequirs;
         }

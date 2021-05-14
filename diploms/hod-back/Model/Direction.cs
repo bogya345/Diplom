@@ -35,6 +35,9 @@ namespace hod_back.Model
         public int? AcPlId { get; set; }
         [Column("dep_id")]
         public int? DepId { get; set; }
+        [Column("startYear")]
+        [StringLength(4)]
+        public string StartYear { get; set; }
 
         [ForeignKey(nameof(AcPlId))]
         [InverseProperty(nameof(AcPlan.Directions))]

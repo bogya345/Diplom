@@ -33,6 +33,21 @@ namespace hod_back.DAL.Repositories
             return db.Groups.Where(func);
         }
 
+        public override async Task<IEnumerable<Group>> GetManyAsync(Func<Group, bool> func)
+        {
+            try
+            {
+                var tmp = await db.Groups.ToListAsync();
+                var res = tmp.Where(func);
+                return res;
+            }
+            catch(InvalidOperationException ex)
+            {
+                var res = new Context().Groups.Where(func);
+                return res;
+            }
+        }
+
         public override Group OnExist(string name)
         {
             throw new NotImplementedException();

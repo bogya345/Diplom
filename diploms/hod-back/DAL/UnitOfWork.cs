@@ -130,6 +130,18 @@ namespace hod_back.DAL
             }
         }
 
+        // view
+        private TeacherLoadsViewRepository teacherLoadsRepository;
+        public TeacherLoadsViewRepository TeacherLoadsViews
+        {
+            get
+            {
+                if (teacherLoadsRepository == null)
+                    teacherLoadsRepository = new TeacherLoadsViewRepository(context);
+                return teacherLoadsRepository;
+            }
+        }
+
         #endregion
 
         #region Groups (группы)
@@ -224,6 +236,63 @@ namespace hod_back.DAL
             }
         }
 
+
+        #endregion
+
+        #region TeacherController
+
+        // tables
+
+
+        // views
+        private TeacherDepRepository teacherDepRepository;
+        public TeacherDepRepository TeacherDeps
+        {
+            get
+            {
+                if (teacherDepRepository == null)
+                    teacherDepRepository = new TeacherDepRepository(context);
+                return teacherDepRepository;
+            }
+        }
+
+        #endregion
+
+        #region Analyser
+        // tables
+
+
+        // views
+        private TeacherSuitabilityReporitory teacherSuitabilityReporitory;
+        public TeacherSuitabilityReporitory TeacherSuitabilities
+        {
+            get
+            {
+                if (teacherSuitabilityReporitory == null)
+                    teacherSuitabilityReporitory = new TeacherSuitabilityReporitory(context);
+                return teacherSuitabilityReporitory;
+            }
+        }
+        private TeacherLoadSuitabilityRepository teacherLoadSuitabilityRepository;
+        public TeacherLoadSuitabilityRepository TeacherLoadSuitabilities
+        {
+            get
+            {
+                if (teacherLoadSuitabilityRepository == null)
+                    teacherLoadSuitabilityRepository = new TeacherLoadSuitabilityRepository(context);
+                return teacherLoadSuitabilityRepository;
+            }
+        }
+        private TeacherRatesRepository teacherRatesRepository;
+        public TeacherRatesRepository TeacherRates
+        {
+            get
+            {
+                if (teacherRatesRepository == null)
+                    teacherRatesRepository = new TeacherRatesRepository(context);
+                return teacherRatesRepository;
+            }
+        }
 
         #endregion
 

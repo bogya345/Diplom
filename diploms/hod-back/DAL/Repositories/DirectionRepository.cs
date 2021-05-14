@@ -4,7 +4,9 @@ using hod_back.Profiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace hod_back.DAL.Repositories
 {
@@ -21,9 +23,51 @@ namespace hod_back.DAL.Repositories
 
         public override Direction GetOrDefault(Func<Direction, bool> func, Direction def = null)
         {
-            return db.Directions.FirstOrDefault(func) ?? def;
+            try
+            {
+                return db.Directions.FirstOrDefault(func) ?? def;
+            }
+            catch(InvalidOperationException ex)
+            {
+                return new Context().Directions.FirstOrDefault(func) ?? def;
+            }
+        }
+        public override async Task<Direction> GetOrDefaultAsync(Func<Direction, bool> func, Direction def = null)
+        {
+
+            try
+            {
+                var res = await db.Directions.ToListAsync();
+                return res.FirstOrDefault(func) ?? def;
+            }
+            catch (InvalidOperationException ex)
+            {
+                // ну и пожалуйста, ну и не надо
+                Context db = new Context();
+                var res = db.Directions.FirstOrDefault(func);
+                return res;
+            }
         }
 
+        public override Direction GetOrDefaultWithInclude(Func<Direction, bool> func, Direction def = null)
+        {
+            return db.Directions
+                .Include(x => x.EForm)
+                .Include(x => x.EBr)
+                .Include(x => x.AcPl)
+                .FirstOrDefault(func);
+        }
+        //public override Task<Direction> GetOrDefaultWithIncludeAsync(Func<Direction, bool> func, Direction def = null)
+        //{
+        //    //Expression andExpr = Expression.Convert(Expression.Lambda<Func<Direction, bool>>, typeof(Func<Direction, bool>), func.Method);
+
+        //    return db.Directions
+        //        .Include(x => x.EForm)
+        //        .Include(x => x.EBr)
+        //        //.FirstOrDefaultAsync(Expression.Lambda<Func<Direction, bool>>(func), new System.Threading.CancellationToken());
+        //        //.FirstOrDefaultAsync(Expression.Lambda(, new System.Threading.CancellationToken());
+        //        .FirstOrDefaultAsync(func);
+        //}
         public override IEnumerable<Direction> GetMany(Func<Direction, bool> func)
         {
             return db.Directions.Where(func);

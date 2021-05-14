@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-//using System.Data.Entity;
 
 #nullable disable
 
@@ -20,7 +19,9 @@ namespace hod_back.Model
 
         public virtual DbSet<AcPlan> AcPlans { get; set; }
         public virtual DbSet<AcPlanDep> AcPlanDeps { get; set; }
+        public virtual DbSet<ApplyType> ApplyTypes { get; set; }
         public virtual DbSet<AttachedAcPlan> AttachedAcPlans { get; set; }
+        public virtual DbSet<AuthUser> AuthUsers { get; set; }
         public virtual DbSet<BlockNum> BlockNums { get; set; }
         public virtual DbSet<BlockRec> BlockRecs { get; set; }
         public virtual DbSet<Degree> Degrees { get; set; }
@@ -57,6 +58,12 @@ namespace hod_back.Model
         public virtual DbSet<ScienceType> ScienceTypes { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<SubjectType> SubjectTypes { get; set; }
+        public virtual DbSet<TeacherDep> TeacherDeps { get; set; }
+        public virtual DbSet<TeacherEducDoc> TeacherEducDocs { get; set; }
+        public virtual DbSet<TeacherLoadSuitability> TeacherLoadSuitabilities { get; set; }
+        public virtual DbSet<TeacherLoadsView> TeacherLoadsViews { get; set; }
+        public virtual DbSet<TeacherRate> TeacherRates { get; set; }
+        public virtual DbSet<TeacherSuitability> TeacherSuitabilities { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WorkType> WorkTypes { get; set; }
@@ -93,6 +100,14 @@ namespace hod_back.Model
                     .HasConstraintName("AcPlanDeps_department");
             });
 
+            modelBuilder.Entity<ApplyType>(entity =>
+            {
+                entity.HasKey(e => e.ApplyTId)
+                    .HasName("PK__ApplyTyp__4841E18D3CE002E4");
+
+                entity.Property(e => e.ApplyTId).ValueGeneratedNever();
+            });
+
             modelBuilder.Entity<AttachedAcPlan>(entity =>
             {
                 entity.HasKey(e => e.AttAcPlId)
@@ -117,6 +132,15 @@ namespace hod_back.Model
                     .WithMany(p => p.AttachedAcPlans)
                     .HasForeignKey(d => d.SubTId)
                     .HasConstraintName("BlockRecs_subjectType");
+            });
+
+            modelBuilder.Entity<AuthUser>(entity =>
+            {
+                entity.ToView("AuthUsers", "Auth");
+
+                entity.Property(e => e.UserLogin).IsUnicode(false);
+
+                entity.Property(e => e.UserPassword).IsUnicode(false);
             });
 
             modelBuilder.Entity<BlockRec>(entity =>
@@ -148,6 +172,8 @@ namespace hod_back.Model
             modelBuilder.Entity<DepDirFac>(entity =>
             {
                 entity.ToView("DepDirFac");
+
+                entity.Property(e => e.StartYear).IsUnicode(false);
             });
 
             modelBuilder.Entity<DepType>(entity =>
@@ -215,6 +241,8 @@ namespace hod_back.Model
                     .HasName("PK__Directio__D886CF4CE4D2F44B");
 
                 entity.Property(e => e.DirId).ValueGeneratedNever();
+
+                entity.Property(e => e.StartYear).IsUnicode(false);
 
                 entity.HasOne(d => d.AcPl)
                     .WithMany(p => p.Directions)
@@ -371,6 +399,11 @@ namespace hod_back.Model
 
                 entity.Property(e => e.FsId).ValueGeneratedNever();
 
+                entity.HasOne(d => d.ApplyT)
+                    .WithMany(p => p.FactStaffs)
+                    .HasForeignKey(d => d.ApplyTId)
+                    .HasConstraintName("FactStaff_applyType");
+
                 entity.HasOne(d => d.Emp)
                     .WithMany(p => p.FactStaffs)
                     .HasForeignKey(d => d.EmpId)
@@ -473,6 +506,11 @@ namespace hod_back.Model
             modelBuilder.Entity<Post>(entity =>
             {
                 entity.Property(e => e.PostId).ValueGeneratedNever();
+
+                entity.HasOne(d => d.PostT)
+                    .WithMany(p => p.Posts)
+                    .HasForeignKey(d => d.PostTId)
+                    .HasConstraintName("Posts_postType");
             });
 
             modelBuilder.Entity<PostType>(entity =>
@@ -518,6 +556,36 @@ namespace hod_back.Model
                     .HasName("PK__SubjectT__3ABFCBEF78242733");
 
                 entity.Property(e => e.SubTId).ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<TeacherDep>(entity =>
+            {
+                entity.ToView("TeacherDeps");
+            });
+
+            modelBuilder.Entity<TeacherEducDoc>(entity =>
+            {
+                entity.ToView("TeacherEducDocs");
+            });
+
+            modelBuilder.Entity<TeacherLoadSuitability>(entity =>
+            {
+                entity.ToView("TeacherLoadSuitability");
+            });
+
+            modelBuilder.Entity<TeacherLoadsView>(entity =>
+            {
+                entity.ToView("TeacherLoadsView");
+            });
+
+            modelBuilder.Entity<TeacherRate>(entity =>
+            {
+                entity.ToView("TeacherRates");
+            });
+
+            modelBuilder.Entity<TeacherSuitability>(entity =>
+            {
+                entity.ToView("TeacherSuitability");
             });
 
             modelBuilder.Entity<Unit>(entity =>

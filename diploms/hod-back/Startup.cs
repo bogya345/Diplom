@@ -19,6 +19,11 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using hod_back.Configs;
+using hod_back.DAL.Contexts;
+using Microsoft.AspNetCore.Server.IISIntegration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using hod_back.Services.Auth;
 
 namespace hod_back
 {
@@ -36,6 +41,43 @@ namespace hod_back
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                        .AddJwtBearer(options =>
+                        {
+                            options.RequireHttpsMetadata = false;
+                            options.TokenValidationParameters = new TokenValidationParameters
+                            {
+                                // укзывает, будет ли валидироваться издатель при валидации токена
+                                ValidateIssuer = true,
+
+                                // строка, представляющая издателя
+                                ValidIssuer = AuthOptions.ISSUER,
+
+                                // будет ли валидироваться потребитель токена
+                                ValidateAudience = true,
+
+                                // установка потребителя токена
+                                ValidAudience = AuthOptions.AUDIENCE,
+
+                                // будет ли валидироваться время существования
+                                ValidateLifetime = true,
+
+                                // установка ключа безопасности
+                                IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+
+                                // валидация ключа безопасности
+                                ValidateIssuerSigningKey = true,
+                            };
+                        });
+
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                //options.JsonSerializerOptions.Converters.Add(MyCu)
+            });
+
             //services.Configure<FormOptions>(options =>
             //{
             //    options.MemoryBufferThreshold = Int32.MaxValue;
@@ -61,6 +103,8 @@ namespace hod_back
             });
 
             services.Configure<BaseConfig>(Configuration);
+
+            services.AddTransient<Context>();
 
             services.AddAutoMapper(
                 typeof(DepartmentsProfile)
@@ -99,6 +143,7 @@ namespace hod_back
 
             // app.UseResponseCaching();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

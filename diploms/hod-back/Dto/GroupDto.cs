@@ -10,5 +10,8 @@ namespace hod_back.Dto
         public int group_id { get; set; }
         public string group_name { get; set; }
         public int? group_acPlan_id { get; set; }
+
+        //public int NumberAll { get; set; }
+        //public int NumberSubmited { get; set; }
     }
 }

@@ -27,6 +27,9 @@ namespace hod_back.Model
         public int DirId { get; set; }
         [Column("acPl_id")]
         public int? AcPlId { get; set; }
+        [Column("startYear")]
+        [StringLength(4)]
+        public string StartYear { get; set; }
         [Column("eBr_name")]
         [StringLength(100)]
         public string EBrName { get; set; }

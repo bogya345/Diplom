@@ -21,13 +21,18 @@ namespace hod_back.Model
         public int PostId { get; set; }
         [Column("post_guid")]
         public Guid? PostGuid { get; set; }
-        [Column("postT_name")]
+        [Column("post_name")]
         [StringLength(100)]
-        public string PostTName { get; set; }
+        public string PostName { get; set; }
         [Column("post_code")]
         [StringLength(10)]
         public string PostCode { get; set; }
+        [Column("postT_id")]
+        public int? PostTId { get; set; }
 
+        [ForeignKey(nameof(PostTId))]
+        [InverseProperty(nameof(PostType.Posts))]
+        public virtual PostType PostT { get; set; }
         [InverseProperty(nameof(PlanStaff.Post))]
         public virtual ICollection<PlanStaff> PlanStaffs { get; set; }
     }

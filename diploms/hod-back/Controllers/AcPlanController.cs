@@ -21,16 +21,6 @@ using Microsoft.Extensions.Configuration;
 
 using hod_back.Extentions;
 
-//using hod_back.DAL.Models;
-//using hod_back.DAL.Models.Views;
-//using hod_back.DAL.Models.ToRecieve;
-//using hod_back.DAL.Models.ToSend;
-//using hod_back.DAL.Models.ToParse;
-
-//using hod_back.DAL;
-//using hod_back.DAL.Contexts;
-
-//using hod_back.Services.Excel;
 
 namespace hod_back.Controllers
 {
@@ -51,21 +41,67 @@ namespace hod_back.Controllers
             this._config = config;
         }
 
+        [HttpGet("get/{dir_id}")]
+        public CommonResponseDto GetAcPlan([FromRoute] int dir_id)
+        {
+            var dir = _unit.Directions.GetOrDefaultWithInclude(x => x.DirId == dir_id);
+
+            if (dir == null) { return new CommonResponseDto("Направление не найдено."); }
+            if (dir.AcPlId == null) { return new CommonResponseDto("Учебный план не найден."); }
+            if (dir.AcPl.Document == null) { return new CommonResponseDto("Документ не был найден, пожулайста, обратитесь к администратору."); }
+
+            string folderName = "Export";
+            string webRootPath = _config.GetSection("WebRootPath").Value.ToString();
+            string newPath = Path.Combine(webRootPath, folderName);
+
+            string fileName = newPath + @$"\Учебный план №{dir_id}.xlsx";
+
+            if (!Directory.Exists(newPath))
+            {
+                Directory.CreateDirectory(newPath);
+            }
+
+            try
+            {
+                byte[] byteArray = dir.AcPl.Document;
+                using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+                {
+                    fs.Write(byteArray, 0, byteArray.Length);
+                    return new CommonResponseDto(true, fileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in process: {0}", ex);
+                return new CommonResponseDto("Ошибка. Не удалось скачать файл.");
+            }
+        }
+
+        [HttpPost("post/subDep")]
+        public JsonResult PostSubDep([FromForm] IEnumerable<SubDepModel> model)
+        {
+            var tmp = _mapper.Map<IEnumerable<AcPlanDep>>(model);
+
+            _unit.AcPlanDeps.UpdateRange(tmp.ToArray());
+
+            return Json("Изменения сохранены");
+        }
+
         [HttpGet("get/subDep")]
         public async Task<IEnumerable<SubDepDto>> GetSubDep()
         {
-            var tmp = _unit.Subjects.GetManyWithInclude(x => x.SubId > 0)
-                //.ToList()
-                ;
+            var tmp = _unit.Subjects.GetManyWithIncludeAsync(x => x.SubId > 0)
+                 //.ToList()
+                 ;
 
-            var res = _mapper.Map<IEnumerable<SubDepDto>>(tmp);
+            var res = _mapper.Map<IEnumerable<SubDepDto>>(tmp.Result);
             return res;
         }
 
         [HttpPost("test/{dep_id}/{dir_id}/{group_id}"), DisableRequestSizeLimit]
-        public async Task<string> Test([FromRoute] int dep_id, [FromRoute] int dir_id, [FromRoute] int group_id)
+        public string Test([FromRoute] int dep_id, [FromRoute] int dir_id, [FromRoute] int group_id)
         {
-            var formCollection = await Request.ReadFormAsync();
+            //var formCollection = Request.ReadFormAsync();
             //var file_t = formCollection.Files.First();
 
             return "nahuo";
@@ -74,16 +110,16 @@ namespace hod_back.Controllers
         [HttpGet("/weatherforecast"), DisableRequestSizeLimit]
         public async Task<object> Test2([FromRoute] int dep_id, [FromRoute] int dir_id, [FromRoute] int group_id)
         {
-            var tmp = _unit.Subjects.GetManyWithInclude(x => x.AcPlDepId > 0)
-                //.ToList()
-                ;
+            var tmp = _unit.Subjects.GetManyWithIncludeAsync(x => x.SubId > 0)
+                 //.ToList()
+                 ;
 
-            var res = _mapper.Map<IEnumerable<SubDepDto>>(tmp);
+            var res = _mapper.Map<IEnumerable<SubDepDto>>(tmp.Result);
             return res;
         }
 
         [HttpPost("post/promote/{attAcPl_id}")]
-        public async Task<AttAcPlanDto> PostPromotedTeacher([FromRoute] int attAcPl_id, [FromForm] int fsh_id)
+        public AttAcPlanDto PostPromotedTeacher([FromRoute] int attAcPl_id, [FromForm] int fsh_id)
         {
             var tmp = _unit.AttAcPlans.GetOrDefault(x => x.AttAcPlId == attAcPl_id);
             tmp.FshId = fsh_id;
@@ -102,7 +138,8 @@ namespace hod_back.Controllers
         [HttpGet("get/{acPl_id}/{group_id}")]
         public async Task<BlockNumDto[]> GetFullAttAcPlan([FromRoute] int acPl_id, [FromRoute] int group_id)
         {
-            var tmp = _unit.BlockNums.GetManyWithInclude(x => x.BlockNumId != 0).ToList();
+            var tmp = (await _unit.BlockNums.GetManyWithIncludeAsync(x => x.BlockNumId != 0)).ToList();
+            //var tmp2 = _unit.TeacherDeps.GetOrDefault(x => x.)
 
             var res = from i in tmp
                       select new BlockNumDto()
@@ -125,7 +162,7 @@ namespace hod_back.Controllers
         [HttpGet("get/{acPl_id}/{group_id}/correspond/{dep_id}")]
         public async Task<BlockNumDto[]> GetCorrespondAttAcPlan([FromRoute] int acPl_id, [FromRoute] int group_id, [FromRoute] int dep_id)
         {
-            var tmp = _unit.BlockNums.GetManyWithInclude(x => x.BlockNumId != 0).ToList();
+            var tmp = (await _unit.BlockNums.GetManyWithIncludeAsync(x => x.BlockNumId != 0)).ToList();
 
             var res = from i in tmp
                       select new BlockNumDto()
@@ -149,6 +186,8 @@ namespace hod_back.Controllers
         [DisableRequestSizeLimit]
         public async Task<JsonResult> UploadFile([FromRoute] int dep_id, [FromRoute] int dir_id, [FromForm] AcPlanModel model)
         {
+            //return Json("Test");
+
             //try
             //{
 
@@ -160,8 +199,8 @@ namespace hod_back.Controllers
 
             //if (_unit.DepDirFac.GetOrDefault(x => x.DepId == dep_id && x.DirId == dir_id).AcPlId != null) return Json("The plan has already been uploaded.");
 
-            var formCollection = await Request.ReadFormAsync();
-            var file_t = formCollection.Files.First();
+            //var formCollection = Request.();
+            //var file_t = formCollection.Files.First();
 
             //if (!Request.ContentType.Contains("json"))
             //{
@@ -169,7 +208,7 @@ namespace hod_back.Controllers
             //    return"Files not found.";
             //}
 
-            if (Request.Form == null || Request.Form.Files.Count == 0)
+            if (model.file == null || Request.Form.Files.Count == 0)
             {
                 return Json("Files not found.");
                 //return "Files not found.";
@@ -196,7 +235,6 @@ namespace hod_back.Controllers
                 }
             }
 
-
             byte[] docBuf;
             using (FileStream fs = new FileStream($"{newPath}/{fileName}", FileMode.Open, FileAccess.Read))
             {
@@ -213,16 +251,17 @@ namespace hod_back.Controllers
                 docBuf
                 );
             // 'D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\ExcelPattern_Property.xlsx'."
-            int a = 1;
+            //int a = 1;
 
             if (!ex.Parse())
+            //if (!ex.Count() != 0)
             {
                 return Json("Ошибка при обработке документа учебного плана.");
                 //return "Ошибка при обработке документа учебного плана.";
             }
             else
             //{ _unit.AttachedAcPlan.Create(ex.blocks); }
-            {
+            {   
                 // проверка на добавление в таблицу нагрузки (AttachedAcPlan)
 
                 // создание нагрузки
@@ -244,9 +283,11 @@ namespace hod_back.Controllers
         /// Привязка групп к планам направлений
         /// </summary>
         /// <param name="ex"></param>
-        private void InsertAttAcPlanRecords(Excel ex)
+        private async void InsertAttAcPlanRecords(Excel ex)
         {
             /// так как в TRIGGER низя делать вставку нескольких полей, то приходиться делать это через сервер
+            /// 
+            _unit.BlockRecs.CreateRangeAsync(ex.accumRecs.ToArray());
         }
 
         private byte[] ReadFully(Stream input)

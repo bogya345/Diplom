@@ -27,6 +27,18 @@ namespace hod_back.DAL.Repositories
         {
             return db.AcPlanDeps;
         }
+        public override async Task<IEnumerable<AcPlanDep>> GetAllAsync()
+        {
+            var tmp = db.AcPlanDeps;
+
+            IEnumerable<AcPlanDep> GetData()
+            {
+                foreach (var i in tmp)
+                    yield return i;
+            }
+
+            return GetData();
+        }
 
         public override IEnumerable<AcPlanDep> GetMany(Func<AcPlanDep, bool> func)
         {
@@ -44,7 +56,14 @@ namespace hod_back.DAL.Repositories
 
         public override void UpdateRange(AcPlanDep[] items)
         {
-            db.UpdateRange(items);
+            foreach(var i in items)
+            {
+                var tmp = db.AcPlanDeps.FirstOrDefault(x => x.AcPlDepId == i.AcPlDepId);
+                tmp.DepId = i.DepId;
+                db.AcPlanDeps.Update(tmp);
+            }
+            //db.UpdateRange(items);
+            db.SaveChanges();
         }
 
         //public override void DeleteRange(BlockNum[] items)

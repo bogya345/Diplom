@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace hod_back.DAL.Repositories
 {
     public class DepDirFacRepository : IRepository<DepDirFac>
@@ -14,9 +16,27 @@ namespace hod_back.DAL.Repositories
         {
             return db.DepDirFacs.Where(func);
         }
-        public IEnumerable<DepDirFac> GetAll()
+        public IEnumerable<DepDirFac> GetAll() { return db.DepDirFacs; }
+        public async Task<IEnumerable<DepDirFac>> GetAllAsync()
         {
-            return db.DepDirFacs;
+            try
+            {
+                var tmp = db.DepDirFacs.ToListAsync();
+                return tmp.Result;
+
+                //IEnumerable<DepDirFac> GetData()
+                //{
+                //    foreach (var i in tmp)
+                //        yield return i;
+                //}
+
+                //return GetData();
+            }
+            catch(InvalidOperationException ex)
+            {
+                var tmp = new Context().DepDirFacs.ToList();
+                return tmp;
+            }
         }
         //public override 
 

@@ -46,7 +46,7 @@ namespace hod_back.Controllers
         /// </summary>
         /// <param name="dir_id">ID направления</param>
         /// <returns></returns>
-        //[Authorize(Roles = "Преподаватель,Заведующий,Админ")]s
+        [Authorize(Roles = "препод,завед,админ")]
         [HttpGet("get/plan/{group_id}")]
         public IEnumerable<AcPlanDto> GetAcPlan(int group_id)
         {

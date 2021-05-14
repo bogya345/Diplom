@@ -46,6 +46,39 @@ namespace hod_back.DAL.Repositories
                 .ThenInclude(y => y.AttachedAcPlans)
                 .ThenInclude(z => z.SubT)
 
+                .Include(x => x.BlockRecs)
+                .ThenInclude(y => y.AttachedAcPlans)
+                .ThenInclude(z => z.Fsh)
+                .ThenInclude(k => k.Fs)
+                .ThenInclude(p => p.Emp)
+
+                //.Include(x => x.BlockRecs)
+                //.ThenInclude(y => y.AcPl)
+                //.ThenInclude(z => z.Directions)
+                //.ThenInclude(k => k.Dep)
+
+                .Where(func);
+        }
+        public override async Task<IEnumerable<BlockNum>> GetManyWithIncludeAsync(Func<BlockNum, bool> func)
+        {
+            return db.BlockNums
+
+                .Include(x => x.BlockRecs)
+                .ThenInclude(y => y.Sub)
+                .ThenInclude(z => z.AcPlDep)
+                .ThenInclude(k => k.Dep)
+                //.ThenInclude(p => p.)
+
+                .Include(x => x.BlockRecs)
+                .ThenInclude(y => y.AttachedAcPlans)
+                .ThenInclude(z => z.SubT)
+
+                .Include(x => x.BlockRecs)
+                .ThenInclude(y => y.AttachedAcPlans)
+                .ThenInclude(z => z.Fsh)
+                .ThenInclude(k => k.Fs)
+                .ThenInclude(p => p.Emp)
+
                 //.Include(x => x.BlockRecs)
                 //.ThenInclude(y => y.AcPl)
                 //.ThenInclude(z => z.Directions)

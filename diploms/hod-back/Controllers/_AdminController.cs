@@ -23,6 +23,10 @@ using Microsoft.AspNetCore.Authorization;
 //using hod_back.Services.Excel;
 using Microsoft.AspNetCore.Identity;
 using hod_back.DAL;
+using hod_back.Dto;
+using AutoMapper;
+using hod_back.Models;
+using hod_back.Model;
 
 namespace hod_back.Controllers
 {
@@ -31,10 +35,52 @@ namespace hod_back.Controllers
     public class AdminController : Controller
     {
         private UnitOfWork _unit;
+        private IMapper _mapper;
 
-        public AdminController(UnitOfWork unit)
+        public AdminController(UnitOfWork unit, IMapper mapper, IHostingEnvironment hostEnv)
         {
             this._unit = unit;
+            this._mapper = mapper;
+        }
+
+        [HttpGet("get/mapper/subDeps")]
+        public async Task<MapSudDep> GetMapSubDep()
+        {
+            var tmp1 = await _unit.Subjects.GetManyWithIncludeAsync(x => x.SubId > 0);
+            var res1 = _mapper.Map<IEnumerable<SubDepDto>>(tmp1);
+
+            var tmp2 = await _unit.Departments.GetManyAsync(x => x.DepTId == 6);
+            var res2 = _mapper.Map<IEnumerable<DepsDto>>(tmp2);
+
+            var tmp3 = await _unit.AcPlanDeps.GetAllAsync();
+            var res3 = _mapper.Map<IEnumerable<DepDepDto>>(tmp3);
+
+            var res = new MapSudDep { subDeps = res1.ToArray(), deps = res2.ToArray(), depDep = res3.ToArray() };
+            return res;
+        }
+
+        [HttpPost("post/mapper/depDeps")]
+        public JsonResult PostDepDep([FromBody] DepDepModel[] model)
+        {
+            if (model == null || model.Length == 0) { return Json("Изменений не обнаруженно"); }
+
+            var tmp = _mapper.Map<IEnumerable<AcPlanDep>>(model);
+
+            _unit.AcPlanDeps.UpdateRange(tmp.ToArray());
+
+            return Json("Изменения сохранены.  Обновление...");
+        }
+
+        [HttpPost("post/mapper/subDeps")]
+        public JsonResult PostSubDep([FromBody] SubDepModel[] model)
+        {
+            if (model == null || model.Length == 0) { return Json("Изменений не обнаруженно"); }
+
+            var tmp = _mapper.Map<IEnumerable<AcPlanDep>>(model);
+
+            _unit.AcPlanDeps.UpdateRange(tmp.ToArray());
+
+            return Json("Изменения сохранены");
         }
 
         //RoleManager<IdentityRole> _roleManager;

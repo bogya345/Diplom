@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebBRS", "WebBRS\WebBRS.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebBRS-testing", "WebBRS-testing\WebBRS-testing.csproj", "{9AB804F5-900E-4F3E-970D-DAB32391D005}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hod-testing_", "hod-testing_\hod-testing_.csproj", "{1BC491E5-D0FE-4AE6-88C8-90C251A68E95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hod-testing_", "hod-testing_\hod-testing_.csproj", "{1BC491E5-D0FE-4AE6-88C8-90C251A68E95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

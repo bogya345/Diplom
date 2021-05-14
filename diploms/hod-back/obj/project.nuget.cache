@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HdxPepGcMq2WqOKa3hPH46719FuUOzIutOpAAwstrLDImajZ1gQ1hd4f5qIv6SCj4jTMZEHX7lyhlQRdC9/sKQ==",
+  "dgSpecHash": "IIlb68zINEOYfjPyscOUYggI/XGNl3G+85NvHTFbO8KKrh7D1ZD6hr98ZxINXuItlgkRcmGzRBVkKUaih/nIIA==",
   "success": true,
   "projectFilePath": "D:\\Unic\\Diplom\\diploms\\hod-back\\hod-back.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "C:\\Users\\пк\\.nuget\\packages\\documentformat.openxml\\2.7.2\\documentformat.openxml.2.7.2.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\excelnumberformat\\1.0.10\\excelnumberformat.1.0.10.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\пк\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.15\\microsoft.aspnetcore.authentication.jwtbearer.3.1.15.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",
@@ -19,6 +20,7 @@
     "C:\\Users\\пк\\.nuget\\packages\\microsoft.entityframeworkcore.design\\5.0.4\\microsoft.entityframeworkcore.design.5.0.4.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\5.0.4\\microsoft.entityframeworkcore.relational.5.0.4.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\5.0.4\\microsoft.entityframeworkcore.sqlserver.5.0.4.nupkg.sha512",
+    "C:\\Users\\пк\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\5.0.4\\microsoft.entityframeworkcore.tools.5.0.4.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\5.0.0\\microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\microsoft.extensions.caching.memory\\5.0.0\\microsoft.extensions.caching.memory.5.0.0.nupkg.sha512",
     "C:\\Users\\пк\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\5.0.0\\microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",

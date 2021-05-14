@@ -17,9 +17,19 @@ namespace hod_back.Model
         [Column("user_password")]
         [StringLength(100)]
         public string UserPassword { get; set; }
-        [Column("role_id")]
-        public int? RoleId { get; set; }
-        [Column("dep_guid")]
-        public Guid? DepGuid { get; set; }
+        [Column("fs_id")]
+        public int FsId { get; set; }
+        [Column("ps_id")]
+        public int PsId { get; set; }
+        [Column("dep_id")]
+        public int DepId { get; set; }
+        [Column("dep_shortname")]
+        [StringLength(50)]
+        public string DepShortname { get; set; }
+        [Column("id_role_actual")]
+        public int? IdRoleActual { get; set; }
+        [Column("name_role_actual")]
+        [StringLength(100)]
+        public string NameRoleActual { get; set; }
     }
 }

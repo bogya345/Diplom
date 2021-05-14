@@ -18,5 +18,7 @@ namespace hod_back.Model
         public string FgosNum { get; set; }
         [Column("fgos_content")]
         public string FgosContent { get; set; }
+        [Column("fgos_propertyView")]
+        public string FgosPropertyView { get; set; }
     }
 }

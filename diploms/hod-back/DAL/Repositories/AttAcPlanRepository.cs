@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.EntityFrameworkCore;
+
 using hod_back.Model;
 
 namespace hod_back.DAL.Repositories
@@ -29,6 +31,20 @@ namespace hod_back.DAL.Repositories
         public override IEnumerable<AttachedAcPlan> GetMany(Func<AttachedAcPlan, bool> func)
         {
             return db.AttachedAcPlans.Where(func);
+        }
+
+        public override async Task<IEnumerable<AttachedAcPlan>> GetManyAsync(Func<AttachedAcPlan, bool> func)
+        {
+            try
+            {
+                var tmp = db.AttachedAcPlans.ToListAsync();
+                return tmp.Result.Where(func);
+            }
+            catch(InvalidOperationException ex)
+            {
+                var tmp = new Context().AttachedAcPlans.Where(func);
+                return tmp;
+            }
         }
 
         public override IEnumerable<AttachedAcPlan> GetManyWithInclude(Func<AttachedAcPlan, bool> func)

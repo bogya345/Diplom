@@ -11,26 +11,37 @@ using hod_back.Model;
 
 namespace hod_back.DAL.Repositories
 {
-    public class AuthUsersRepository : IRepository<AuthUsers>
+    public class AuthUsersRepository : IRepository<AuthUser>
     {
         public AuthUsersRepository(Context context) : base(context) { }
 
+        public override AuthUser GetOrDefault(Func<AuthUser, bool> func, AuthUser def = null)
+        {
+            try
+            {
+                return db.AuthUsers.FirstOrDefault(func) ?? def;
+            }
+            catch(InvalidOperationException ex)
+            {
+                return new Context().AuthUsers.FirstOrDefault(func) ?? def;
+            }
+        }
 
-        //public override AuthUsers Get(Func<AuthUsers, bool> func)
+        //public override AuthUser GetOrDefault(Func<AuthUser, bool> func)
         //{
         //    return db.AuthUsers.FirstOrDefault(func);
         //}
 
-        //public IEnumerable<AuthUsers> GetAll()
-        //{
-        //    throw new NotImplementedException();
-        //    //return db.AuthUsers;
-        //}
+        public IEnumerable<AuthUser> GetAll()
+        {
+            throw new NotImplementedException();
+            //return db.AuthUsers;
+        }
 
-        //public override IEnumerable<AuthUsers> GetMany(Func<AuthUsers, bool> func)
-        //{
-        //    return db.AuthUsers.Where(func);
-        //}
+        public override IEnumerable<AuthUser> GetMany(Func<AuthUser, bool> func)
+        {
+            return db.AuthUsers.Where(func);
+        }
 
     }
 }

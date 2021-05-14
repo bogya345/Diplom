@@ -31,6 +31,8 @@ namespace hod_back.Services.Excel
 
         private bool isNewAcPl;
 
+        public List<BlockRec> accumRecs;
+
         //private IMapper _mapper;
 
         public string path { get; set; }
@@ -71,6 +73,8 @@ namespace hod_back.Services.Excel
             {
                 unit.AcPlans.Update(acPl);
             }
+
+            this.accumRecs = new List<BlockRec>();
 
             //this._mapper = new Mapper(new MapperConfiguration(c =>
             //{
@@ -366,7 +370,11 @@ namespace hod_back.Services.Excel
                 }
             }
 
-            if (this.isNewAcPl) unit.BlockRecs.CreateRange(buf_bRecs.ToArray());
+            if (this.isNewAcPl)
+            {
+                //unit.BlockRecs.CreateRange(buf_bRecs.ToArray());
+                this.accumRecs = buf_bRecs;
+            }
             else UpdateRange(buf_bRecs);
 
             #endregion

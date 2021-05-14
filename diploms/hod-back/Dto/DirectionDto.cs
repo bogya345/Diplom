@@ -9,7 +9,7 @@ namespace hod_back.Dto
     {
         public int dir_id { get; set; }
         public string dir_name { get; set; }
-        public int startYear { get; set; }
+        public string startYear { get; set; }
         public int? acPl_id { get; set; }
         // mb link on plan (as excel)
         public DirRequirDto[] requirs { get; set; }

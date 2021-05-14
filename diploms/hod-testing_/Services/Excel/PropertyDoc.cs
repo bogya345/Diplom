@@ -23,7 +23,8 @@ namespace hod_testing_
 
         private UnitOfWork unit = new UnitOfWork();
         private int dep_id = 1;
-        private int dir_id = 152;
+        private int dir_id = 151;
+        //private int dir_id = 152;
 
         public string path { get; set; } // @"D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\Plan_IST_-_16.xlsx"
 
@@ -34,15 +35,15 @@ namespace hod_testing_
         public void TestMethod1()
         {
 
-            Excel_Property ex = new Excel_Property(
-                @"D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot" + @"\Upload\Plan_IST_-_16.xlsx",
-                dep_id,
-                dir_id,
-                unit
-                );
+            //Excel_Property ex = new Excel_Property(
+            //    @$"D:\Unic\Diplom\diploms\hod-back\_Resources\Export\Кадровая справка {dep_id} {dir_id}.xlsx",
+            //    dep_id,
+            //    dir_id,
+            //    unit
+            //    );
             // 'D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\ExcelPattern_Property.xlsx'."
 
-            ex.CreateAndFillTempFile();
+            //ex.CreateAndFillTempFile();
 
         }
     }

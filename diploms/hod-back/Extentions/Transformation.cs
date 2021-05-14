@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore
 
 namespace hod_back.Extentions
 {
@@ -31,12 +33,13 @@ namespace hod_back.Extentions
             return tmp;
         }
 
-        public static LoadDto TransformToLoadDto(this AttachedAcPlan item, int? SemNum)
+        public static LoadDto TransformToLoadDto(this AttachedAcPlan item, int? SemNum, string teachName="")
         {
             LoadDto res = new LoadDto()
             {
                 atAcPlId = item.AttAcPlId,
                 FshId = item.FshId,
+                //teachName = $"{item.Fsh.Fs.Emp.LastName} {item.Fsh.Fs.Emp.FirstName} {item.Fsh.Fs.Emp.MiddleName}",
                 LoadValue = (double)item.HourValue,
                 SemNum = SemNum,
                 SubTypeName = item.SubT.SubTName,
@@ -90,6 +93,7 @@ namespace hod_back.Extentions
                 {
                     atAcPlId = item.AttAcPlId,
                     FshId = item.FshId,
+                    teachName = item.Fsh == null ? "" : $"{item.Fsh.Fs.Emp.LastName} {item.Fsh.Fs.Emp.FirstName} {item.Fsh.Fs.Emp.MiddleName}",
                     LoadValue = (double)item.HourValue,
                     SemNum = item.BlockRec.SemestrNum,
                     SubTypeName = item.SubT.SubTName,

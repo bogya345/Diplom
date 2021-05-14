@@ -9,6 +9,7 @@ namespace hod_back.Dto
     {
         public int atAcPlId { get; set; }
         public int? FshId { get; set; }
+        public string teachName { get; set; }
         public int BlocRecId { get; set; }
         public int? SemNum { get; set; }
         public int SubTypeId { get; set; }

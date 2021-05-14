@@ -1,20 +1,13 @@
-﻿using System;
+﻿using AutoMapper;
+using hod_back.DAL;
+using hod_back.Dto;
+using hod_back.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.IO;
-using System.Net.Http.Headers;
-using System.Text.Json;
-
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Authorization;
-using hod_back.DAL;
-using hod_back.Model;
-using AutoMapper;
-using hod_back.Dto;
-using hod_back.Services.Excel;
 
 //using hod_back.DAL.Models;
 //using hod_back.DAL.Models.Views;
@@ -48,7 +41,7 @@ namespace hod_back.Controllers
         /// Получить все кафедры с информацией
         /// </summary>
         /// <returns></returns>
-        //[Authorize(Roles = "Преподаватель,Заведующий,Админ,Уму")]
+        [Authorize(Roles = "препод,завед,админ,уму")]
         [HttpGet("info")]
         public async Task<IEnumerable<DepsInfoDto>> GetCathedra()
         {
@@ -60,10 +53,10 @@ namespace hod_back.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet("get/all")]
-        public async Task<IEnumerable<DepsDto>> GetAllDeps()
+        [HttpGet("get/cathedras/all")]
+        public IEnumerable<DepsDto> GetAllDeps()
         {
-            var tmp = _unit.Departments.GetAll();
+            var tmp = _unit.Departments.GetMany(x => x.DepTId == 6);
             var res = _mapper.Map<IEnumerable<DepsDto>>(tmp);
             return res;
         }
@@ -72,45 +65,46 @@ namespace hod_back.Controllers
         /// получить все кафедры
         /// </summary>
         /// <returns></returns>
-        //[Authorize(Roles = "преподаватель,заведующий,админ,уму")]
+        [Authorize(Roles = "препод,завед,админ,уму")]
         [HttpGet("getall/dirfac")]
         public async Task<IEnumerable<DepsDto>> GetDeps()
         {
-            var tmp = _unit.DepDirFac.GetAll().ToList();
+            var tmp = await _unit.DepDirFac.GetAllAsync();
 
             IEnumerable<DepsDto> tmp2 = from i in tmp
-                       group i by new
-                       {
-                           i.DepId,
-                           i.DepGuid,
-                           i.DepName,
-                           i.FacId,
-                           i.FacName
-                       } into dep
-                       select new DepsDto()
-                       {
-                           dep_id = dep.Key.DepId,
-                           dep_name = dep.Key.DepName,
-                           dirs = tmp.Where(x => x.DepId == dep.Key.DepId).Select(x => new DirectionDto()
-                           {
-                               dir_id = x.DirId,
-                               dir_name = x.EBrName,
-                               acPl_id = x.AcPlId,
-                               requirs = _unit.DirRequirs.GetMany(y => y.DirId == x.DirId).Select(z => new DirRequirDto()
-                               {
-                                   fgos_num = z.FgosNum,
-                                   settedValue = z.SettedValue,
-                                   unit_name = z.UnitName
-                               }).ToArray(),
-                               groups = _unit.DirGroups.GetMany(y => y.DirId == x.DirId).Select(z => new GroupDto()
-                               {
-                                   group_id = z.GroupId,
-                                   group_name = z.GroupName,
-                                   //group_acPlan_id = z.AcPlId
-                               }).ToArray()
+                                        group i by new
+                                        {
+                                            i.DepId,
+                                            i.DepGuid,
+                                            i.DepName,
+                                            i.FacId,
+                                            i.FacName
+                                        } into dep
+                                        select new DepsDto()
+                                        {
+                                            dep_id = dep.Key.DepId,
+                                            dep_name = dep.Key.DepName,
+                                            dirs = tmp.Where(x => x.DepId == dep.Key.DepId).Select(x => new DirectionDto()
+                                            {
+                                                dir_id = x.DirId,
+                                                dir_name = x.EBrName,
+                                                acPl_id = x.AcPlId,
+                                                startYear = x.StartYear,
+                                                requirs = _unit.DirRequirs.GetMany(y => y.DirId == x.DirId).Select(z => new DirRequirDto()
+                                                {
+                                                    fgos_num = z.FgosNum,
+                                                    settedValue = z.SettedValue,
+                                                    unit_name = z.UnitName
+                                                }).ToArray(),
+                                                groups = _unit.DirGroups.GetMany(y => y.DirId == x.DirId).Select(z => new GroupDto()
+                                                {
+                                                    group_id = z.GroupId,
+                                                    group_name = z.GroupName
+                                                    //group_acPlan_id = z.AcPlId
+                                                }).ToArray()
 
-                           }).ToArray()
-                       };
+                                            }).ToArray()
+                                        };
 
             return tmp2;
         }
@@ -119,9 +113,9 @@ namespace hod_back.Controllers
         /// получить кафедру по id
         /// </summary>
         /// <returns></returns>
-        //[Authorize(Roles = "преподаватель,заведующий,админ,уму")]
+        [Authorize(Roles = "препод,завед,админ,уму")]
         [HttpGet("get/{dep_id}")]
-        public async Task<DepsDto> GetCurDep(int dep_id)
+        public DepsDto GetCurDep(int dep_id)
         {
             var tmp = _unit.DepDirFac.GetMany(x => x.DepId == dep_id).ToList();
 

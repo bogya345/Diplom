@@ -12,7 +12,14 @@ namespace hod_back.DAL.Repositories
 
         public override IEnumerable<DirGroup> GetMany(Func<DirGroup, bool> func)
         {
-            return db.DirGroups.Where(func);
+            try
+            {
+                return db.DirGroups.Where(func);
+            }
+            catch(InvalidOperationException ex)
+            {
+                return new Context().DirGroups.Where(func);
+            }
         }
         public IEnumerable<DirGroup> GetAll()
         {

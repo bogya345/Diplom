@@ -57,7 +57,7 @@ namespace hod_back.Controllers
         }
 
         [HttpGet("/deps")]
-        public async Task<IEnumerable<DepsDto>> GetDeps()
+        public IEnumerable<DepsDto> GetDeps()
         {
             var tmp = _unit.DepDirFac.GetAll().ToList();
 

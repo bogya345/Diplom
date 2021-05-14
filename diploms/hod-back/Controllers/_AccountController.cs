@@ -9,6 +9,7 @@ using hod_back.Services.Auth;
 using Microsoft.IdentityModel.Tokens;
 
 using hod_back.DAL;
+using Microsoft.AspNetCore.Authorization;
 
 namespace hod_back.Controllers
 {
@@ -22,6 +23,41 @@ namespace hod_back.Controllers
         public AccountController(UnitOfWork unit)
         {
             this._unit = unit;
+        }
+
+        //[Authorize]
+        [HttpGet("/check-token")]
+        public IActionResult CheckToken()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return BadRequest("lol, nope");
+            }
+
+            var now = DateTime.UtcNow;
+
+            // создаем JWT-токен
+            var jwt = new JwtSecurityToken(
+                    issuer: AuthOptions.ISSUER,
+                    audience: AuthOptions.AUDIENCE,
+                    notBefore: now,
+                    claims: User.Claims,
+                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            var response = new
+            {
+                username = User.Identity.Name,
+                access_role_id = User.Claims.ToList()[1].Value,
+                access_role = User.Claims.ToList()[2].Value,
+                id_department = User.Claims.ToList()[3].Value,
+                name_department = User.Claims.ToList()[4].Value,
+                access_token = encodedJwt
+            };
+
+            return Json(response);
         }
 
         /// <summary>
@@ -59,6 +95,7 @@ namespace hod_back.Controllers
                 access_role = identity.Claims.ToList()[2].Value,
                 id_department = identity.Claims.ToList()[3].Value,
                 name_department = identity.Claims.ToList()[4].Value,
+                dateExpired = now,
                 access_token = encodedJwt
             };
 
@@ -72,19 +109,19 @@ namespace hod_back.Controllers
         /// <returns></returns>
         private ClaimsIdentity GetIdentity(string username, string password)
         {
-            var person = _unit.AuthUsers.GetOrDefault(x => x.email == username && x.password == password);
+            var person = _unit.AuthUsers.GetOrDefault(x => x.UserLogin == username && x.UserPassword == password);
 
             if (person == null) { throw new Exception(); } // проверить целостность данных пользователей
 
             var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.email),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.UserLogin),
 
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.id_role_actual.ToString()),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.name_role_actual),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.IdRoleActual.ToString()),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.NameRoleActual),
 
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.id_department.ToString()),
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.name_department.ToString())
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.DepId.ToString()),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.DepShortname.ToString())
                 };
 
             var claimsIdentity = new ClaimsIdentity(claims,

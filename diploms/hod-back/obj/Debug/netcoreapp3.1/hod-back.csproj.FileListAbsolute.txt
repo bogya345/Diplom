@@ -1,5 +1,6 @@
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\appsettings.json
+D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Configs\baseConfig.json
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.exe
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\hod-back.deps.json
@@ -55,11 +56,8 @@ D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csprojAssemblyReference.cache
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfoInputs.cache
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.AssemblyInfo.cs
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CoreCompileInputs.cache
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.MvcApplicationPartsAssemblyInfo.cache
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.RazorTargetAssemblyInfo.cache
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CopyComplete
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back.StaticWebAssets.Manifest.cache
@@ -67,4 +65,7 @@ D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.dll
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.pdb
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.genruntimeconfig.cache
-D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Configs\baseConfig.json
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csprojAssemblyReference.cache
+D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CoreCompileInputs.cache
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.MvcApplicationPartsAssemblyInfo.cache
