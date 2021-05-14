@@ -1,4 +1,6 @@
 
+--DROP VIEW Auth.AuthUsers
+
 CREATE VIEW Auth.AuthUsers
 AS
 
@@ -8,6 +10,7 @@ SELECT
 	,fs.fs_id
 	,ps.ps_id
 	,deps.dep_id
+	,deps.dep_shortname
 	, IIF(roles.role_id = 1,
 
 		CASE 
@@ -21,18 +24,18 @@ SELECT
 
 		roles.role_id) as id_role_actual
 
-	--, IIF(roles.role_id = 1,
+	, IIF(roles.role_id = 1,
 
-	--	CASE
+		CASE
 
-	--	when p.post_id in (755,756,42)
-	--	then 'Заведующий'
+		when p.post_id in (755,756,42)
+		then N'завед'
 
-	--	else deps.role_id
+		else roles.role_name
 
-	--	end,
+		end,
 
-	--	roles.role_name) as name_role_actual
+		roles.role_name) as name_role_actual
 
 FROM hod.Auth.Users as users
 

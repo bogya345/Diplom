@@ -1,5 +1,8 @@
+/*
 
 DROP VIEW dbo.DirRequirs
+
+*/
 
 CREATE VIEW dbo.DirRequirs
 AS
@@ -14,6 +17,9 @@ SELECT
 	,fgos.fgos_num
 	,df.settedValue
 	,u.unit_name
+
+	,fgos.fgos_content
+	,fgos.fgos_propertyView
 
 FROM hod.Import.Directions as dirs
 

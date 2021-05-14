@@ -1,5 +1,5 @@
 
-DROP VIEW dbo.DepDirFac
+--DROP VIEW dbo.DepDirFac
 
 CREATE VIEW dbo.DepDirFac
 AS
@@ -13,7 +13,7 @@ SELECT
 	,facs.fac_name
 	,dirs.dir_id
 	,dirs.acPl_id
-	--,dirs.
+	,dirs.startYear
 	,ebs.eBr_name
 
 FROM hod.Import.Departments as deps
