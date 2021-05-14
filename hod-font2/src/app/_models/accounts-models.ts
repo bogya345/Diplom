@@ -9,3 +9,4 @@ interface User {
     dep_id: number,
     dep_name: string
 }
+

@@ -20,11 +20,11 @@ export class app_HttpService {
 
         let t = this.http.get<DepInfo[]>(`${environment.hod_api_url}deps/info`,
         {
-            headers: new HttpHeaders().set('Hui', 'nahioy')
-            // headers: {
-            //     'Accept': 'application/json',
-            //     'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
-            // }
+            // headers: new HttpHeaders().set('Hui', 'nahioy')
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+            }
         });
 
         console.log(t);

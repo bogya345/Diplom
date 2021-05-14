@@ -21,10 +21,10 @@ export class dep_HttpService {
   getDepInfo(dep_id): Observable<DepsDto> {
     return this.http.get<DepsDto>(`${environment.hod_api_url}deps/get/${dep_id}`,
       {
-        // headers: {
-        //   'Accept': 'application/json',
-        //   'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
-        // }
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+        }
       });
   }
 

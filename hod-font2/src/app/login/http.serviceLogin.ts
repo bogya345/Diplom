@@ -24,10 +24,10 @@ export class login_HttpService {
       ``,
       body_,
       {
-        // headers: {
-        //   'Accept': 'application/json',
-        //   'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
-        // }
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+        }
       }
     );
 

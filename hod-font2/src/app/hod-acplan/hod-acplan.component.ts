@@ -22,11 +22,14 @@ import {
   BlockNum, Subject, Semester, Load
 } from '../_models/groups-models';
 import { Direction } from '../_models/deps-models';
+import { User } from '../_models/accounts-models';
 
 import { HodPromoteComponent } from '../hod-promote/hod-promote.component'
 
 import { HodModalPromoteComponent } from '../hod-modal-promote/hod-modal-promote.component';
 import { SnackBarComponent } from '../snack-bar/snack-bar.component';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
+import { AnonymousSubject } from 'rxjs/internal/Subject';
 
 // @NgModule({
 //   imports: [BrowserModule, NgbModule],
@@ -71,8 +74,11 @@ export class HodAcplanComponent implements OnInit {
   // public acPlan: AcPlan;
   public acPlan: BlockNum[];
 
+  private submittedTeacher: any;
+
   private _httpOwn: acplan_HttpService;
-  private _user: any;
+  private _user: User;
+  public _userDepId: number;
   constructor(
     private _router: Router,
     private _http: HttpClient,
@@ -85,7 +91,8 @@ export class HodAcplanComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._user = this.share.shareUser('token');
+    this._user = this.share.getUser('token');
+    this._userDepId = this._user.dep_id;
   }
   ngOnChanges(): void {
     // this._httpOwn.getAcPlan(this.group.group_id)
@@ -96,7 +103,7 @@ export class HodAcplanComponent implements OnInit {
     //   }
     //   );
 
-    this._user = this.share.shareUser('token');
+    this._user = this.share.getUser('token');
     console.log('changed: user is ', this._user);
 
     console.log(this.direction);
@@ -122,13 +129,13 @@ export class HodAcplanComponent implements OnInit {
 
   openModal(direction, group, acPlan, subject, item) {
     let isUnmapped = false;
-    if (subject.DepsDto == null || subject.DepsDto.dep_id == null) {
+    if (subject.correspDep == null || subject.correspDep.dep_id == null) {
       if (!confirm(`К выбранной дисциплине не привазяна кафедра, продолжить со всем перечнем преподавателей?`)) { return; }
       isUnmapped = true;
     }
     else {
       if (
-        this._user.dep_id != subject.depsDto.dep_id
+        this._user.dep_id != subject.correspDep.dep_id
       ) {
         this.snack.openSnackBarFull(`Вы не можете назначить преподавателя на '${subject.subjectName}'`, 'center', '', 3000);
         return;
@@ -141,17 +148,70 @@ export class HodAcplanComponent implements OnInit {
     dialogConfig.id = "modalPromote-component";
     dialogConfig.height = "500px";
     dialogConfig.width = "750px";
-    dialogConfig.data = {}
+    dialogConfig.data = {
+      isUnmappedSubject: isUnmapped,
+      subjectDepId: subject.correspDep.dep_id,
+      selectedDir: direction,
+      selectedGroup: group,
+      selectedAcPl: acPlan,
+      selectedSubject: subject,
+      selectedAttRec: item
+    }
 
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(HodModalPromoteComponent, dialogConfig);
     modalDialog.componentInstance.isUnmappedSubject = isUnmapped;
-    modalDialog.componentInstance.subjectDepId = subject.DepsDto?.dep_id;
+    modalDialog.componentInstance.subjectDepId = subject.correspDep.dep_id;
     modalDialog.componentInstance.selectedDir = direction;
     modalDialog.componentInstance.selectedGroup = group;
     modalDialog.componentInstance.selectedAcPl = acPlan;
     modalDialog.componentInstance.selectedSubject = subject;
     modalDialog.componentInstance.selectedAttRec = item;
+
+    modalDialog.afterClosed().subscribe(result => {
+      console.log(result);
+      console.log('The dialog was closed');
+      this.submittedTeacher = result;
+
+      this.selectedSubject.loads.forEach(x => {
+        x.atAcPlId == item.atAcPlId ? x.fshId = result.fsh_id : x.fshId = x.fshId;
+        x.atAcPlId == item.atAcPlId ? x.teachName = result.teacherName : x.teachName = x.teachName;
+      });
+      console.log('lol, i did it');
+
+    });
+
+    // this.matDialog.
+
+    // this.matDialog.afterAllClosed.toPromise() .subscribe(result => {
+    //   console.log(result);
+    //   console.log('in close event, lol');
+
+    //   if(result != undefined && result.fsh_id != undefined)
+    //   {
+    //     this.selectedSubject.loads.forEach(x => {
+    //       x.atAcPlId == item.atAcPlId ? x.fshId = res.fsh_id : x.fshId = x.fshId;
+    //       x.atAcPlId == item.atAcPlId ? x.teachName = res.teacherName : x.teachName = x.teachName;
+    //     });
+    //     console.log('lol, i did it');
+    //   }
+
+    //   setTimeout(() => {
+    //     console.log('time is up');
+    //     function findSelectedItem(value) {
+    //       if (item.atAcPlId == value.atAcPlId) { return true; }
+    //       return false;
+    //     }
+
+    //     let res = this.share.getUpdateAttAcPlan();
+    //     console.log('result ==', res);
+    //     if (res) {
+    //       // this.selectedSubject.loads.filter(findSelectedItem)
+
+    //     }
+    //   }, 2000);
+    // });
+
   }
 
   applyFilter(event: Event) {

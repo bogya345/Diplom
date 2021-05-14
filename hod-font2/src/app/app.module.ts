@@ -3,6 +3,7 @@
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -21,6 +22,9 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 //
 
 
@@ -48,6 +52,8 @@ import { HodModalReloadAcPlanComponent } from './hod-modal-reload-ac-plan/hod-mo
 import { HodModalShowGroupStatusComponent } from './hod-modal-show-group-status/hod-modal-show-group-status.component';
 import { HodModalPromoteComponent } from './hod-modal-promote/hod-modal-promote.component';
 import { HodMapSubDepComponent } from './hod-map-sub-dep/hod-map-sub-dep.component';
+import { HodShowDirPropertyComponent } from './hod-show-dir-property/hod-show-dir-property.component';
+import { ProgressModalComponent } from './progress-modal/progress-modal.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +73,9 @@ import { HodMapSubDepComponent } from './hod-map-sub-dep/hod-map-sub-dep.compone
     HodModalReloadAcPlanComponent,
     HodModalShowGroupStatusComponent,
     HodModalPromoteComponent,
-    HodMapSubDepComponent
+    HodMapSubDepComponent,
+    HodShowDirPropertyComponent,
+    ProgressModalComponent
   ],
   imports: [
     BrowserModule,
@@ -76,8 +84,6 @@ import { HodMapSubDepComponent } from './hod-map-sub-dep/hod-map-sub-dep.compone
     BrowserAnimationsModule,
 
     BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
     HttpClientModule,
     MatTabsModule,
     MatCardModule,
@@ -100,19 +106,33 @@ import { HodMapSubDepComponent } from './hod-map-sub-dep/hod-map-sub-dep.compone
     MatProgressBarModule,
     MatProgressSpinnerModule,
 
-    // DemoMaterialModule,
     MatNativeDateModule,
-    ReactiveFormsModule,
 
+    FormsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule
   ],
-  providers: [ShareService, SnackBarComponent, MatDialog],
+  providers: [
+    ShareService,
+    SnackBarComponent,
+    MatDialog,
+    FormsModule,
+    ReactiveFormsModule,
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'fill' }
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     HodModalShowRequirsComponent,
     HodShowAcPlanComponent,
     HodModalReloadAcPlanComponent,
     HodModalShowGroupStatusComponent,
-    HodModalPromoteComponent
+    HodModalPromoteComponent,
+    HodShowDirPropertyComponent,
+    ProgressModalComponent
   ]
 })
 export class AppModule { }
+

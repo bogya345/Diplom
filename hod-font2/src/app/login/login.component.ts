@@ -16,7 +16,8 @@ import { User } from '../_models/accounts-models';
 })
 export class LoginComponent implements OnInit {
 
-  private http: login_HttpService;
+  private _http: HttpClient;
+  private _httpOwn: login_HttpService;
   private baseUrl: string;
 
   public tokenKey: string;
@@ -29,14 +30,12 @@ export class LoginComponent implements OnInit {
   @Output("onAuth") onAuth: EventEmitter<any> = new EventEmitter();
 
   constructor(
-    http: HttpClient,
-    @Inject('BASE_URL') baseUrl: string,
+    _http: HttpClient,
 
     private share: ShareService
   ) {
-
-    this.http = new login_HttpService(http);
-    this.baseUrl = baseUrl;
+    this._http = _http;
+    this._httpOwn = new login_HttpService(_http);
 
     // bogya
     this.email = environment.hod_auth.email;
@@ -48,7 +47,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     console.log('INIT: login');
     let user: User;
-    this.share.doUser(user);
+    this.share.shareUser(user);
     // alert();
   }
 
@@ -66,11 +65,20 @@ export class LoginComponent implements OnInit {
     formData.append("password", this.password);
 
     // отправляет запрос и получаем ответ
-    const response = await fetch("/token", {
+    // const response = await this._http.post(`${environment.hod_api_url}token`, {
+    //   method: "POST",
+    //   headers: { "Accept": "application/json" },
+    //   body: formData
+    // });
+    const response = await fetch(`${environment.hod_api_url}token`, {
       method: "POST",
       headers: { "Accept": "application/json" },
       body: formData
     });
+    
+    // проверка на 
+    if (!response.ok) { console.log('Something wrong with /token request'); }
+
     // получаем данные 
     const data = await response.json();
 
@@ -91,6 +99,9 @@ export class LoginComponent implements OnInit {
       // сохраняем в хранилище sessionStorage токен доступа
       sessionStorage.setItem(environment.hod_sessionConst.accessTokenName, data.access_token);
       console.log(data.access_token);
+
+      sessionStorage.setItem(environment.hod_sessionConst.date, data.dateExpired);
+      console.log(data.dateExpired);
 
       this.onAuth.emit(this.tokenKey);
 

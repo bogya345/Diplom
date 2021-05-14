@@ -39,7 +39,7 @@ interface BlockNum {
 }
 interface Subject {
     subjectName: string,
-    depsDto: DepsDto,
+    correspDep: DepsDto,
     semestrNum: number,
     loads: Load[],
 }
@@ -49,6 +49,7 @@ interface Semester {
 interface Load {
     atAcPlId: number,
     fshId: number,
+    teachName: string,
     blocRecId: number,
     semNum: number,
     subTypeId: number,

@@ -44,17 +44,16 @@
 
                         <thead>
                             <tr>
-                                <th>Номер</th>
                                 <th>Название</th>
                                 <th>Год начала</th>
                                 <th>ФГОС требования</th>
                                 <th>Учебный план</th>
+                                <th>Кадровая справка</th>
                                 <th></th>
                             </tr>
                         </thead>
 
                         <tr *ngFor="let item of selectedDep.dirs">
-                            <td></td>
                             <td>{{ item.dir_name }}</td>
                             <td>{{ item.startYear }}</td>
                             <!-- <td><button class="btn btn-info" (click)="showFgosRequirs( item )">Просмотр</button></td> -->
@@ -63,6 +62,7 @@
                             <p *ngIf="item.acPl_id == null; else elseBlock_acPlan">
                                 <td>
                                     <p>Загрузить учебный план</p>
+                                    <!-- <mat-spinner *ngIf="spinnerIsOn" diameter="40"></mat-spinner> -->
                                     <input #file type="file" accept=".xlsx" multiple
                                         (change)="upload(file.files, item)" />
                                 </td>
@@ -71,15 +71,28 @@
                                 <td>
                                     <!-- <a href="ms-excel:ofe|u|http://localhost:4200/assets/PlanIST16.xlsx">
                                         Открыть учебный план
-                                    </a> -->
-                                    <button class="btn btn-info" (click)="openAcPlan(item)">Открыть учебный
-                                        план</button>
+                                    </a> хотел бы обращаться к бэку за этим, так как лучше там скопировать в буффер и оттуда же и забирать-->
+                                    <button class="btn btn-info" (click)="openAcPlan(item)">
+                                        Скачать учебный план
+                                    </button>
                                     <button class="btn btn-info" mat-raised-button id="reload-acplan"
-                                        (click)="openModalReloadAcPlan( item )">Изменить</button>
+                                        (click)="openModalReloadAcPlan( item )">
+                                        Изменить
+                                    </button>
                                 </td>
                             </ng-template>
 
-                            <td><button class="btn btn-primary" (click)="setSelectedDirection( item )">Выбрать</button>
+                            <td>
+                                <button [disabled]="item.acPl_id == null" class="btn btn-primary"
+                                    (click)="openModalShowDirProperty( item )">
+                                    Получить кадровую справку
+                                </button>
+                            </td>
+
+                            <td>
+                                <button class=" btn btn-primary" (click)="setSelectedDirection( item )">
+                                    Выбрать
+                                </button>
                             </td>
                         </tr>
 
@@ -92,6 +105,47 @@
             <div class="row">
                 <p *ngIf="!selectedDir; else elseBlock_groups"><em>Загрузка групп...</em></p>
                 <ng-template #elseBlock_groups>
+
+                    <div *ngIf="dirStatus; else elseBlockDirStatus">
+                        <!-- Статус назначений преподавателей -->
+
+                        <div *ngIf="!dirStatus.message; else elseBlockMsg">
+                            <p>7.2.2</p>
+                            <section class="example-section">
+                                <mat-progress-bar class="example-margin" [color]="getColorForRequirs(getMark722())"
+                                    [mode]="mode" [value]="getDirStatus722()">
+                                </mat-progress-bar>
+                                <p><i><b>{{getDirStatus722()}} / 100 % ({{getMark722()}})</b></i></p>
+                            </section>
+
+                            <p>7.2.3</p>
+                            <section class="example-section">
+                                <mat-progress-bar class="mat-progress-bar-done"
+                                    [color]="getColorForRequirs(getMark723())" [mode]="mode"
+                                    [value]="getDirStatus723()">
+                                </mat-progress-bar>
+                                <p><i><b>{{getDirStatus723()}} / 100 % ({{getMark723()}})</b></i></p>
+                            </section>
+
+                            <p>7.2.4</p>
+                            <section class="example-section">
+                                <mat-progress-bar class="example-margin" [color]="getColorForRequirs(getMark724())"
+                                    [mode]="mode" [value]="getDirStatus724()">
+                                </mat-progress-bar>
+                                <p><i><b>{{getDirStatus724()}} / 100 % ({{getMark724()}}) </b></i></p>
+                            </section>
+                        </div>
+
+                        <ng-template #elseBlockMsg>
+                            <p><b>{{dirStatus.message}}</b></p>
+                        </ng-template>
+
+                    </div>
+
+                    <ng-template #elseBlockDirStatus>
+                        <p><i>Загрузка показателей...</i></p>
+                    </ng-template>
+
                     <table class='table table-striped groupstable' aria-labelledby="tableLabel"
                         *ngIf="selectedDir.groups">
 
@@ -112,28 +166,13 @@
                             <td></td>
                             <td></td>
                             <td>
-                                <section *ngIf="selectedDir.acPl_id == null; else elseBlock_first" class="">
-                                    <p>{{debugger(selectedDir)}}</p>
-                                    <mat-progress-bar class="example-margin" [color]="colorWarn" [mode]="mode"
-                                        [value]="value">
-                                    </mat-progress-bar>
-                                </section>
-                                <!-- Статус назначений преподавателей -->
-                                <ng-template #elseBlock_first>
-                                    <section *ngIf="true; else elseBlock_second" class="example-section">
-                                        <mat-progress-bar class="example-margin" [color]="colorPrimary" [mode]="mode"
-                                            [value]="value">
-                                        </mat-progress-bar>
-                                    </section>
-                                    <ng-template #elseBlock_second>
-                                        <section class="example-section">
-                                            <mat-progress-bar class="example-margin" [color]="colorAccent" [mode]="mode"
-                                                [value]="value">
-                                            </mat-progress-bar>
-                                        </section>
-                                    </ng-template>
-                                </ng-template>
+                                <section *ngIf="selectedDir.acPl_id != null" class="">
 
+                                    <mat-progress-bar class="example-margin" [color]="colorPrimary" [mode]="mode"
+                                        [value]="getGroupStatus(item)">
+                                    </mat-progress-bar>
+                                    <p><i><b>{{getGroupStatus(item)}} / 100 %</b></i></p>
+                                </section>
                                 <br />
                                 <button class="btn btn-info" mat-raised-button id="group-status"
                                     (click)="openModalGroupStatus( item )">Подробнее</button>

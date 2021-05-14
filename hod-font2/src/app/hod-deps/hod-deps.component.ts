@@ -30,7 +30,7 @@ export class HodDepsComponent implements OnInit {
   ngOnInit(): void {
     console.log('INIT: hod-deps');
 
-    this.user = this.share.shareUser('token');
+    this.user = this.share.getUser('token');
     this.depsInfo = this.share.shareDeps();
     
     console.log(this.user);

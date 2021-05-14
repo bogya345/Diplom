@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { NavigationEnd, Router } from '@angular/router';
 import { environment } from '../environments/environment';
 
@@ -10,6 +10,7 @@ import { ShareService } from './share.service';
 import { User } from './_models/accounts-models';
 import { DepInfo } from './_models/deps-models';
 import { SnackBarComponent } from './snack-bar/snack-bar.component';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-root',
@@ -19,11 +20,12 @@ import { SnackBarComponent } from './snack-bar/snack-bar.component';
 export class AppComponent {
 
   public title = 'our-front';
-  public isAuth = -1;
+  public isAuth = 0;
 
   public user: User;
   public depsInfo: DepInfo[];
 
+  private _http: HttpClient;
   private httpOwn: app_HttpService;
 
   /**
@@ -36,13 +38,15 @@ export class AppComponent {
     private snack: SnackBarComponent
   ) {
 
+    this._http = http;
+
     this.httpOwn = new app_HttpService(http);
-    this.depsInfo = this.httpOwn.getFakeDepsInfo();
+    // this.depsInfo = this.httpOwn.getFakeDepsInfo();
 
-    this.share.doUser(this.user);
-    this.share.doDeps(this.depsInfo);
+    // this.share.shareUser(this.user);
+    // this.share.doDeps(this.depsInfo);
 
-    this.user = this.share.shareUser('token');
+    // this.user = this.share.getUser('token');
 
     this.httpOwn.getDepsInfo()
       .subscribe(result => {
@@ -50,7 +54,9 @@ export class AppComponent {
         console.log('result/constructor', result);
       }, error => {
         console.log('error/constructor', error);
-        this.snack.openSnackBarWithMsg('Using fake data');
+        // this.depsInfo = nu
+        this.depsInfo = null;
+        this.snack.openSnackBarWithMsg('Нет соединения с сервером...');
       }
       );
   }
@@ -58,29 +64,42 @@ export class AppComponent {
   ngOnInit(): void {
     console.log('INIT: app');
 
-    if (false) {
-      this.isAuth = -1;
+    if (true) {
+      // this.isAuth = 1;
 
-      switch (sessionStorage.getItem(environment.client_kind_request)) {
+      console.log(sessionStorage.length);
 
-        // bogya's users
-        case environment.hod_sessionConst.ownCookie:
-          {
-            this.isAuth = this.hod_auth();
-          };
+      this.isAuth = this.hod_auth();
 
-        // not autherizated
-        default:
-          {
-            this.isAuth = -1;
-          };
+      // this.share.shareUser(this.user);
+      // this.share.doDeps(this.depsInfo);
+  
+      // this.user = this.share.getUser('token');
 
-      }
+      // alert();
 
-      if (this.isAuth == -1) {
-        this.hod_fakeAuth();
-      }
+      // switch (sessionStorage.getItem(environment.client_kind_request)) {
+
+      //   // hod's users
+      //   case environment.hod_sessionConst.ownCookie:
+      //     {
+      //       this.isAuth = this.hod_auth();
+      //     };
+
+      //   // not autherizated
+      //   default:
+      //     {
+      //       this.isAuth = -1;
+      //     };
+
+      // }
+
+      // if (this.isAuth == -1) {
+      //   this.hod_fakeAuth();
+      // }
     }
+
+    this.share.shareUser(this.user);
 
     //var tmp = this.authentication().then((value) => { return value; });
 
@@ -136,28 +155,74 @@ export class AppComponent {
   hod_auth(): number {
 
     const token = sessionStorage.getItem(environment.hod_sessionConst.accessTokenName);
+    console.log(token);
 
     if (!token) {
       console.log('no token');
-      this.router.events
+      this.hod_authentication();
       return -1;
     }
+
+    const checkDate_ = sessionStorage.getItem(environment.hod_sessionConst.date);
+    let checkDate = new Date(checkDate_);
+    const now = new Date();
+    console.log(checkDate, now);
+    checkDate.setMinutes(checkDate.getMinutes() + 30);
+
+    var thirtyMinutesLater = new Date();
+    // thirtyMinutesLater.setMinutes(thirtyMinutesLater.getMinutes() + 30);
+
+    console.log(checkDate, thirtyMinutesLater);
+    if (now > checkDate) {
+      console.log('too long bro');
+      alert();
+      return -1;
+    }
+
+    // let check = this._http.get(`${environment.hod_api_url}check-token`, {
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Authorization': 'Bearer ' + token
+    //   }
+    // }).subscribe(result => {
+    //   console.log(result);
+    //   return result;
+    // });
+    // alert();
+
+    // const check = fetch(`${environment.hod_api_url}check-token`, {
+    //   method: 'GET',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Authorization': 'Bearer ' + token
+    //   }
+    // })
+    //   .then(function (response) {
+    //     if (!response.ok) {
+    //       throw Error(response.statusText);
+    //     }
+    //     return response;
+    //   }).then(function (response) {
+    //     console.log("ok");
+    //   }).catch(function (error) {
+    //     console.log(error);
+    //   });
+    // alert();
 
     const role = sessionStorage.getItem(environment.hod_sessionConst.role);
     console.log('role is ', role)
 
-    console.log('token is exist ==', token);
-    const res = fetch('testing/getlogin', {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }
-    });
+    // console.log('token is exist ==', token);
+    // const res = fetch('testing/getlogin', {
+    //   method: 'GET',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Authorization': 'Bearer ' + token
+    //   }
+    // });
+    // console.log('result of authentification:', res);
 
-    console.log('result of authentification:', res);
-
-    if (res) {
+    if (token) {
       return 0; // pass values
     } else {
       return -1; // pass values
@@ -224,7 +289,7 @@ export class AppComponent {
       }
 
       console.log('token is exist');
-      const res = fetch('testing/getlogin', {
+      const res = fetch(`${environment.hod_api_url}check-token`, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -248,7 +313,7 @@ export class AppComponent {
   onAuth(event: any) {
 
     console.log('Authentication works');
-
+    window.location.reload();
   }
 
 }

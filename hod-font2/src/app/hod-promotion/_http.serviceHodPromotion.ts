@@ -6,7 +6,9 @@ import { environment } from '../../environments/environment';
 
 //import { Cath } from './cathedras.component';
 
+import { CommonResponse } from '../_models/app-models';
 import { DepsDto, Direction } from '../_models/deps-models';
+import { GroupAnalysDto, DirAnalysDto } from '../_models/analys-models';
 
 export class promotion_HttpService {
 
@@ -18,10 +20,40 @@ export class promotion_HttpService {
   getDepFacDir(): Observable<DepsDto[]> {
     return this.http.get<DepsDto[]>(`${environment.hod_api_url}deps/getall/dirfac`,
       {
-        // headers: {
-        //   'Accept': 'application/json',
-        //   'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
-        // }
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+        }
+      });
+  }
+
+  getGroupsInfo(dir_id): Observable<GroupAnalysDto[]> {
+    return this.http.get<GroupAnalysDto[]>(`${environment.hod_api_url}analyser/get/dir-groups/${dir_id}`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+        }
+      });
+  }
+
+  getDirStatus(dir_id): Observable<DirAnalysDto> {
+    return this.http.get<DirAnalysDto>(`${environment.hod_api_url}analyser/get/fgos-requirs/${dir_id}/7-2`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+        }
+      });
+  }
+
+  getAcPlan(dir_id): Observable<CommonResponse> {
+    return this.http.get<CommonResponse>(`${environment.hod_api_url}acplans/get/${dir_id}`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+        }
       });
   }
 
@@ -114,6 +146,8 @@ export class promotion_HttpService {
       {
         headers: new HttpHeaders
           ({
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName),
             // 'Accept': '*/*',
             // 'Content-Type': 'undefined',
             // 'Content-Type': 'multipart/form-data; boundary=------WebKitFormBoundaryqy14R5oY6FqgxfWA',//charset=utf-8;
@@ -124,6 +158,7 @@ export class promotion_HttpService {
           })
       }
     );
+
 
     console.log();
 

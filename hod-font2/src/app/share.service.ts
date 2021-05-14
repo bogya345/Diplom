@@ -16,6 +16,15 @@ export class ShareService {
   //   return this.deps;
   // }
 
+  // private updatedAttAcPlan: any;
+  // public shareUpdateAttAcPlan(item: any) {
+  //   this.updatedAttAcPlan = item;
+  //   this.
+  //     printLogs('updatedAttAcPlan == ', this.selectedDep);
+  // }
+  // public clearUpdateAttAcPlan() { this.updatedAttAcPlan = null; }
+  // public getUpdateAttAcPlan() { return this.updatedAttAcPlan; }
+
   private selectedDep: number;
   public doSelectedDep(items: number) {
     this.selectedDep = items;
@@ -44,16 +53,16 @@ export class ShareService {
   }
 
   private user: User;
-  public doUser(item: User) {
+  public shareUser(item: User) {
     this.user = new UserCl();
     this.printLogs('user', this.user);
   }
-  public shareUser(token: string) {
-    if(this.user == null)
-    {
-      console.log('user is null');
-      this.user = new UserCl();
-    }
+  public getUser(token: string) {
+    // if(this.user == null)
+    // {
+    //   console.log('user is null');
+    //   this.user = new UserCl();
+    // }
     return this.user;
   }
 
@@ -77,7 +86,7 @@ class UserCl implements User {
   constructor() {
     this.name = 'def_username';
     this.login = 'def_login';
-    this.dep_id = -1;
+    this.dep_id = 1;
     this.dep_name = 'def_dep';
     this.role_id = 0;
     this.role_name = 'def_role';

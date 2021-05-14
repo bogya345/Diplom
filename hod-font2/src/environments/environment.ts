@@ -16,13 +16,14 @@ export const environment = {
     role: 'hod_rolename',
     department: 'hod_department',
     accessTokenName: 'hod_accessToken',
+    date: 'hod_dateExpired',
     ownCookie: 'hodpart'
   },
   
   hod_auth: {
     // втисит
-    email: 'teach1@ugtu.net',
-    pass: 'qwer',
+    email: 't1@ugtu.net',
+    pass: 'password1',
   }
 
 };

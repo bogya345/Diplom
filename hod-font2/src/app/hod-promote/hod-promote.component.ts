@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject, Input, Output } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { EventEmitter } from '@angular/core';
 
@@ -7,6 +6,16 @@ import {
   Load
 } from '../_models/groups-models';
 
+
+export interface StateGroup {
+  letter: string;
+  names: string[];
+}
+export const _filter = (opt: string[], value: string): string[] => {
+  const filterValue = value.toLowerCase();
+
+  return opt.filter(item => item.toLowerCase().indexOf(filterValue) === 0);
+};
 
 @Component({
   selector: 'app-hod-promote',
@@ -18,6 +27,7 @@ export class HodPromoteComponent implements OnInit {
   @Input('load') load: Load;
 
   @Output("onPromote") onPromote: EventEmitter<any> = new EventEmitter();
+
 
   constructor(
   ) { }

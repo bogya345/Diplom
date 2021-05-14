@@ -3,13 +3,15 @@
         <h1 id="modal-title">{{selectedDir.dir_name}}</h1>
     </header>
     <section id="modal-body">
-        <h3>Статус реализации учебного плана на группе {{selectedGroup.group_name}}</h3>
-        <br/>
-        <p><b>Предупреждение:</b> будут перезагружены только записи </p>
-        <br/>
+        <p>Информация о направлении</p>
+        <p *ngIf="!selectedDir; else elseBlock_dirs"><em>Загрузка...</em></p>
+        <ng-template #elseBlock_dirs>
 
-        <br/>
-        <br/>
+           <p>Однако здравствуйте...</p>
+
+           <button class="btn btn-primary" (click)="downloadProperty()">Скачать кадровую справку</button>
+
+        </ng-template>
     </section>
     <footer id="modal-footer">
         <!-- <button mat-raised-button id="modal-action-button" (click)="actionFunction()">Logout</button> -->
