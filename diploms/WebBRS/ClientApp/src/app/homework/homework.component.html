@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Домашнее задание №183</h1>
+          <h1>Домашнее задание №{{HW.IdClassWork}}</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -18,8 +18,7 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-6">
-        
+        <div class="col-6">       
 
           <!-- Main content -->
           <div class="invoice p-3 mb-3">
@@ -27,8 +26,10 @@
             <div class="row">
               <div class="col-12">
                 <h4>
-                  <i class="fas fa-globe"></i> {{cw.SubjectGroup.NameSubject}}
-                  <small class="float-right">Выдано:{{cw.DateTimeGiven}}</small>
+                  <i class="fas fa-globe"></i> {{HW.SubjectName}}
+
+                  <small class="float-right">Срок сдачи: <span _ngcontent-ng-cli-universal-c0="" class="badge badge-pill">{{HW.DatePass}}</span></small>
+                  <small class="float-right">Выдано:<span _ngcontent-ng-cli-universal-c0="" class="badge badge-pill">{{HW.DateGiven}}</span></small>
                 </h4>
               </div>
               <!-- /.col -->
@@ -38,7 +39,7 @@
               <div class="col-sm-4 invoice-col">
                 Выдано
                 <address>
-                  <strong>{{cw.Lecturer.PersonFIO}}</strong><br>
+                  <strong>{{HW.LecturerFIO}}</strong><br>
 
                   Email:  {{cw.Lecturer.email}}
                 </address>
@@ -56,60 +57,14 @@
               
               <!-- /.col -->
             </div>
-            <!-- /.row -->
-     
-            <!-- /.row -->
 
-        
-            <!-- /.row -->
             <!-- this row will not appear when printing -->
             <div class="row no-print">
               <div class="col-12">
                 <div class="form-group">
                   <!-- /.mailbox-controls -->
                   <div class="mailbox-read-message">
-                    <p>Hello John,</p>
-
-                    <p>
-                      Keffiyeh blog actually fashion axe vegan, irony biodiesel. Cold-pressed hoodie chillwave put a bird
-                      on it aesthetic, bitters brunch meggings vegan iPhone. Dreamcatcher vegan scenester mlkshk. Ethical
-                      master cleanse Bushwick, occupy Thundercats banjo cliche ennui farm-to-table mlkshk fanny pack
-                      gluten-free. Marfa butcher vegan quinoa, bicycle rights disrupt tofu scenester chillwave 3 wolf moon
-                      asymmetrical taxidermy pour-over. Quinoa tote bag fashion axe, Godard disrupt migas church-key tofu
-                      blog locavore. Thundercats cronut polaroid Neutra tousled, meh food truck selfies narwhal American
-                      Apparel.
-                    </p>
-
-                    <p>
-                      Raw denim McSweeney's bicycle rights, iPhone trust fund quinoa Neutra VHS kale chips vegan PBR&amp;B
-                      literally Thundercats +1. Forage tilde four dollar toast, banjo health goth paleo butcher. Four dollar
-                      toast Brooklyn pour-over American Apparel sustainable, lumbersexual listicle gluten-free health goth
-                      umami hoodie. Synth Echo Park bicycle rights DIY farm-to-table, retro kogi sriracha dreamcatcher PBR&amp;B
-                      flannel hashtag irony Wes Anderson. Lumbersexual Williamsburg Helvetica next level. Cold-pressed
-                      slow-carb pop-up normcore Thundercats Portland, cardigan literally meditation lumbersexual crucifix.
-                      Wayfarers raw denim paleo Bushwick, keytar Helvetica scenester keffiyeh 8-bit irony mumblecore
-                      whatever viral Truffaut.
-                    </p>
-
-                    <p>
-                      Post-ironic shabby chic VHS, Marfa keytar flannel lomo try-hard keffiyeh cray. Actually fap fanny
-                      pack yr artisan trust fund. High Life dreamcatcher church-key gentrify. Tumblr stumptown four dollar
-                      toast vinyl, cold-pressed try-hard blog authentic keffiyeh Helvetica lo-fi tilde Intelligentsia. Lomo
-                      locavore salvia bespoke, twee fixie paleo cliche brunch Schlitz blog McSweeney's messenger bag swag
-                      slow-carb. Odd Future photo booth pork belly, you probably haven't heard of them actually tofu ennui
-                      keffiyeh lo-fi Truffaut health goth. Narwhal sustainable retro disrupt.
-                    </p>
-
-                    <p>
-                      Skateboard artisan letterpress before they sold out High Life messenger bag. Bitters chambray
-                      leggings listicle, drinking vinegar chillwave synth. Fanny pack hoodie American Apparel twee. American
-                      Apparel PBR listicle, salvia aesthetic occupy sustainable Neutra kogi. Organic synth Tumblr viral
-                      plaid, shabby chic single-origin coffee Etsy 3 wolf moon slow-carb Schlitz roof party tousled squid
-                      vinyl. Readymade next level literally trust fund. Distillery master cleanse migas, Vice sriracha
-                      flannel chambray chia cronut.
-                    </p>
-
-                    <p>Thanks,<br>Jane</p>
+                   {{HW.TextWork}}
                   </div>
                 </div>
                 <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
@@ -121,7 +76,7 @@
           <!-- /.invoice -->
         </div><!-- /.col -->
         <div class="col-6">
-          <div class="card card-primary">
+          <div class="card card-primary " >
             <div class="card-header">
               <h3 class="card-title">Выполненное задание </h3>
             </div>
@@ -131,18 +86,14 @@
               <div class="card-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Ответ</label>
-                  <textarea class="textarea" placeholder="Введите текст"
-                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                  <p class="text-sm mb-0">
-                    Editor <a href="https://github.com/summernote/summernote">
-                      Documentation and license
-                      information.
-                    </a>
-                  </p>
+                  <textarea class="textarea " placeholder="Введите текст"
+                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" (change)="selectChangeHandlerText($event)">{{StudentAnswer.TextDoClassWork}}</textarea>
+                  <small class="float-right"></small>
+                  <label>Получено баллов:<span _ngcontent-ng-cli-universal-c0="" class="badge badge-pill">{{StudentAnswer.BallHW}}</span></label>
+                  <label>Сдано:<span _ngcontent-ng-cli-universal-c0="" class="badge badge-pill">{{StudentAnswer.DatePass}}</span></label>
                 </div>
-
                 <div class="form-group">
-                  <label for="exampleInputFile">Файл ответа</label>
+                  <label for="exampleInputFile">Файл</label>
                   <div class="input-group">
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" id="exampleInputFile">
@@ -161,7 +112,7 @@
               <!-- /.card-body -->
 
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="submit" class="btn btn-primary disabled"  (click)="postData()">Сохранить</button>
               </div>
             </form>
           </div>

@@ -93,8 +93,17 @@ namespace WebBRS.DAL
 				.HasForeignKey(st => st.IdPerson);
 			modelBuilder.Entity<Attendance>()
 			.HasOne(p => p.SGH)
+			.WithMany(t => t.Attendances);
+
+			//.HasForeignKey(st => st.IdSGH);	
+			//modelBuilder.Entity<Attendance>()
+			//.HasOne(p => p.ExactClass)
+			//.WithMany(t => t.Attendances)
+			//.HasForeignKey(st => st.ExactClassIdClass);
+			modelBuilder.Entity<Attendance>()
+			.HasOne(p => p.TypeAttedance)
 			.WithMany(t => t.Attendances)
-			.HasForeignKey(st => st.IdSGH);
+			.HasForeignKey(st => st.TypeAttedanceIdTA);
 			modelBuilder.Entity<DraftTimeTable>()
 			.HasOne(p => p.StudyYear)
 			.WithMany(t => t.DraftTimeTables)
@@ -118,6 +127,10 @@ namespace WebBRS.DAL
 			.HasOne(p => p.Student)
 			.WithMany(t => t.StudentsGroupHistories)
 			.HasForeignKey(st => st.IdStudent);
+			modelBuilder.Entity<StudentsGroupHistory>()
+			.HasOne(p => p.ConditionOfPerson)
+			.WithMany(t => t.StudentsGroupHistories)
+			.HasForeignKey(st => st.ConditionOfPersonIdConditionOfPerson);
 			//modelBuilder.Entity<ExactClass>()
 			//.HasOne(p => p.ExactClassForLecturerClass)
 			//.WithMany(t => t.ExactClasses)
@@ -126,10 +139,10 @@ namespace WebBRS.DAL
 			//.HasOne(p => p.SubjectForGroup)
 			//.WithMany(t => t.ExactClasses)
 			//.HasForeignKey(st => st.IdSFG);
-			modelBuilder.Entity<ClassWork>()
-			.HasOne(p => p.ExactClass)
-			.WithMany(t => t.ClassWorks)
-			.HasForeignKey(st => st.IdClassWork);
+			//modelBuilder.Entity<ClassWork>()
+			//.HasOne(p => p.ExactClass)
+			//.WithMany(t => t.ClassWorks)
+			//.HasForeignKey(st => st.IdClassWork);
 			//данные для расписания
 			#region SubjectForGroup
 			modelBuilder.Entity<SubjectForGroup>()
@@ -163,7 +176,8 @@ namespace WebBRS.DAL
 			modelBuilder.Entity<SubjectForGroup>()
 			.HasOne(p => p.Person)
 			.WithMany(t => t.SubjectsForGroup)
-			.HasForeignKey(st => st.IdPerson);
+			.HasForeignKey(st => st.IdPerson);	
+
 			//modelBuilder.Entity<SubjectForGroup>()
 			//.HasOne(p => p.Group)
 			//.WithMany(t => t.SubjectForGroups)
@@ -178,7 +192,7 @@ namespace WebBRS.DAL
 			modelBuilder.Entity<ClassWork>()
 			.HasOne(p => p.WorkType)
 			.WithMany(t => t.ClassWorks)
-			.HasForeignKey(st => st.IdClassWork);
+			.HasForeignKey(st => st.IdWT);
 
 			modelBuilder.Entity<Lecturer>()
 				.HasMany(c => c.Subjects)

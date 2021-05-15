@@ -30,6 +30,8 @@ namespace WebBRS.DAL
 		#region Tables Reposes
 
 		private PersonsRepo personsRepository;
+		private ClassWorksRepo classWorksRepo;
+		private CoursesRepo coursesRepo;
 		private StudyYearsRepo studyYearsRepo;
 		private DraftTypesRepo draftTypesRepo;
 		private DraftTimeTableRepo draftTimeTableRepo;
@@ -104,6 +106,15 @@ namespace WebBRS.DAL
 					studentsRepository = new StudentRepo(context);
 				return studentsRepository;
 			}
+		}		
+		public ClassWorksRepo ClassWorks
+		{
+			get
+			{
+				if (classWorksRepo == null)
+					classWorksRepo = new ClassWorksRepo(context);
+				return classWorksRepo;
+			}
 		}	
 		public StudyYearsRepo StudyYears
 		{
@@ -112,6 +123,15 @@ namespace WebBRS.DAL
 				if (studyYearsRepo == null)
 					studyYearsRepo = new StudyYearsRepo(context);
 				return studyYearsRepo;
+			}
+		}
+		public CoursesRepo Courses
+		{
+			get
+			{
+				if (coursesRepo == null)
+					coursesRepo = new CoursesRepo(context);
+				return coursesRepo;
 			}
 		}
 		public LecturersRepo Lecturers

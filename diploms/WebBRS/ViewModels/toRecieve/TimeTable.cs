@@ -19,7 +19,13 @@ namespace WebBRS.ViewModels.toRecieve
 
 
 	}
+	public class TimeTable2 : TimeTable
+	{
+		public int IdSelected { get; set; }
+		public   List<DayStudent> DaysStudent { get; set; } = new List<DayStudent>();
 
+		public List<Course> Courses { get; set; } = new List<Course>();
+	}
 	public class DraftTimeTableVM
 	{
 		public int IdDFTT { get; set; }
@@ -37,6 +43,11 @@ namespace WebBRS.ViewModels.toRecieve
 		public string DayOfWeek { get; set; }
 		public List<EXTCforTimeTable> EXTCforTimeTables { get; set; } = new List<EXTCforTimeTable>();
 	}
+	public class DayStudent: Day
+	{
+
+		public List<EXTCforStudentTimeTable> EXTCforTimeTablesStudent { get; set; } = new List<EXTCforStudentTimeTable>();
+	}
 	public class EXTCforTimeTable
 	{
 		public int IdECFLCT { get; set; }
@@ -44,6 +55,11 @@ namespace WebBRS.ViewModels.toRecieve
 		public string DateTime { get; set; }
 		public string DayOfWeek { get; set; }
 		public string Auditory { get; set; }
+
+	}
+	public class EXTCforStudentTimeTable : EXTCforTimeTable
+	{
+		public int IdClass { get; set; }
 
 	}
 	public class TeacherSubjects

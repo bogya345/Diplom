@@ -9,14 +9,34 @@ import { MethodCall } from '@angular/compiler';
 export class attedance_HttpService {
 
   constructor(private http: HttpClient) { }
-  getAttedanceForLecturerClasses(): Observable<ExactClassForLecturerClass> {
-    return this.http.get<ExactClassForLecturerClass>(`attedance/ECFLC/1`,
+  getAttedanceForLecturerClass(IdECFLCT, IdClass, group_id): Observable<ExactClassForLecturerClass> {
+    return this.http.get<ExactClassForLecturerClass>(`attedance/getLecturerClass/${IdECFLCT}/${IdClass}/${group_id}/true`,
       {
         //headers: {
         //  'Accept': 'application/json',
-        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName) ng generate component pokemon-list --module=app
+        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
         //}
       });
+  }
+  private url = "/attedance";
+  private url2 = "/homeworks";
+  //createProduct(product: Product) {
+  //  return this.http.post(this.url, product, );
+  //}
+  updateAtt(product: ExactClassForLecturerClass) {
+    console.log('нажали 2', this.http.post(this.url +"/UpdateAttedance", product));
+
+    return this.http.post(this.url + "/UpdateAttedance", product);
+  }
+  updateCW(data: ClassWork) {
+    console.log('Дз 2 http', data);
+
+    return this.http.post<ClassWork>(this.url2 + "/UpdateClassWork", data);
+  }
+  postData(ExactClass: ExactClassForLecturerClass) {
+    console.log('нажали ', ExactClass);
+    //const body = { name: user.name, age: user.age };
+    return this.http.post(this.url, ExactClass, { observe: 'response' });
   }
   getAttedanceExactClass(): Observable<ExactClass> {
     return this.http.get<ExactClass>(`attedance/getExactClass/1/2/1`,
@@ -27,7 +47,24 @@ export class attedance_HttpService {
         //}
       });
   }
-
+  getClassWorkExactClass(IdClass): Observable<ClassWork> {
+    return this.http.get<ClassWork>(`homeworks/GetClassWork/${IdClass}`,
+      {
+        //headers: {
+        //  'Accept': 'application/json',
+        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
+        //}
+      });
+  }
+  getClassWorkTypes(IdWT): Observable<WorkType[]> {
+    return this.http.get<WorkType[]>(`homeworks/getWorkTypes/${IdWT}`,
+      {
+        //headers: {
+        //  'Accept': 'application/json',
+        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
+        //}
+      });
+  }
   //uploadFileToActivity() {
   //  this.fileUploadService.postFile(this.fileToUpload).subscribe(data => {
   //    // do something, if upload success
@@ -45,35 +82,35 @@ export class attedance_HttpService {
   //    .catch((e) => this.handleError(e));
   //}
 }
-interface ClassWork {
-  IdCW: number,
-  TextWork: string,
-  FilePathWork: string,
-  MaxBall: number,
-}
-interface Group {
+
+interface GroupVM {
   idGroup: number,
-  GroupName: string,
-  Specialty: string,
-  Students: Student[]
+  GroupName: string
+  //Specialty: string
+  //Students: StudentEXC[]
 }
 interface ExactClassForLecturerClass {
-  IdECFLC: number,
+  IdClass: number,
+  IdECFLCT: number,
   Lecturer: Lecturer,
-  Students: Student[],
-  TypeAttedances: TypeAttedance[],
-  Groups: Group[],
+  Students: StudentEXC[],
+  Groups: GroupVM[],
+  SelectedGroup: number,
   SubjectName: string
+  DateTime: string
 }
-interface TypeAttedance {
+interface TypeAttedanceVM {
   IdTA: number,
   TAName: string,
-  TAShortNam: string
+  TAShortName: string,
+  IdAtt: number
 }
-interface Student {
+interface StudentEXC {
+  IdAttedance: number,
   IdStudent: number,
   PersonFIO: string,
-  Attedanced: TypeAttedance,
+  AttedanceTypeSelected: number,
+  Attedanced: TypeAttedanceVM[],
   Ball: number,
   HW: HomeWorkStudent
 }
@@ -84,13 +121,30 @@ interface HomeWorkStudent {
 }
 interface Lecturer {
   IdLecturer: number,
-  PesonFIO: string
+  PersonFIO: string
 
 }
 
+interface ClassWork {
+  IdClassWork: number,
+  IdClasss: number,
+  TextWork: string,
+  FilePathWork: string,
+  MaxBall: number,
+  DatePass: Date
+  IdWT: number,
+  WorkTypes: WorkType[]
+}
+interface WorkType {
+  IdWT: number,
+  WorkTypeName: string,
+  ShortWorkTypeName: string
+
+}
 interface ExactClass {
   IdClass: number,
   DateExactClass: string,
-  numberClass: number,
-  Group: Group
+  //numberClass: number
+  //Group: Group
 }
+

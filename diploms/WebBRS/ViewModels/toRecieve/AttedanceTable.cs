@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using WebBRS.Models;
 
@@ -10,7 +11,7 @@ namespace WebBRS.ViewModels.toRecieve
 	{
 		public int IdStudent { get; set; }
 		public string PersonFIO { get; set; }
-		public List<string> Attedanced { get; set; }
+		public List<string> Attedanced { get; set; } = new List<string>();
 
 	}
 	public class GroupAttedanceTable
@@ -23,6 +24,7 @@ namespace WebBRS.ViewModels.toRecieve
 	{
 		public int IdECFLCT { get; set; }
 		public Lecturer Lecturer { get; set; }
+
 		public List<ExactClassVMforTable> ExactClasses { get; set; } = new List<ExactClassVMforTable>();
 		public List<StudentTable> Students { get; set; } = new List<StudentTable>();
 		public List<GroupAttedanceTable> Groups { get; set; } = new List<GroupAttedanceTable>();
@@ -35,7 +37,8 @@ namespace WebBRS.ViewModels.toRecieve
 	{
 		public int IdClass { get; set; }
 		public string DateExactClass { get; set; }
-
+		//[JsonIgnore]
+		//public virtual List<int> idClasses { get; set; } = new List<int>();
 
 	}
 }

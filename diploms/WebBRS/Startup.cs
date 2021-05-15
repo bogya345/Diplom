@@ -31,10 +31,11 @@ namespace WebBRS
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddControllersWithViews();
 			// In production, the Angular files will be served from this directory
 			services.AddAuthentication(IISDefaults.AuthenticationScheme);
-			services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2);
+			services.AddMvc()
+				.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2);
+			
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 					   .AddJwtBearer(options =>
 					   {
@@ -64,11 +65,15 @@ namespace WebBRS
 						   };
 					   });
 			services.AddControllersWithViews();
+//			services.AddControllers().AddNewtonsoftJson(options =>
+//	options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+//);
 			services.AddDbContext<MyContext>(
 	   options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 			services.AddControllers().AddJsonOptions(options =>
 			{
 				options.JsonSerializerOptions.PropertyNamingPolicy = null;
+				options.JsonSerializerOptions.MaxDepth = 256;
 				//options.JsonSerializerOptions.Converters.Add(MyCu)
 			});
 	//		services.AddControllersWithViews()

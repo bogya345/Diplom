@@ -5,8 +5,18 @@ var serviceTimeTable = /** @class */ (function () {
     function serviceTimeTable(http) {
         this.http = http;
     }
-    serviceTimeTable.prototype.getTeacherClassList = function () {
-        return this.http.get("homeworks/getall", {
+    serviceTimeTable.prototype.getStudentClassList = function (IdSelectedDraft, IdSelectedDraftType, DateTimeExact) {
+        //return this.http.get<TimeTable2>(`timeTable/GetTimeTable/-1096224834/2007228761/2001-01-08T00:00:00`,
+        return this.http.get("timeTable/GetTimeTableStudent/" + IdSelectedDraft + "/" + IdSelectedDraftType + "/" + DateTimeExact + "/1363575543", {
+        //headers: {
+        //  'Accept': 'application/json',
+        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
+        //}
+        });
+    };
+    serviceTimeTable.prototype.getStudentWorksList = function (IdSelectedDraft, IdSelectedDraftType, DateTimeExact) {
+        //return this.http.get<TimeTable2>(`timeTable/GetTimeTable/-1096224834/2007228761/2001-01-08T00:00:00`,
+        return this.http.get("homeworks/getClassWork/" + IdSelectedDraft + "/" + IdSelectedDraftType + "/" + DateTimeExact + "/1363575543", {
         //headers: {
         //  'Accept': 'application/json',
         //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)

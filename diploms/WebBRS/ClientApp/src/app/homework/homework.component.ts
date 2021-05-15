@@ -1,12 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
+import { homework_HttpService } from './http.serviceHomework';
+import { HttpClient, HttpRequest, HttpResponse, HttpEventType } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-homework',
   templateUrl: './homework.component.html',
   styleUrls: ['./homework.component.css']
 })
 export class HomeworkComponent implements OnInit {
-  
+  public http: homework_HttpService;
+  public baseUrl: string;
+  public now: Date;
+  public HW: ClassWork;
+  public StudentAnswer: AttedanceForWork;
   public cw: HomeWorksModelView = {
     IdClassWork: 1,
     IdClass: 1,
@@ -28,9 +35,78 @@ export class HomeworkComponent implements OnInit {
     DateTimePassed: '01.04.21',
     Passed: 'сдал'
   };
-  constructor() { }
+  constructor(http: HttpClient, private router: Router, private _route: ActivatedRoute, @Inject('BASE_URL') baseUrl: string) {
+    this.http = new homework_HttpService(http);
+    this.baseUrl = baseUrl;
+    //this.selectedGroup = { idGroup: null, GroupName: '', Specialty: '' }
+  }
+  selectChangeHandlerText(event: any) {
+    //update the ui
+    this.StudentAnswer.TextDoClassWork = event.target.value;
+    console.log(this.StudentAnswer);
 
+    //this.http.getTeacherClassList(this.TimeTable2.IdSelectedDraft, this.TimeTable2.IdSelectedDraftType, this.TimeTable2.IdDateSelected)
+    //  .subscribe(result => {
+    //    this.TimeTable2 = result;
+    //    this.TimeTable2.Days = result.Days;
+    //    console.log('keks', this.TimeTable2);
+    //    console.log('result/constructor', result);
+    //  }, error => {
+    //    console.log('error/constructor', error);
+    //  }
+    //  );
+  }
+  postData(event: any) {
+
+    return this.http.updateHW(this.StudentAnswer)
+      .subscribe(result => {
+        console.log(result);
+      });
+  }
   ngOnInit() {
+    let IdClass = this._route.snapshot.paramMap.get('IdClass');
+    this.http.getClassWorkExactClass(IdClass)
+      .subscribe(result => {
+        this.HW = result;
+        //if (this.cw=null) {
+        //  this.cw =
+        //  {
+        //    IdClasss: Number(IdClass),
+        //    FilePathWork: '',
+        //    TextWork: '',
+        //    MaxBall: 0,
+        //    IdClassWork: null,
+        //    DatePass: Date.now() as unknown as Date
+        //  }
+        //}
+        //this.ecflct.SelectedGroup = result.SelectedGroup;
+        console.log('result/constructor2', this.HW);
+
+      }, error => {
+        console.log('error/constructor2', error);
+      }
+    );
+    this.http.getClassWorkStudentAnswer(IdClass)
+      .subscribe(result => {
+        this.StudentAnswer = result;
+        //if (this.cw=null) {
+        //  this.cw =
+        //  {
+        //    IdClasss: Number(IdClass),
+        //    FilePathWork: '',
+        //    TextWork: '',
+        //    MaxBall: 0,
+        //    IdClassWork: null,
+        //    DatePass: Date.now() as unknown as Date
+        //  }
+        //}
+        //this.ecflct.SelectedGroup = result.SelectedGroup;
+        console.log('result/constructorCW', this.StudentAnswer);
+
+      }, error => {
+        console.log('error/constructorCW', error);
+      }
+      );
   }
 
 }
@@ -58,4 +134,23 @@ interface HomeWorksModelView {
   DateTimeLoaded: string,
   DateTimePassed: string,
   Passed: string
+}
+
+interface ClassWork {
+  IdClassWork: number,
+  IdClasss: number,
+  TextWork: string,
+  SubjectName: string,
+  FilePathWork: string,
+  MaxBall: number,
+  DatePass: Date
+}
+interface AttedanceForWork {
+  IdAtt: number,
+  TextDoClassWork: string,
+  PersonFIO: string,
+  FilePath: string,
+  BallHW: number,
+  Done: string,
+  DatePass: string
 }

@@ -9,6 +9,11 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
+    <TypeScriptCompile Update="ClientApp\src\app\homework\http.serviceHomework.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+  </ItemGroup>
+  <ItemGroup>
     <TypeScriptCompile Update="ClientApp\src\app\timetable-teacher\http.serviceTimeTableTeacher.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

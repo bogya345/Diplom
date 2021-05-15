@@ -40,7 +40,7 @@ namespace WebBRS.Models
 		public int ID_reff { get; set; }
 		public Department? Auditory { get; set; }
 
-		public virtual List<ClassWork> ClassWorks { get; set; } = new List<ClassWork>();
+		//public virtual List<ClassWork> ClassWorks { get; set; } = new List<ClassWork>();
 		public virtual List<Attendance> Attendances { get; set; } = new List<Attendance>();
 		
 	}

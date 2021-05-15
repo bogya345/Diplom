@@ -53,6 +53,7 @@
     <None Remove="ClientApp\src\app\attedance-table\http.serviceAttedanceTable.ts" />
     <None Remove="ClientApp\src\app\attendance\http.serviceAttedance.ts" />
     <None Remove="ClientApp\src\app\homeworks\http.serviceHomeworks.ts" />
+    <None Remove="ClientApp\src\app\homework\http.serviceHomework.ts" />
     <None Remove="ClientApp\src\app\person-list\http.servicePersonList.ts" />
     <None Remove="ClientApp\src\app\profile\http.serviceProfile.ts" />
     <None Remove="ClientApp\src\app\timetable-part\http.timetable-part.ts" />

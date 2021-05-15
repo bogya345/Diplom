@@ -8,7 +8,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="/dashboard/timetableTeacher">Расписание</a></li>
             <li class="breadcrumb-item active">Занятие по     {{ecflct.SubjectName}}  </li>
           </ol>
         </div>
@@ -33,9 +33,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Группа</label>
-
                     <select class="form-control select2" style="width: 100%;" (change)="selectChangeHandler($event)">
-                      
                       <option *ngFor="let i of ecflct.Groups" value="{{i.idGroup}}"> {{i.GroupName}}  </option>
                     </select>
                   </div>
@@ -54,18 +52,18 @@
                   <h3 class="card-title">{{ ecflct.Groups[0].GroupName }}</h3>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body">
+                <div class="card-body"  style="overflow-y: scroll;">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>ФИО</th>
-                      <th *ngFor="let j of ecflct.ExactClasses"> <a href="/dashboard/attendance-current" class="nav-link">{{j.DateExactClass}}</a></th>
+                        <th *ngFor="let j of ecflct.ExactClasses"> <a href="/dashboard/attendance-current/{{ecflct.IdECFLCT}}/{{j.IdClass}}/{{ecflct.SelectedGroup}}" class="nav-link">{{j.DateExactClass}}</a></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let j of ecflct.Students; let n = index">
                         <td>{{j.PersonFIO}}</td>
-                        <td *ngFor="let k of ecflct.Students[n].Attedanced">{{k}}</td>
+                        <td *ngFor="let k of ecflct.Students[n].Attedanced"><span _ngcontent-ng-cli-universal-c0="" class="badge badge-success">{{k}}</span></td>
                       </tr>
                     </tbody>
                     <!--<tfoot>

@@ -12,8 +12,9 @@ using WebBRS.ViewModels.toRecieve;
 
 namespace WebBRS.Controllers
 {
-	[Route("attedance")]
+	[ApiController]
 
+	[Route("attedance")]
 	public class AttedanceController : Controller
 	{
 		private UnitOfWork unit = new UnitOfWork();
@@ -26,15 +27,6 @@ namespace WebBRS.Controllers
 		[HttpPost("addMyHW")]
 		public JsonResult AddAttdeancec([FromBody] HomeWorksModelView data)
 		{
-			//			public int IdClassWork { get; set; }
-			//public int IdClass { get; set; }
-			//public string TextWork { get; set; }
-			//public string FilePathWork { get; set; }
-			//public double MaxBall { get; set; }
-
-			//public DateTime DateTimeGiven { get; set; }
-			//goto skip;
-
 			HomeWorksModelView tmp = new HomeWorksModelView
 			{
 				IdClassWork = 1,
@@ -44,16 +36,11 @@ namespace WebBRS.Controllers
 				DateTimeGiven = new DateTime(),
 				MaxBall = 25
 			};
-			Attendance attendance = unit.Attendances.Get(a => a.ExactClass.IdClass == tmp.IdClass);
+			Attendance attendance = unit.Attendances.Get(a => a.IdAtt == 1);
 			ClassWork cw = new ClassWork();
 			attendance.DateTimePass = DateTime.Now;
 			attendance.FilePath = tmp.FilePathWork;
 			attendance.TextDoClassWork = "kek";
-
-			//cw.DateGiven = DateTime.Now;
-			//cw.MaxBall = tmp.MaxBall;
-			//cw.FilePathWork = tmp.FilePathWork;
-			//cw.ExactClass.IdClass = tmp.IdClass;
 			unit.Attendances.Update(attendance);
 			unit.Save();
 
@@ -61,7 +48,6 @@ namespace WebBRS.Controllers
 
 			return Json("nice");
 		}
-
 		/// <summary>
 		/// Получение списка группы по конкретному предмету
 		/// </summary>
@@ -80,15 +66,11 @@ namespace WebBRS.Controllers
 				ExactClassVMforTable ex = new ExactClassVMforTable
 				{
 					IdClass = i.IdClass,
-					DateExactClass = Convert.ToString(i.DateClassStart.Date)
+					DateExactClass = i.DateClassStart.ToString("d")
 				};
 				ecflct.ExactClasses.Add(ex);
 			}
-			//ecflct.IdECFLCT = -1194773169;
-
-
 			ecflct.IdSFG = Convert.ToInt32(ID_reff);
-			//SubjectForGroup sfgReact = unit.SubjectForGroups.Get(sfg => sfg.IdSFG.ToString() == id_selected_group);
 			SubjectForGroup sfgReact = unit.SubjectForGroups.Get(sfg => sfg.ID_reff == Convert.ToInt32(ID_reff));
 			ecflct.SubjectName = sfgReact.ToString();
 			ecflct.Students = new List<StudentTable>();
@@ -110,38 +92,41 @@ namespace WebBRS.Controllers
 
 			}
 			else { ecflct.SelectedGroup = Convert.ToInt32(id_selected_group); }
-			List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories.GetAll(sgh => sgh.GroupIdGroup == ecflct.SelectedGroup && sgh.CourseIdCourse == sfgReact.IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
+			List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
+				.GetAll(sgh => sgh.GroupIdGroup == ecflct.SelectedGroup && sgh.CourseIdCourse == sfgReact.IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
 			var studentsSorted = from student in studentsGroupHistories
 								 orderby student.DateSGHFinished
 								 select student;
 			List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
-			//foreach (var item in studentsSorted)
-			//{
-			//	if(item.ConditionOfPersonIdConditionOfPerson== 1601441637)
-			//	{
-			//		List <StudentsGroupHistory> studentConditions = studentsSortedList
-			//						.Where(sgh => sgh.IdStudent == item.IdStudent&&sgh.GroupIdGroup==item.GroupIdGroup).ToList();
-			//		foreach (var studentCond in studentConditions)
-			//		{
-			//			if (studentCond.ConditionOfPersonIdConditionOfPerson== 1601441637) 
-			//			{
-			//				studentsSortedList.RemoveAll(sgh=>sgh.IdStudent==studentCond.IdStudent);
-			//			}
-			//		}
-			//		//if (item.IdStudent=)
-			//	}
-			//}
-			//studentsSortedList = studentsSortedList.Distinct()
 			foreach (var item in studentsSortedList)
 			{
 				StudentTable groupAttedanceTable = new StudentTable();
 				Person person = unit.Persons.Get(p => p.IdPerson == item.Student.IdPerson);
 				groupAttedanceTable.PersonFIO = person.PersonFIOShort();
 				groupAttedanceTable.IdStudent = item.IdStudent;
-				List<Attendance> attendances = unit.Attendances.GetAll(a => a.SGH.IdSGH == item.IdSGH && a.SGH.ConditionOfPerson.IdConditionOfPerson == 1601441643).ToList();
-				foreach (var item2 in attendances)
+				groupAttedanceTable.Attedanced = new List<string>(ecflct.ExactClasses.Count);
+				List<Attendance> attendances = new List<Attendance>(ecflct.ExactClasses.Count);
+				foreach(var i in ecflct.ExactClasses)
 				{
-					groupAttedanceTable.Attedanced.Add(item2.TypeAttedance.TAShortName);
+					groupAttedanceTable.Attedanced.Add("");
+				}
+				attendances = unit.Attendances.GetAll(a => a.SGH.IdSGH == item.IdSGH ).ToList();
+				//int i = 0;
+				for(int i = 0; i< groupAttedanceTable.Attedanced.Count(); i++)
+				{
+					//string att = "";
+					foreach (var item2 in attendances)
+					{
+						if (ecflct.ExactClasses[i].IdClass == item2.ExactClassIdClass)
+						{
+							groupAttedanceTable.Attedanced[i] = item2.TypeAttedance.TAShortName + "	|	балл: " + item2.Ball.ToString();
+							break;
+						}
+						else
+						{
+							groupAttedanceTable.Attedanced[i] = "";
+						}
+					}
 				}
 				ecflct.Students.Add(groupAttedanceTable);
 			}
@@ -156,89 +141,148 @@ namespace WebBRS.Controllers
 			ecflct.Groups.Reverse();
 			return ecflct;
 		}
-		[HttpGet("getLecturerClass/{IdEXCFLC}/{id_group}/{actual}")]
-		public ExactClassForLecturerClassVM GetClass(string IdEXCFLC, string id_selected_group, string actual)
+		[HttpGet("getLecturerClass/{IdECFLCT}/{IdClass}/{id_group}/{actual}")]
+		public ExactClassForLecturerClassVM GetClass(string IdECFLCT, string IdClass, string id_group, string actual)
 		{
-			try
+			//try
 			{
-				//Lecturer lecturer = unit.Lecturers.Get(l => l.Person.Email == HttpContext.User.Identity.Name);
-				Lecturer lecturer = unit.Lecturers.Get(l => l.Person.IdPerson == -1291072592);
-				ExactClassForLecturerClass exactClassForLecturer = unit.ExactClassForLectureres
-																		.Get(excfl => excfl.IdEXCFLC == Convert.ToInt32(IdEXCFLC));
-				IEnumerable<ExactClass> exactClasses = exactClassForLecturer.ExactClasses;
-				List<Group> groupesLecturerClass = new List<Group>();
-				List<StudentsGroupHistory> students = new List<StudentsGroupHistory>();
-				//if (actual == "true")
-				//{
-				//	 students = unit.StudentGroupHistories
-				//				.GetAll(s => s.GroupIdGroup.ToString() == "156471939" && s.ConditionOfPersonIdConditionOfPerson== 1601441643).ToList();
-				//}
-				//else
-				//{
-				//  students = unit.StudentGroupHistories
-				//			.GetAll(s => s.GroupIdGroup.ToString() == id_selected_group).ToList();
-				//}
 
-				foreach (ExactClass exactClass in exactClasses)
+				ExactClassForLecturerClassVM classVM = new ExactClassForLecturerClassVM();
+
+				ExactClass exactClass = unit.ExactClasses.Get(ec => ec.IdClass.ToString() == IdClass);
+				Person lecturer = unit.Persons
+					.Get(l => l.IdPerson == exactClass.PersonLecturerIdPerson);
+				SubjectForGroup sfgReact = unit.SubjectForGroups.Get(sfg => sfg.ID_reff == exactClass.ID_reff);
+				List<SubjectForGroup> subjectForGroups = unit.SubjectForGroups.GetAll(sfg => sfg.IdPerson == sfgReact.IdPerson && (sfg.IdGroup != null || sfg.IdGroup != 0) && sfg.IdSubject == sfgReact.IdSubject).ToList();
+				foreach (var item in subjectForGroups)
 				{
-					ExactClass ec = unit.ExactClasses.Get(ec => ec.IdClass == exactClass.IdClass);
-					SubjectForGroup subjectForGroup = unit.SubjectForGroups.Get(sfg => sfg.IdSFG == Convert.ToInt32(ec.ID_reff));
-					Group group = subjectForGroup.Group;
-					groupesLecturerClass.Add(group);
+					GroupVM gr_temp = new GroupVM();
+					gr_temp.idGroup = item.IdGroup;
+					gr_temp.GroupName = item.Group.GroupName;
+					if (!classVM.Groups.Any(g => g.idGroup == item.IdGroup))
+					{
+						classVM.Groups.Add(gr_temp);
+					}
+				};
+				if (id_group == "null")
+				{
+					id_group = "1739436558";
+					classVM.SelectedGroup = Convert.ToInt32(id_group);
 				}
-				exactClassForLecturer.Groups = groupesLecturerClass;
-				//IEnumerable<StudentsGroupHistory> students = unit.StudentGroupHistories.GetAll(st => st.Group.IdGroup.ToString() == id_group);
-				//int i;
-				//tmp.ExactClasses = exactClasses.ToList();
-				//tmp.Students = students.ToList();
-				ExactClassForLecturerClassVM classVM = new ExactClassForLecturerClassVM()
-				{
-					IdECFLC = exactClassForLecturer.IdEXCFLC,
-					Lecturer = new LecturerVM()
-					{
-						IdLecturer = lecturer.IdSLecturer,
-						PersonFIO = lecturer.Person.PersonFIOShort(),
-						email = lecturer.Person.Email
-					},
-					//SubjectName = 
+				classVM.SubjectName = sfgReact.Subject.NameSubject;
+				classVM.SelectedGroup = Convert.ToInt32(id_group);
+				classVM.IdClass = Convert.ToInt32(IdClass);
+				var kek = CreateAttedances(IdECFLCT, IdClass, sfgReact.IdPerson, sfgReact.IdSubject);
+				classVM.DateTime = exactClass.DateClassStart.ToString("d");
+				List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
+				.GetAll(sgh => sgh.GroupIdGroup == classVM.SelectedGroup && sgh.CourseIdCourse == sfgReact.IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
+				var studentsSorted = from student in studentsGroupHistories
+									 orderby student.DateSGHFinished
+									 select student;
+				List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
 
+
+				classVM.Lecturer = new LecturerVM()
+				{
+					IdLecturer = lecturer.IdPerson,
+					PersonFIO = lecturer.PersonFIOShort()
 				};
+				List<StudentsGroupHistory> students = new List<StudentsGroupHistory>();
+				List<GroupVM> groupVMs = new List<GroupVM>();
+				classVM.SelectedGroup = Convert.ToInt32(id_group);
 				classVM.TypeAttedances = unit.TypeAttedances.GetAll().ToList();
-				foreach (var item in students)
-				{
-					Person person = unit.Persons.Get(p => p.IdPerson == item.Student.IdPerson);
-					item.Student.Person = person;
-				};
-				classVM.Students = new List<StudentEXC>();
-				foreach (var item in students)
-				{
-					StudentEXC student = new StudentEXC()
-					{
-						IdStudent = item.IdSGH,
-						PersonFIO = item.Student.Person.PersonFIOShort(),
-						Attedanced = unit.Attendances.Get(at => at.SGH.IdSGH == item.IdSGH && Convert.ToInt32(at.ExactClass.ID_reff) == classVM.IdECFLC).TypeAttedance
 
-					};
-					classVM.Students.Add(student);
-				};
+				foreach (var item in studentsSortedList)
+				{
+					StudentEXC groupAttedanceTable = new StudentEXC();
+					Person person = unit.Persons.Get(p => p.IdPerson == item.Student.IdPerson);
+					groupAttedanceTable.PersonFIO = person.PersonFIOShort();
+					groupAttedanceTable.IdStudent = item.IdStudent;
+					List<Attendance> attendances = new List<Attendance>();
+					Attendance attendance = unit.Attendances.Get(at => at.IdSGH == item.IdSGH && at.ExactClassIdClass == classVM.IdClass);
+					groupAttedanceTable.AttedanceTypeSelected = attendance.TypeAttedanceIdTA;
+					List<TypeAttedance> tas = unit.TypeAttedances.GetAll().ToList();
+					foreach(var j in tas)
+					{
+						TypeAttedanceVM typeAttedanceVM = new TypeAttedanceVM();
+						typeAttedanceVM.IdAtt = attendance.IdAtt;
+						typeAttedanceVM.IdTA = j.IdTA;
+						typeAttedanceVM.TAName = j.TAName;
+						typeAttedanceVM.TAShortName = j.TAShortName;
+						groupAttedanceTable.Attedanced.Add(typeAttedanceVM);
+					}
+					var buf = groupAttedanceTable.Attedanced.Find(g => g.IdTA == groupAttedanceTable.AttedanceTypeSelected);
+					var buf2 = groupAttedanceTable.Attedanced[groupAttedanceTable.Attedanced.Count() - 1];
+					groupAttedanceTable.Attedanced[groupAttedanceTable.Attedanced.Count() - 1] = buf;
+					groupAttedanceTable.Attedanced[groupAttedanceTable.Attedanced.FindIndex(g => g.IdTA == groupAttedanceTable.AttedanceTypeSelected)] = buf2;
+					groupAttedanceTable.IdAttedance = attendance.IdAtt;
+					groupAttedanceTable.Ball = (double)attendance.Ball;
+					classVM.Students.Add(groupAttedanceTable);
+				}
+				if (classVM.Groups.Count > 2)
+				{
+					var buf = classVM.Groups.Find(g => g.idGroup == classVM.SelectedGroup);
+					var buf2 = classVM.Groups[classVM.Groups.Count() - 1];
+					classVM.Groups[classVM.Groups.Count() - 1] = buf;
+					classVM.Groups[classVM.Groups.FindIndex(g => g.idGroup == classVM.SelectedGroup)] = buf2;
+				}
+				classVM.IdECFLCT = Convert.ToInt32(IdECFLCT);
+				classVM.Groups.Reverse();
+				//Attendance attBuf = unit.Attendances.Get(at => at.IdAtt==3);
 
 				return classVM;
-				//return unit.CathInfo.GetAll();
 			}
-			catch (Exception ex)
-			{
-				return null;
-			}
+			//catch (Exception ex)
+			//{
+			//	return null;
+			//}
 		}
-	
 
-
-		[HttpGet("getExactClass/Check/{IdClass}")]
-
-		public void CreateAttedances(string IdClass)
+		//[Authorize(Roles = "Преподаватель,Заведующий,Админ")]
+		[HttpPost("UpdateAttedance")]
+		public IActionResult UpdateAttedance(ExactClassForLecturerClassVM data)
 		{
-			ExactClass ExactClass = unit.ExactClasses.Get(ec=>ec.IdClass.ToString()==IdClass);
-			List<SubjectForGroup> sfgs = unit.SubjectForGroups.GetAll(sfg => sfg.ID_reff == ExactClass.ID_reff).ToList();
+			if (ModelState.IsValid)
+			{
+				List<Attendance> attendances = new List<Attendance>();
+				List<TypeAttedanceVM> attVm = new List<TypeAttedanceVM>();
+				foreach( var i in data.Students)
+				{					
+					var att = unit.Attendances.Get(a=>a.IdAtt == i.IdAttedance);
+					att.TypeAttedanceIdTA = i.AttedanceTypeSelected;
+					att.Ball = i.Ball;
+					unit.Attendances.Update(att);
+					unit.Save();
+				}
+				return Ok(data);
+			}
+			unit.Save();
+
+			return BadRequest(ModelState);
+		}
+		[HttpPost("UpdateClassWork")]
+		public IActionResult UpdateClassWork(ClassWork data)
+		{
+			if (ModelState.IsValid)
+			{
+				ClassWork cw = unit.ClassWorks.Get(c => c.IdClassWork == data.IdClassWork);
+				//cw.IdWT = data.IdWT;
+				cw.MaxBall = data.MaxBall;
+				cw.TextWork = data.TextWork;
+				cw.FilePathWork = data.FilePathWork;
+				cw.DateGiven = data.DateGiven;
+				unit.ClassWorks.Update(cw);
+				unit.Save();
+
+				return Ok(data);
+			}
+
+			return BadRequest(ModelState);
+		}
+		public bool CreateAttedances(string IdECFLCT, string IdClass, int IdPerson, int IdSubject)
+		{
+			ExactClass exactClass = unit.ExactClasses.Get(ec => ec.IdClass.ToString() == IdClass);
+			List<SubjectForGroup> sfgs = unit.SubjectForGroups.GetAll(sfg => sfg.IdPerson == IdPerson && (sfg.IdGroup != null || sfg.IdGroup != 0) && sfg.IdSubject == IdSubject).ToList();
 			List<StudentsGroupHistory> sghs = new List<StudentsGroupHistory>();
 			List<Group> groups = new List<Group>();
 			foreach (var i in sfgs)
@@ -248,35 +292,31 @@ namespace WebBRS.Controllers
 					groups.Add(i.Group);
 				}
 			}
-
-			foreach(var j in groups)
+			foreach (var j in groups)
 			{
 				SubjectForGroup sfg = sfgs.Where(s => s.IdGroup == j.IdGroup).FirstOrDefault();
-			   List<StudentsGroupHistory> sghBuf = unit.StudentGroupHistories
-					.GetAll(sgh => sgh.GroupIdGroup == j.IdGroup && sgh.CourseIdCourse == sfg.IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
-				foreach(var k in sghBuf)
+				List<StudentsGroupHistory> sghBuf = unit.StudentGroupHistories
+					 .GetAll(sgh => sgh.GroupIdGroup == j.IdGroup && sgh.CourseIdCourse == sfg.IdCourse
+					 && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
+				foreach (var k in sghBuf)
 				{
-					Attendance attBuf = unit.Attendances.Get(at => at.ExactClassIdClass== ExactClass.IdClass&&at.IdSGH==k.IdSGH);
-					if (attBuf==null)
+					Attendance attBuf = unit.Attendances.Get(at => at.ExactClassIdClass == exactClass.IdClass && at.IdSGH == k.IdSGH);
+					if (attBuf == null)
 					{
 						Attendance att = new Attendance();
 						att.TypeAttedanceIdTA = 1;
 						att.IdSGH = k.IdSGH;
+						att.Ball = 0;
+						att.BallHW = 0;
+						att.Done = false;
+						att.Checked = false;
+						att.ExactClassIdClass = exactClass.IdClass;
 						unit.Attendances.Create(att);
+						unit.Save();
 					}
 				}
 			}
-			//return Redirect("~/dashboard/attendance-current/"+IdClass);
-			//List<SubjectForGroup> sfgs = new List<SubjectForGroup>();
-			//foreach (var ec in ExactClasses)
-			//{
-			//	List<SubjectForGroup> sfgBuf = unit.SubjectForGroups.GetAll(s=>s.ID_reff==ec.ID_reff).ToList();
-			//	foreach(var j in sfgBuf)
-			//	{
-			//		sfgs.Add();
-			//	}
-			//	sfgs.Add(ec.su)
-			//}
+			return true;
 		}
 	}
 }

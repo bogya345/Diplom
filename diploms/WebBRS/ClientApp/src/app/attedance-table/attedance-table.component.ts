@@ -41,7 +41,7 @@ export class AttedanceTableComponent implements OnInit {
 
         this.ecflct.Groups = result.Groups;
         this.ecflct.Students = result.Students;
-        console.log('keks', this.ecflct.Groups);
+        console.log('keks', this.ecflct);
         console.log('result/constructor', result);
 
       }, error => {

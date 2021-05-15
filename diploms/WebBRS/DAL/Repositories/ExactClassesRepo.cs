@@ -53,6 +53,7 @@ namespace WebBRS.DAL.Repositories
         public override IEnumerable<ExactClass> GetAll(Func<ExactClass, bool> func)
         {
             return db.ExactClasses
+                .Include(ex=>ex.Attendances)
                 .Include(ex=>ex.PersonLecturer)
                 .Include(ex=>ex.Auditory)
                 .Where(func);

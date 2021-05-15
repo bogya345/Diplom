@@ -37,7 +37,7 @@ namespace WebBRS.Models
 		}
 		public string PersonFIOShort()
 		{
-			return LastName + FirstName[0]+"." + PatronicName[0]+".";
+			return LastName +"	"+ FirstName[0]+"." + PatronicName[0]+".";
 		}
 		[JsonIgnore]
 		public virtual List<Student> Students { get; set; }

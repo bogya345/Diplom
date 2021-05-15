@@ -21,6 +21,7 @@ import { AttedanceTableComponent } from './attedance-table/attedance-table.compo
 import { AddHomeworkComponent } from './add-homework/add-homework.component';
 import { TimetableTeacherComponent } from './timetable-teacher/timetable-teacher.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeworkListTeacherComponent } from './homework-list-teacher/homework-list-teacher.component';
 
 
 //const appRoutes: Routes = [
@@ -52,7 +53,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PersonListComponent,
     AttedanceTableComponent,
     AddHomeworkComponent,
-    TimetableTeacherComponent
+    TimetableTeacherComponent,
+    HomeworkListTeacherComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -68,12 +70,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         children: [
           { path: 'profile', component: ProfileComponent },
           { path: 'mainpage', component: MainPageComponent },
-          { path: 'attendance-current/:IdECFLCT', component: AttendanceComponent },
+          { path: 'attendance-current/:IdECFLCT/:IdClass/:IdselectedGroup', component: AttendanceComponent },
           {
-            path: 'timetable', component: TimetableComponent,
-            children: [
-              { path: 'timetable-part', component: TimetablePartComponent }
-            ]
+            path: 'timetable', component: TimetableComponent
           },
           {
             path: 'homeworks', component: HomeworksComponent
@@ -87,9 +86,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
               { path: 'addhomework', component: AddHomeworkComponent }
             ]
           },
-          { path: 'homeworks/183', component: HomeworkComponent },
+          { path: 'homeworks/:IdClass', component: HomeworkComponent },
           { path: 'personlist', component: PersonListComponent },
           { path: 'addhomework', component: AddHomeworkComponent },
+          { path: 'checkhomework', component: HomeworkListTeacherComponent },
           { path: 'timetableTeacher', component: TimetableTeacherComponent },
 
 
