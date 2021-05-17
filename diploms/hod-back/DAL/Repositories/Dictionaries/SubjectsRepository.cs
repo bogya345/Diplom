@@ -13,6 +13,7 @@ namespace hod_back.DAL.Repositories
     {
         public SubjectsRepository(Context context) : base(context) { }
 
+        private object _locker = new object();
 
         public override void Create(Subject item) { db.Subjects.Add(item); }
 
@@ -33,22 +34,48 @@ namespace hod_back.DAL.Repositories
             return db.Subjects.Where(func);
         }
 
-        public override async Task<IEnumerable<Subject>> GetManyWithIncludeAsync(Func<Subject, bool> func)
+        public override IEnumerable<Subject> GetManyWithInclude(Func<Subject, bool> func)
         {
             var tmp = db.Subjects
+                .Include(x => x.AcPlDep)
+                .ThenInclude(y => y.Dep)
+                .Where(func)
+                .ToList()
+                ;
+            return tmp;
+        }
+        public override async Task<IEnumerable<Subject>> GetManyWithIncludeAsync(Func<Subject, bool> func)
+        {
 
+        pls:
+            try
+            {
+                var tmp = db.Subjects
                 .Include(x => x.AcPlDep)
                 .ThenInclude(y => y.Dep)
                 .Where(func)
                 ;
-
-            IEnumerable<Subject> GetData()
-            {
-                foreach (var i in tmp) { yield return i; }
+                return tmp.ToList();
             }
+            catch (InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto pls;
+            }
+            return null;
 
-            return GetData();
+            //IEnumerable<Subject> GetData()
+            //{
+            //    foreach (var i in tmp) { yield return i; }
+            //}
+
+            //return GetData();
         }
+
+        //public async List<Subject> GetList(IEnumerable)
+        //{
+
+        //}
 
         public override Subject OnExist(string name)
         {

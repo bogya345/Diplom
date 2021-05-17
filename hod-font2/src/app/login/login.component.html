@@ -1,87 +1,110 @@
-<!--<div class="modal fade"
-     id="exampleModalCenter_login"
-     tabindex="-1"
-     role="document"
-     aria-labelledby="exampleModalCenterTitle_login"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
+<div class="row">
+  <div class="col-md-6 mx-auto p-0">
+    <div class="card">
+      <div class="login-box">
+        <div class="login-snip"> <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+          <label for="tab-1" class="tab">Войти</label> <input id="tab-2" type="radio" name="tab" class="sign-up">
+          <label for="tab-2" class="tab">Регистрация</label>
 
-      <form>
-        <fieldset>
+          <div class="login-space">
+            <div class="login">
 
-          <legend>Login</legend>
-          <div class="form-field">
-            <label>Email:</label>
-            <input #login_email
-                   name="email"
-                   [value]="email"
-                   (keyup.enter)="update_email(login_email.value)"
-                   (blur)="update_email(login_email.value)">
+              <div class="group">
+                <label class="label">Логин</label>
+                <input type="text" [(ngModel)]="email" class="form-control" [value]="email"
+                  (input)="email = $event.target.value" />
+                <br />
+                <label *ngIf="loginError" style="color: red;" class="label">{{loginError}}</label>
+              </div>
+
+              <div class="group">
+                <label class="label">Пароль</label>
+                <input type="password" class="form-control" [value]="password"
+                  (input)="password = $event.target.value" />
+                <br />
+                <label *ngIf="passError" style="color: red;" class="label">{{passError}}</label>
+              </div>
+
+              <!-- <div class="group">
+                <input id="check" type="checkbox" class="check" checked>
+                <label for="check"><span class="icon"></span>
+                  Keep me Signed in</label>
+              </div> -->
+
+              <div class="group">
+                <input (click)="login()" type="submit" class="button" value="Войти">
+              </div>
+              <div class="hr"></div>
+              <div class="foot"> <a style="color:aqua;" href="#">Забыли пароль?</a> </div>
+            </div>
+            <div class="sign-up-form">
+              <div>
+                <p style="color:aqua;">
+                  Если вас по каким-то причинам нет в системе, обратитесь к системному администратору
+                </p>
+              </div>
+              <!-- <div class="group"> <label for="user" class="label">Username</label>
+                <input id="user" type="text" class="input" placeholder="Create your Username">
+              </div>
+              <div class="group"> <label for="pass" class="label">Password</label>
+                <input id="pass" type="password" class="input" data-type="password" placeholder="Create your password">
+              </div>
+              <div class="group"> <label for="pass" class="label">Repeat Password</label>
+                <input id="pass" type="password" class="input" data-type="password" placeholder="Repeat your password">
+              </div>
+              <div class="group"> <label for="pass" class="label">Email Address</label>
+                <input id="pass" type="text" class="input" placeholder="Enter your email address">
+              </div>
+              <div class="group"> <input type="submit" class="button" value="Sign Up"> </div>
+              <div class="hr"></div>
+              <div class="foot"> <label for="tab-1">Already Member?</label> </div> -->
+            </div>
           </div>
-
-          <div class="form-field">
-            <label>Password:</label>
-            <input #login_password
-                   name="password"
-                   type="password"
-                   [value]="password"
-                   (keyup.enter)="update_password(login_password.value)"
-                   (blur)="update_password(login_password.value)">
-          </div>
-
-        </fieldset>-->
-<!--<div class="form-buttons">
-  <button class="button button-primary"
-          (click)="login()">
-    Login
-  </button>
-</div>-->
-<!--<div class="modal-footer">-->
-<!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-<button type="button" class="btn btn-primary">Save changes</button>-->
-<!--<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="login()">Login</button>-->
-<!--<button type="button" class="btn btn-secondary" (click)="justcloseform()">Just Close</button>-->
-<!--</div>-->
-<!--  -->
-<!--</form>
-
+        </div>
+      </div>
     </div>
   </div>
-</div>-->
+</div>
 
+<!-- 
 <div class="col-12 d-flex">
 
-    <div class="col-3"></div>
+  <div class="container">
+    <form>
 
-    <div class="col-6">
+      <div class="form-group">
+        <label for="username">Логин</label>
+        <input type="text" [(ngModel)]="email" class="form-control" [value]="email"
+          (input)="email = $event.target.value" />
+        <p>{{email}}</p>
+        <div *ngIf="loginError" class="invalid-feedback">
+          <div>{{loginError}}</div>
+        </div>
+      </div>
 
-        <form>
-            <fieldset>
+      <div class="form-group">
+        <label for="password">Пароль</label>
 
-                <legend>Login</legend>
-                <div class="form-field">
-                    <label>Email:</label>
-                    <input #login_email name="email" [value]="email" (keyup.enter)="update_email(login_email.value)"
-                        (blur)="update_email(login_email.value)">
-                </div>
+        <p>{{password}}</p>
+        <div *ngIf="passError" class="invalid-feedback">
+          <div *ngIf="">Необходимо ввести пароль</div>
+        </div>
+      </div>
 
-                <div class="form-field">
-                    <label>Password:</label>
-                    <input #login_password name="password" type="password" [value]="password"
-                        (keyup.enter)="update_password(login_password.value)"
-                        (blur)="update_password(login_password.value)">
-                </div>
+      <div class="form-group">
+        <button class="btn btn-primary" (click)="login()">
+          Войти
+        </button>
+      </div>
 
-            </fieldset>
+      <div>
+      </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="login()">Login</button>
-            </div>
+    </form>
+  </div>
 
-        </form>
-    </div>
+  <div class="container">
+    <span class="psw">Забыли <a href="#">пароль?</a></span>
+  </div>
 
-    <div class="col-3"></div>
-
-</div>
+</div> -->

@@ -7,10 +7,10 @@ namespace hod_back.Dto
 {
     public class DepDepDto
     {
-        public int acPlDep_id { get; set; }
-        public string acPlDep_name { get; set; }
+        public int AcPlDep_id { get; set; }
+        public string AcPlDep_name { get; set; }
 
-        public int dep_id { get; set; }
-        public string dep_name { get; set; }
+        public int Dep_id { get; set; }
+        public string Dep_name { get; set; }
     }
 }

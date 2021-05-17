@@ -49,14 +49,14 @@ export class HodDepComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let item = this.dep.dirs[0];
-    this.selectedDir = this.dep.dirs[0];
-    this.selectedGroup = this.selectedDir.groups[0];
+    let item = this.dep.Dirs[0];
+    this.selectedDir = this.dep.Dirs[0];
+    this.selectedGroup = this.selectedDir.Groups[0];
     // this.pathString = ;
   }
 
   public getPathString() {
-    return `::Ваша кафедра(${this.dep.dep_name})/${this.selectedDir.dir_name}/${this.selectedGroup.group_name}`;
+    return `::Ваша кафедра(${this.dep.Dep_name})/${this.selectedDir.Dir_name}/${this.selectedGroup.Group_name}`;
   }
 
   public setSelectedDirection(item) {

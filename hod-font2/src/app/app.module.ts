@@ -83,7 +83,6 @@ import { ProgressModalComponent } from './progress-modal/progress-modal.componen
     HttpClientModule,
     BrowserAnimationsModule,
 
-    BrowserModule,
     HttpClientModule,
     MatTabsModule,
     MatCardModule,

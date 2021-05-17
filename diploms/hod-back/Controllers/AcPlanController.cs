@@ -108,13 +108,14 @@ namespace hod_back.Controllers
         }
 
         [HttpGet("/weatherforecast"), DisableRequestSizeLimit]
-        public async Task<object> Test2([FromRoute] int dep_id, [FromRoute] int dir_id, [FromRoute] int group_id)
+        public object Test2([FromRoute] int dep_id, [FromRoute] int dir_id, [FromRoute] int group_id)
         {
             var tmp = _unit.Subjects.GetManyWithIncludeAsync(x => x.SubId > 0)
-                 //.ToList()
-                 ;
+                .Result
+                .ToList()
+                ;
 
-            var res = _mapper.Map<IEnumerable<SubDepDto>>(tmp.Result);
+            var res = _mapper.Map<IEnumerable<SubDepDto>>(tmp);
             return res;
         }
 
@@ -261,7 +262,7 @@ namespace hod_back.Controllers
             }
             else
             //{ _unit.AttachedAcPlan.Create(ex.blocks); }
-            {   
+            {
                 // проверка на добавление в таблицу нагрузки (AttachedAcPlan)
 
                 // создание нагрузки

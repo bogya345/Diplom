@@ -24,7 +24,7 @@
 
                         <tr *ngFor="let item of deps">
                             <td></td>
-                            <td>{{ item.dep_name }}</td>
+                            <td>{{ item.Dep_name }}</td>
                             <td></td>
                             <td><button class="btn btn-light" (click)="setSelectedDepartment( item )">Выбрать</button>
                             </td>
@@ -40,7 +40,7 @@
                 <p *ngIf="!selectedDep; else elseBlock_dirs"><em>Загрузка направлений...</em></p>
                 <ng-template #elseBlock_dirs>
                     <table class='table table-striped groupstable' aria-labelledby="tableLabel"
-                        *ngIf="selectedDep.dirs">
+                        *ngIf="selectedDep.Dirs">
 
                         <thead>
                             <tr>
@@ -53,13 +53,13 @@
                             </tr>
                         </thead>
 
-                        <tr *ngFor="let item of selectedDep.dirs">
-                            <td>{{ item.dir_name }}</td>
-                            <td>{{ item.startYear }}</td>
+                        <tr *ngFor="let item of selectedDep.Dirs">
+                            <td>{{ item.Dir_name }}</td>
+                            <td>{{ item.StartYear }}</td>
                             <!-- <td><button class="btn btn-info" (click)="showFgosRequirs( item )">Просмотр</button></td> -->
                             <td><button class="btn btn-info" mat-raised-button id="logout-button"
                                     (click)="openModal( item )">Просмотр</button></td>
-                            <p *ngIf="item.acPl_id == null; else elseBlock_acPlan">
+                            <p *ngIf="item.AcPl_id == null; else elseBlock_acPlan">
                                 <td>
                                     <p>Загрузить учебный план</p>
                                     <!-- <mat-spinner *ngIf="spinnerIsOn" diameter="40"></mat-spinner> -->
@@ -83,7 +83,7 @@
                             </ng-template>
 
                             <td>
-                                <button [disabled]="item.acPl_id == null" class="btn btn-primary"
+                                <button [disabled]="item.AcPl_id == null" class="btn btn-primary"
                                     (click)="openModalShowDirProperty( item )">
                                     Получить кадровую справку
                                 </button>
@@ -109,7 +109,7 @@
                     <div *ngIf="dirStatus; else elseBlockDirStatus">
                         <!-- Статус назначений преподавателей -->
 
-                        <div *ngIf="!dirStatus.message; else elseBlockMsg">
+                        <div *ngIf="!dirStatus.Message; else elseBlockMsg">
                             <p>7.2.2</p>
                             <section class="example-section">
                                 <mat-progress-bar class="example-margin" [color]="getColorForRequirs(getMark722())"
@@ -137,7 +137,7 @@
                         </div>
 
                         <ng-template #elseBlockMsg>
-                            <p><b>{{dirStatus.message}}</b></p>
+                            <p><b>{{dirStatus.Message}}</b></p>
                         </ng-template>
 
                     </div>
@@ -147,7 +147,7 @@
                     </ng-template>
 
                     <table class='table table-striped groupstable' aria-labelledby="tableLabel"
-                        *ngIf="selectedDir.groups">
+                        *ngIf="selectedDir.Groups">
 
                         <thead>
                             <tr>
@@ -160,13 +160,13 @@
                             </tr>
                         </thead>
 
-                        <tr *ngFor="let item of selectedDir.groups">
+                        <tr *ngFor="let item of selectedDir.Groups">
                             <td></td>
-                            <td>{{ item.group_name }}</td>
+                            <td>{{ item.Group_name }}</td>
                             <td></td>
                             <td></td>
                             <td>
-                                <section *ngIf="selectedDir.acPl_id != null" class="">
+                                <section *ngIf="selectedDir.AcPl_id != null" class="">
 
                                     <mat-progress-bar class="example-margin" [color]="colorPrimary" [mode]="mode"
                                         [value]="getGroupStatus(item)">

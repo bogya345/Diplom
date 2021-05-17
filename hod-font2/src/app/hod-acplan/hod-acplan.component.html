@@ -22,7 +22,7 @@
 
             <tr *ngFor="let item of acPlan">
               <td></td>
-              <td>{{ item.blockName }}</td>
+              <td>{{ item.BlockName }}</td>
               <td></td>
               <td><button (click)="setSelectedBlockNum(item)">Выбрать</button></td>
             </tr>
@@ -43,7 +43,7 @@
           <!-- SubjectName Column -->
           <ng-container matColumnDef="SubjectName">
             <th mat-header-cell *matHeaderCellDef> Название дисциплины </th>
-            <td mat-cell *matCellDef="let element"> {{element.subjectName}} (<b>Семестр {{element.semestrNum}}</b>)
+            <td mat-cell *matCellDef="let element"> {{element.SubjectName}} (<b>Семестр {{element.SemestrNum}}</b>)
             </td>
           </ng-container>
 
@@ -65,24 +65,24 @@
                     </ul> -->
 
                     <div class="row">
-                      <mat-card *ngFor="let i of selectedSubject.loads">
+                      <mat-card *ngFor="let i of selectedSubject.Loads">
                         <div>
 
-                          <h3 class="card-title">{{i.subTypeName}} Часы:<b>{{i.loadValue}}</b></h3>
+                          <h3 class="card-title">{{i.SubTypeName}} Часы:<b>{{i.LoadValue}}</b></h3>
                           <p class="card-text mb-2 text-muted">
                             Преподаватель:
-                            <i>{{i.fshId == null ? '<не назначен>' : i.teachName}}</i>
+                            <i>{{i.FshId == null ? '<не назначен>' : i.TeachName}}</i>
                           </p>
 
                           <div
-                            *ngIf="selectedSubject.correspDep == null || selectedSubject.correspDep.dep_id == null; else elseBlock_info">
+                            *ngIf="selectedSubject.CorrespDep == null || selectedSubject.CorrespDep.Dep_id == null; else elseBlock_info">
                             <button
                               class="btn btn-warning" (click)="openModal( direction, group, acPlan, element, i )">
                               Назначить
                             </button>
                           </div>
                           <ng-template #elseBlock_info>
-                            <button *ngIf="_userDepId != null && _userDepId == selectedSubject.correspDep.dep_id"
+                            <button *ngIf="_userDepId != null && _userDepId == selectedSubject.CorrespDep.Dep_id"
                               class="btn btn-info" (click)="openModal( direction, group, acPlan, element, i )">
                               Назначить
                             </button>

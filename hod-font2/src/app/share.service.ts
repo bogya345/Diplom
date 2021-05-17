@@ -74,22 +74,22 @@ export class ShareService {
 }
 
 class UserCl implements User {
-  public name: string;
-  public login: string;
-  public role_id: number;
-  public role_name: string;
+  // public name: string;
+  public username: string;
+  public access_role_id: number;
+  public access_role: string;
   public dep_id: number;
   public dep_name: string;
   /**
    *
    */
   constructor() {
-    this.name = 'def_username';
-    this.login = 'def_login';
+    // this.name = 'def_username';
+    this.username = 'def_login';
     this.dep_id = 1;
     this.dep_name = 'def_dep';
-    this.role_id = 0;
-    this.role_name = 'def_role';
+    this.access_role_id = 0;
+    this.access_role = 'def_role';
   }
 }
 

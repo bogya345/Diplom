@@ -52,8 +52,8 @@ namespace hod_back.Controllers
                 username = User.Identity.Name,
                 access_role_id = User.Claims.ToList()[1].Value,
                 access_role = User.Claims.ToList()[2].Value,
-                id_department = User.Claims.ToList()[3].Value,
-                name_department = User.Claims.ToList()[4].Value,
+                dep_id = User.Claims.ToList()[3].Value,
+                dep_name = User.Claims.ToList()[4].Value,
                 access_token = encodedJwt
             };
 
@@ -72,7 +72,7 @@ namespace hod_back.Controllers
             var identity = GetIdentity(username, password);
             if (identity == null)
             {
-                return BadRequest(new { errorText = "Invalid username or password." });
+                return BadRequest(new { errorText = "Неправильно введен логин или пароль." });
             }
 
             var now = DateTime.UtcNow;
@@ -88,13 +88,24 @@ namespace hod_back.Controllers
 
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
+            //var response = new
+            //{
+            //    username = identity.Name,
+            //    access_role_id = identity.Claims.ToList()[1].Value,
+            //    access_role = identity.Claims.ToList()[2].Value,
+            //    id_department = identity.Claims.ToList()[3].Value,
+            //    name_department = identity.Claims.ToList()[4].Value,
+            //    dateExpired = now,
+            //    access_token = encodedJwt
+            //};
+
             var response = new
             {
                 username = identity.Name,
                 access_role_id = identity.Claims.ToList()[1].Value,
                 access_role = identity.Claims.ToList()[2].Value,
-                id_department = identity.Claims.ToList()[3].Value,
-                name_department = identity.Claims.ToList()[4].Value,
+                dep_id = identity.Claims.ToList()[3].Value,
+                dep_name = identity.Claims.ToList()[4].Value,
                 dateExpired = now,
                 access_token = encodedJwt
             };
@@ -111,7 +122,7 @@ namespace hod_back.Controllers
         {
             var person = _unit.AuthUsers.GetOrDefault(x => x.UserLogin == username && x.UserPassword == password);
 
-            if (person == null) { throw new Exception(); } // проверить целостность данных пользователей
+            if (person == null) { return null; } 
 
             var claims = new List<Claim>
                 {

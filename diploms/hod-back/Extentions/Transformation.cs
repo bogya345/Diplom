@@ -37,7 +37,7 @@ namespace hod_back.Extentions
         {
             LoadDto res = new LoadDto()
             {
-                atAcPlId = item.AttAcPlId,
+                AtAcPlId = item.AttAcPlId,
                 FshId = item.FshId,
                 //teachName = $"{item.Fsh.Fs.Emp.LastName} {item.Fsh.Fs.Emp.FirstName} {item.Fsh.Fs.Emp.MiddleName}",
                 LoadValue = (double)item.HourValue,
@@ -52,9 +52,9 @@ namespace hod_back.Extentions
             if (item == null) { return null; }
             var res = new DepsDto()
             {
-                dep_id = item.DepId,
-                dep_name = item.DepName,
-                dirs = null
+                Dep_id = item.DepId,
+                Dep_name = item.DepName,
+                Dirs = null
             };
             return res;
         }
@@ -91,9 +91,9 @@ namespace hod_back.Extentions
             {
                 res.Add(new LoadDto()
                 {
-                    atAcPlId = item.AttAcPlId,
+                    AtAcPlId = item.AttAcPlId,
                     FshId = item.FshId,
-                    teachName = item.Fsh == null ? "" : $"{item.Fsh.Fs.Emp.LastName} {item.Fsh.Fs.Emp.FirstName} {item.Fsh.Fs.Emp.MiddleName}",
+                    TeachName = item.Fsh == null ? "" : $"{item.Fsh.Fs.Emp.LastName} {item.Fsh.Fs.Emp.FirstName} {item.Fsh.Fs.Emp.MiddleName}",
                     LoadValue = (double)item.HourValue,
                     SemNum = item.BlockRec.SemestrNum,
                     SubTypeName = item.SubT.SubTName,

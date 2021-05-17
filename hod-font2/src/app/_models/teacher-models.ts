@@ -17,19 +17,19 @@ export { Teacher, GroupTeacher }
 //     dateBegin: Date,
 // }
 class Teacher {
-    public fsh_id: number;
-    public fh_id: number;
+    public Fsh_id: number;
+    public Fh_id: number;
     public emp_id: number;
-    public firstName: string;
-    public lastName: string;
-    public middleName: string;
-    public fullName: string;
+    public FirstName: string;
+    public LastName: string;
+    public MiddleName: string;
+    public FullName: string;
 
-    public workT_name: string;
-    public post_name: string;
-    public dep_id: number;
-    public staffCount: number;
-    public dateBegin: Date;
+    public WorkT_name: string;
+    public Post_name: string;
+    public Dep_id: number;
+    public StaffCount: number;
+    public DateBegin: Date;
 
     // public toString = (): string => {
     //     return `${this.fullName}`;

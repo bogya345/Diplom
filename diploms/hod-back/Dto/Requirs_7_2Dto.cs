@@ -7,22 +7,22 @@ namespace hod_back.Dto
 {
     public class Requirs_7_2Dto
     {
-        public int dir_id { get; set; }
+        public int Dir_id { get; set; }
 
-        public double numberAll722 { get; set; }
-        public double numberSubmitted722 { get; set; }
-        public string mark722 { get; set; }
+        public double NumberAll722 { get; set; }
+        public double NumberSubmitted722 { get; set; }
+        public string Mark722 { get; set; }
 
-        public double numberAll723 { get; set; }
-        public double numberSubmitted723 { get; set; }
-        public string mark723 { get; set; }
+        public double NumberAll723 { get; set; }
+        public double NumberSubmitted723 { get; set; }
+        public string Mark723 { get; set; }
 
-        public double numberAll724 { get; set; }
-        public double numberSubmitted724 { get; set; }
-        public string mark724 { get; set; }
+        public double NumberAll724 { get; set; }
+        public double NumberSubmitted724 { get; set; }
+        public string Mark724 { get; set; }
 
         //public string code { get; set; }
-        public string message { get; set; }
+        public string Message { get; set; }
     }
 
     //public dir_id: number;

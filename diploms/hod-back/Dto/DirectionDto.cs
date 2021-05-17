@@ -7,13 +7,13 @@ namespace hod_back.Dto
 {
     public class DirectionDto
     {
-        public int dir_id { get; set; }
-        public string dir_name { get; set; }
-        public string startYear { get; set; }
-        public int? acPl_id { get; set; }
+        public int Dir_id { get; set; }
+        public string Dir_name { get; set; }
+        public string StartYear { get; set; }
+        public int? AcPl_id { get; set; }
         // mb link on plan (as excel)
-        public DirRequirDto[] requirs { get; set; }
-        public GroupDto[] groups { get; set; }
+        public DirRequirDto[] Requirs { get; set; }
+        public GroupDto[] Groups { get; set; }
 
     }
 }

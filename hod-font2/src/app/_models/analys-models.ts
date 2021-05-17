@@ -2,35 +2,35 @@
 export { GroupAnalysDto, DirAnalysDto }
 
 class GroupAnalysDto {
-    public group_id: number;
+    public Group_id: number;
 
-    public numberAll: number;
-    public numberSubmitted: number;
+    public NumberAll: number;
+    public NumberSubmitted: number;
 
     constructor() { }
 
     public getStatus(): number {
-        let x = (this.numberSubmitted * 100) / this.numberAll;
+        let x = (this.NumberSubmitted * 100) / this.NumberAll;
         return x;
     }
 }
 
 class DirAnalysDto {
-    public dir_id: number;
+    public Dir_id: number;
 
-    public numberAll722: number;
-    public numberSubmitted722: number;
-    public mark722: string;
+    public NumberAll722: number;
+    public NumberSubmitted722: number;
+    public Mark722: string;
 
-    public numberAll723: number;
-    public numberSubmitted723: number;
-    public mark723: string;
+    public NumberAll723: number;
+    public NumberSubmitted723: number;
+    public Mark723: string;
 
-    public numberAll724: number;
-    public numberSubmitted724: number;
-    public mark724: string;
+    public NumberAll724: number;
+    public NumberSubmitted724: number;
+    public Mark724: string;
 
-    public message: string;
+    public Message: string;
     
     constructor() { }
 

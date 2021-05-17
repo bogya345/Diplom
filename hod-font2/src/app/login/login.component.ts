@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { ShareService } from '../share.service';
 
 import { environment } from '../../environments/environment';
@@ -26,6 +27,9 @@ export class LoginComponent implements OnInit {
   public email: string;
   public password: string;
 
+  public loginError: string;
+  public passError: string;
+
 
   @Output("onAuth") onAuth: EventEmitter<any> = new EventEmitter();
 
@@ -48,15 +52,31 @@ export class LoginComponent implements OnInit {
     console.log('INIT: login');
     let user: User;
     this.share.shareUser(user);
+    // this.loginForm = this.formBuilder.group({
+    //   username: ['', Validators.required],
+    //   password: ['', Validators.required]
+    // });
     // alert();
   }
+  // get f() { return this.loginForm.controls; }
 
   update_email(value: string) { this.email = value; console.log(value); }
   update_password(value: string) { this.password = value; console.log(value); }
 
   async login() {
+    if (!this.email && !this.passError) {
+      this.loginError = "Необходимо ввести логин";
+      this.passError = "Необходимо ввести пароль";
+      return;
+    }
+    if (!this.email) { this.loginError = "Необходимо ввести логин"; return; }
+    else { this.loginError = undefined; }
+    if (!this.password) { this.passError = "Необходимо ввести пароль"; return; }
+    else { this.passError = undefined; }
 
-    console.log(`email:${this.email}\tpass:{this.password}`)
+    // console.log()
+    alert(`email:${this.email}\tpass:${this.password}`);
+
 
     // пусть будет тут, не буду переносить в services
     const formData = new FormData();
@@ -75,7 +95,7 @@ export class LoginComponent implements OnInit {
       headers: { "Accept": "application/json" },
       body: formData
     });
-    
+
     // проверка на 
     if (!response.ok) { console.log('Something wrong with /token request'); }
 

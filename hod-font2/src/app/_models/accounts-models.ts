@@ -2,10 +2,10 @@
 export { User }
 
 interface User {
-    name: string,
-    login: string,
-    role_id: number,
-    role_name: string,
+    // username: string,
+    username: string,
+    access_role_id: number,
+    access_role: string,
     dep_id: number,
     dep_name: string
 }

@@ -5,9 +5,9 @@ export {
     BlockNum, Subject, Semester, Load
 }
 interface Group {
-    group_id: number,
-    group_name: string,
-    group_acPlan_id: number
+    Group_id: number,
+    Group_name: string,
+    Group_acPlan_id: number
 }
 interface BlockRec {
     BlockRec_id: number,
@@ -31,40 +31,40 @@ interface BlockRec {
 }
 
 interface AcPlan {
-    blockNums: BlockNum[]
+    BlockNums: BlockNum[]
 }
 interface BlockNum {
-    blockName: string,
-    subjects: Subject[],
+    BlockName: string,
+    Subjects: Subject[],
 }
 interface Subject {
-    subjectName: string,
-    correspDep: DepsDto,
-    semestrNum: number,
-    loads: Load[],
+    SubjectName: string,
+    CorrespDep: DepsDto,
+    SemestrNum: number,
+    Loads: Load[],
 }
 interface Semester {
     
 }
 interface Load {
-    atAcPlId: number,
-    fshId: number,
-    teachName: string,
-    blocRecId: number,
-    semNum: number,
-    subTypeId: number,
-    subTypeName: string,
-    loadValue: number,
+    AtAcPlId: number,
+    FshId: number,
+    TeachName: string,
+    BlocRecId: number,
+    SemNum: number,
+    SubTypeId: number,
+    SubTypeName: string,
+    LoadValue: number,
 }
 interface Rec {
-    ze: number,
-    total: number,
-    les: number,
-    lab: number,
-    pr: number,
-    iz: number,
-    ak: number,
-    kpr: number,
-    sr: number,
-    controll: number
+    Ze: number,
+    Total: number,
+    Les: number,
+    Lab: number,
+    Pr: number,
+    Iz: number,
+    Ak: number,
+    Kpr: number,
+    Sr: number,
+    Controll: number
 }

@@ -29,7 +29,7 @@ export class HodModalShowRequirsComponent implements OnInit {
   ngOnChanged(): void {
     if (this.selectedDir != null) {
       console.log('works');
-      this.selectedDir.requirs.length
+      this.selectedDir.Requirs.length
     }
   }
 

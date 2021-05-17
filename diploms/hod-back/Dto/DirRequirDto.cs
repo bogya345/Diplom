@@ -10,8 +10,8 @@ namespace hod_back.Dto
         //public int dir_id { get; set; }
         //public int eBr_name { get; set; }
         //public int? acPl_id { get; set; }
-        public string fgos_num { get; set; }
-        public double? settedValue { get; set; }
-        public string unit_name { get; set; }
+        public string Fgos_num { get; set; }
+        public double? SettedValue { get; set; }
+        public string Unit_name { get; set; }
     }
 }

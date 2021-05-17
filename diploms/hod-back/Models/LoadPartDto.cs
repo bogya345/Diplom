@@ -7,7 +7,7 @@ namespace hod_back.Models
 {
     public class LoadPartDto
     {
-        public int fsh_id { get; set; }
-        public string teacherName { get; set; }
+        public int Fsh_id { get; set; }
+        public string TeacherName { get; set; }
     }
 }

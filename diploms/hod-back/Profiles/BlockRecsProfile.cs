@@ -15,12 +15,12 @@ namespace hod_back.Profiles
         {
 
             CreateMap<DepsInfo, DepsInfoDto>()
-                .ForMember(dest => dest.dep_id, opts => opts.MapFrom(src => src.DepId))
-                .ForMember(dest => dest.dep_name, opts => opts.MapFrom(src => src.DepName))
-                .ForMember(dest => dest.headTeach_name, opts => opts.MapFrom(src => src.LastName + " " + src.FirstName + " " + src.MiddleName))
+                .ForMember(dest => dest.Dep_id, opts => opts.MapFrom(src => src.DepId))
+                .ForMember(dest => dest.Dep_name, opts => opts.MapFrom(src => src.DepName))
+                .ForMember(dest => dest.HeadTeach_name, opts => opts.MapFrom(src => src.LastName + " " + src.FirstName + " " + src.MiddleName))
                 //.ForMember(dest => dest., opts => opts.MapFrom(src => src.))
                 //.ForMember(dest => dest.dir)
-                .ForMember(dest => dest.count_groups, opts => opts.MapFrom(src => src.CountGroups))
+                .ForMember(dest => dest.Count_groups, opts => opts.MapFrom(src => src.CountGroups))
                 .ForAllOtherMembers(m => m.Ignore())
                 ;
 

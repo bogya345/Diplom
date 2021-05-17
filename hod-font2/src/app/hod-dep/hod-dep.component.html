@@ -10,7 +10,7 @@
         <mat-tab label="Направления">
             <div class="row">
                 <p *ngIf="!dep"><em>Загрузка направлений...</em></p>
-                <table class='table table-striped groupstable' aria-labelledby="tableLabel" *ngIf="dep.dirs">
+                <table class='table table-striped groupstable' aria-labelledby="tableLabel" *ngIf="dep.Dirs">
 
                     <thead>
                         <tr>
@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
 
-                    <tr *ngFor="let item of dep.dirs">
+                    <tr *ngFor="let item of dep.Dirs">
                         <td></td>
                         <td>{{ item.dir_name }}</td>
                         <td>{{ item.startYear }}</td>
@@ -35,7 +35,7 @@
         <mat-tab label="Группы" id="group_tab">
             <div class="row">
                 <p *ngIf="!selectedDir"><em>Загрузка групп...</em></p>
-                <table class='table table-striped groupstable' aria-labelledby="tableLabel" *ngIf="selectedDir.groups">
+                <table class='table table-striped groupstable' aria-labelledby="tableLabel" *ngIf="selectedDir.Groups">
 
                     <thead>
                         <tr>
@@ -46,7 +46,7 @@
                         </tr>
                     </thead>
 
-                    <tr *ngFor="let item of selectedDir.groups">
+                    <tr *ngFor="let item of selectedDir.Groups">
                         <td></td>
                         <td>{{ item.group_name }}</td>
                         <td></td>

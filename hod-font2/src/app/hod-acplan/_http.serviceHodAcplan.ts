@@ -45,132 +45,132 @@ export class acplan_HttpService {
       });
   }
 
-  getFakeAcPlan(group_id): AcPlan {
-    let data: AcPlan;
-    data =
-    {
-      blockNums: [
-        {
-          blockName: '1 blockNum',
-          subjects: [
-            {
-              subjectName: 'subject 1',
-              correspDep: null,
-              semestrNum: 1,
-              loads: [
-                {
-                  atAcPlId: 1,
-                  fshId: 1,
-                  teachName: 'some',
-                  blocRecId: 1,
-                  semNum: 1,
-                  subTypeId: 1,
-                  subTypeName: 'Lab',
-                  loadValue: 321
-                },
-                {
-                  atAcPlId: 1,
-                  fshId: 1,
-                  teachName: 'some',
-                  blocRecId: 1,
-                  semNum: 1,
-                  subTypeId: 1,
-                  subTypeName: 'Lab',
-                  loadValue: 321
-                }
-              ]
-            }, {
-              subjectName: 'subject 1',
-              correspDep: null,
-              semestrNum: 1,
-              loads: [
-                {
-                  atAcPlId: 1,
-                  fshId: 1,
-                  teachName: 'some',
-                  blocRecId: 1,
-                  semNum: 1,
-                  subTypeId: 1,
-                  subTypeName: 'Lab',
-                  loadValue: 321
-                },
-                {
-                  atAcPlId: 1,
-                  fshId: 1,
-                  teachName: 'some',
-                  blocRecId: 1,
-                  semNum: 1,
-                  subTypeId: 1,
-                  subTypeName: 'Lab',
-                  loadValue: 321
-                }
-              ]
-            },
-          ]
-        },
-        {
-          blockName: '1 blockNum',
-          subjects: [
-            {
-              subjectName: 'subject 1',
-              correspDep: null,
-              semestrNum: 1,
-              loads: [
-                {
-                  atAcPlId: 1,
-                  fshId: 1,
-                  teachName: 'some',
-                  blocRecId: 1,
-                  semNum: 1,
-                  subTypeId: 1,
-                  subTypeName: 'Lab',
-                  loadValue: 321
-                },
-                {
-                  atAcPlId: 1,
-                  fshId: 1,
-                  teachName: 'some',
-                  blocRecId: 1,
-                  semNum: 1,
-                  subTypeId: 1,
-                  subTypeName: 'Lab',
-                  loadValue: 321
-                }
-              ]
-            }, {
-              subjectName: 'subject 1',
-              correspDep: null,
-              semestrNum: 1,
-              loads: [
-                {
-                  atAcPlId: 1,
-                  fshId: 1,
-                  teachName: 'some',
-                  blocRecId: 1,
-                  semNum: 1,
-                  subTypeId: 1,
-                  subTypeName: 'Lab',
-                  loadValue: 321
-                },
-                {
-                  atAcPlId: 1,
-                  fshId: 1,
-                  teachName: 'some',
-                  blocRecId: 1,
-                  semNum: 1,
-                  subTypeId: 1,
-                  subTypeName: 'Lab',
-                  loadValue: 321
-                }
-              ]
-            },
-          ]
-        }
-      ]
-    };
+  // getFakeAcPlan(group_id): AcPlan {
+  //   let data: AcPlan;
+  //   data =
+  //   {
+  //     blockNums: [
+  //       {
+  //         blockName: '1 blockNum',
+  //         subjects: [
+  //           {
+  //             subjectName: 'subject 1',
+  //             correspDep: null,
+  //             semestrNum: 1,
+  //             loads: [
+  //               {
+  //                 atAcPlId: 1,
+  //                 fshId: 1,
+  //                 teachName: 'some',
+  //                 blocRecId: 1,
+  //                 semNum: 1,
+  //                 subTypeId: 1,
+  //                 subTypeName: 'Lab',
+  //                 loadValue: 321
+  //               },
+  //               {
+  //                 atAcPlId: 1,
+  //                 fshId: 1,
+  //                 teachName: 'some',
+  //                 blocRecId: 1,
+  //                 semNum: 1,
+  //                 subTypeId: 1,
+  //                 subTypeName: 'Lab',
+  //                 loadValue: 321
+  //               }
+  //             ]
+  //           }, {
+  //             subjectName: 'subject 1',
+  //             correspDep: null,
+  //             semestrNum: 1,
+  //             loads: [
+  //               {
+  //                 atAcPlId: 1,
+  //                 fshId: 1,
+  //                 teachName: 'some',
+  //                 blocRecId: 1,
+  //                 semNum: 1,
+  //                 subTypeId: 1,
+  //                 subTypeName: 'Lab',
+  //                 loadValue: 321
+  //               },
+  //               {
+  //                 atAcPlId: 1,
+  //                 fshId: 1,
+  //                 teachName: 'some',
+  //                 blocRecId: 1,
+  //                 semNum: 1,
+  //                 subTypeId: 1,
+  //                 subTypeName: 'Lab',
+  //                 loadValue: 321
+  //               }
+  //             ]
+  //           },
+  //         ]
+  //       },
+  //       {
+  //         blockName: '1 blockNum',
+  //         subjects: [
+  //           {
+  //             subjectName: 'subject 1',
+  //             correspDep: null,
+  //             semestrNum: 1,
+  //             loads: [
+  //               {
+  //                 atAcPlId: 1,
+  //                 fshId: 1,
+  //                 teachName: 'some',
+  //                 blocRecId: 1,
+  //                 semNum: 1,
+  //                 subTypeId: 1,
+  //                 subTypeName: 'Lab',
+  //                 loadValue: 321
+  //               },
+  //               {
+  //                 atAcPlId: 1,
+  //                 fshId: 1,
+  //                 teachName: 'some',
+  //                 blocRecId: 1,
+  //                 semNum: 1,
+  //                 subTypeId: 1,
+  //                 subTypeName: 'Lab',
+  //                 loadValue: 321
+  //               }
+  //             ]
+  //           }, {
+  //             subjectName: 'subject 1',
+  //             correspDep: null,
+  //             semestrNum: 1,
+  //             loads: [
+  //               {
+  //                 atAcPlId: 1,
+  //                 fshId: 1,
+  //                 teachName: 'some',
+  //                 blocRecId: 1,
+  //                 semNum: 1,
+  //                 subTypeId: 1,
+  //                 subTypeName: 'Lab',
+  //                 loadValue: 321
+  //               },
+  //               {
+  //                 atAcPlId: 1,
+  //                 fshId: 1,
+  //                 teachName: 'some',
+  //                 blocRecId: 1,
+  //                 semNum: 1,
+  //                 subTypeId: 1,
+  //                 subTypeName: 'Lab',
+  //                 loadValue: 321
+  //               }
+  //             ]
+  //           },
+  //         ]
+  //       }
+  //     ]
+  //   };
 
-    return data;
-  }
+  //   return data;
+  // }
 
   /////// GET REGION END ///////
 

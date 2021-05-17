@@ -7,18 +7,18 @@ namespace hod_back.Dto
 {
     public class TeacherDepDto
     {
-        public int fsh_id { get; set; }
-        public int fh_id { get; set; }
-        public int emp_id { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string middleName { get; set; }
-        public string fullName { get; set; }
+        public int Fsh_id { get; set; }
+        public int Fh_id { get; set; }
+        public int Emp_id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string MiddleName { get; set; }
+        public string FullName { get; set; }
 
-        public string workT_name { get; set; }
-        public string post_name { get; set; }
-        public int dep_id { get; set; }
-        public double staffCount { get; set; }
-        public DateTime dateBegin { get; set; }
+        public string WorkT_name { get; set; }
+        public string Post_name { get; set; }
+        public int Dep_id { get; set; }
+        public double StaffCount { get; set; }
+        public DateTime DateBegin { get; set; }
     }
 }

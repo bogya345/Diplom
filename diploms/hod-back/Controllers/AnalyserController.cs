@@ -93,7 +93,7 @@ namespace hod_back.Controllers
 
                 var tmp = new GroupAnalyserDto()
                 {
-                    group_id = group.GroupId,
+                    Group_id = group.GroupId,
                     NumberAll = numberA,
                     NumberSubmitted = numberS,
                     //NumberAll2 = numberA,
@@ -111,28 +111,28 @@ namespace hod_back.Controllers
         [HttpGet("get/fgos-requirs/{dir_id}/7-2")]
         public async Task<Requirs_7_2Dto> GetRequirs7_2([FromRoute] int dir_id, [FromRoute] string requir_num)
         {
-            if (!this.accum.StoreIt(_unit, dir_id)) { return new Requirs_7_2Dto() { message = "Не все преподаватели назначены для получения сведений." }; }
+            if (!this.accum.StoreIt(_unit, dir_id)) { return new Requirs_7_2Dto() { Message = "Не все преподаватели назначены для получения сведений." }; }
 
             Requirs_7_2Dto res = new Requirs_7_2Dto();
-            res.dir_id = dir_id;
+            res.Dir_id = dir_id;
 
             Strategy strategy = new Strategy_7_2_2();
             Requir tmp722 = strategy.Execute(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
-            res.numberAll722 = tmp722.NumberAll;
-            res.numberSubmitted722 = tmp722.NumberSuitable;
-            res.mark722 = tmp722.isDone ? "+" : "-";
+            res.NumberAll722 = tmp722.NumberAll;
+            res.NumberSubmitted722 = tmp722.NumberSuitable;
+            res.Mark722 = tmp722.isDone ? "+" : "-";
 
             strategy = new Strategy_7_2_3();
             Requir tmp723 = strategy.Execute(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
-            res.numberAll723 = tmp723.NumberAll;
-            res.numberSubmitted723 = tmp723.NumberSuitable;
-            res.mark723 = tmp723.isDone ? "+" : "-";
+            res.NumberAll723 = tmp723.NumberAll;
+            res.NumberSubmitted723 = tmp723.NumberSuitable;
+            res.Mark723 = tmp723.isDone ? "+" : "-";
 
             strategy = new Strategy_7_2_4();
             Requir tmp724 = strategy.Execute(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
-            res.numberAll724 = tmp724.NumberAll;
-            res.numberSubmitted724 = tmp724.NumberSuitable;
-            res.mark724 = tmp724.isDone ? "+" : "-";
+            res.NumberAll724 = tmp724.NumberAll;
+            res.NumberSubmitted724 = tmp724.NumberSuitable;
+            res.Mark724 = tmp724.isDone ? "+" : "-";
 
             return res;
         }

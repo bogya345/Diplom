@@ -109,7 +109,7 @@ export class HodAcplanComponent implements OnInit {
     console.log(this.direction);
     console.log(this.group);
 
-    this._httpOwn.getBlockNums(this.direction.acPl_id, this.group.group_id)
+    this._httpOwn.getBlockNums(this.direction.AcPl_id, this.group.Group_id)
       .subscribe(result => {
         this.acPlan = result
         console.log(this.acPlan);
@@ -129,15 +129,15 @@ export class HodAcplanComponent implements OnInit {
 
   openModal(direction, group, acPlan, subject, item) {
     let isUnmapped = false;
-    if (subject.correspDep == null || subject.correspDep.dep_id == null) {
+    if (subject.CorrespDep == null || subject.CorrespDep.Dep_id == null) {
       if (!confirm(`К выбранной дисциплине не привазяна кафедра, продолжить со всем перечнем преподавателей?`)) { return; }
       isUnmapped = true;
     }
     else {
       if (
-        this._user.dep_id != subject.correspDep.dep_id
+        this._user.dep_id != subject.CorrespDep.Dep_id
       ) {
-        this.snack.openSnackBarFull(`Вы не можете назначить преподавателя на '${subject.subjectName}'`, 'center', '', 3000);
+        this.snack.openSnackBarFull(`Вы не можете назначить преподавателя на '${subject.SubjectName}'`, 'center', '', 3000);
         return;
       }
     }
@@ -150,7 +150,7 @@ export class HodAcplanComponent implements OnInit {
     dialogConfig.width = "750px";
     dialogConfig.data = {
       isUnmappedSubject: isUnmapped,
-      subjectDepId: subject.correspDep.dep_id,
+      subjectDepId: subject.CorrespDep.Dep_id,
       selectedDir: direction,
       selectedGroup: group,
       selectedAcPl: acPlan,
@@ -161,7 +161,7 @@ export class HodAcplanComponent implements OnInit {
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(HodModalPromoteComponent, dialogConfig);
     modalDialog.componentInstance.isUnmappedSubject = isUnmapped;
-    modalDialog.componentInstance.subjectDepId = subject.correspDep.dep_id;
+    modalDialog.componentInstance.subjectDepId = subject.CorrespDep.Dep_id;
     modalDialog.componentInstance.selectedDir = direction;
     modalDialog.componentInstance.selectedGroup = group;
     modalDialog.componentInstance.selectedAcPl = acPlan;
@@ -171,11 +171,11 @@ export class HodAcplanComponent implements OnInit {
     modalDialog.afterClosed().subscribe(result => {
       console.log(result);
       console.log('The dialog was closed');
-      this.submittedTeacher = result;
+      // this.submittedTeacher = result;
 
-      this.selectedSubject.loads.forEach(x => {
-        x.atAcPlId == item.atAcPlId ? x.fshId = result.fsh_id : x.fshId = x.fshId;
-        x.atAcPlId == item.atAcPlId ? x.teachName = result.teacherName : x.teachName = x.teachName;
+      this.selectedSubject.Loads.forEach(x => {
+        x.AtAcPlId == item.AtAcPlId ? x.FshId = result.fsh_id : x.FshId = x.FshId;
+        x.AtAcPlId == item.AtAcPlId ? x.TeachName = result.teacherName : x.TeachName = x.TeachName;
       });
       console.log('lol, i did it');
 
@@ -233,9 +233,10 @@ export class HodAcplanComponent implements OnInit {
   }
 
   public setSelectedBlockNum(item) {
+    console.log(item);
     this.selectedBlockNum = item;
     // this.pathString = `::/${item.dir_name}`;
-    this.dataSource_subjects = new MatTableDataSource(this.selectedBlockNum.subjects);
+    this.dataSource_subjects = new MatTableDataSource(this.selectedBlockNum.Subjects);
     this.selectedIndex_plan = 2;
     console.log(item);
     console.log(this.selectedBlockNum);

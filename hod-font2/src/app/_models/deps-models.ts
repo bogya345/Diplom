@@ -6,40 +6,40 @@ export {
 }
 
 interface DepInfo {
-    dep_id: number,
-    dep_name: string,
+    Dep_id: number,
+    Dep_name: string,
     //dateCreated: Date,
     //dateEnd: Date
-    headTeach_id: number,
-    headTeach_name: number,
-    count_groups: number,
+    HeadTeach_id: number,
+    HeadTeach_name: number,
+    Count_groups: number,
 }
 
 interface DepsDto {
-    dep_id: number,
-    dep_name: string,
-    dep_shortName: string,
+    Dep_id: number,
+    Dep_name: string,
+    Dep_shortName: string,
     //dateCreated: Date,
     //dateEnd: Date
     // headTeach_id: number,
     // headTeach_name: string,
 
-    dirs: Direction[],
+    Dirs: Direction[],
     // link to order requirs?
 }
 
 interface DirRequir {
-    fgos_num: string,
-    settedValue: number,
+    Fgos_num: string,
+    SettedValue: number,
     // unit_id: number,
-    unit_name: string,
+    Unit_name: string,
 }
 
 interface Direction {
-    dir_id: number,
-    dir_name: string,
-    startYear: number,
-    acPl_id: number,
-    requirs: DirRequir[]
-    groups: Group[],
+    Dir_id: number,
+    Dir_name: string,
+    StartYear: number,
+    AcPl_id: number,
+    Requirs: DirRequir[]
+    Groups: Group[],
 }

@@ -68,7 +68,7 @@ export class HodShowDirPropertyComponent implements OnInit {
   pathExcel: any;
   downloadProperty() {
 
-    let path = this._http.get<PropertyDoc>(`${environment.hod_api_url}dirs/get/property-doc/${this.selectedDir.dir_id}`)
+    let path = this._http.get<PropertyDoc>(`${environment.hod_api_url}dirs/get/property-doc/${this.selectedDir.Dir_id}`)
       .subscribe(result => {
         // path = result;
         console.log(result);

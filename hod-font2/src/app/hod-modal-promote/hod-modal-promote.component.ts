@@ -24,10 +24,10 @@ export interface StateGroup {
   names: string[];
 }
 export const _filter = (opt: Teacher[], value: string): Teacher[] => {
-  console.log('filter', value);
+  // console.log('filter', value);
   if (value == undefined) { return opt.filter(item => true); }
   const filterValue = value.toLowerCase();
-  return opt.filter(item => item.fullName.toLowerCase().indexOf(filterValue) === 0);
+  return opt.filter(item => item.FullName.toLowerCase().indexOf(filterValue) === 0);
 };
 
 
@@ -97,7 +97,13 @@ export class HodModalPromoteComponent implements OnInit {
     }
     else {  // this.subjectDepId != null
       /// получаем всех преподавателей кафедры
-      this._http.get<GroupTeacher[]>(`${environment.hod_api_url}teachers/get/correspond/${this.subjectDepId}`)
+      this._http.get<GroupTeacher[]>(`${environment.hod_api_url}teachers/get/correspond/${this.subjectDepId}`, {
+        headers: new HttpHeaders
+          ({
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+          })
+      })
         .subscribe(result => {
           this.stateGroups = result;
           console.log(result);
@@ -118,16 +124,16 @@ export class HodModalPromoteComponent implements OnInit {
   }
 
   displayFn(shop: Teacher): string {
-    return shop.fullName;
+    return shop.FullName;
   }
 
   private _filterGroup(value: string): GroupTeacher[] {
     if (value) {
-      console.log('value is ', value);
+      console.log('value is ', value.toString());
       return this.stateGroups
         .map(group => ({
           letter: group.letter,
-          teachers: _filter(group.teachers, value)
+          teachers: _filter(group.teachers, value.toString())
         }))
         .filter(group => group.teachers.length > 0);
     }
@@ -140,23 +146,25 @@ export class HodModalPromoteComponent implements OnInit {
     console.log(selectedTeacher);
     console.log(this.selectedAttRec);
 
-    if (selectedTeacher.value.fsh_id == undefined) { alert('Отказ некорректно в сохранении, не выбран преподаватель.'); return null; }
+    if (selectedTeacher.value.Fsh_id == undefined) { alert('Отказ некорректно в сохранении, не выбран преподаватель.'); return null; }
 
     let formFake = {
-      'fsh_id': selectedTeacher.value.fsh_id,
-      'teacherName': selectedTeacher.value.fullName,
-      'attAcPlan_id': this.selectedAttRec.atAcPlId
+      'fsh_id': selectedTeacher.value.Fsh_id,
+      'teacherName': selectedTeacher.value.FullName,
+      'attAcPlan_id': this.selectedAttRec.AtAcPlId
     };
     // form.append('fsh_id', selectedTeacher.value.fsh_id);
     // form.append('attAcPlan_id', this.selectedAttRec.atAcPlId);
     console.log(formFake);
 
     this._http.post(
-      `${environment.hod_api_url}teachers/post/on/att-ac-plan/${this.selectedAttRec.atAcPlId}`,
+      `${environment.hod_api_url}teachers/post/on/att-ac-plan/${this.selectedAttRec.AtAcPlId}`,
       formFake,
       {
         headers: new HttpHeaders
           ({
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName),
             // 'Accept': '*/*',
             // 'Content-Type': 'undefined',
             // 'Content-Type': 'multipart/form-data; boundary=------WebKitFormBoundaryqy14R5oY6FqgxfWA',//charset=utf-8;

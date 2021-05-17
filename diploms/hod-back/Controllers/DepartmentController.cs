@@ -82,24 +82,24 @@ namespace hod_back.Controllers
                                         } into dep
                                         select new DepsDto()
                                         {
-                                            dep_id = dep.Key.DepId,
-                                            dep_name = dep.Key.DepName,
-                                            dirs = tmp.Where(x => x.DepId == dep.Key.DepId).Select(x => new DirectionDto()
+                                            Dep_id = dep.Key.DepId,
+                                            Dep_name = dep.Key.DepName,
+                                            Dirs = tmp.Where(x => x.DepId == dep.Key.DepId).Select(x => new DirectionDto()
                                             {
-                                                dir_id = x.DirId,
-                                                dir_name = x.EBrName,
-                                                acPl_id = x.AcPlId,
-                                                startYear = x.StartYear,
-                                                requirs = _unit.DirRequirs.GetMany(y => y.DirId == x.DirId).Select(z => new DirRequirDto()
+                                                Dir_id = x.DirId,
+                                                Dir_name = x.EBrName,
+                                                AcPl_id = x.AcPlId,
+                                                StartYear = x.StartYear,
+                                                Requirs = _unit.DirRequirs.GetMany(y => y.DirId == x.DirId).Select(z => new DirRequirDto()
                                                 {
-                                                    fgos_num = z.FgosNum,
-                                                    settedValue = z.SettedValue,
-                                                    unit_name = z.UnitName
+                                                    Fgos_num = z.FgosNum,
+                                                    SettedValue = z.SettedValue,
+                                                    Unit_name = z.UnitName
                                                 }).ToArray(),
-                                                groups = _unit.DirGroups.GetMany(y => y.DirId == x.DirId).Select(z => new GroupDto()
+                                                Groups = _unit.DirGroups.GetMany(y => y.DirId == x.DirId).Select(z => new GroupDto()
                                                 {
-                                                    group_id = z.GroupId,
-                                                    group_name = z.GroupName
+                                                    Group_id = z.GroupId,
+                                                    Group_name = z.GroupName
                                                     //group_acPlan_id = z.AcPlId
                                                 }).ToArray()
 
@@ -130,23 +130,23 @@ namespace hod_back.Controllers
                        } into dep
                        select new DepsDto()
                        {
-                           dep_id = dep.Key.DepId,
-                           dep_name = dep.Key.DepName,
-                           dirs = tmp.Where(x => x.DepId == dep.Key.DepId).Select(x => new DirectionDto()
+                           Dep_id = dep.Key.DepId,
+                           Dep_name = dep.Key.DepName,
+                           Dirs = tmp.Where(x => x.DepId == dep.Key.DepId).Select(x => new DirectionDto()
                            {
-                               dir_id = x.DirId,
-                               dir_name = x.EBrName,
-                               acPl_id = x.AcPlId,
-                               requirs = _unit.DirRequirs.GetMany(y => y.DirId == x.DirId).Select(z => new DirRequirDto()
+                               Dir_id = x.DirId,
+                               Dir_name = x.EBrName,
+                               AcPl_id = x.AcPlId,
+                               Requirs = _unit.DirRequirs.GetMany(y => y.DirId == x.DirId).Select(z => new DirRequirDto()
                                {
-                                   fgos_num = z.FgosNum,
-                                   settedValue = z.SettedValue,
-                                   unit_name = z.UnitName
+                                   Fgos_num = z.FgosNum,
+                                   SettedValue = z.SettedValue,
+                                   Unit_name = z.UnitName
                                }).ToArray(),
-                               groups = _unit.DirGroups.GetMany(y => y.DirId == x.DirId).Select(z => new GroupDto()
+                               Groups = _unit.DirGroups.GetMany(y => y.DirId == x.DirId).Select(z => new GroupDto()
                                {
-                                   group_id = z.GroupId,
-                                   group_name = z.GroupName,
+                                   Group_id = z.GroupId,
+                                   Group_name = z.GroupName,
                                    //group_acPlan_id = z.AcPlId
                                }).ToArray()
 

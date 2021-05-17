@@ -40,7 +40,7 @@ export class HodModalReloadAcPlanComponent implements OnInit {
   upload(files) {
     console.log(files);
     if (files.length === 0) return;
-    this._httpOwn.postUploadRequest(files, this.selectedDep.dep_id, this.selectedDir.dir_id)
+    this._httpOwn.postUploadRequest(files, this.selectedDep.Dep_id, this.selectedDir.Dir_id)
       .subscribe(event => {
 
         if (event.type === HttpEventType.UploadProgress)

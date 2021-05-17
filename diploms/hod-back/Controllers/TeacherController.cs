@@ -51,10 +51,10 @@ namespace hod_back.Controllers
         {
             var tmp = _unit.TeacherDeps.GetMany(x => x.DepId == dep_id);
 
-            var tmp1 = _mapper.Map<IEnumerable<TeacherDepDto>>(tmp).OrderBy(x => x.lastName);
+            var tmp1 = _mapper.Map<IEnumerable<TeacherDepDto>>(tmp).OrderBy(x => x.LastName);
 
             var groupTmp1 = from i in tmp1
-                            group i by i.lastName[0].ToString();
+                            group i by i.LastName[0].ToString();
 
             List<GroupTeacherDto> res = new List<GroupTeacherDto>();
             foreach (IGrouping<string, TeacherDepDto> g in groupTmp1)
@@ -86,8 +86,8 @@ namespace hod_back.Controllers
 
             var res = new LoadPartDto()
             {
-                fsh_id = model.fsh_id,
-                teacherName = model.teacherName
+                Fsh_id = model.fsh_id,
+                TeacherName = model.teacherName
             };
 
             return res;

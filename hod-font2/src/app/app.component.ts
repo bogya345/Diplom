@@ -41,110 +41,31 @@ export class AppComponent {
     this._http = http;
 
     this.httpOwn = new app_HttpService(http);
-    // this.depsInfo = this.httpOwn.getFakeDepsInfo();
 
-    // this.share.shareUser(this.user);
-    // this.share.doDeps(this.depsInfo);
-
-    // this.user = this.share.getUser('token');
-
-    this.httpOwn.getDepsInfo()
-      .subscribe(result => {
-        this.depsInfo = result;
-        console.log('result/constructor', result);
-      }, error => {
-        console.log('error/constructor', error);
-        // this.depsInfo = nu
-        this.depsInfo = null;
-        this.snack.openSnackBarWithMsg('Нет соединения с сервером...');
-      }
-      );
   }
 
   ngOnInit(): void {
     console.log('INIT: app');
 
-    if (true) {
-      // this.isAuth = 1;
+    console.log(sessionStorage.length);
 
-      console.log(sessionStorage.length);
+    this.isAuth = this.hod_auth();
 
-      this.isAuth = this.hod_auth();
-
-      // this.share.shareUser(this.user);
-      // this.share.doDeps(this.depsInfo);
-  
-      // this.user = this.share.getUser('token');
-
-      // alert();
-
-      // switch (sessionStorage.getItem(environment.client_kind_request)) {
-
-      //   // hod's users
-      //   case environment.hod_sessionConst.ownCookie:
-      //     {
-      //       this.isAuth = this.hod_auth();
-      //     };
-
-      //   // not autherizated
-      //   default:
-      //     {
-      //       this.isAuth = -1;
-      //     };
-
-      // }
-
-      // if (this.isAuth == -1) {
-      //   this.hod_fakeAuth();
-      // }
+    if (this.isAuth != -1) {
+      this.httpOwn.getDepsInfo()
+        .subscribe(result => {
+          this.depsInfo = result;
+          console.log('result/constructor', result);
+        }, error => {
+          console.log('error/constructor', error);
+          // this.depsInfo = nu
+          this.depsInfo = null;
+          this.snack.openSnackBarWithMsg('Нет соединения с сервером...');
+        }
+        );
     }
 
     this.share.shareUser(this.user);
-
-    //var tmp = this.authentication().then((value) => { return value; });
-
-    //console.log('FCK2:', this.authentication().then((value) => { return value; }));
-    //console.log(tmp);
-
-    //var promise = new Promise((resolve, reject) => {
-
-    //  const res = fetch('testing/getlogin', {
-    //    method: 'GET',
-    //    headers: {
-    //      'Accept': 'application/json',
-    //      'Authorization': 'Bearer ' + this.token
-    //    }
-    //  });
-
-    //  if (res) {
-    //    resolve(true); // pass values
-    //  } else {
-    //    reject(false); // pass values
-    //  }
-
-    //});
-
-    //var promise = Promise.resolve(false);
-    //console.log('PLS', promise.then((value) => { return value; }));
-    //promise.then((value) => { this.isAuth = value ? true : false; return value; });
-    //console.log('isAuth == ', this.isAuth);
-
-    //this.isAuth = this.authentication().then(value => {
-    //  console.log('inner value', value);
-    //  return value;
-    //}) ? true : false;
-
-    //this.authentication().then((value) => {
-    //  console.log('inner value:', value);
-    //  //this.isAuth = value ? true : false;
-    //  return value ? true : false;
-    //}).then(value, error);
-
-    //this.authentication().then((value) => {
-    //  console.log(value);
-    //});
-
-    //console.log(this.authentication().then(function (value) { return value; }, function (value) { console.log('error'); }));
 
   }
 

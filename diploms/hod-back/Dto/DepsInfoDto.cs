@@ -7,12 +7,12 @@ namespace hod_back.Dto
 {
     public class DepsInfoDto
     {
-        public int dep_id { get; set; }
-        public string dep_name { get; set; }
+        public int Dep_id { get; set; }
+        public string Dep_name { get; set; }
         //dateCreated: Date,
         //dateEnd: Date
-        public int headTeach_id { get; set; }
-        public string headTeach_name { get; set; }
-        public int count_groups { get; set; }
+        public int HeadTeach_id { get; set; }
+        public string HeadTeach_name { get; set; }
+        public int Count_groups { get; set; }
     }
 }

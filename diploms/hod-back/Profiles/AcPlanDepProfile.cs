@@ -23,10 +23,10 @@ namespace hod_back.Profiles
 
 
             CreateMap<AcPlanDep, DepDepDto>()
-                .ForMember(m => m.acPlDep_id, opt => opt.MapFrom(m => m.AcPlDepId))
-                .ForMember(m => m.acPlDep_name, opt => opt.MapFrom(m => m.AcPlDepName))
+                .ForMember(m => m.AcPlDep_id, opt => opt.MapFrom(m => m.AcPlDepId))
+                .ForMember(m => m.AcPlDep_name, opt => opt.MapFrom(m => m.AcPlDepName))
 
-                .ForMember(m => m.dep_id, opt => opt.MapFrom(m => m.DepId))
+                .ForMember(m => m.Dep_id, opt => opt.MapFrom(m => m.DepId))
                 //.ForMember(m => m.dep_name, opt => opt.MapFrom(m => m.Dep.DepName))
 
                 .ForAllOtherMembers(m => m.Ignore())

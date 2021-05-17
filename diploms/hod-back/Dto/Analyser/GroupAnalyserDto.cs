@@ -7,7 +7,7 @@ namespace hod_back.Dto.Analyser
 {
     public class GroupAnalyserDto
     {
-        public int group_id { get; set; }
+        public int Group_id { get; set; }
         public int NumberAll { get; set; }
         public int NumberSubmitted { get; set; }
         //public int NumberAll2 { get; set; }

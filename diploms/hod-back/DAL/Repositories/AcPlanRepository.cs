@@ -35,6 +35,18 @@ namespace hod_back.DAL.Repositories
             db.AcPlans.Update(item);
             db.SaveChanges();
         }
+        public async override void UpdateAsync(AcPlan item)
+        {
+            try
+            {
+                db.AcPlans.Update(item);
+                db.SaveChanges();
+            }
+            catch(InvalidOperationException ex)
+            {
+                Task.Delay(1000);
+            }
+        }
         public override void UpdateRange(AcPlan[] items)
         {
             db.UpdateRange(items);

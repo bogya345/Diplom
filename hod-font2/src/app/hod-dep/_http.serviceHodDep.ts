@@ -28,77 +28,77 @@ export class dep_HttpService {
       });
   }
 
-  getFaceDep(dep_id): DepsDto {
-    let dep = new DepCl();
-    dep = {
-      'dep_id': 1,
-      'dep_name': '1 dep',
-      'dep_shortName': '1 dep_short',
-      'headTeach_id': 1,
-      'headTeach_name': '1 head name',
-      'dirs': [
-        {
-          'dir_id': 1,
-          'dir_name': 'direction 1',
-          'startYear': 2020,
-          'acPl_id': null,
-          'requirs': null,
-          'groups': [
-            {
-              'group_name': 'group name 11',
-              'group_id': 11,
-              'group_acPlan_id': 1,
-            },
-            {
-              'group_name': 'group name 12',
-              'group_id': 12,
-              'group_acPlan_id': 1,
-            },
-          ],
-        },
-        {
-          'dir_id': 2,
-          'dir_name': 'direction 2',
-          'startYear': 2020,
-          'acPl_id': null,
-          'requirs': null,
-          'groups': [
-            {
-              'group_name': 'group name 21',
-              'group_id': 21,
-              'group_acPlan_id': 1,
-            },
-            {
-              'group_name': 'group name 22',
-              'group_id': 22,
-              'group_acPlan_id': 1,
-            },
-          ],
-        },
-        {
-          'dir_id': 3,
-          'dir_name': 'direction 3',
-          'startYear': 2020,
-          'acPl_id': null,
-          'requirs': null,
-          'groups': [
-            {
-              'group_name': 'group name 31',
-              'group_id': 31,
-              'group_acPlan_id': 1,
-            },
-            {
-              'group_name': 'group name 32',
-              'group_id': 32,
-              'group_acPlan_id': 1,
-            },
-          ],
-        }
-      ]
-    };
+  // getFaceDep(dep_id): DepsDto {
+  //   let dep = new DepCl();
+  //   dep = {
+  //     'dep_id': 1,
+  //     'dep_name': '1 dep',
+  //     'dep_shortName': '1 dep_short',
+  //     'headTeach_id': 1,
+  //     'headTeach_name': '1 head name',
+  //     'dirs': [
+  //       {
+  //         'dir_id': 1,
+  //         'dir_name': 'direction 1',
+  //         'startYear': 2020,
+  //         'acPl_id': null,
+  //         'requirs': null,
+  //         'groups': [
+  //           {
+  //             'group_name': 'group name 11',
+  //             'group_id': 11,
+  //             'group_acPlan_id': 1,
+  //           },
+  //           {
+  //             'group_name': 'group name 12',
+  //             'group_id': 12,
+  //             'group_acPlan_id': 1,
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         'dir_id': 2,
+  //         'dir_name': 'direction 2',
+  //         'startYear': 2020,
+  //         'acPl_id': null,
+  //         'requirs': null,
+  //         'groups': [
+  //           {
+  //             'group_name': 'group name 21',
+  //             'group_id': 21,
+  //             'group_acPlan_id': 1,
+  //           },
+  //           {
+  //             'group_name': 'group name 22',
+  //             'group_id': 22,
+  //             'group_acPlan_id': 1,
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         'dir_id': 3,
+  //         'dir_name': 'direction 3',
+  //         'startYear': 2020,
+  //         'acPl_id': null,
+  //         'requirs': null,
+  //         'groups': [
+  //           {
+  //             'group_name': 'group name 31',
+  //             'group_id': 31,
+  //             'group_acPlan_id': 1,
+  //           },
+  //           {
+  //             'group_name': 'group name 32',
+  //             'group_id': 32,
+  //             'group_acPlan_id': 1,
+  //           },
+  //         ],
+  //       }
+  //     ]
+  //   };
 
-    return dep;
-  }
+  //   return dep;
+  // }
 
   /////// GET REGION END ///////
 

@@ -73,8 +73,8 @@ export class HodPromotionComponent implements OnInit {
 
   private autoSet() {
     this.selectedDep = this.deps[0];
-    this.selectedDir = this.selectedDep.dirs[0];
-    this.selectedGroup = this.selectedDir.groups[0];
+    this.selectedDir = this.selectedDep.Dirs[0];
+    this.selectedGroup = this.selectedDir.Groups[0];
     this.selectedIndex = 3;
   }
 
@@ -110,7 +110,7 @@ export class HodPromotionComponent implements OnInit {
 
     this.snack.openSnackBarFull('Обработка учебного плана. Это может занять некоторое время...', 'right', 'bottom', 50000);
 
-    this._httpOwn.postUploadRequest(files, this.selectedDep.dep_id, item.dir_id)
+    this._httpOwn.postUploadRequest(files, this.selectedDep.Dep_id, item.Dir_id)
       .subscribe(event => {
 
         if (event.type === HttpEventType.UploadProgress)
@@ -133,7 +133,7 @@ export class HodPromotionComponent implements OnInit {
   openAcPlan(item) {
     // window.open('ms-excel:ofe|u|http://localhost:4200/assets/PlanIST16.xlsx', "_blank");
     if (!this.pathExcel) {
-      this._httpOwn.getAcPlan(item.dir_id)
+      this._httpOwn.getAcPlan(item.Dir_id)
         .subscribe(result => {
           if (result.done) {
             this.pathExcel = result.path;
@@ -152,11 +152,11 @@ export class HodPromotionComponent implements OnInit {
 
   public getPathString() {
     let path = '::/';
-    if (this.selectedDep) { path += `/${this.selectedDep.dep_name}`; }
+    if (this.selectedDep) { path += `/${this.selectedDep.Dep_name}`; }
     else { return path; }
-    if (this.selectedDir) { path += `/${this.selectedDir.dir_name}`; }
+    if (this.selectedDir) { path += `/${this.selectedDir.Dir_name}`; }
     else { return path; }
-    if (this.selectedGroup) { path += `/${this.selectedGroup.group_name}`; }
+    if (this.selectedGroup) { path += `/${this.selectedGroup.Group_name}`; }
     else { return path; }
     return path; // `::${this.selectedDep.dep_name}/${this.selectedDir.dir_name}/${this.selectedGroup.group_name}`
   }
@@ -249,7 +249,7 @@ export class HodPromotionComponent implements OnInit {
 
   public async setSelectedDirection(item) {
     this.selectedDir = item;
-    if (!this.selectedDir.groups.includes(this.selectedGroup)) {
+    if (!this.selectedDir.Groups.includes(this.selectedGroup)) {
       this.selectedGroup = null;
     }
 
@@ -257,15 +257,15 @@ export class HodPromotionComponent implements OnInit {
     // this.pathString = `::/${item.dir_name}`;
     this.selectedIndex = 2;
 
-    console.log('dir_id is ', item.dir_id);
+    console.log('dir_id is ', item.Dir_id);
 
-    this._httpOwn.getGroupsInfo(item.dir_id)
+    this._httpOwn.getGroupsInfo(item.Dir_id)
       .subscribe(result => {
         console.log(result);
         this.groupStatus = result;
       });
 
-    this._http.get<DirAnalysDto>(`${environment.hod_api_url}analyser/get/fgos-requirs/${this.selectedDir.dir_id}/7-2`,
+    this._http.get<DirAnalysDto>(`${environment.hod_api_url}analyser/get/fgos-requirs/${this.selectedDir.Dir_id}/7-2`,
       {
         headers: {
           'Accept': 'application/json',
@@ -289,7 +289,7 @@ export class HodPromotionComponent implements OnInit {
   }
   public getDirInfo() {
     if (!this.dirStatus) {
-      this._httpOwn.getDirStatus(this.selectedDir.dir_id)
+      this._httpOwn.getDirStatus(this.selectedDir.Dir_id)
         .subscribe(result => {
           console.log(result);
           this.dirStatus = result;
@@ -300,7 +300,7 @@ export class HodPromotionComponent implements OnInit {
     }
   }
   public getGroupInfo() {
-    this._httpOwn.getGroupsInfo(this.selectedDir.dir_id)
+    this._httpOwn.getGroupsInfo(this.selectedDir.Dir_id)
       .subscribe(result => {
         // console.log(result);
         this.groupStatus = result;
@@ -308,14 +308,17 @@ export class HodPromotionComponent implements OnInit {
   }
 
   public getGroupStatus(item) {
+    if(item == null){ console.log(this.selectedDir); console.log('item is null');}
     // console.log(this.groupStatus, item);
     // console.log(this.groupStatus.filter(x => { return x.group_id == item.group_id }));
     // console.log(this.groupStatus.filter(x => { return x.group_id == item.group_id })[0]);
-    let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
+    // console.log('groupStatus', this.groupStatus);
+    // console.log('item', item); console.log('x', x.Group_id);
+    let tmp = this.groupStatus.filter(x => {  return x.Group_id == item.Group_id; })[0];
 
-    if (tmp.numberAll == 0) { return 0; }
+    if (tmp.NumberAll == 0) { return 0; }
 
-    let x = (tmp.numberSubmitted * 100) / tmp.numberAll;
+    let x = (tmp.NumberSubmitted * 100) / tmp.NumberAll;
     x = Math.round((x + Number.EPSILON) * 100) / 100;
     // console.log(x);
     return x;
@@ -329,22 +332,22 @@ export class HodPromotionComponent implements OnInit {
 
   public getDirStatus722() {
     let tmp = this.dirStatus;
-    if (tmp.numberSubmitted722 == tmp.numberAll722) { return 100; }
-    let x = (tmp.numberSubmitted722 * 100) / tmp.numberAll722;
+    if (tmp.NumberSubmitted722 == tmp.NumberAll722) { return 100; }
+    let x = (tmp.NumberSubmitted722 * 100) / tmp.NumberAll722;
     x = Math.round((x + Number.EPSILON) * 100) / 100;
     return x;
   }
   public getDirStatus723() {
     let tmp = this.dirStatus;
-    if (tmp.numberSubmitted723 == tmp.numberAll723) { return 100; }
-    let x = (tmp.numberSubmitted723 * 100) / tmp.numberAll723;
+    if (tmp.NumberSubmitted723 == tmp.NumberAll723) { return 100; }
+    let x = (tmp.NumberSubmitted723 * 100) / tmp.NumberAll723;
     x = Math.round((x + Number.EPSILON) * 100) / 100;
     return x;
   }
   public getDirStatus724() {
     let tmp = this.dirStatus;
-    if (tmp.numberSubmitted724 == tmp.numberAll724) { return 100; }
-    let x = (tmp.numberSubmitted724 * 100) / tmp.numberAll724;
+    if (tmp.NumberSubmitted724 == tmp.NumberAll724) { return 100; }
+    let x = (tmp.NumberSubmitted724 * 100) / tmp.NumberAll724;
     x = Math.round((x + Number.EPSILON) * 100) / 100;
     return x;
   }
@@ -352,17 +355,17 @@ export class HodPromotionComponent implements OnInit {
   public getMark722() {
     // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
     let tmp = this.dirStatus;
-    return tmp.mark722;
+    return tmp.Mark722;
   }
   public getMark723() {
     // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
     let tmp = this.dirStatus;
-    return tmp.mark723;
+    return tmp.Mark723;
   }
   public getMark724() {
     // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
     let tmp = this.dirStatus;
-    return tmp.mark724;
+    return tmp.Mark724;
   }
 
   public setSelectedGroup(item) {
