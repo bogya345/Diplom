@@ -114,6 +114,8 @@ namespace hod_back
 
             services.AddSingleton<UnitOfWork>();
 
+            services.AddTransient<Context>();
+
             //services.AddSingleton<Context, SystemDateTime>();
 
             // services.AddResponseCaching();
