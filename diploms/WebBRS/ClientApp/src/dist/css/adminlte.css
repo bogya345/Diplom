@@ -24,7 +24,7 @@
   --white: #ffffff;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  --primary: #007bff;
+  --primary: #1b6ec2;
   --secondary: #6c757d;
   --success: #28a745;
   --info: #17a2b8;
@@ -10295,7 +10295,7 @@ body,
 }
 
 .layout-boxed .wrapper {
-  box-shadow: 0 0 10 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0rgba(0, 0, 0, 0.3) ;
 }
 
 .layout-boxed .wrapper, .layout-boxed .wrapper::before {

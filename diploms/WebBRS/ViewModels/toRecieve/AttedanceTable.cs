@@ -11,6 +11,7 @@ namespace WebBRS.ViewModels.toRecieve
 	{
 		public int IdStudent { get; set; }
 		public string PersonFIO { get; set; }
+		public double Balls { get; set; }
 		public List<string> Attedanced { get; set; } = new List<string>();
 
 	}

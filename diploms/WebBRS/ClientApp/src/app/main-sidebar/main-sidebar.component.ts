@@ -17,6 +17,6 @@ export class MainSidebarComponent implements OnInit {
     this.router.navigateByUrl('dashboard/mainpage');
   }
   redirectToProfile() {
-    this.router.navigateByUrl('dashboard/profile');
+    this.router.navigateByUrl('/dashboard/profile/1739436577');
   }
 }

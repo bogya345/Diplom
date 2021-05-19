@@ -15,5 +15,175 @@ code {
   border-color: #1861ac;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.center {
+  background-color: #ffffff;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.loader {
+  -webkit-perspective: 700px;
+  perspective: 700px;
+}
+
+  .loader > span {
+    font-size: 130px;
+    font-family: "franklin gothic medium",sans-serif;
+    display: inline-block;
+    animation: flip 2.6s infinite linear;
+    transform-origin: 0 70%;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+  }
+
+@keyframes flip {
+  35% {
+    transform: rotateX(360deg);
+  }
+
+  100% {
+    transform: rotatex(360deg);
+  }
+}
+
+
+.loader > span:nth-child(even) {
+  color: #dcdcdc;
+}
+
+.loader > span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.loader > span:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.loader > span:nth-child(4) {
+  animation-delay: 0.9s;
+}
+
+.loader > span:nth-child(5) {
+  animation-delay: 1.2s;
+}
+
+.loader > span:nth-child(6) {
+  animation-delay: 1.5s
+}
+
+.loader > span:nth-child(7) {
+  animation-delay: 1.8s
+}
+/*Лоудер 2*/
+.gooey {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 142px;
+  height: 40px;
+  margin: -20px 0 0 -71px;
+  background: #fff;
+  filter: contrast(20);
+}
+
+  .gooey .dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 12px;
+    left: 15px;
+    filter: blur(4px);
+    background: #0027a8;
+    border-radius: 50%;
+    transform: translateX(0);
+    animation: dot 2.8s infinite;
+  }
+
+  .gooey .dots {
+    transform: translateX(0);
+    margin-top: 12px;
+    margin-left: 31px;
+    animation: dots 2.8s infinite;
+  }
+
+    .gooey .dots span {
+      display: block;
+      float: left;
+      width: 16px;
+      height: 16px;
+      margin-left: 16px;
+      filter: blur(4px);
+      background: #0027a8;
+      border-radius: 50%;
+    }
+
+@-moz-keyframes dot {
+  50% {
+    transform: translateX(96px);
+  }
+}
+
+@-webkit-keyframes dot {
+  50% {
+    transform: translateX(96px);
+  }
+}
+
+@-o-keyframes dot {
+  50% {
+    transform: translateX(96px);
+  }
+}
+
+@keyframes dot {
+  50% {
+    transform: translateX(96px);
+  }
+}
+
+@-moz-keyframes dots {
+  50% {
+    transform: translateX(-31px);
+  }
+}
+
+@-webkit-keyframes dots {
+  50% {
+    transform: translateX(-31px);
+  }
+}
+
+@-o-keyframes dots {
+  50% {
+    transform: translateX(-31px);
+  }
+}
+
+@keyframes dots {
+  50% {
+    transform: translateX(-31px);
+  }
+}
+.container {
+  height: 300px;
+  width: 500px;
+  margin: auto;
+  overflow: auto;
+}
+
+

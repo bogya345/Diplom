@@ -106,19 +106,25 @@ namespace WebBRS.Controllers
 				groupAttedanceTable.IdStudent = item.IdStudent;
 				groupAttedanceTable.Attedanced = new List<string>(ecflct.ExactClasses.Count);
 				List<Attendance> attendances = new List<Attendance>(ecflct.ExactClasses.Count);
-				foreach(var i in ecflct.ExactClasses)
+				foreach (var i in ecflct.ExactClasses)
 				{
 					groupAttedanceTable.Attedanced.Add("");
 				}
-				attendances = unit.Attendances.GetAll(a => a.SGH.IdSGH == item.IdSGH ).ToList();
+				attendances = unit.Attendances.GetAll(a => a.SGH.IdSGH == item.IdSGH).ToList();
 				//int i = 0;
-				for(int i = 0; i< groupAttedanceTable.Attedanced.Count(); i++)
+				for (int i = 0; i < groupAttedanceTable.Attedanced.Count(); i++)
 				{
 					//string att = "";
+
 					foreach (var item2 in attendances)
 					{
+						
 						if (ecflct.ExactClasses[i].IdClass == item2.ExactClassIdClass)
 						{
+							if (item2.Ball != null)
+							{
+								groupAttedanceTable.Balls = (double)item2.Ball + groupAttedanceTable.Balls;
+							};
 							groupAttedanceTable.Attedanced[i] = item2.TypeAttedance.TAShortName + "	|	балл: " + item2.Ball.ToString();
 							break;
 						}
@@ -202,7 +208,7 @@ namespace WebBRS.Controllers
 					Attendance attendance = unit.Attendances.Get(at => at.IdSGH == item.IdSGH && at.ExactClassIdClass == classVM.IdClass);
 					groupAttedanceTable.AttedanceTypeSelected = attendance.TypeAttedanceIdTA;
 					List<TypeAttedance> tas = unit.TypeAttedances.GetAll().ToList();
-					foreach(var j in tas)
+					foreach (var j in tas)
 					{
 						TypeAttedanceVM typeAttedanceVM = new TypeAttedanceVM();
 						typeAttedanceVM.IdAtt = attendance.IdAtt;
@@ -246,9 +252,9 @@ namespace WebBRS.Controllers
 			{
 				List<Attendance> attendances = new List<Attendance>();
 				List<TypeAttedanceVM> attVm = new List<TypeAttedanceVM>();
-				foreach( var i in data.Students)
-				{					
-					var att = unit.Attendances.Get(a=>a.IdAtt == i.IdAttedance);
+				foreach (var i in data.Students)
+				{
+					var att = unit.Attendances.Get(a => a.IdAtt == i.IdAttedance);
 					att.TypeAttedanceIdTA = i.AttedanceTypeSelected;
 					att.Ball = i.Ball;
 					unit.Attendances.Update(att);
@@ -266,17 +272,14 @@ namespace WebBRS.Controllers
 			if (ModelState.IsValid)
 			{
 				ClassWork cw = unit.ClassWorks.Get(c => c.IdClassWork == data.IdClassWork);
-				//cw.IdWT = data.IdWT;
 				cw.MaxBall = data.MaxBall;
 				cw.TextWork = data.TextWork;
 				cw.FilePathWork = data.FilePathWork;
 				cw.DateGiven = data.DateGiven;
 				unit.ClassWorks.Update(cw);
 				unit.Save();
-
 				return Ok(data);
 			}
-
 			return BadRequest(ModelState);
 		}
 		public bool CreateAttedances(string IdECFLCT, string IdClass, int IdPerson, int IdSubject)

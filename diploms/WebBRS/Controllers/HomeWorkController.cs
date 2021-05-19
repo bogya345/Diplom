@@ -331,17 +331,34 @@ namespace WebBRS.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				ClassWork cw = unit.ClassWorks.Get(c => c.IdClassWork == data.IdClassWork);             //cw.IdWT = data.IdWT;
-				cw.MaxBall = data.MaxBall;
-				cw.TextWork = data.TextWork;
-				cw.FilePathWork = data.FilePathWork;
-				cw.DateGiven = data.DateGiven;
-				cw.IdWT = data.IdWT;
-				cw.DatePass = data.DatePass;
-				unit.ClassWorks.Update(cw);
+				ClassWork cw = new ClassWork();
+				ClassWork cw2 = unit.ClassWorks.Get(c => c.IdClass == data.IdClass);
+				if (data.IdClassWork==0&&cw2==null)
+				{
+					cw.MaxBall = data.MaxBall;
+					cw.TextWork = data.TextWork;
+					cw.FilePathWork = data.FilePathWork;
+					cw.DateGiven = data.DateGiven;
+					cw.IdWT = data.IdWT;
+					cw.IdClass = data.IdClass;
+					cw.DatePass = data.DatePass;
+					unit.ClassWorks.Create(cw);
+				}
+				else
+				{
+					cw = unit.ClassWorks.Get(c => c.IdClass == data.IdClass);             
+					cw.MaxBall = data.MaxBall;
+					cw.TextWork = data.TextWork;
+					cw.FilePathWork = data.FilePathWork;
+					cw.DateGiven = data.DateGiven;
+					cw.IdWT = data.IdWT;					
+					cw.DatePass = data.DatePass;
+					unit.ClassWorks.Update(cw);
+				}
+		
 				unit.Save();
 
-				return Ok(data);
+				return Ok(cw);
 			}
 			return BadRequest(ModelState);
 		}
@@ -350,6 +367,17 @@ namespace WebBRS.Controllers
 		public ClassWork GetClassWork(int IdClass)
 		{
 			ClassWork classWork = unit.ClassWorks.Get(cw => cw.IdClass == IdClass);
+			if (classWork == null)
+			{
+				classWork = new ClassWork();
+				classWork.IdClassWork = 0;
+				classWork.IdClass = IdClass;
+				classWork.MaxBall = 0;
+				classWork.TextWork = "";
+				classWork.IdWT = 2;
+				classWork.WorkType = unit.context.WorkTypes.Find(classWork.IdWT);
+
+			}
 			return classWork;
 		}
 		[HttpGet("GetClassWorkStudent/{IdClass}")]
@@ -358,17 +386,36 @@ namespace WebBRS.Controllers
 		{
 			ClassWork classWork = unit.ClassWorks.Get(cw => cw.IdClass == IdClass);
 			ClassWorkVM classWorkVM = new ClassWorkVM();
-			classWorkVM.FilePathWork = classWork.FilePathWork;
-			classWorkVM.IdClass = classWork.IdClass;
-			classWorkVM.MaxBall = classWork.MaxBall;
-			classWorkVM.TextWork = classWork.TextWork;
-			classWorkVM.IdClassWork = classWork.IdClassWork;
-			classWorkVM.DateGiven = classWork.DateGiven.ToString("d");
-			classWorkVM.DatePass = classWork.DatePass.ToString("d");
-			ExactClass exactClass = unit.ExactClasses.Get(ex => ex.IdClass == IdClass);
-			SubjectForGroup sfg = unit.SubjectForGroups.Get(sfg => sfg.ID_reff == exactClass.ID_reff);
-			classWorkVM.SubjectName = sfg.Subject.NameSubject;
-			classWorkVM.LecturerFIO = exactClass.PersonLecturer.PersonFIOShort();
+
+			if (classWork != null)
+			{
+				classWorkVM.FilePathWork = classWork.FilePathWork;
+				classWorkVM.IdClass = classWork.IdClass;
+				classWorkVM.MaxBall = classWork.MaxBall;
+				classWorkVM.TextWork = classWork.TextWork;
+				classWorkVM.IdClassWork = classWork.IdClassWork;
+				classWorkVM.DateGiven = classWork.DateGiven.ToString("d");
+				classWorkVM.DatePass = classWork.DatePass.ToString("d");
+				ExactClass exactClass = unit.ExactClasses.Get(ex => ex.IdClass == IdClass);
+				SubjectForGroup sfg = unit.SubjectForGroups.Get(sfg => sfg.ID_reff == exactClass.ID_reff);
+				classWorkVM.SubjectName = sfg.Subject.NameSubject;
+				classWorkVM.LecturerFIO = exactClass.PersonLecturer.PersonFIOShort();
+			}
+			else
+			{
+				classWorkVM.FilePathWork = "";
+				classWorkVM.IdClass = IdClass;
+				classWorkVM.MaxBall = 0;
+				classWorkVM.TextWork = "";
+				classWorkVM.IdClassWork =0;
+				classWorkVM.DateGiven = DateTime.Now.ToString("d");
+				classWorkVM.DatePass = DateTime.Now.ToString("d");
+				ExactClass exactClass = unit.ExactClasses.Get(ex => ex.IdClass == IdClass);
+				SubjectForGroup sfg = unit.SubjectForGroups.Get(sfg => sfg.ID_reff == exactClass.ID_reff);
+				classWorkVM.SubjectName = sfg.Subject.NameSubject;
+				classWorkVM.LecturerFIO = exactClass.PersonLecturer.PersonFIOShort();
+			}
+			
 			return classWorkVM;
 		}
 		[HttpGet("GetClassWorkStudentAnswer/{IdClass}")]

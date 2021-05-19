@@ -118,12 +118,12 @@ namespace WebBRS.Controllers
 					newExclass.IdClass = item.IdClass;
 					if (item.Auditory != null)
 					{
-						newExclass.Auditory = item.Auditory.FullNameDepart;
+						newExclass.Auditory = item.Auditory.ShortNameDepart;
 
 					}
 					else
 					{
-						newExclass.Auditory = "неназначена";
+						newExclass.Auditory = "нет";
 
 					}
 					SubjectForGroup subjectForGroup = unit.SubjectForGroups.Get(sfg => sfg.ID_reff == item.ID_reff);
@@ -318,7 +318,7 @@ namespace WebBRS.Controllers
 					newExclass.DateTime = item.DateClassStart.ToShortTimeString();
 					newExclass.DayOfWeek = item.DateClassStart.DayOfWeek.ToString();
 					newExclass.IdECFLCT = item.ID_reff;
-					newExclass.Auditory = item.Auditory.FullNameDepart;
+					newExclass.Auditory = item.Auditory.ShortNameDepart;
 					SubjectForGroup subjectForGroup = unit.SubjectForGroups.Get(sfg => sfg.ID_reff == item.ID_reff);
 					newExclass.SubjectName = subjectForGroup.Subject.NameSubject;
 					newExclass.DateTime = item.DateClassStart.TimeOfDay.ToString();

@@ -40,12 +40,18 @@ namespace WebBRS.Models
 			return LastName +"	"+ FirstName[0]+"." + PatronicName[0]+".";
 		}
 		[JsonIgnore]
-		public virtual List<Student> Students { get; set; }
+		public virtual List<Student> Students { get; set; } = new List<Student>();
 		[JsonIgnore]
 		public virtual List<Lecturer> Lecturers { get; set; }
 		[JsonIgnore]
 
 		public virtual List<SubjectForGroup> SubjectsForGroup { get; set; } = new List<SubjectForGroup>();
+		[JsonIgnore]
+
+		public virtual List<Portfolio> Portfolios { get; set; } = new List<Portfolio>();
+		[JsonIgnore]
+
+		public virtual List<Curator> Curators { get; set; } = new List<Curator>();
 
 	}
 }

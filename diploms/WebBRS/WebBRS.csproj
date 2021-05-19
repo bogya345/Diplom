@@ -1827,6 +1827,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\yes-no-modal\" />
     <Folder Include="ClientApp\src\dist\" />
     <Folder Include="ClientApp\src\Новая папка\" />
     <Folder Include="Services\Excel\" />

@@ -14,6 +14,7 @@ namespace WebBRS.DAL
 		#region Tables
 		public DbSet<Attendance> Attendances { get; set; }
 		public DbSet<DraftTimeTable> DraftTimeTable { get; set; }
+		public DbSet<Portfolio> Portfolios { get; set; }
 		public DbSet<TypeTimeTable> TypeTimeTables { get; set; }
 		public DbSet<TypeAttedance> TypeAttedances { get; set; }
 		public DbSet<TypeControl> TypeControls { get; set; }
@@ -94,7 +95,18 @@ namespace WebBRS.DAL
 			modelBuilder.Entity<Attendance>()
 			.HasOne(p => p.SGH)
 			.WithMany(t => t.Attendances);
-
+			modelBuilder.Entity<Portfolio>()
+			.HasOne(p => p.Person)
+			.WithMany(t => t.Portfolios)
+			.HasForeignKey(st => st.IdPerson);
+			modelBuilder.Entity<Portfolio>()
+			.HasOne(p => p.Curator)
+			.WithMany(t => t.Portfolios)
+			.HasForeignKey(st => st.IdCurator);
+			modelBuilder.Entity<Curator>()
+			.HasOne(p => p.Person)
+			.WithMany(t => t.Curators)
+			.HasForeignKey(st => st.PersonIdPerson);
 			//.HasForeignKey(st => st.IdSGH);	
 			//modelBuilder.Entity<Attendance>()
 			//.HasOne(p => p.ExactClass)
@@ -176,7 +188,7 @@ namespace WebBRS.DAL
 			modelBuilder.Entity<SubjectForGroup>()
 			.HasOne(p => p.Person)
 			.WithMany(t => t.SubjectsForGroup)
-			.HasForeignKey(st => st.IdPerson);	
+			.HasForeignKey(st => st.IdPerson);
 
 			//modelBuilder.Entity<SubjectForGroup>()
 			//.HasOne(p => p.Group)

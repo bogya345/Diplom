@@ -56,6 +56,7 @@ interface ExactClassForLecturerClass {
 interface Student {
   IdStudent: number,
   PersonFIO: string,
+  Balls: number,
   Attedanced: string[]
 }
 interface Lecturer {

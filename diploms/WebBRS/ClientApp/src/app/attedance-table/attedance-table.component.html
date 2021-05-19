@@ -57,12 +57,14 @@
                     <thead>
                       <tr>
                         <th>ФИО</th>
+                        <th>Сумма баллов</th>
                         <th *ngFor="let j of ecflct.ExactClasses"> <a href="/dashboard/attendance-current/{{ecflct.IdECFLCT}}/{{j.IdClass}}/{{ecflct.SelectedGroup}}" class="nav-link">{{j.DateExactClass}}</a></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let j of ecflct.Students; let n = index">
-                        <td>{{j.PersonFIO}}</td>
+                        <td >{{j.PersonFIO}}</td>
+                        <td>{{j.Balls}}</td>
                         <td *ngFor="let k of ecflct.Students[n].Attedanced"><span _ngcontent-ng-cli-universal-c0="" class="badge badge-success">{{k}}</span></td>
                       </tr>
                     </tbody>

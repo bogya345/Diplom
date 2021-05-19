@@ -103,6 +103,7 @@ export interface  ExactClassForLecturerClassTable {
 interface StudentTable {
   IdStudent: number,
   PersonFIO: string,
+Balls:number,
   Attedanced: string[]
 }
 interface Lecturer2 {
