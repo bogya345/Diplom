@@ -78,11 +78,14 @@ export class homework_HttpService {
 interface ClassWork {
   IdClassWork: number,
   IdClasss: number,
+  LecturerFIO: string,
   TextWork: string,
   SubjectName: string,
   FilePathWork: string,
   MaxBall: number,
-  DatePass: Date
+  DatePass: Date,
+  DateGiven: Date
+
 }
 interface AttedanceForWork {
   IdAtt: number,

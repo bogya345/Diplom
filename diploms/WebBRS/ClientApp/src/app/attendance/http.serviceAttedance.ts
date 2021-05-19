@@ -131,7 +131,8 @@ interface ClassWork {
   TextWork: string,
   FilePathWork: string,
   MaxBall: number,
-  DatePass: Date
+  WorkType: WorkType,
+  DatePass: Date,
   IdWT: number,
   WorkTypes: WorkType[]
 }

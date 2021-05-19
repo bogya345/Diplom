@@ -5,7 +5,7 @@ var homework_component_1 = require("./homework.component");
 describe('HomeworkComponent', function () {
     var component;
     var fixture;
-    beforeEach(testing_1.async(function () {
+    beforeEach(testing_1.waitForAsync(function () {
         testing_1.TestBed.configureTestingModule({
             declarations: [homework_component_1.HomeworkComponent]
         })

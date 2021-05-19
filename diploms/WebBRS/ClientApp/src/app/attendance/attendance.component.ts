@@ -98,14 +98,14 @@ export class AttendanceComponent implements OnInit {
     this.cw.IdWT = Number(event.target.value);
     console.log(event.target.value);
   }
-  postData(event: any) {
+  postData() {
 
     return this.http.updateAtt(this.ecflct)
       .subscribe(result => {
         console.log(result);
       });
   }
-  postDataCW(event: any) {
+  postDataCW() {
     console.log("Дз 1", this.cw);
     return this.http.updateCW(this.cw)
       .subscribe(result => {
@@ -198,6 +198,7 @@ interface ClassWork {
   MaxBall: number,
   DatePass: Date,
   IdWT: number,
+  WorkType: WorkType,
   WorkTypes: WorkType[]
 }
 interface WorkType {

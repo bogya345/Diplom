@@ -56,7 +56,7 @@ export class HomeworkComponent implements OnInit {
     //  }
     //  );
   }
-  postData(event: any) {
+  postData() {
 
     return this.http.updateHW(this.StudentAnswer)
       .subscribe(result => {
@@ -141,9 +141,11 @@ interface ClassWork {
   IdClasss: number,
   TextWork: string,
   SubjectName: string,
+  LecturerFIO: string,
   FilePathWork: string,
   MaxBall: number,
-  DatePass: Date
+  DatePass: Date,
+  DateGiven: Date
 }
 interface AttedanceForWork {
   IdAtt: number,

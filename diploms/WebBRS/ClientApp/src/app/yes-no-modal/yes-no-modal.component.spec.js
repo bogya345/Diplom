@@ -5,7 +5,7 @@ var yes_no_modal_component_1 = require("./yes-no-modal.component");
 describe('YesNoModalComponent', function () {
     var component;
     var fixture;
-    beforeEach(testing_1.async(function () {
+    beforeEach(testing_1.waitForAsync(function () {
         testing_1.TestBed.configureTestingModule({
             declarations: [yes_no_modal_component_1.YesNoModalComponent]
         })

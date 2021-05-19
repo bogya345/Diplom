@@ -22,7 +22,7 @@ import { AddHomeworkComponent } from './add-homework/add-homework.component';
 import { TimetableTeacherComponent } from './timetable-teacher/timetable-teacher.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeworkListTeacherComponent } from './homework-list-teacher/homework-list-teacher.component';
-import { YesNoModalComponent } from './yes-no-modal/yes-no-modal.component';
+//import { YesNoModalComponent } from './yes-no-modal/yes-no-modal.component';
 
 
 //const appRoutes: Routes = [
@@ -55,8 +55,8 @@ import { YesNoModalComponent } from './yes-no-modal/yes-no-modal.component';
     AttedanceTableComponent,
     AddHomeworkComponent,
     TimetableTeacherComponent,
-    HomeworkListTeacherComponent,
-    YesNoModalComponent
+    HomeworkListTeacherComponent
+    //YesNoModalComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
