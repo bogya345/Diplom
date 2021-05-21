@@ -19,7 +19,16 @@
                     body="Вы действительно хотите удалить свой аккаунт?"
                     title="Предупреждение"
                     type="danger"></app-yes-no-modal>-->
-  <!-- Main content -->
+  <!--<app-confirm-dialog></app-confirm-dialog>-->
+  <!--Main content-->
+  <!-- <button class="btn btn-primary pull-right" (click)="showDialog()">Show Dialog</button>-->
+  <!--<button mat-button (click)="openAlertDialog()">Open Alert Dialog</button>-->
+  <p>
+
+  </p>
+  <p>
+    <!--<button mat-button (click)="openAlertDialog()">Open Alert Dialog</button>-->
+  </p>
   <section class="content">
     <div class="container-fluid">
       <div class="row">
@@ -34,23 +43,22 @@
                      alt="User profile picture">
               </div>
 
-              <h3 class="profile-username text-center">Сычев Семен</h3>
+              <h3 class="profile-username text-center">{{profile.PersonFIO}}</h3>
 
-              <p class="text-muted text-center">ИСТ-17о-Б</p>
+              <p class="text-muted text-center">{{profile.Group}}</p>
 
               <ul class="list-group list-group-unbordered mb-3">
                 <li class="list-group-item">
-                  <b>Кол-во пропусков за семестр</b> <a class="float-right">10</a>
+                  <b>Кол-во пропусков за семестр</b> <a class="float-right">{{profile.NopeAttedance}}</a>
                 </li>
                 <li class="list-group-item">
-                  <b>% посещаемости</b> <a class="float-right">87</a>
+                  <b>% пропусков </b> <a class="float-right">{{profile.NopeAttedanceProc}}</a>
                 </li>
                 <li class="list-group-item">
                   <b>Friends</b> <a class="float-right">13,287</a>
                 </li>
               </ul>
-
-              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                <a href="/dashboard/timetable" class="btn btn-primary btn-block"><b>Расписание</b></a>
             </div>
             <!-- /.card-body -->
           </div>
@@ -116,16 +124,20 @@
                         <a href="#">
                           {{i.PersonFIOconfirmed}}
                         </a>
-                        <a href="#" class="float-right btn-tool"><i class="fas fa-times" (click)="delete()"></i></a>
+                    
+
+                        <button type="button" class="btn btn-primary" value="{{i.IdPortfolio}}" (click)="openDialog($event)">    X </button>
+                        
+                        <!--<a class="float-right btn-tool"></a>-->
                       </span>
                       <span class="description">Активность добавлена - {{i.DateAdded}}</span>
                     </div>
-                    <!-- /.user-block -->
+                    <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
                     <p>
                       {{i.Description}}
                     </p>
 
-
+                    <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
 
                   </div>
                   <!-- /.post -->
@@ -152,7 +164,7 @@
 
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-danger" (click)="postData()">Добавить</button>
+                        <button type="submit" class="btn btn-danger"(click)="openDialog2()">Добавить</button>
                       </div>
                     </div>
                   </form>

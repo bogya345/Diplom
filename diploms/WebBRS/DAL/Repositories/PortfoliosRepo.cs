@@ -68,7 +68,7 @@ namespace WebBRS.DAL.Repositories
 
         public override void Update(Portfolio item)
         {
-            throw new NotImplementedException();
+            db.Portfolios.Update(item);
         }
     }
 }

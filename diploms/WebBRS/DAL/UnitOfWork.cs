@@ -30,6 +30,7 @@ namespace WebBRS.DAL
 		#region Tables Reposes
 
 		private PersonsRepo personsRepository;
+		private CuratorsRepo curatorsRepository;
 		private PortfoliosRepo portfoliosRepo;
 		private ClassWorksRepo classWorksRepo;
 		private CoursesRepo coursesRepo;
@@ -37,6 +38,7 @@ namespace WebBRS.DAL
 		private DraftTypesRepo draftTypesRepo;
 		private DraftTimeTableRepo draftTimeTableRepo;
 		private AttendancesRepo attendanceRepository;
+		private AttedanceReasonRepo attedanceReasonRepo;
 		private TypeAttedancesRepo typeAttedancesRepo;
 		private GroupsRepo groupsRepo;
 		private ExactClassesRepo exactClassRepo;
@@ -97,6 +99,15 @@ namespace WebBRS.DAL
 				if (portfoliosRepo == null)
 					portfoliosRepo = new PortfoliosRepo(context);
 				return portfoliosRepo;
+			}
+		}	
+		public AttedanceReasonRepo AttedanceReasons
+		{
+			get
+			{
+				if (attedanceReasonRepo == null)
+					attedanceReasonRepo = new AttedanceReasonRepo(context);
+				return attedanceReasonRepo;
 			}
 		}
 		public AuthUsersRepo AuthUsers
@@ -278,6 +289,15 @@ namespace WebBRS.DAL
 				if (typeAttedancesRepo == null)
 					typeAttedancesRepo = new TypeAttedancesRepo(context);
 				return typeAttedancesRepo;
+			}
+		}
+		public CuratorsRepo Curators
+		{
+			get
+			{
+				if (curatorsRepository == null)
+					curatorsRepository = new CuratorsRepo(context);
+				return curatorsRepository;
 			}
 		}
 		#endregion

@@ -4,6 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmationDialog } from './dialog-body/confirmation-dialog.component';
+import { AlertDialogComponent } from './dialog-body/alert-dialog/alert-dialog.component';
+import { VERSION, MatDialogRef,   MatDialog, MatSnackBar,  MAT_DIALOG_DATA, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
 
 import { AppComponent } from './app.component';
 
@@ -22,7 +26,10 @@ import { AddHomeworkComponent } from './add-homework/add-homework.component';
 import { TimetableTeacherComponent } from './timetable-teacher/timetable-teacher.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeworkListTeacherComponent } from './homework-list-teacher/homework-list-teacher.component';
-//import { YesNoModalComponent } from './yes-no-modal/yes-no-modal.component';
+import { CuratorConfirmedComponent } from './curator-confirmed/curator-confirmed.component';
+import { CuratorConfirmedListComponent } from './curator-confirmed-list/curator-confirmed-list.component';
+////import { ConfirmDialogComponent } from './yes-no-modal/confirm-dialog.component';
+//import { DialogBodyComponent } from './dialog-body/dialog-body.component';
 
 
 //const appRoutes: Routes = [
@@ -41,6 +48,8 @@ import { HomeworkListTeacherComponent } from './homework-list-teacher/homework-l
 @NgModule({
   declarations: [
     AppComponent,
+    ConfirmationDialog,
+    AlertDialogComponent,
 
     MainSidebarComponent,
     ProfileComponent,
@@ -55,12 +64,17 @@ import { HomeworkListTeacherComponent } from './homework-list-teacher/homework-l
     AttedanceTableComponent,
     AddHomeworkComponent,
     TimetableTeacherComponent,
-    HomeworkListTeacherComponent
-    //YesNoModalComponent
+    HomeworkListTeacherComponent,
+    CuratorConfirmedComponent,
+    CuratorConfirmedListComponent
+    //ConfirmDialogComponent,
+    //DialogBodyComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    [MatDialogModule],
+
     FormsModule,
     RouterModule.forRoot([
       //{ path: '', component: HomeComponent, pathMatch: 'full' },
@@ -71,6 +85,8 @@ import { HomeworkListTeacherComponent } from './homework-list-teacher/homework-l
         path: 'dashboard', component: MainSidebarComponent,
         children: [
           { path: 'profile/:IdPerson', component: ProfileComponent },
+          { path: 'curator/:IdPortfolio', component: CuratorConfirmedComponent },
+          { path: 'curatorPortfolioList', component: CuratorConfirmedListComponent },
           { path: 'mainpage', component: MainPageComponent },
           { path: 'attendance-current/:IdECFLCT/:IdClass/:IdselectedGroup', component: AttendanceComponent },
           {
@@ -104,7 +120,15 @@ import { HomeworkListTeacherComponent } from './homework-list-teacher/homework-l
     BrowserAnimationsModule
 
   ],
-  providers: [],
+  entryComponents: [ConfirmationDialog, AlertDialogComponent],
+  providers: [
+    MatDialog,
+    MatSnackBar,
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'fill' }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

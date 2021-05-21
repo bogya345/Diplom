@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace WebBRS.Models
@@ -22,6 +23,11 @@ namespace WebBRS.Models
 		public DateTime DateTimeStart { get; set; }
 		public DateTime DateTimeEnd { get; set; }
 		public bool Actual { get; set; }
+		[JsonIgnore]
 		public virtual List<Portfolio> Portfolios { get; set; } = new List<Portfolio>();
+		[JsonIgnore]
+
+		public virtual List<AttedanceReason> AttedanceReasons { get; set; } = new List<AttedanceReason>();
+
 	}
 }

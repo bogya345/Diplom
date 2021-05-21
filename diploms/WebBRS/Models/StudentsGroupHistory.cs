@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace WebBRS.Models
@@ -39,6 +40,8 @@ namespace WebBRS.Models
 		[ForeignKey("GroupIdGroup")]
 		public Group? Group { get; set; }
 		public virtual List<Attendance> Attendances { get; set; } = new List<Attendance>();
+		[JsonIgnore]
 
+		public virtual List<AttedanceReason> AttedanceReasons { get; set; } = new List<AttedanceReason>();
 	}
 }

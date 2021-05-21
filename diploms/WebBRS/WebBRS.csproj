@@ -52,6 +52,9 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\attedance-table\http.serviceAttedanceTable.ts" />
     <None Remove="ClientApp\src\app\attendance\http.serviceAttedance.ts" />
+    <None Remove="ClientApp\src\app\curator-confirmed-list\http.curatorConfirmedList.ts" />
+    <None Remove="ClientApp\src\app\curator-confirmed\http.curatorConfirmed.ts" />
+    <None Remove="ClientApp\src\app\dialog-body\alert-dialog\alert-dialog.component.ts" />
     <None Remove="ClientApp\src\app\homeworks\http.serviceHomeworks.ts" />
     <None Remove="ClientApp\src\app\homework\http.serviceHomework.ts" />
     <None Remove="ClientApp\src\app\person-list\http.servicePersonList.ts" />
@@ -59,6 +62,8 @@
     <None Remove="ClientApp\src\app\timetable-part\http.timetable-part.ts" />
     <None Remove="ClientApp\src\app\timetable-teacher\http.serviceTimeTableTeacher.ts" />
     <None Remove="ClientApp\src\app\timetable\http.serviceTimeTable.ts" />
+    <None Remove="ClientApp\src\app\yes-no-modal\confirm-dialog.module.ts" />
+    <None Remove="ClientApp\src\app\yes-no-modal\confirm-dialog.service.ts" />
     <None Remove="ClientApp\src\app\_models\role.ts" />
     <None Remove="ClientApp\src\app\_models\user.ts" />
     <None Remove="ClientApp\src\app\_services\authentication.ts" />
@@ -1827,7 +1832,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\yes-no-modal\" />
     <Folder Include="ClientApp\src\dist\" />
     <Folder Include="ClientApp\src\Новая папка\" />
     <Folder Include="Services\Excel\" />

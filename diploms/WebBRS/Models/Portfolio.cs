@@ -24,6 +24,7 @@ namespace WebBRS.Models
 		public string FilePath { get; set; }
 		public DateTime DateAdded { get; set; }
 		public DateTime? DateConfirmed { get; set; }
+		public DateTime? DateNotConfirmed { get; set; }
 		public bool Confirmed { get; set; }
 		//public File File { get; set; }
 	}

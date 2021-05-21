@@ -19,10 +19,23 @@ export class profile_HttpService {
         //}
       });
   }
-  execute(portfolioId: number) {
-    console.log('нажали ', portfolioId);
+  getProfile(): Observable<ProfileVM> {
+    return this.http.get<ProfileVM>(`prortfolio/GetPortfile`,
+      {
+        //headers: {
+        //  'Accept': 'application/json',
+        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
+        //}
+      });
+  }
+
+  execute(IdPortfolio: number) {
+    console.log('нажали ', IdPortfolio);
+    //let dataToSend = { data: { 'IdPortfolio': IdPortfolio } }; 
+    //console.log('нажали 2222', this.http.post(this.url + '/DeletePortfolio', IdPortfolio, { observe: 'response' }));
     //const body = { name: user.name, age: user.age };
-    return this.http.post(this.url + '/DeletePortfolio', portfolioId, { observe: 'response' });
+    //return this.http.post(this.url + '/DeletePortfolio', dataToSend, { observe: 'response' });
+    return this.http.delete(this.url + '/' + IdPortfolio);
   }
   getPortfolios(): Observable<PortfolioVM[]> {
     return this.http.get<PortfolioVM[]>(`prortfolio/GetPortfolios`,
@@ -33,15 +46,28 @@ export class profile_HttpService {
         //}
       });
   }
+  getAttedanceReason(): Observable<AttedanceReason[]> {
+    return this.http.get<AttedanceReason[]>(`prortfolio/GetAttedanceReason`,
+      {
+        //headers: {
+        //  'Accept': 'application/json',
+        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
+        //}
+      });
+  }
   postData(portfolioAdd: PortfolioVM) {
     console.log('нажали ', portfolioAdd);
     //const body = { name: user.name, age: user.age };
-    return this.http.post(this.url +'/UpdatePortfolioWork', portfolioAdd, { observe: 'response' });
+    return this.http.post(this.url + '/UpdatePortfolioWork', portfolioAdd, { observe: 'response' });
   }
 }
 interface ProfileVM {
   IdPerson: number,
   PersonFIO: string,
+  NopeAttedanceConfirmed: number,
+  NopeAttedanceProc: number,
+  Group: string,
+  NopeAttedance: number,
   Portfolios: PortfolioVM[];
 }
 interface PortfolioVM {
@@ -55,4 +81,19 @@ interface PortfolioVM {
   DateConfirmed: string,
   Confirmed: string
 
+}
+interface AttedanceReason {
+
+  IdAttReas: number,
+  DocName: string,
+  IdPerson: number,
+  IdSGH: number,
+  IdCurator: number,
+  PersonFIO: string,
+  CuratorFIO: string,
+  FilePath: string,
+  DateTimeStart: string,
+  DateAdded: string,
+  DateConfirmed: string,
+  DateNotConfirmed: string
 }

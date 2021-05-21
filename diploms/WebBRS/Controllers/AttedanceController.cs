@@ -95,7 +95,7 @@ namespace WebBRS.Controllers
 			List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
 				.GetAll(sgh => sgh.GroupIdGroup == ecflct.SelectedGroup && sgh.CourseIdCourse == sfgReact.IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
 			var studentsSorted = from student in studentsGroupHistories
-								 orderby student.DateSGHFinished
+								 orderby student.DateSGHStart
 								 select student;
 			List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
 			foreach (var item in studentsSortedList)
@@ -183,7 +183,7 @@ namespace WebBRS.Controllers
 				List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
 				.GetAll(sgh => sgh.GroupIdGroup == classVM.SelectedGroup && sgh.CourseIdCourse == sfgReact.IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
 				var studentsSorted = from student in studentsGroupHistories
-									 orderby student.DateSGHFinished
+									 orderby student.DateSGHStart
 									 select student;
 				List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
 

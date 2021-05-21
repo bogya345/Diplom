@@ -14,13 +14,32 @@ var profile_HttpService = /** @class */ (function () {
         //}
         });
     };
-    profile_HttpService.prototype.execute = function (portfolioId) {
-        console.log('нажали ', portfolioId);
+    profile_HttpService.prototype.getProfile = function () {
+        return this.http.get("prortfolio/GetPortfile", {
+        //headers: {
+        //  'Accept': 'application/json',
+        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
+        //}
+        });
+    };
+    profile_HttpService.prototype.execute = function (IdPortfolio) {
+        console.log('нажали ', IdPortfolio);
+        //let dataToSend = { data: { 'IdPortfolio': IdPortfolio } }; 
+        //console.log('нажали 2222', this.http.post(this.url + '/DeletePortfolio', IdPortfolio, { observe: 'response' }));
         //const body = { name: user.name, age: user.age };
-        return this.http.post(this.url + '/DeletePortfolio', portfolioId, { observe: 'response' });
+        //return this.http.post(this.url + '/DeletePortfolio', dataToSend, { observe: 'response' });
+        return this.http.delete(this.url + '/' + IdPortfolio);
     };
     profile_HttpService.prototype.getPortfolios = function () {
         return this.http.get("prortfolio/GetPortfolios", {
+        //headers: {
+        //  'Accept': 'application/json',
+        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
+        //}
+        });
+    };
+    profile_HttpService.prototype.getAttedanceReason = function () {
+        return this.http.get("prortfolio/GetAttedanceReason", {
         //headers: {
         //  'Accept': 'application/json',
         //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)

@@ -13,6 +13,7 @@ namespace WebBRS.DAL
 	{
 		#region Tables
 		public DbSet<Attendance> Attendances { get; set; }
+		public DbSet<AttedanceReason> AttedanceReasons { get; set; }
 		public DbSet<DraftTimeTable> DraftTimeTable { get; set; }
 		public DbSet<Portfolio> Portfolios { get; set; }
 		public DbSet<TypeTimeTable> TypeTimeTables { get; set; }
@@ -92,6 +93,18 @@ namespace WebBRS.DAL
 				.HasOne(p => p.Person)
 				.WithMany(t => t.Students)
 				.HasForeignKey(st => st.IdPerson);
+			modelBuilder.Entity<AttedanceReason>()
+				.HasOne(p => p.Person)
+				.WithMany(t => t.AttedanceReasons)
+				.HasForeignKey(st => st.IdPerson);
+			modelBuilder.Entity<AttedanceReason>()
+				.HasOne(p => p.Curator)
+				.WithMany(t => t.AttedanceReasons)
+				.HasForeignKey(st => st.IdCurator);
+			modelBuilder.Entity<AttedanceReason>()
+				.HasOne(p => p.SGH)
+				.WithMany(t => t.AttedanceReasons)
+				.HasForeignKey(st => st.IdSGH);
 			modelBuilder.Entity<Attendance>()
 			.HasOne(p => p.SGH)
 			.WithMany(t => t.Attendances);

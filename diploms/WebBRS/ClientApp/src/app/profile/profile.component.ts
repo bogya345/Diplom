@@ -1,29 +1,47 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { YesNoModalComponent } from '../yes-no-modal/yes-no-modal.component';
-
+//import { ConfirmDialogService } from '../dialog-body/confirm-dialog.service';
+import { ConfirmationDialog } from '../dialog-body/confirmation-dialog.component';
+import { AlertDialogComponent } from '../dialog-body/alert-dialog/alert-dialog.component';
 import { profile_HttpService } from './http.serviceProfile';
 import { HttpClient, HttpRequest, HttpResponse, HttpEventType } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { VERSION, MatDialogRef, MatDialog, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  version = VERSION;
+
   public http: profile_HttpService;
   public baseUrl: string;
   public portfolioAdd: PortfolioVM;
+  public profile: ProfileVM;
   public portfolios: PortfolioVM[];
-  @ViewChild('deleteModal', { static: false }) public deleteModal: YesNoModalComponent;
-  constructor(http: HttpClient, private router: Router, private _route: ActivatedRoute, @Inject('BASE_URL') baseUrl: string) {
+  public attedanceReasons: AttedanceReason[];
+  //@ViewChild('deleteModal', { static: false }) public deleteModal: YesNoModalComponent;
+  public dialog: MatDialog;
+  public snackBar: MatSnackBar;
+  public idPortfolioDelete: 0;
+  //private confirmDialogService: ConfirmDialogService;
+
+  constructor(http: HttpClient, private router: Router, private _route: ActivatedRoute, private dialog2: MatDialog, private snackBar2: MatSnackBar) {
     this.http = new profile_HttpService(http);
-    this.baseUrl = baseUrl;
+    //this.baseUrl = baseUrl; , private snackBar: MatSnackBar
+    this.dialog = dialog2;
+    this.snackBar = snackBar2;
+
   }
+
   selectChangeHandler4(event: any) {
 
     this.portfolioAdd.Name = event.target.value;
     console.log(event.target.value);
   }
+
   doTextareaValueChange(ev) {
     try {
       this.portfolioAdd.Description = ev.target.value;
@@ -32,12 +50,115 @@ export class ProfileComponent implements OnInit {
       console.info('could not set textarea-value');
     }
   }
-  delete(data) {
-    this.deleteModal.showAsync(data).then(result => {
-      this.http.execute(result);
+  openDialog(event: any) {
+    console.log('event: ', event);
+    this.idPortfolioDelete = event.target.value;
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        message: 'Вы хотите удалить активность',
+        buttonText: {
+          ok: 'Да',
+          cancel: 'Нет'
+        }
+      }
+    });
+    //const snack = this.snackBar.open('Snack bar open before dialog');
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        //snack.dismiss();
+        //const a = document.createElement('a');
+        //a.click();
+        //a.remove();
+        //snack.dismiss();
+
+        this.http.execute(this.idPortfolioDelete)
+          .subscribe(result => {
+            console.log(result);
+            this.http.getPortfolios()
+              .subscribe(result => {
+                this.portfolios = result;
+
+                console.log('portfolios', this.portfolios);
+                console.log('result/constructor', result);
+
+              }, error => {
+                console.log('error/constructor', error);
+              }
+              );
+          });
+       
+        //this.snackBar.open('Удаляется', 'Fechar', {
+        //  duration: 2000,
+        //});
+      }
     });
   }
-  postData(event: any) {
+  openAlertDialog() {
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      data: {
+        message: 'HelloWorld',
+        buttonText: {
+          cancel: 'Done'
+        }
+      },
+    });
+  }
+  openDialog2(event: any) {
+    console.log('event: ', event);
+    //this.idPortfolioDelete = event.target.value;
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        message: 'Вы хотите добавить активность',
+        buttonText: {
+          ok: 'Да',
+          cancel: 'Нет'
+        }
+      }
+    });
+    //const snack = this.snackBar.open('Snack bar open before dialog');
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        //snack.dismiss();
+        //const a = document.createElement('a');
+        //a.click();
+        //a.remove();
+        //snack.dismiss();
+
+        this.postData();
+        this.http.getPortfolios()
+          .subscribe(result => {
+            this.portfolios = result;
+
+            console.log('portfolios', this.portfolios);
+            console.log('result/constructor', result);
+
+          }, error => {
+            console.log('error/constructor', error);
+          }
+          );
+        //this.snackBar.open('Удаляется', 'Fechar', {
+        //  duration: 2000,
+        //});
+      }
+    });
+  }
+  //showDialog() {
+  //  this.confirmDialogService.confirmThis("Are you sure to delete?", function () {
+  //    alert("Yes clicked");
+  //    //this.idPortfolioDelete = event.target.value;
+  //    //this.http.execute(this.idPortfolioDelete);
+  //  }, function () {
+  //    alert("No clicked");
+  //  })
+  //}  
+  //delete(data) {
+  //  this.deleteModal.showAsync(data).then(result => {
+  //   
+  //  });
+  //}
+  postData() {
 
     return this.http.postData(this.portfolioAdd)
       .subscribe(result => {
@@ -48,20 +169,41 @@ export class ProfileComponent implements OnInit {
     this.http.getPortfolio(0)
       .subscribe(result => {
         this.portfolioAdd = result;
-       
+
         console.log('keks', this.portfolioAdd = result);
         console.log('result/constructor', result);
 
       }, error => {
         console.log('error/constructor', error);
       }
-    );
+      );
     this.http.getPortfolios()
       .subscribe(result => {
         this.portfolios = result;
-       
+
         console.log('portfolios', this.portfolios);
         console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+    );
+    this.http.getAttedanceReason()
+      .subscribe(result => {
+        this.attedanceReasons = result;
+
+        console.log('portfolios', this.attedanceReasons);
+        console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+    );
+    this.http.getProfile()
+      .subscribe(result => {
+        this.profile = result;
+        console.log('portfolios', this.profile);
+        //console.log('result/constructor', result);
 
       }, error => {
         console.log('error/constructor', error);
@@ -73,6 +215,10 @@ export class ProfileComponent implements OnInit {
 interface ProfileVM {
   IdPerson: number,
   PersonFIO: string,
+  NopeAttedanceConfirmed: number,
+  NopeAttedanceProc: number,
+  NopeAttedance: number,
+  Group: string,
   Portfolios: PortfolioVM[];
 }
 interface PortfolioVM {
@@ -86,4 +232,19 @@ interface PortfolioVM {
   DateConfirmed: string,
   Confirmed: string
 
+}
+interface AttedanceReason {
+
+  IdAttReas: number,
+  DocName: string,
+  IdPerson: number,
+  IdSGH: number,
+  IdCurator: number,
+  PersonFIO: string,
+  CuratorFIO: string,
+  FilePath: string,
+  DateTimeStart: string,
+  DateAdded: string,
+  DateConfirmed: string,
+  DateNotConfirmed: string
 }

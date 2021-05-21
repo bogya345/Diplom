@@ -5,7 +5,7 @@ var profile_component_1 = require("./profile.component");
 describe('ProfileComponent', function () {
     var component;
     var fixture;
-    beforeEach(testing_1.waitForAsync(function () {
+    beforeEach(testing_1.async(function () {
         testing_1.TestBed.configureTestingModule({
             declarations: [profile_component_1.ProfileComponent]
         })

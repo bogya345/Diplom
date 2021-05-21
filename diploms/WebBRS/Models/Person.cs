@@ -48,7 +48,10 @@ namespace WebBRS.Models
 		public virtual List<SubjectForGroup> SubjectsForGroup { get; set; } = new List<SubjectForGroup>();
 		[JsonIgnore]
 
-		public virtual List<Portfolio> Portfolios { get; set; } = new List<Portfolio>();
+		public virtual List<Portfolio> Portfolios { get; set; } = new List<Portfolio>();	
+		[JsonIgnore]
+
+		public virtual List<AttedanceReason> AttedanceReasons { get; set; } = new List<AttedanceReason>();
 		[JsonIgnore]
 
 		public virtual List<Curator> Curators { get; set; } = new List<Curator>();

@@ -49,7 +49,7 @@ namespace WebBRS.Controllers
 			List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
 				.GetAll(sgh => sgh.IdStudent == student.IdStudent && sgh.CourseIdCourse.ToString() == IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
 			var studentsSorted = from s in studentsGroupHistories
-								 orderby s.DateSGHFinished
+								 orderby s.DateSGHStart
 								 select s;
 			List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
 			StudentsGroupHistory sgh = studentsSortedList[0];

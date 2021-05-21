@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.renderModuleFactory = exports.renderModule = exports.getBaseUrl = void 0;
+exports.getBaseUrl = void 0;
 var core_1 = require("@angular/core");
 var platform_browser_dynamic_1 = require("@angular/platform-browser-dynamic");
 var app_module_1 = require("./app/app.module");
@@ -17,7 +17,4 @@ if (environment_1.environment.production) {
 }
 platform_browser_dynamic_1.platformBrowserDynamic(providers).bootstrapModule(app_module_1.AppModule)
     .catch(function (err) { return console.log(err); });
-var platform_server_1 = require("@angular/platform-server");
-Object.defineProperty(exports, "renderModule", { enumerable: true, get: function () { return platform_server_1.renderModule; } });
-Object.defineProperty(exports, "renderModuleFactory", { enumerable: true, get: function () { return platform_server_1.renderModuleFactory; } });
 //# sourceMappingURL=main.js.map

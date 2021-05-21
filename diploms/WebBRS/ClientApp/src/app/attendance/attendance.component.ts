@@ -1,5 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { VERSION, MatDialogRef, MatDialog, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 
+import { ConfirmationDialog } from '../dialog-body/confirmation-dialog.component';
+import { AlertDialogComponent } from '../dialog-body/alert-dialog/alert-dialog.component';
 import { attedance_HttpService } from './http.serviceAttedance';
 import { HttpClient, HttpRequest, HttpResponse, HttpEventType } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,6 +19,8 @@ export class AttendanceComponent implements OnInit {
   public selectedGroup: GroupVM;
   public now: Date;
   public ta: string;
+  public dialog: MatDialog;
+  public snackBar: MatSnackBar;
   public cw: ClassWork;
   selectChangeHandler(event: any) {
     //update the ui
@@ -120,10 +125,73 @@ export class AttendanceComponent implements OnInit {
       console.info('could not set textarea-value');
     }
   }
-  constructor(http: HttpClient, private router: Router, private _route: ActivatedRoute, @Inject('BASE_URL') baseUrl: string) {
+  constructor(http: HttpClient, private router: Router, private _route: ActivatedRoute, @Inject('BASE_URL') baseUrl: string, private dialog2: MatDialog, private snackBar2: MatSnackBar) {
     this.http = new attedance_HttpService(http);
     this.baseUrl = baseUrl;
+    this.dialog = dialog2;
+    this.snackBar = snackBar2;
     this.selectedGroup = { idGroup: null, GroupName: '' }
+  }
+  openDialog(event: any) {
+    console.log('event: ', event);
+    //this.idPortfolioDelete = event.target.value;
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        message: 'Вы хотите обновить посещаемость?',
+        buttonText: {
+          ok: 'Да',
+          cancel: 'Нет'
+        }
+      }
+    });
+    //const snack = this.snackBar.open('Snack bar open before dialog');
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        //snack.dismiss();
+        //const a = document.createElement('a');
+        //a.click();
+        //a.remove();
+        //snack.dismiss();
+
+        this.postData();
+      
+        //this.snackBar.open('Удаляется', 'Fechar', {
+        //  duration: 2000,
+        //});
+      }
+    });
+  }
+
+  openDialog2(event: any) {
+    console.log('event: ', event);
+    //this.idPortfolioDelete = event.target.value;
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        message: 'Вы хотите выдать задание?',
+        buttonText: {
+          ok: 'Да',
+          cancel: 'Нет'
+        }
+      }
+    });
+    //const snack = this.snackBar.open('Snack bar open before dialog');
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        //snack.dismiss();
+        //const a = document.createElement('a');
+        //a.click();
+        //a.remove();
+        //snack.dismiss();
+
+        this.postDataCW();
+
+        //this.snackBar.open('Удаляется', 'Fechar', {
+        //  duration: 2000,
+        //});
+      }
+    });
   }
   ngOnInit() {
     let IdClass = this._route.snapshot.paramMap.get('IdClass');
