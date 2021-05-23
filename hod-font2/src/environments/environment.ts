@@ -9,21 +9,28 @@ export const environment = {
   client_kind_request: 'diplom_client_kind',
 
 // bogya
-  hod_api_url: "https://localhost:44316/",
+  // hod_api_url: "https://localhost:44316/",
+  hod_api_url: "https://localhost:5001/",
 
   hod_sessionConst: {
     username: 'hod_username',
-    role: 'hod_rolename',
-    department: 'hod_department',
+    access_role_id: 'hod_roleid',
+    access_role: 'hod_rolename',
+    dep: 'hod_department',
+    dep_id: 'hod_departmentid',
     accessTokenName: 'hod_accessToken',
     date: 'hod_dateExpired',
     ownCookie: 'hodpart'
   },
   
   hod_auth: {
-    // втисит
-    email: 't1@ugtu.net',
-    pass: 'password1',
+    // втисит 
+    // email: 't1@ugtu.net', 
+    // pass: 'password1',
+    // email: 'dorogobeda@ugtu.net', 
+    // pass: 'password',
+    email: 'pelmegovr@ugtu.net', 
+    pass: 'password',
   }
 
 };

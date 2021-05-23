@@ -8,6 +8,7 @@ export {
 interface DepInfo {
     Dep_id: number,
     Dep_name: string,
+    Dep_shortName: string,
     //dateCreated: Date,
     //dateEnd: Date
     HeadTeach_id: number,

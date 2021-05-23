@@ -1,12 +1,20 @@
 
 export { User }
 
-interface User {
+class User {
     // username: string,
-    username: string,
-    access_role_id: number,
-    access_role: string,
-    dep_id: number,
-    dep_name: string
+    public username: string;
+    public access_role_id: number;
+    public access_role: string;
+    public dep_id: number;
+    public dep: string;
+    public dateExpired: Date;
+
+    /**
+     *
+     */
+    constructor() {
+        
+    }
 }
 

@@ -3,13 +3,14 @@
         <h1 id="modal-title">{{selectedDir.Dir_name}}</h1>
     </header>
     <section id="modal-body">
-        <p>Информация о направлении</p>
+        <!-- <p>Информация о направлении</p> -->
         <p *ngIf="!selectedDir; else elseBlock_dirs"><em>Загрузка...</em></p>
         <ng-template #elseBlock_dirs>
 
-           <p>Однако здравствуйте...</p>
+            <p>Вы собираетесь скачать кадровую справку направления {{selectedDir.Dir_name}}.</p>
+            <p>Чтобы получить кадровую справку, пожалуйста, нажмите на кнопку "Скачать кадровую справку".</p>
 
-           <button class="btn btn-primary" (click)="downloadProperty()">Скачать кадровую справку</button>
+            <button class="btn btn-primary" (click)="downloadProperty()">Скачать кадровую справку</button>
 
         </ng-template>
     </section>

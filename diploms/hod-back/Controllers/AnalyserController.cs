@@ -111,28 +111,56 @@ namespace hod_back.Controllers
         [HttpGet("get/fgos-requirs/{dir_id}/7-2")]
         public async Task<Requirs_7_2Dto> GetRequirs7_2([FromRoute] int dir_id, [FromRoute] string requir_num)
         {
-            if (!this.accum.StoreIt(_unit, dir_id)) { return new Requirs_7_2Dto() { Message = "Не все преподаватели назначены для получения сведений." }; }
+            if (!this.accum.StoreIt(_unit, dir_id)) { return new Requirs_7_2Dto() { Message = "Ни один преподаватель не назначен для получения сведений о показателей требований ФГОС." }; }
 
             Requirs_7_2Dto res = new Requirs_7_2Dto();
             res.Dir_id = dir_id;
 
             Strategy strategy = new Strategy_7_2_2();
-            Requir tmp722 = strategy.Execute(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
-            res.NumberAll722 = tmp722.NumberAll;
-            res.NumberSubmitted722 = tmp722.NumberSuitable;
-            res.Mark722 = tmp722.isDone ? "+" : "-";
 
+            #region Partial
+            // 4.4.3
+            Requir tmp722_Part = strategy.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
+            res.Partial.NumberAll722 = tmp722_Part.NumberAll;
+            res.Partial.NumberSubmitted722 = tmp722_Part.NumberSuitable;
+            res.Partial.Mark722 = tmp722_Part.isDone ? "+" : "-";
+
+            // 4.4.5
             strategy = new Strategy_7_2_3();
-            Requir tmp723 = strategy.Execute(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
-            res.NumberAll723 = tmp723.NumberAll;
-            res.NumberSubmitted723 = tmp723.NumberSuitable;
-            res.Mark723 = tmp723.isDone ? "+" : "-";
+            Requir tmp723_Part = strategy.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
+            res.Partial.NumberAll723 = tmp723_Part.NumberAll;
+            res.Partial.NumberSubmitted723 = tmp723_Part.NumberSuitable;
+            res.Partial.Mark723 = tmp723_Part.isDone ? "+" : "-";
 
+            // 4.4.4
             strategy = new Strategy_7_2_4();
-            Requir tmp724 = strategy.Execute(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
-            res.NumberAll724 = tmp724.NumberAll;
-            res.NumberSubmitted724 = tmp724.NumberSuitable;
-            res.Mark724 = tmp724.isDone ? "+" : "-";
+            Requir tmp724_Part = strategy.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
+            res.Partial.NumberAll724 = tmp724_Part.NumberAll;
+            res.Partial.NumberSubmitted724 = tmp724_Part.NumberSuitable;
+            res.Partial.Mark724 = tmp724_Part.isDone ? "+" : "-";
+            #endregion
+
+            #region Full
+            // 4.4.3
+            Requir tmp722 = strategy.Execute_Full(_unit, this.accum.Dir, this.accum.items, this.accum.exList, this.accum.TotalCount);
+            res.Full.NumberAll722 = tmp722.NumberAll;
+            res.Full.NumberSubmitted722 = tmp722.NumberSuitable;
+            res.Full.Mark722 = tmp722.isDone ? "+" : "-";
+
+            // 4.4.5
+            strategy = new Strategy_7_2_3();
+            Requir tmp723 = strategy.Execute_Full(_unit, this.accum.Dir, this.accum.items, this.accum.exList, this.accum.TotalCount);
+            res.Full.NumberAll723 = tmp723.NumberAll;
+            res.Full.NumberSubmitted723 = tmp723.NumberSuitable;
+            res.Full.Mark723 = tmp723.isDone ? "+" : "-";
+
+            // 4.4.4
+            strategy = new Strategy_7_2_4();
+            Requir tmp724 = strategy.Execute_Full(_unit, this.accum.Dir, this.accum.items, this.accum.exList, this.accum.TotalCount);
+            res.Full.NumberAll724 = tmp724.NumberAll;
+            res.Full.NumberSubmitted724 = tmp724.NumberSuitable;
+            res.Full.Mark724 = tmp724.isDone ? "+" : "-";
+            #endregion
 
             return res;
         }

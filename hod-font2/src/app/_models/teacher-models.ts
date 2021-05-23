@@ -1,5 +1,5 @@
 
-export { Teacher, GroupTeacher }
+export { Teacher, GroupTeacher, TeacherRate }
 
 // interface Teacher {
 //     fsh_id: number,
@@ -37,6 +37,23 @@ class Teacher {
     // public toLowerCase(): string {
     //     return `${this.fullName.toLowerCase()}`;
     // }
+}
+interface TeacherRate {
+    FshId: number,
+    StaffCount: number,
+    FsId: number,
+    WorkTId: number,
+    WorkTName: string,
+    WorkTShortname: string,
+    PsId: number,
+    PostId: number,
+    DepId: number,
+    PostName: string,
+    EmpId: number,
+    LastName: string,
+    FirstName: string,
+    MiddleName: string,
+    FullName: string
 }
 interface GroupTeacher {
     letter: string,

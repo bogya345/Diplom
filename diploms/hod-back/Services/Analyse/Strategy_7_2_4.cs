@@ -13,6 +13,15 @@ namespace hod_back.Services.Analyse
 {
     public class Strategy_7_2_4 : Strategy
     {
+        public string OldNum { get; set; }
+        public string Num { get; set; }
+
+        public Strategy_7_2_4()
+        {
+            this.OldNum = "7.2.4";
+            this.Num = "4.4.4";
+        }
+
         /// <summary>
         /// Подсчет преподавателей, подходящие под определение в требованиях ФГОС п.7.2.2
         /// </summary>
@@ -105,7 +114,7 @@ namespace hod_back.Services.Analyse
 
             //var status = exList.Where(x =>
             //    (Rules.isFgos_7_2_2(x.DegId, x.RankId))).Count();
-            var status = exList.Where(x => x.is724).Count();
+            var status = exList.Where(x => x.is724_Part).Count();
 
             var fgos = unit.DirRequirs.GetOrDefault(x => x.DirId == dir_id && x.FgosNum == "7.2.4");
 
@@ -123,21 +132,43 @@ namespace hod_back.Services.Analyse
             return res;
         }
 
-        public Requir Execute(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList)
+
+
+        public Requir Execute_Partial(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList)
         {
-            var fgos = unit.DirRequirs.GetOrDefault(x => x.DirId == dir.DirId && x.FgosNum == "7.2.4");
+            var fgos = unit.DirRequirs.GetOrDefault(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum);
 
             int numA = items.Count();
-            int status = exList.Where(x => x.is723).Count();
+            int status = exList.Where(x => x.is723_Part).Count();
 
             Requir res = new Requir_7_2()
             {
-                Num = "7.2.4",
+                Num = this.Num,
                 Discription = fgos.FgosPropertyView,
                 //Value = null, // auto
                 ValueNeeded = fgos.SettedValue,
                 Direction = null,
                 NumberAll = numA,
+                NumberSuitable = status
+            };
+
+            return res;
+        }
+        public Requir Execute_Full(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList, int totalCount)
+        {
+            var fgos = unit.DirRequirs.GetOrDefault(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum);
+
+            //int numA = items.Count();
+            int status = exList.Where(x => x.is723_Part).Count();
+
+            Requir res = new Requir_7_2()
+            {
+                Num = this.Num,
+                Discription = fgos.FgosPropertyView,
+                //Value = null, // auto
+                ValueNeeded = fgos.SettedValue,
+                Direction = null,
+                NumberAll = totalCount,
                 NumberSuitable = status
             };
 

@@ -97,10 +97,10 @@ export class HodMapSubDepComponent implements OnInit {
     let res: DepDepModal[];
     res = [];
     for (let i of this.depDepDtos) {
-      if (i.dep_id != 0) {
+      if (i.Dep_id != 0) {
         res.push({
-          acPlDep_id: i.acPlDep_id,
-          dep_id: i.dep_id
+          acPlDep_id: i.AcPlDep_id,
+          dep_id: i.Dep_id
         });
       }
     }
@@ -123,11 +123,11 @@ export class HodMapSubDepComponent implements OnInit {
     let res: SubDepModal[];
     res = [];
     for (let i of this.subDepDtos) {
-      if (i.dep_id != 0) {
+      if (i.Dep_id != 0) {
         res.push({
           sub_id: i.sub_id,
-          acPlDep_id: i.acPlDep_id,
-          dep_id: i.dep_id
+          acPlDep_id: i.AcPlDep_id,
+          dep_id: i.Dep_id
         });
       }
     }

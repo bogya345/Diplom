@@ -21,9 +21,13 @@ namespace hod_back.Services.Excel
         public float TotalHours { get { float tmp = Subs.Sum(x => (float)x.Rate); return tmp; } }
         public float TotalRate { get { float tmp = Subs.Sum(x => (float)x.Rate); return tmp; } }
 
-        public bool is722 { get { return Rules.isFgos_7_2_2(DegId, RankId); } } //
-        public bool is723 { get { return Rules.isFgos_7_2_3(DegId, RankId); } }
-        public bool is724 { get { return IsInner; } }
+        public bool is722_Part { get { return Rules.isFgos_7_2_2_Partial(DegId, RankId); } } //
+        public bool is723_Part { get { return Rules.isFgos_7_2_3_Partial(DegId, RankId); } }
+        public bool is724_Part { get { return IsInner; } }
+
+        public bool is722_Full { get; set; }
+        public bool is723_Full { get; set; }
+        public bool is724_Full { get; set; }
     }
     public class exSubject
     {

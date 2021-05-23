@@ -42,11 +42,24 @@ namespace hod_back.Controllers
         /// </summary>
         /// <returns></returns>
         [Authorize(Roles = "препод,завед,админ,уму")]
+        [HttpGet("info/{dep_id}")]
+        public async Task<DepsInfoDto> GetConcreteCathedra([FromRoute] int dep_id)
+        {
+            var depInfo = await _unit.DepsInfo.GetOrDefaultAsync(x => x.DepId == dep_id);
+            var res = _mapper.Map<DepsInfoDto>(depInfo);
+            return res;
+        }
+
+        /// <summary>
+        /// Получить все кафедры с информацией
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Roles = "препод,завед,админ,уму")]
         [HttpGet("info")]
         public async Task<IEnumerable<DepsInfoDto>> GetCathedra()
         {
-            var t = Request.Headers;
-            return _mapper.Map<IEnumerable<DepsInfo>, IEnumerable<DepsInfoDto>>(_unit.DepsInfo.GetAll());
+            var depInfos = await _unit.DepsInfo.GetAllAsync();
+            return _mapper.Map<IEnumerable<DepsInfo>, IEnumerable<DepsInfoDto>>(depInfos);
         }
 
         /// <summary>
@@ -54,9 +67,9 @@ namespace hod_back.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("get/cathedras/all")]
-        public IEnumerable<DepsDto> GetAllDeps()
+        public async Task<IEnumerable<DepsDto>> GetAllDeps()
         {
-            var tmp = _unit.Departments.GetMany(x => x.DepTId == 6);
+            var tmp = await _unit.Departments.GetManyAsync(x => x.DepTId == 6);
             var res = _mapper.Map<IEnumerable<DepsDto>>(tmp);
             return res;
         }

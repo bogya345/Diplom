@@ -20,15 +20,17 @@ namespace hod_back.DAL.Repositories
         }
         public override async Task<IEnumerable<TeacherLoadsView>> GetAllAsync()
         {
-            var tmp = db.TeacherLoadsViews;
-
-            IEnumerable<TeacherLoadsView> GetData()
+        mark:
+            try
             {
-                foreach (var i in tmp)
-                    yield return i;
+                var tmp = db.TeacherLoadsViews;
+                return tmp;
             }
-
-            return GetData();
+            catch (InvalidOperationException ex)
+            {
+                Task.Delay(1000);
+                goto mark;
+            }
         }
 
         public override IEnumerable<TeacherLoadsView> GetMany(Func<TeacherLoadsView, bool> func)
@@ -37,22 +39,23 @@ namespace hod_back.DAL.Repositories
             {
                 return db.TeacherLoadsViews.Where(func);
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
                 return new Context().TeacherLoadsViews.Where(func);
             }
         }
         public override async Task<IEnumerable<TeacherLoadsView>> GetManyAsync(Func<TeacherLoadsView, bool> func)
         {
+        mark:
             try
             {
                 var list = await db.TeacherLoadsViews.ToListAsync();
-
                 return list.Where(func).ToList();
             }
             catch (InvalidOperationException ex)
             {
-                return new Context().TeacherLoadsViews.Where(func).ToList();
+                Task.Delay(1000);
+                goto mark;
             }
         }
 
@@ -71,7 +74,7 @@ namespace hod_back.DAL.Repositories
             {
                 return db.TeacherLoadsViews.Where(func).Any();
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
                 return new Context().TeacherLoadsViews.Where(func).Any();
             }

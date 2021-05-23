@@ -29,25 +29,73 @@ namespace hod_back.DAL.Repositories
         }
         public override void CreateAsync(BlockRec item)
         {
-            var fdb = new Context();
-
-            fdb.BlockRecs.Add(item);
-            fdb.SaveChanges();
-
+            List<AttachedAcPlan> listToCreate = new List<AttachedAcPlan>();
             List<Group> groups;
+
+        mark0:
             try
             {
-                groups = fdb.Groups.Where(x => x.DirId == fdb.Directions.FirstOrDefault(y => y.AcPlId == item.AcPlId).DirId).ToList();
+                db.BlockRecs.Add(item);
+                db.SaveChanges();
             }
             catch (InvalidOperationException ex)
             {
-                //groups = fdb.Groups.Where(x => x.DirId == fdb.Directions.FirstOrDefault(y => y.AcPlId == item.AcPlId).DirId).ToList();
-                throw new Exception(); // не, ну это пипяу если до этого дошло
+                Task.Delay(1000);
+                goto mark0;
+            }
+
+        mark:
+            try
+            {
+
+            mark1:
+                try
+                {
+                    groups = db.Groups.Where(x => x.DirId == db.Directions.FirstOrDefault(y => y.AcPlId == item.AcPlId).DirId).ToList();
+                }
+                catch (InvalidOperationException ex)
+                {
+                    Task.Delay(1000);
+                    goto mark1;
+                }
+
+                //fdb.AttachedAcPlans.AddRange(attRecs);
+                //fdb.SaveChanges();
+            }
+            catch (InvalidOperationException ex)
+            {
+                Task.Delay(1000);
+                goto mark;
             }
 
             var attRecs = item.TransformToAttAcPlan(groups);
-            fdb.AttachedAcPlans.AddRange(attRecs);
-            fdb.SaveChanges();
+
+            foreach (var i in attRecs)
+            {
+                listToCreate.Add(i);
+            }
+
+        mark3:
+            try
+            {
+                db.AttachedAcPlans.AddRange(listToCreate);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Task.Delay(1000);
+                goto mark3;
+            }
+
+        mark4:
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (InvalidOperationException ex)
+            {
+                Task.Delay(1000);
+                goto mark4;
+            }
         }
 
         public override void CreateRange(BlockRec[] items)
@@ -59,13 +107,25 @@ namespace hod_back.DAL.Repositories
             }
             db.SaveChanges();
         }
+
         public override void CreateRangeAsync(BlockRec[] items)
         {
+
             foreach (var i in items)
             {
                 CreateAsync(i);
             }
-            db.SaveChangesAsync();
+
+            //mark:
+            //    try
+            //    {
+            //        db.SaveChangesAsync();
+            //    }
+            //    catch (InvalidOperationException ex)
+            //    {
+            //        Task.Delay(1000);
+            //        goto mark;
+            //    }
         }
 
         public IEnumerable<BlockRec> GetAll()
@@ -75,22 +135,30 @@ namespace hod_back.DAL.Repositories
 
         public override IEnumerable<BlockRec> GetMany(Func<BlockRec, bool> func)
         {
+            return db.BlockRecs.Where(func);
+        }
+        public async override Task<IEnumerable<BlockRec>> GetManyAsync(Func<BlockRec, bool> func)
+        {
+        mark:
             try
             {
-                return db.BlockRecs.Where(func);
+                var res = db.BlockRecs.Where(func).ToList();
+                return res;
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
-                return new Context().BlockRecs.Where(func);
+                await Task.Delay(1000);
+                goto mark;
             }
         }
+
         public override bool OnExist(Func<BlockRec, bool> func)
         {
             try
             {
                 return db.BlockRecs.Where(func).Any();
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
                 return new Context().BlockRecs.Where(func).Any();
             }

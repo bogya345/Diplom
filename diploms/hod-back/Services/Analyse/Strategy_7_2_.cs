@@ -15,6 +15,8 @@ namespace hod_back.Services.Analyse
         public IEnumerable<TeacherLoadSuitability> items { get; set; }
         public List<exTeacher> exList { get; set; }
 
+        public int TotalCount { get; set; }
+
         public Strategy_7_2_()
         {
             //items
@@ -27,22 +29,25 @@ namespace hod_back.Services.Analyse
 
             if (Dir != null && Dir.DirId != dir_id) { return false; }
 
-            if(!unit.BlockRecs.OnExist(x => x.AcPlId == Dir.AcPlId)) { return false; }
-            if(!unit.TeacherLoadsViews.OnExist(x => x.AcPlId == Dir.AcPlId)) { return false; }
+            if (!unit.BlockRecs.OnExist(x => x.AcPlId == Dir.AcPlId)) { return false; }
+            if (!unit.TeacherLoadsViews.OnExist(x => x.AcPlId == Dir.AcPlId)) { return false; }
 
             //var tmp_check = unit.BlockRecs.GetMany(x => x.AcPlId == Dir.AcPlId);
             //if (!tmp_check.Any()) { return false; }
 
-            
             var dataLoads = unit.TeacherLoadsViews.GetManyAsync(x => x.DirId == dir_id && x.EFormId == 1).Result.ToList();
 
             var groupData = dataLoads.GroupBy(x => x.EmpId).ToList();
 
             var teachList = groupData.Select(x => x.Key);
 
-            var dataRates = unit.TeacherRates.GetMany(x => teachList.Contains(x.EmpId));
-            var dataEDs = unit.TeacherSuitabilities.GetMany(x => teachList.Contains(x.EmpId));
-            var dataRecs = unit.BlockRecs.GetMany(x => x.AcPlId == Dir.AcPlId);
+            var dataRates = unit.TeacherRates.GetManyAsync(x => teachList.Contains(x.EmpId)).Result;
+            var dataEDs = unit.TeacherSuitabilities.GetManyAsync(x => teachList.Contains(x.EmpId)).Result;
+            var dataRecs = unit.BlockRecs.GetManyAsync(x => x.AcPlId == Dir.AcPlId).Result;
+
+            var groupList = unit.Groups.GetManyAsync(x => x.DirId == dir_id).Result.Select(x => x.GroupId).ToList();
+
+            this.TotalCount = unit.AttAcPlans.GetManyAsync(x => groupList.Contains(x.GroupId.Value)).Result.Count();
 
             List<exTeacher> exList = new List<exTeacher>();
 
@@ -55,8 +60,8 @@ namespace hod_back.Services.Analyse
                 var rate = dataRates.FirstOrDefault(x => x.EmpId == item.Key);
                 var eDoc = dataEDs.FirstOrDefault(x => x.EmpId == item.Key);
 
-                exT.DegId = eDoc.DegId;
-                exT.RankId = eDoc.RankId;
+                exT.DegId = eDoc != null ? eDoc.DegId : 1;
+                exT.RankId = eDoc != null ? eDoc.RankId : 1;
                 //exT.IsInner = rate.IsInner;
 
                 foreach (var item3 in item2.ToList())

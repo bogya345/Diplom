@@ -1,6 +1,8 @@
 import { stringify } from '@angular/compiler/src/util';
 import { ComponentFactoryResolver, EventEmitter } from '@angular/core';
 
+import { environment } from '../environments/environment';
+
 import { User } from './_models/accounts-models';
 
 import { DepInfo, Direction } from './_models/deps-models';
@@ -54,15 +56,22 @@ export class ShareService {
 
   private user: User;
   public shareUser(item: User) {
-    this.user = new UserCl();
-    this.printLogs('user', this.user);
+    this.user = item;
+    this.printLogs('user', item);
   }
-  public getUser(token: string) {
-    // if(this.user == null)
-    // {
-    //   console.log('user is null');
-    //   this.user = new UserCl();
-    // }
+  public getUser() {
+    if (this.user) { return this.user; }
+
+    if (sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)) {
+      this.user = new User();
+      this.user.username = sessionStorage.getItem(environment.hod_sessionConst.username);
+      this.user.access_role = sessionStorage.getItem(environment.hod_sessionConst.access_role);
+      this.user.access_role_id = Number(sessionStorage.getItem(environment.hod_sessionConst.access_role_id));
+      this.user.dep = sessionStorage.getItem(environment.hod_sessionConst.dep);
+      this.user.dep_id = Number(sessionStorage.getItem(environment.hod_sessionConst.dep_id));
+      this.user.dateExpired = new Date(sessionStorage.getItem(environment.hod_sessionConst.date));
+    }
+
     return this.user;
   }
 
@@ -73,25 +82,25 @@ export class ShareService {
 
 }
 
-class UserCl implements User {
-  // public name: string;
-  public username: string;
-  public access_role_id: number;
-  public access_role: string;
-  public dep_id: number;
-  public dep_name: string;
-  /**
-   *
-   */
-  constructor() {
-    // this.name = 'def_username';
-    this.username = 'def_login';
-    this.dep_id = 1;
-    this.dep_name = 'def_dep';
-    this.access_role_id = 0;
-    this.access_role = 'def_role';
-  }
-}
+// class UserCl implements User {
+//   // public name: string;
+//   public username: string;
+//   public access_role_id: number;
+//   public access_role: string;
+//   public dep_id: number;
+//   public dep_name: string;
+//   /**
+//    *
+//    */
+//   constructor() {
+//     // this.name = 'def_username';
+//     this.username = 'def_login';
+//     this.dep_id = 1;
+//     this.dep_name = 'def_dep';
+//     this.access_role_id = 0;
+//     this.access_role = 'def_role';
+//   }
+// }
 
 export class ShareService2 {
   private clickCnt: number = 0;

@@ -13,6 +13,15 @@ namespace hod_back.Services.Analyse
 {
     public class Strategy_7_2_3 : Strategy
     {
+
+        public string OldNum { get; set; }
+        public string Num { get; set; }
+
+        public Strategy_7_2_3()
+        {
+            this.OldNum = "7.2.3";
+            this.Num = "4.4.5";
+        }
         /// <summary>
         /// Подсчет преподавателей, подходящие под определение в требованиях ФГОС п.7.2.2
         /// </summary>
@@ -109,13 +118,13 @@ namespace hod_back.Services.Analyse
 
             //var status = exList.Where(x =>
             //    (Rules.isFgos_7_2_3(x.DegId, x.RankId))).Count();
-            var status = exList.Where(x => x.is723).Count();
+            var status = exList.Where(x => x.is723_Part).Count();
 
-            var fgos = unit.DirRequirs.GetOrDefault(x => x.DirId == dir_id && x.FgosNum == "7.2.3");
+            var fgos = unit.DirRequirs.GetOrDefault(x => x.DirId == dir_id && x.FgosNum == this.OldNum);
 
             Requir res = new Requir_7_2()
             {
-                Num = "7.2.3",
+                Num = this.Num,
                 Discription = fgos.FgosPropertyView,
                 //Value = null, // auto
                 ValueNeeded = fgos.SettedValue,
@@ -127,19 +136,19 @@ namespace hod_back.Services.Analyse
             return res;
         }
 
-        public Requir Execute(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList)
+        public Requir Execute_Partial(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList)
         {
-            var fgos = unit.DirRequirs.GetOrDefault(x => x.DirId == dir.DirId && x.FgosNum == "7.2.3");
+            var fgos = unit.DirRequirs.GetOrDefault(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum);
 
             //int numA = items.Count();
             //int status = exList.Where(x => x.is723).Count();
 
             double numA = exList.Sum(x => x.TotalRate);
-            double status = exList.Where(x => x.is723).Sum(x => x.TotalRate);
+            double status = exList.Where(x => x.is723_Part).Sum(x => x.TotalRate);
 
             Requir res = new Requir_7_2()
             {
-                Num = "7.2.3",
+                Num = this.Num,
                 Discription = fgos.FgosPropertyView,
                 //Value = null, // auto
                 ValueNeeded = fgos.SettedValue,
@@ -150,5 +159,31 @@ namespace hod_back.Services.Analyse
 
             return res;
         }
+
+        public Requir Execute_Full(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList, int totalCount)
+        {
+            var fgos = unit.DirRequirs.GetOrDefault(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum);
+
+            //int numA = items.Count();
+            //int status = exList.Where(x => x.is723).Count();
+
+            //double numA = exList.Sum(x => x.TotalRate);
+            double status = exList.Where(x => x.is723_Part).Sum(x => x.TotalRate);
+
+            Requir res = new Requir_7_2()
+            {
+                Num = this.Num,
+                Discription = fgos.FgosPropertyView,
+                //Value = null, // auto
+                ValueNeeded = fgos.SettedValue,
+                Direction = null,
+                NumberAll = totalCount,
+                NumberSuitable = status
+            };
+
+            return res;
+        }
+
+
     }
 }

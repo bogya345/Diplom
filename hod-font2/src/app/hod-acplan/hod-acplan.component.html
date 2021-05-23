@@ -82,7 +82,7 @@
                             </button>
                           </div>
                           <ng-template #elseBlock_info>
-                            <button *ngIf="_userDepId != null && _userDepId == selectedSubject.CorrespDep.Dep_id"
+                            <button *ngIf="(_userDepId != null && _userDepId == selectedSubject.CorrespDep.Dep_id) || isAdmin"
                               class="btn btn-info" (click)="openModal( direction, group, acPlan, element, i )">
                               Назначить
                             </button>

@@ -35,15 +35,17 @@ namespace hod_back.DAL.Repositories
         }
         public override async Task<IEnumerable<Department>> GetManyAsync(Func<Department, bool> func)
         {
-            var tmp = db.Departments.Where(func);
-
-            IEnumerable<Department> GetData()
+        mark:
+            try
             {
-                foreach (var i in tmp)
-                    yield return i;
+                var tmp = db.Departments.Where(func);
+                return tmp;
             }
-
-            return GetData();
+            catch (InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
         }
 
     }

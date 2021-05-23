@@ -29,21 +29,24 @@ namespace hod_back.DAL.Repositories
         }
         public override async Task<IEnumerable<TeacherDep>> GetAllAsync()
         {
-            var tmp = db.TeacherDeps;
-
-            IEnumerable<TeacherDep> GetData()
+        mark:
+            try
             {
-                foreach (var i in tmp)
-                    yield return i;
+                var tmp = db.TeacherDeps;
+                return tmp;
             }
-
-            return GetData();
+            catch (InvalidOperationException ex)
+            {
+                Task.Delay(1000);
+                goto mark;
+            }
         }
 
         public override IEnumerable<TeacherDep> GetMany(Func<TeacherDep, bool> func)
         {
             return db.TeacherDeps.Where(func);
         }
+
 
         //public override IEnumerable<TeacherDep> GetManyWithInclude(Func<TeacherDep, bool> func)
         //{

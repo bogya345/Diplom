@@ -60,11 +60,14 @@
                             <td><button class="btn btn-info" mat-raised-button id="logout-button"
                                     (click)="openModal( item )">Просмотр</button></td>
                             <p *ngIf="item.AcPl_id == null; else elseBlock_acPlan">
-                                <td>
+                                <td *ngIf="user.dep_id == selectedDep.Dep_id">
                                     <p>Загрузить учебный план</p>
                                     <!-- <mat-spinner *ngIf="spinnerIsOn" diameter="40"></mat-spinner> -->
                                     <input #file type="file" accept=".xlsx" multiple
                                         (change)="upload(file.files, item)" />
+                                </td>
+                                <td>
+                                    <p>Учебный план не был загружен</p>
                                 </td>
                             </p>
                             <ng-template #elseBlock_acPlan>
@@ -83,8 +86,8 @@
                             </ng-template>
 
                             <td>
-                                <button [disabled]="item.AcPl_id == null" class="btn btn-primary"
-                                    (click)="openModalShowDirProperty( item )">
+                                <button [disabled]="item.AcPl_id == null && user.dep_id != selectedDep.Dep_id"
+                                    class="btn btn-primary" (click)="openModalShowDirProperty( item )">
                                     Получить кадровую справку
                                 </button>
                             </td>
@@ -106,34 +109,98 @@
                 <p *ngIf="!selectedDir; else elseBlock_groups"><em>Загрузка групп...</em></p>
                 <ng-template #elseBlock_groups>
 
-                    <div *ngIf="dirStatus; else elseBlockDirStatus">
+                    <div class="container" style="padding: 15px 0px 0px 15px;"
+                        *ngIf="dirStatus; else elseBlockDirStatus">
                         <!-- Статус назначений преподавателей -->
 
                         <div *ngIf="!dirStatus.Message; else elseBlockMsg">
-                            <p>7.2.2</p>
-                            <section class="example-section">
-                                <mat-progress-bar class="example-margin" [color]="getColorForRequirs(getMark722())"
-                                    [mode]="mode" [value]="getDirStatus722()">
-                                </mat-progress-bar>
-                                <p><i><b>{{getDirStatus722()}} / 100 % ({{getMark722()}})</b></i></p>
-                            </section>
 
-                            <p>7.2.3</p>
-                            <section class="example-section">
-                                <mat-progress-bar class="mat-progress-bar-done"
-                                    [color]="getColorForRequirs(getMark723())" [mode]="mode"
-                                    [value]="getDirStatus723()">
-                                </mat-progress-bar>
-                                <p><i><b>{{getDirStatus723()}} / 100 % ({{getMark723()}})</b></i></p>
-                            </section>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p>Показатели на общее назначение</p>
+                                </div>
 
-                            <p>7.2.4</p>
-                            <section class="example-section">
-                                <mat-progress-bar class="example-margin" [color]="getColorForRequirs(getMark724())"
-                                    [mode]="mode" [value]="getDirStatus724()">
-                                </mat-progress-bar>
-                                <p><i><b>{{getDirStatus724()}} / 100 % ({{getMark724()}}) </b></i></p>
-                            </section>
+                                <div class="col-3">
+                                    <p>4.4.3</p>
+                                    <!--was 7.2.2-->
+                                    <section class="example-section">
+                                        <mat-progress-bar class="example-margin"
+                                            [color]="getColorForRequirs(getMark722Full())" [mode]="mode"
+                                            [value]="getDirStatus722Full()">
+                                        </mat-progress-bar>
+                                        <p><i><b>{{getDirStatus722Full()}} / 100 % ({{getMark722Full()}})</b></i></p>
+                                    </section>
+                                </div>
+
+                                <div class="col-3">
+                                    <p>4.4.4</p>
+                                    <!--was 7.2.4-->
+                                    <section class="example-section">
+                                        <mat-progress-bar class="example-margin"
+                                            [color]="getColorForRequirs(getMark724Full())" [mode]="mode"
+                                            [value]="getDirStatus724Full()">
+                                        </mat-progress-bar>
+                                        <p><i><b>{{getDirStatus724Full()}} / 100 % ({{getMark724Full()}}) </b></i></p>
+                                    </section>
+                                </div>
+
+                                <div class="col-3">
+                                    <p>4.4.5</p>
+                                    <!--was 7.2.3-->
+                                    <section class="example-section">
+                                        <mat-progress-bar class="mat-progress-bar-done"
+                                            [color]="getColorForRequirs(getMark723Full())" [mode]="mode"
+                                            [value]="getDirStatus723Full()">
+                                        </mat-progress-bar>
+                                        <p><i><b>{{getDirStatus723Full()}} / 100 % ({{getMark723Full()}})</b></i></p>
+                                    </section>
+                                </div>
+                            </div>
+
+                            <br />
+
+                            <div class="row">
+                                <div class="col-3">
+                                    <p><b>Показатели на текущее назначение</b></p>
+                                </div>
+
+                                <div class="col-3">
+                                    <p>4.4.3</p>
+                                    <!--was 7.2.2-->
+                                    <section class="example-section">
+                                        <mat-progress-bar class="example-margin"
+                                            [color]="getColorForRequirs(getMark722Part())" [mode]="mode"
+                                            [value]="getDirStatus722Part()">
+                                        </mat-progress-bar>
+                                        <p><i><b>{{getDirStatus722Part()}} / 100 % ({{getMark722Part()}})</b></i></p>
+                                    </section>
+                                </div>
+
+                                <div class="col-3">
+                                    <p>4.4.4</p>
+                                    <!--was 7.2.4-->
+                                    <section class="example-section">
+                                        <mat-progress-bar class="example-margin"
+                                            [color]="getColorForRequirs(getMark724Part())" [mode]="mode"
+                                            [value]="getDirStatus724Part()">
+                                        </mat-progress-bar>
+                                        <p><i><b>{{getDirStatus724Part()}} / 100 % ({{getMark724Part()}}) </b></i></p>
+                                    </section>
+                                </div>
+
+                                <div class="col-3">
+                                    <p>4.4.5</p>
+                                    <!--was 7.2.3-->
+                                    <section class="example-section">
+                                        <mat-progress-bar class="mat-progress-bar-done"
+                                            [color]="getColorForRequirs(getMark723Part())" [mode]="mode"
+                                            [value]="getDirStatus723Part()">
+                                        </mat-progress-bar>
+                                        <p><i><b>{{getDirStatus723Part()}} / 100 % ({{getMark723Part()}})</b></i></p>
+                                    </section>
+                                </div>
+                            </div>
+
                         </div>
 
                         <ng-template #elseBlockMsg>
@@ -190,9 +257,9 @@
             </app-hod-acplan>
         </mat-tab>
 
-        <mat-tab label="Четыре">
+        <!-- <mat-tab label="Четыре">
             Content 4
-        </mat-tab>
+        </mat-tab> -->
 
     </mat-tab-group>
 

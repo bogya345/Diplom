@@ -42,7 +42,7 @@ export class HodModalShowGroupStatusComponent implements OnInit {
   // When the user clicks the action button a.k.a. the logout button in the\
   // modal, show an alert and followed by the closing of the modal
   actionFunction() {
-    alert("You have logged out.");
+    // alert("You have logged out.");
     this.closeModal();
   }
 

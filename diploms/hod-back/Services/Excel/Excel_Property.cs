@@ -472,9 +472,9 @@ namespace hod_back.Services.Excel
                 string requirFormula = "=";
                 foreach (var j in this.exList)
                 {
-                    if (k == "7.2.2" && j.is722) { requirFormula += $"I{j.RowIndex}+"; value += j.TotalRate; }
-                    if (k == "7.2.3" && j.is723) { requirFormula += $"I{j.RowIndex}+"; value += j.TotalRate; }
-                    if (k == "7.2.4" && j.is724) { requirFormula += $"I{j.RowIndex}+"; value += j.TotalRate; }
+                    if (k == "7.2.2" && j.is722_Part) { requirFormula += $"I{j.RowIndex}+"; value += j.TotalRate; }
+                    if (k == "7.2.3" && j.is723_Part) { requirFormula += $"I{j.RowIndex}+"; value += j.TotalRate; }
+                    if (k == "7.2.4" && j.is724_Part) { requirFormula += $"I{j.RowIndex}+"; value += j.TotalRate; }
                 }
                 if (requirFormula.Last() == '+') { requirFormula = requirFormula.Remove(requirFormula.Length - 1); }
                 else { requirFormula = "0"; }

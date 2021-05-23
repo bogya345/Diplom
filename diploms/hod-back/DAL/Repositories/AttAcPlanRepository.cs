@@ -35,15 +35,16 @@ namespace hod_back.DAL.Repositories
 
         public override async Task<IEnumerable<AttachedAcPlan>> GetManyAsync(Func<AttachedAcPlan, bool> func)
         {
+        mark:
             try
             {
                 var tmp = db.AttachedAcPlans.ToListAsync();
                 return tmp.Result.Where(func);
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
-                var tmp = new Context().AttachedAcPlans.Where(func);
-                return tmp;
+                await Task.Delay(1000);
+                goto mark;
             }
         }
 

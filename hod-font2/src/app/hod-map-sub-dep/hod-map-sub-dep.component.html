@@ -5,8 +5,9 @@
 
         <mat-tab label="Кафедра-Кафедра">
             <div class="row" style="margin-left: 10px;">
-                <mat-label>Filter</mat-label>
-                <input matInput (keyup)="applyFilter_depdep($event)" placeholder="Ex. ium" #inputDep>
+                <mat-label>Поиск по кафедре</mat-label>
+                <br />
+                <input matInput (keyup)="applyFilter_depdep($event)" placeholder="Введите кафедру" #inputDep>
 
                 <button class="btn btn-primary" (click)="saveChangesDep()">Сохранить изменения</button>
             </div>
@@ -18,16 +19,16 @@
                     <!-- Columns -->
                     <ng-container matColumnDef="AcDepId_">
                         <th mat-header-cell *matHeaderCellDef> № кафедры (в учебном плане) </th>
-                        <td mat-cell *matCellDef="let element"> {{element.acPlDep_id}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.AcPlDep_id}} </td>
                     </ng-container>
                     <ng-container matColumnDef="AcDepName_">
                         <th mat-header-cell *matHeaderCellDef> Название кафедры (в учебном плане) </th>
-                        <td mat-cell *matCellDef="let element"> {{element.acPlDep_name}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.AcPlDep_name}} </td>
                     </ng-container>
                     <ng-container matColumnDef="DepId_">
                         <th mat-header-cell *matHeaderCellDef> ID кафедры </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.dep_id}}
+                            {{element.Dep_id}}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="DepName_">
@@ -35,10 +36,10 @@
                         <td mat-cell *matCellDef="let element">
                             <mat-form-field appearance="fill">
                                 <mat-label>Выбор кафедры</mat-label>
-                                <mat-select [(ngModel)]="element.dep_id" [value]="element.dep_id">
+                                <mat-select [(ngModel)]="element.Dep_id" [value]="element.Dep_id">
                                     <mat-option value="0">Не указывать</mat-option>
-                                    <mat-option *ngFor="let i of depsList" [value]="i.dep_id">
-                                        {{i.dep_name}}
+                                    <mat-option *ngFor="let i of depsList" [value]="i.Dep_id">
+                                        {{i.Dep_name}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -52,7 +53,7 @@
 
                     <!-- Row shown when there is no matching data. -->
                     <tr class="mat-row" *matNoDataRow>
-                        <td class="mat-cell" colspan="4">No data matching the filter "{{inputDep.value}}"</td>
+                        <td class="mat-cell" colspan="4">Нет подходящий данных по запросу: "{{inputDep.value}}"</td>
                     </tr>
 
                 </table>
@@ -63,8 +64,8 @@
         <mat-tab label="Дисциплина-Кафедра">
             <div class="row" style="margin-left: 10px;">
 
-                <mat-label>Filter</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+                <mat-label>Поиск:</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Введите дисциплину" #input>
                 <button class="btn btn-primary" (click)="saveChanges()">Сохранить изменения</button>
             </div>
             <div class="row">
@@ -99,9 +100,9 @@
                         <td mat-cell *matCellDef="let element">
                             <mat-form-field appearance="fill">
                                 <mat-label>Выбор кафедры</mat-label>
-                                <mat-select [(ngModel)]="element.dep_id">
-                                    <mat-option *ngFor="let i of depsList" [value]="i.dep_id">
-                                        {{i.dep_name}}
+                                <mat-select [(ngModel)]="element.dep_id" [value]="element.dep_id">
+                                    <mat-option *ngFor="let i of depsList" [value]="i.Dep_id">
+                                        {{i.Dep_name}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -115,7 +116,7 @@
 
                     <!-- Row shown when there is no matching data. -->
                     <tr class="mat-row" *matNoDataRow>
-                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                        <td class="mat-cell" colspan="4">Нет подходящий данных по запросу: "{{input.value}}"</td>
                     </tr>
 
                 </table>

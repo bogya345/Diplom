@@ -14,13 +14,20 @@ namespace hod_back.DAL.Repositories
 
         public override IEnumerable<TeacherSuitability> GetMany(Func<TeacherSuitability, bool> func)
         {
+            return db.TeacherSuitabilities.Where(func);
+        }
+
+        public async override Task<IEnumerable<TeacherSuitability>> GetManyAsync(Func<TeacherSuitability, bool> func)
+        {
+        mark:
             try
             {
-                return db.TeacherSuitabilities.Where(func);
+                return db.TeacherSuitabilities.Where(func).ToList();
             }
             catch (InvalidOperationException ex)
             {
-                return new Context().TeacherSuitabilities.Where(func);
+                await Task.Delay(1000);
+                goto mark;
             }
         }
         public IEnumerable<TeacherSuitability> GetAll() { return db.TeacherSuitabilities; }

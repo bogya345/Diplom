@@ -18,6 +18,7 @@ namespace hod_back.Profiles
             CreateMap<DepsInfo, DepsInfoDto>()
                 .ForMember(dest => dest.Dep_id, opts => opts.MapFrom(src => src.DepId))
                 .ForMember(dest => dest.Dep_name, opts => opts.MapFrom(src => src.DepName))
+                .ForMember(dest => dest.Dep_shortName, opts => opts.MapFrom(src => src.DepShortname))
                 .ForMember(dest => dest.HeadTeach_name, opts => opts.MapFrom(src => src.LastName + " " + src.FirstName + " " + src.MiddleName))
                 //.ForMember(dest => dest., opts => opts.MapFrom(src => src.))
                 //.ForMember(dest => dest.dir)
@@ -27,7 +28,8 @@ namespace hod_back.Profiles
 
             CreateMap<Department, DepsDto>()
                 .ForMember(dest => dest.Dep_id, opts => opts.MapFrom(src => src.DepId))
-                .ForMember(dest => dest.Dep_name, opts => opts.MapFrom(src => src.DepShortname))
+                .ForMember(dest => dest.Dep_name, opts => opts.MapFrom(src => src.DepName))
+                .ForMember(dest => dest.Dep_shortName, opts => opts.MapFrom(src => src.DepShortname))
                 //.ForMember(dest => dest.dirs, opts => opts.MapFrom(src => src.Directions)) // useless at least for now
                 .ForAllOtherMembers(m => m.Ignore())
                 ;

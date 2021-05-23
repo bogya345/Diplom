@@ -9,6 +9,7 @@ namespace hod_back.Dto
     {
         public int Dep_id { get; set; }
         public string Dep_name { get; set; }
+        public string Dep_shortName { get; set; }
         //dateCreated: Date,
         //dateEnd: Date
         public int HeadTeach_id { get; set; }

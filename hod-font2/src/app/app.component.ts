@@ -63,13 +63,21 @@ export class AppComponent {
           this.snack.openSnackBarWithMsg('Нет соединения с сервером...');
         }
         );
-    }
 
-    this.share.shareUser(this.user);
+      this.share.shareUser(this.user);
+
+      // switch (this.user.dep_id) {
+      //   default: {
+      //     this.router.redi
+      //     break;
+      //   }
+      // }
+    }
 
   }
 
   ngAfterContentInit(): void {
+    console.log('user is', this.user);
   }
 
   // bogya
@@ -96,9 +104,13 @@ export class AppComponent {
     console.log(checkDate, thirtyMinutesLater);
     if (now > checkDate) {
       console.log('too long bro');
-      alert();
+      // alert();
       return -1;
     }
+
+    this.user = this.share.getUser();
+    // this.user.username = sessionStorage.getItem(environment.hod_sessionConst.username);
+    // this.user.dep_id = Number(sessionStorage.getItem(environment.hod_sessionConst.dep_id));
 
     // let check = this._http.get(`${environment.hod_api_url}check-token`, {
     //   headers: {
@@ -130,7 +142,7 @@ export class AppComponent {
     //   });
     // alert();
 
-    const role = sessionStorage.getItem(environment.hod_sessionConst.role);
+    const role = sessionStorage.getItem(environment.hod_sessionConst.access_role);
     console.log('role is ', role)
 
     // console.log('token is exist ==', token);
@@ -175,7 +187,7 @@ export class AppComponent {
         sessionStorage.setItem(environment.hod_sessionConst.username, email);
         console.log(email);
 
-        sessionStorage.setItem(environment.hod_sessionConst.role, data.access_role);
+        sessionStorage.setItem(environment.hod_sessionConst.access_role, data.access_role);
         console.log(data.access_role);
 
         // сохраняем в хранилище sessionStorage токен доступа

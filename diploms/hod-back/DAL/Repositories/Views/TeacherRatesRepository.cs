@@ -18,8 +18,17 @@ namespace hod_back.DAL.Repositories
         }
         public override async Task<IEnumerable<TeacherRate>> GetManyAsync(Func<TeacherRate, bool> func)
         {
-            var tmp = db.TeacherRates.ToListAsync();
-            return tmp.Result.Where(func);
+            mark:
+            try
+            {
+                var tmp = db.TeacherRates.Where(func).ToList();
+                return tmp;
+            }
+            catch(InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
         }
 
         public IEnumerable<TeacherRate> GetAll() { return db.TeacherRates; }
@@ -41,6 +50,21 @@ namespace hod_back.DAL.Repositories
         public override TeacherRate GetOrDefault(Func<TeacherRate, bool> func, TeacherRate def = null)
         {
             return db.TeacherRates.FirstOrDefault(func) ?? def;
+        }
+
+
+        public override async Task<TeacherRate> GetOrDefaultAsync(Func<TeacherRate, bool> func, TeacherRate def = null)
+        {
+        mark:
+            try
+            {
+                return db.TeacherRates.FirstOrDefault(func);
+            }
+            catch (InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
         }
     }
 }

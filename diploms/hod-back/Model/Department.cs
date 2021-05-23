@@ -37,8 +37,6 @@ namespace hod_back.Model
         public DateTime? DateExit { get; set; }
         [Column("role_id")]
         public int? RoleId { get; set; }
-        [Column("nameInAcPlan")]
-        public string NameInAcPlan { get; set; }
 
         [ForeignKey(nameof(DepTId))]
         [InverseProperty(nameof(DepType.Departments))]

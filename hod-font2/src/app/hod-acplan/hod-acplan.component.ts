@@ -79,6 +79,9 @@ export class HodAcplanComponent implements OnInit {
   private _httpOwn: acplan_HttpService;
   private _user: User;
   public _userDepId: number;
+
+  public isAdmin: boolean;
+
   constructor(
     private _router: Router,
     private _http: HttpClient,
@@ -91,8 +94,9 @@ export class HodAcplanComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._user = this.share.getUser('token');
+    this._user = this.share.getUser();
     this._userDepId = this._user.dep_id;
+    this.isAdmin = (this._user.access_role_id == 4);
   }
   ngOnChanges(): void {
     // this._httpOwn.getAcPlan(this.group.group_id)
@@ -103,7 +107,7 @@ export class HodAcplanComponent implements OnInit {
     //   }
     //   );
 
-    this._user = this.share.getUser('token');
+    this._user = this.share.getUser();
     console.log('changed: user is ', this._user);
 
     console.log(this.direction);
@@ -129,16 +133,18 @@ export class HodAcplanComponent implements OnInit {
 
   openModal(direction, group, acPlan, subject, item) {
     let isUnmapped = false;
-    if (subject.CorrespDep == null || subject.CorrespDep.Dep_id == null) {
-      if (!confirm(`К выбранной дисциплине не привазяна кафедра, продолжить со всем перечнем преподавателей?`)) { return; }
-      isUnmapped = true;
-    }
-    else {
-      if (
-        this._user.dep_id != subject.CorrespDep.Dep_id
-      ) {
-        this.snack.openSnackBarFull(`Вы не можете назначить преподавателя на '${subject.SubjectName}'`, 'center', '', 3000);
-        return;
+    if (!this.isAdmin) {
+      if (subject.CorrespDep == null || subject.CorrespDep.Dep_id == null) {
+        if (!confirm(`К выбранной дисциплине не привазяна кафедра, продолжить со всем перечнем преподавателей?`)) { return; }
+        isUnmapped = true;
+      }
+      else {
+        if (
+          this._user.dep_id != subject.CorrespDep.Dep_id
+        ) {
+          this.snack.openSnackBarFull(`Вы не можете назначить преподавателя на '${subject.SubjectName}'`, 'center', '', 3000);
+          return;
+        }
       }
     }
     // this.share.doSelectedDir(item);
@@ -150,7 +156,7 @@ export class HodAcplanComponent implements OnInit {
     dialogConfig.width = "750px";
     dialogConfig.data = {
       isUnmappedSubject: isUnmapped,
-      subjectDepId: subject.CorrespDep.Dep_id,
+      subjectDepId: !isUnmapped ? subject.CorrespDep.Dep_id : null,
       selectedDir: direction,
       selectedGroup: group,
       selectedAcPl: acPlan,

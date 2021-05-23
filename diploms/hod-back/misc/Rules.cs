@@ -19,7 +19,7 @@ namespace hod_back.misc
         /// <param name="DegId">ID ученной степени (Degrees)</param>
         /// <param name="RankId">ID звания (Ranks)</param>
         /// <returns></returns>
-        public static bool isFgos_7_2_2(int? DegId, int? RankId)
+        public static bool isFgos_7_2_2_Partial(int? DegId, int? RankId)
         {
             Random rdm = new Random();
             return (rdm.Next(0, 100) > 50);
@@ -38,7 +38,7 @@ namespace hod_back.misc
         /// <param name="DegId">ID ученной степени (Degrees)</param>
         /// <param name="RankId">ID звания (Ranks)</param>
         /// <returns></returns>
-        public static bool isFgos_7_2_3(int? DegId, int? RankId)
+        public static bool isFgos_7_2_3_Partial(int? DegId, int? RankId)
         {
             List<int> degs_needed = new List<int>() { 2, 3 };   // 2-д-р наук, 3-кандидат наук
             List<int> ranks_needed = new List<int>() { 4 }; // 4-доцент
@@ -54,12 +54,61 @@ namespace hod_back.misc
         /// <param name="DegId">ID ученной степени (Degrees)</param>
         /// <param name="RankId">ID звания (Ranks)</param>
         /// <returns></returns>
-        public static bool isFgos_7_2_4(int? WorkTId)
+        public static bool isFgos_7_2_4_Partial(int? WorkTId)
         {
 
             List<int> workT_needed = new List<int>() { 2, 3 };   // 
 
             return (WorkTId.HasValue && workT_needed.Contains(WorkTId.Value));
         }
+
+        ///// <summary>
+        ///// Требование ФГОС 7.2.2
+        ///// </summary>
+        ///// <param name="DegId">ID ученной степени (Degrees)</param>
+        ///// <param name="RankId">ID звания (Ranks)</param>
+        ///// <returns></returns>
+        //public static bool isFgos_7_2_2_Full(int? DegId, int? RankId)
+        //{
+        //    Random rdm = new Random();
+        //    return (rdm.Next(0, 100) > 50);
+
+        //    List<int> degs_needed = new List<int>() { 2, 3 };   // 2-д-р наук, 3-кандидат наук
+        //    List<int> ranks_needed = new List<int>() { 4 }; // 4-доцент
+
+        //    //return (degs_needed.Contains(DegId)) || (ranks_needed.Contains(RankId));
+        //    return (DegId.HasValue && degs_needed.Contains(DegId.Value))
+        //        || (!RankId.HasValue && ranks_needed.Contains(RankId.Value));
+        //}
+
+        ///// <summary>
+        ///// Требование ФГОС 7.2.3
+        ///// </summary>
+        ///// <param name="DegId">ID ученной степени (Degrees)</param>
+        ///// <param name="RankId">ID звания (Ranks)</param>
+        ///// <returns></returns>
+        //public static bool isFgos_7_2_3_Full(int? DegId, int? RankId)
+        //{
+        //    List<int> degs_needed = new List<int>() { 2, 3 };   // 2-д-р наук, 3-кандидат наук
+        //    List<int> ranks_needed = new List<int>() { 4 }; // 4-доцент
+
+        //    //return (degs_needed.Contains(DegId)) || (ranks_needed.Contains(RankId));
+        //    return (DegId.HasValue && degs_needed.Contains(DegId.Value))
+        //        || (RankId.HasValue && ranks_needed.Contains(RankId.Value));
+        //}
+
+        ///// <summary>
+        ///// Требование ФГОС 7.2.4
+        ///// </summary>
+        ///// <param name="DegId">ID ученной степени (Degrees)</param>
+        ///// <param name="RankId">ID звания (Ranks)</param>
+        ///// <returns></returns>
+        //public static bool isFgos_7_2_4_Full(int? WorkTId)
+        //{
+
+        //    List<int> workT_needed = new List<int>() { 2, 3 };   // 
+
+        //    return (WorkTId.HasValue && workT_needed.Contains(WorkTId.Value));
+        //}
     }
 }

@@ -10,12 +10,12 @@ namespace hod_back.Models
     public class AttAcPlanTeacherModel
     {
         [FromForm(Name = "fsh_id")]
-        public int fsh_id { get; set; }
+        public int? fsh_id { get; set; }
 
         [FromForm(Name = "teacherName")]
         public string teacherName { get; set; }
 
         [FromForm(Name = "attAcPlan_id")]
-        public int attAcPlan_id { get; set; }
+        public int? attAcPlan_id { get; set; }
     }
 }

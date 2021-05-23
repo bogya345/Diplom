@@ -19,6 +19,7 @@ namespace hod_back.Services.Analyse
         public Requir Execute(UnitOfWork unit, int dir_id);
         //public Requir Execute(IEnumerable<TeacherLoadSuitability> items, UnitOfWork unit);
 
-        public Requir Execute(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList);
+        public Requir Execute_Partial(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList);
+        public Requir Execute_Full(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList, int totalCount);
     }
 }

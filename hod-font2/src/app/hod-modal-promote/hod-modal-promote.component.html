@@ -9,12 +9,12 @@
     </header>
     <hr />
     <section id="modal-body">
-        <p><b>Предупреждение:</b> будут перезагружены только записи </p>
+        <p><b>Назначение преподавателя:</b> Выберете преподавателя </p>
     </section>
 
     <form [formGroup]="stateForm">
         <mat-form-field>
-            <mat-label>States Group</mat-label>
+            <mat-label>ФИО преподавателя</mat-label>
             <input type="text" matInput formControlName="stateGroup" required [matAutocomplete]="autoGroup">
             <!-- #docregion mat-autocomplete -->
             <mat-autocomplete #autoGroup="matAutocomplete" panelWidth="350" [displayWith]="displayFn">
@@ -28,18 +28,13 @@
         </mat-form-field>
     </form>
 
-    <div class="row">
+    <div class="row" *ngIf="stateForm.get('stateGroup').value.Fsh_id != undefined && submitedTeacher">
         <p>Информация о преподавателе</p>
-        <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia impedit numquam
-            earum blanditiis ipsum a, magni molestias iusto, nihil eveniet tempore omnis soluta
-            maiores, sint nobis cupiditate corrupti distinctio. Quia non soluta omnis veniam
-            debitis! Voluptatum consequatur distinctio fugiat sequi,
-            delectus hic laudantium reiciendis dicta, est cum culpa velit neque.
-        </p>
-        <div *ngIf="stateForm.get('stateGroup').value.Fsh_id != undefined">
-            <p>Кстати препода зовут {{stateForm.get('stateGroup').value.FullName}}</p>
-        </div>
+        <ul>
+            <li>ФИО: <b>{{stateForm.get('stateGroup').value.FullName}}</b> </li>
+            <li>Должность: <b>{{submitedTeacher.PostName}}</b> </li>
+            <li>Ставка: <b>{{submitedTeacher.StaffCount}}</b> </li>
+        </ul>
     </div>
 
 

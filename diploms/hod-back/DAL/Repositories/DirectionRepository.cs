@@ -27,14 +27,14 @@ namespace hod_back.DAL.Repositories
             {
                 return db.Directions.FirstOrDefault(func) ?? def;
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
                 return new Context().Directions.FirstOrDefault(func) ?? def;
             }
         }
         public override async Task<Direction> GetOrDefaultAsync(Func<Direction, bool> func, Direction def = null)
         {
-
+        mark:
             try
             {
                 var res = await db.Directions.ToListAsync();
@@ -42,10 +42,8 @@ namespace hod_back.DAL.Repositories
             }
             catch (InvalidOperationException ex)
             {
-                // ну и пожалуйста, ну и не надо
-                Context db = new Context();
-                var res = db.Directions.FirstOrDefault(func);
-                return res;
+                Task.Delay(1000);
+                goto mark;
             }
         }
 

@@ -13,7 +13,7 @@ import { startWith, map } from 'rxjs/operators';
 import { ShareService } from '../share.service';
 // import { promotion_HttpService } from '../hod-promotion/_http.serviceHodPromotion';
 
-import { Teacher, GroupTeacher } from '../_models/teacher-models';
+import { Teacher, GroupTeacher, TeacherRate } from '../_models/teacher-models';
 import { Direction, DepInfo } from '../_models/deps-models';
 import { Group } from '../_models/groups-models';
 import { environment } from 'src/environments/environment';
@@ -74,6 +74,8 @@ export class HodModalPromoteComponent implements OnInit {
 
   submitedAttAcPlan: any;
 
+  submitedTeacher: TeacherRate;
+
   constructor(
     private _http: HttpClient,
     private _formBuilder: FormBuilder,
@@ -91,8 +93,16 @@ export class HodModalPromoteComponent implements OnInit {
 
     if (this.isUnmappedSubject) { // this.subjectDepId == null
       // получаем всех преподавателей
-      this._http.get(`${environment.hod_api_url}teachers/get/all`)
+      this._http.get<GroupTeacher[]>(`${environment.hod_api_url}teachers/get/all`, {
+        headers: new HttpHeaders
+          ({
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+          })
+      })
         .subscribe(result => {
+          this.stateGroups = result;
+          console.log(result);
         });
     }
     else {  // this.subjectDepId != null
@@ -124,6 +134,9 @@ export class HodModalPromoteComponent implements OnInit {
   }
 
   displayFn(shop: Teacher): string {
+    // this._http.get<TeacherRate>(`${environment.hod_api_url}teachers/get/info/${shop.Fsh_id}`).subscribe(result => {
+    //   this.submitedTeacher = result;
+    // });
     return shop.FullName;
   }
 
@@ -146,7 +159,7 @@ export class HodModalPromoteComponent implements OnInit {
     console.log(selectedTeacher);
     console.log(this.selectedAttRec);
 
-    if (selectedTeacher.value.Fsh_id == undefined) { alert('Отказ некорректно в сохранении, не выбран преподаватель.'); return null; }
+    if (selectedTeacher.value.Fsh_id == undefined) { alert('Отказ в сохранении, поскольку преподаватель не был выбран.'); return null; }
 
     let formFake = {
       'fsh_id': selectedTeacher.value.Fsh_id,
@@ -198,7 +211,7 @@ export class HodModalPromoteComponent implements OnInit {
   // When the user clicks the action button a.k.a. the logout button in the\
   // modal, show an alert and followed by the closing of the modal
   actionFunction() {
-    alert("You have logged out.");
+    // alert("You have logged out.");
     this.closeModal();
   }
 

@@ -7,8 +7,22 @@ namespace hod_back.Dto
 {
     public class Requirs_7_2Dto
     {
+        public Requirs_7_2Dto()
+        {
+            this.Full = new Mark();
+            this.Partial = new Mark();
+        }
         public int Dir_id { get; set; }
 
+        public Mark Full { get; set; }
+        public Mark Partial { get; set; }
+
+        //public string code { get; set; }
+        public string Message { get; set; }
+    }
+
+    public class Mark
+    {
         public double NumberAll722 { get; set; }
         public double NumberSubmitted722 { get; set; }
         public string Mark722 { get; set; }
@@ -20,9 +34,6 @@ namespace hod_back.Dto
         public double NumberAll724 { get; set; }
         public double NumberSubmitted724 { get; set; }
         public string Mark724 { get; set; }
-
-        //public string code { get; set; }
-        public string Message { get; set; }
     }
 
     //public dir_id: number;

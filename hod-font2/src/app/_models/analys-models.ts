@@ -1,5 +1,5 @@
 
-export { GroupAnalysDto, DirAnalysDto }
+export { GroupAnalysDto, DirAnalysDto, Marks }
 
 class GroupAnalysDto {
     public Group_id: number;
@@ -18,6 +18,17 @@ class GroupAnalysDto {
 class DirAnalysDto {
     public Dir_id: number;
 
+    public Full: Marks;
+    public Partial: Marks;
+
+    public Message: string;
+
+    constructor() { }
+
+
+}
+
+class Marks {
     public NumberAll722: number;
     public NumberSubmitted722: number;
     public Mark722: string;
@@ -29,10 +40,4 @@ class DirAnalysDto {
     public NumberAll724: number;
     public NumberSubmitted724: number;
     public Mark724: string;
-
-    public Message: string;
-    
-    constructor() { }
-
-    
 }

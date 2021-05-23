@@ -16,7 +16,6 @@ namespace hod_back.Model
         public int? EDocId { get; set; }
         [Column("deg_date", TypeName = "datetime")]
         public DateTime? DegDate { get; set; }
-        [StringLength(100)]
         public string DissertCouncil { get; set; }
         [Column("diplWhere")]
         [StringLength(100)]

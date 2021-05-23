@@ -5,7 +5,7 @@ CREATE VIEW dbo.DepsInfo
 AS
 
 SELECT 
---DISTINCT -- по идее это гребанный костыль
+--DISTINCT -- по идее это костыль
 	deps.dep_id
 	,deps.dep_guid
 	,deps.dep_name
@@ -23,7 +23,7 @@ FROM hod.Import.Departments as deps
 	inner join hod.Import.EducBranches as ebs on ebs.eBr_id = dirs.eBr_id
 
 	-- Группы
-	inner join hod.Import.Groups as grs on grs.dir_id = dirs.dir_id
+	left join hod.Import.Groups as grs on grs.dir_id = dirs.dir_id
 		and grs.DateExit > getdate()
 
 	left join (

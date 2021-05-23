@@ -43,7 +43,12 @@ namespace hod_back.Services.Analyse
             return res;
         }
 
-        public Requir Execute(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList)
+        public Requir Execute_Full(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList, int totalCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Requir Execute_Partial(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList)
         {
             throw new NotImplementedException();
         }

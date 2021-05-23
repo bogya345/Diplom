@@ -73,6 +73,33 @@ namespace hod_back.Controllers
         }
 
         [Authorize(Roles = "препод,завед,админ")]
+        [HttpGet("get/all")]
+        public async Task<IEnumerable<GroupTeacherDto>> GetCorrespond()
+        {
+            var tmp = await _unit.TeacherDeps.GetAllAsync();
+
+            var tmp1 = _mapper.Map<IEnumerable<TeacherDepDto>>(tmp).OrderBy(x => x.LastName);
+
+            var groupTmp1 = from i in tmp1
+                            group i by i.LastName[0].ToString();
+
+            List<GroupTeacherDto> res = new List<GroupTeacherDto>();
+            foreach (IGrouping<string, TeacherDepDto> g in groupTmp1)
+            {
+                //foreach(var i in g)
+                //    i.
+                var list = new List<TeacherDepDto>();
+                foreach (var j in g)
+                    list.Add(j);
+
+                res.Add(new GroupTeacherDto() { letter = g.Key.ToString(), teachers = list.ToArray() });
+
+            }
+
+            return res;
+        }
+
+        [Authorize(Roles = "препод,завед,админ")]
         [HttpPost("post/on/att-ac-plan/{attAcPl_id}")]
         public LoadPartDto PostSubmitTeacher([FromRoute] int attAcPl_id, AttAcPlanTeacherModel model)
         {
@@ -86,13 +113,21 @@ namespace hod_back.Controllers
 
             var res = new LoadPartDto()
             {
-                Fsh_id = model.fsh_id,
+                Fsh_id = model.fsh_id.Value,
                 TeacherName = model.teacherName
             };
 
             return res;
         }
 
+        [Authorize(Roles = "препод,завед,админ")]
+        [HttpGet("get/info/{fsh_id}")]
+        public async Task<TeacherRateDto> GetTeacherInfo([FromRoute] int fsh_id)
+        {
+            var teacher = await _unit.TeacherRates.GetOrDefaultAsync(x => x.FshId == fsh_id);
+            var res = _mapper.Map<TeacherRateDto>(teacher);
+            return res;
+        }
         //    // Route( "/teachers" )
         //    #region Преподаватели
 

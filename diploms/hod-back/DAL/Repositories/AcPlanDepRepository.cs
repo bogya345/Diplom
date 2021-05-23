@@ -29,15 +29,17 @@ namespace hod_back.DAL.Repositories
         }
         public override async Task<IEnumerable<AcPlanDep>> GetAllAsync()
         {
-            var tmp = db.AcPlanDeps;
-
-            IEnumerable<AcPlanDep> GetData()
+        mark:
+            try
             {
-                foreach (var i in tmp)
-                    yield return i;
+                var tmp = db.AcPlanDeps;
+                return tmp;
             }
-
-            return GetData();
+            catch (InvalidOperationException ex)
+            {
+                Task.Delay(1000);
+                goto mark;
+            }
         }
 
         public override IEnumerable<AcPlanDep> GetMany(Func<AcPlanDep, bool> func)
@@ -56,7 +58,7 @@ namespace hod_back.DAL.Repositories
 
         public override void UpdateRange(AcPlanDep[] items)
         {
-            foreach(var i in items)
+            foreach (var i in items)
             {
                 var tmp = db.AcPlanDeps.FirstOrDefault(x => x.AcPlDepId == i.AcPlDepId);
                 tmp.DepId = i.DepId;

@@ -23,8 +23,9 @@ import { HodModalShowGroupStatusComponent } from '../hod-modal-show-group-status
 import { HodShowDirPropertyComponent } from '../hod-show-dir-property/hod-show-dir-property.component';
 import { ProgressModalComponent } from '../progress-modal/progress-modal.component';
 
-import { GroupAnalysDto, DirAnalysDto } from '../_models/analys-models';
+import { GroupAnalysDto, DirAnalysDto, Marks } from '../_models/analys-models';
 import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/overlay-directives';
+import { User } from '../_models/accounts-models';
 
 @Component({
   selector: 'app-hod-promotion',
@@ -32,6 +33,8 @@ import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular
   styleUrls: ['./hod-promotion.component.css']
 })
 export class HodPromotionComponent implements OnInit {
+
+  public user: User;
 
   public deps: DepsDto[];
 
@@ -69,6 +72,7 @@ export class HodPromotionComponent implements OnInit {
     private matDialog: MatDialog
   ) {
     this._httpOwn = new promotion_HttpService(_http);
+    this.user = share.getUser();
   }
 
   private autoSet() {
@@ -308,13 +312,13 @@ export class HodPromotionComponent implements OnInit {
   }
 
   public getGroupStatus(item) {
-    if(item == null){ console.log(this.selectedDir); console.log('item is null');}
+    if (item == null) { console.log(this.selectedDir); console.log('item is null'); }
     // console.log(this.groupStatus, item);
     // console.log(this.groupStatus.filter(x => { return x.group_id == item.group_id }));
     // console.log(this.groupStatus.filter(x => { return x.group_id == item.group_id })[0]);
     // console.log('groupStatus', this.groupStatus);
     // console.log('item', item); console.log('x', x.Group_id);
-    let tmp = this.groupStatus.filter(x => {  return x.Group_id == item.Group_id; })[0];
+    let tmp = this.groupStatus.filter(x => { return x.Group_id == item.Group_id; })[0];
 
     if (tmp.NumberAll == 0) { return 0; }
 
@@ -325,48 +329,93 @@ export class HodPromotionComponent implements OnInit {
   }
 
   public getColorForRequirs(mark) {
-    console.log(mark);
-    if (mark == "+") { console.log('why then'); return this.colorPrimary; }
+    // console.log(mark);
+    if (mark == "+") { return this.colorPrimary; }
     return this.colorWarn;
   }
 
-  public getDirStatus722() {
+
+  public getDirStatus722Full() {
     let tmp = this.dirStatus;
-    if (tmp.NumberSubmitted722 == tmp.NumberAll722) { return 100; }
-    let x = (tmp.NumberSubmitted722 * 100) / tmp.NumberAll722;
+    if (tmp.Full.NumberSubmitted722 == tmp.Full.NumberAll722) { return 100; }
+    let x = (tmp.Full.NumberSubmitted722 * 100) / tmp.Full.NumberAll722;
     x = Math.round((x + Number.EPSILON) * 100) / 100;
     return x;
   }
-  public getDirStatus723() {
+  public getDirStatus723Full() {
     let tmp = this.dirStatus;
-    if (tmp.NumberSubmitted723 == tmp.NumberAll723) { return 100; }
-    let x = (tmp.NumberSubmitted723 * 100) / tmp.NumberAll723;
+    if (tmp.Full.NumberSubmitted723 == tmp.Full.NumberAll723) { return 100; }
+    let x = (tmp.Full.NumberSubmitted723 * 100) / tmp.Full.NumberAll723;
     x = Math.round((x + Number.EPSILON) * 100) / 100;
     return x;
   }
-  public getDirStatus724() {
+  public getDirStatus724Full() {
     let tmp = this.dirStatus;
-    if (tmp.NumberSubmitted724 == tmp.NumberAll724) { return 100; }
-    let x = (tmp.NumberSubmitted724 * 100) / tmp.NumberAll724;
+    if (tmp.Full.NumberSubmitted724 == tmp.Full.NumberAll724) { return 100; }
+    let x = (tmp.Full.NumberSubmitted724 * 100) / tmp.Full.NumberAll724;
     x = Math.round((x + Number.EPSILON) * 100) / 100;
     return x;
+  }
+  public getMark722Full() {
+    // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
+    let tmp = this.dirStatus;
+    return tmp.Full.Mark722;
+  }
+  public getMark723Full() {
+    // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
+    let tmp = this.dirStatus;
+    return tmp.Full.Mark723;
+  }
+  public getMark724Full() {
+    // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
+    let tmp = this.dirStatus;
+    return tmp.Full.Mark724;
   }
 
-  public getMark722() {
+
+  public getDirStatus722Part() {
+    let tmp = this.dirStatus;
+    if (tmp.Partial.NumberAll722 == 0) { return 0; }
+    if (tmp.Partial.NumberSubmitted722 == tmp.Partial.NumberAll722) { return 100; }
+    let x = (tmp.Partial.NumberSubmitted722 * 100) / tmp.Partial.NumberAll722;
+    x = Math.round((x + Number.EPSILON) * 100) / 100;
+    return x;
+  }
+  public getDirStatus723Part() {
+    let tmp = this.dirStatus;
+    if (tmp.Partial.NumberAll723 == 0) { return 0; }
+    if (tmp.Partial.NumberSubmitted723 == tmp.Partial.NumberAll723) { return 100; }
+    let x = (tmp.Partial.NumberSubmitted723 * 100) / tmp.Partial.NumberAll723;
+    x = Math.round((x + Number.EPSILON) * 100) / 100;
+    return x;
+  }
+  public getDirStatus724Part() {
+    let tmp = this.dirStatus;
+    if (tmp.Partial.NumberAll724 == 0) { return 0; }
+    if (tmp.Partial.NumberSubmitted724 == tmp.Partial.NumberAll724) { return 100; }
+    let x = (tmp.Partial.NumberSubmitted724 * 100) / tmp.Partial.NumberAll724;
+    x = Math.round((x + Number.EPSILON) * 100) / 100;
+    return x;
+  }
+  public getMark722Part() {
     // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
     let tmp = this.dirStatus;
-    return tmp.Mark722;
+    if (tmp.Partial.NumberAll722 == 0) { return "-"; }
+    return tmp.Partial.Mark722;
   }
-  public getMark723() {
+  public getMark723Part() {
     // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
     let tmp = this.dirStatus;
-    return tmp.Mark723;
+    if (tmp.Partial.NumberAll723 == 0) { return "-"; }
+    return tmp.Partial.Mark723;
   }
-  public getMark724() {
+  public getMark724Part() {
     // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
     let tmp = this.dirStatus;
-    return tmp.Mark724;
+    if (tmp.Partial.NumberAll724 == 0) { return "-"; }
+    return tmp.Partial.Mark724;
   }
+
 
   public setSelectedGroup(item) {
     this.selectedGroup = item;

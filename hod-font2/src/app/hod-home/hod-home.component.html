@@ -1,1 +1,58 @@
-<p>hod-home works!</p>
+
+<!-- кафедры -->
+<div id="home_cathedra" *ngIf="user.access_role_id == 1 || user.access_role_id == 2">
+
+    <div class="container">
+        <div class="row">
+            <h2>Кафедра <b>{{user.dep}}</b></h2>
+        </div>
+        <div class="row">
+            <div class="col">
+                <!-- <p>Краткая информация о {{dep.Dep_name}}</p> -->
+                <p>Краткая информация о кафедре:</p>
+                <ul>
+                    <li>Заведующий кафедрой: {{dep.HeadTeach_name}}</li>
+                    <li>Количество групп: {{dep.Count_groups}} </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- уму отдел -->
+<div id="home_ymy" *ngIf="user.access_role_id == 3">
+
+    <div class="container">
+        <div class="row">
+            <h2><b>{{user.dep}}</b></h2>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p>"Краткая информация о кафедре пользователя"</p>
+                <!-- <ul>
+                    <li>Количество преподавателей: </li>
+                </ul> -->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- администратор -->
+<div id="home_admin" *ngIf="user.access_role_id == 4">
+
+    <div class="container">
+        <div class="row">
+            <h2>Администратор</h2>
+        </div>
+        <div class="row">
+            <div class="col">
+                <ul>
+                    <li>Количество сообщений об ошибках: <b>4</b></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
 
   public loginError: string;
   public passError: string;
+  public authError: string;
 
 
   @Output("onAuth") onAuth: EventEmitter<any> = new EventEmitter();
@@ -75,7 +76,7 @@ export class LoginComponent implements OnInit {
     else { this.passError = undefined; }
 
     // console.log()
-    alert(`email:${this.email}\tpass:${this.password}`);
+    // alert(`email:${this.email}\tpass:${this.password}`);
 
 
     // пусть будет тут, не буду переносить в services
@@ -113,9 +114,19 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem(environment.hod_sessionConst.username, this.email);
       console.log(this.email);
 
-      sessionStorage.setItem(environment.hod_sessionConst.role, data.access_role);
+      sessionStorage.setItem(environment.hod_sessionConst.access_role, data.access_role);
       console.log(data.access_role);
 
+      sessionStorage.setItem(environment.hod_sessionConst.access_role_id, data.access_role_id);
+      console.log(data.access_role_id);
+
+      sessionStorage.setItem(environment.hod_sessionConst.dep, data.dep_name);
+      console.log(data.dep_name);
+
+      sessionStorage.setItem(environment.hod_sessionConst.dep_id, data.dep_id);
+      console.log(data.dep_id);
+
+      
       // сохраняем в хранилище sessionStorage токен доступа
       sessionStorage.setItem(environment.hod_sessionConst.accessTokenName, data.access_token);
       console.log(data.access_token);
@@ -132,6 +143,7 @@ export class LoginComponent implements OnInit {
     else {
       // если произошла ошибка, из errorText получаем текст ошибки
       console.log("Error: ", response.status, data.errorText);
+      this.authError = `${data.errorText}`;
     }
 
   }

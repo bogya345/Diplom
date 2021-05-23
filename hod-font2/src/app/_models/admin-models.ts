@@ -15,10 +15,10 @@ interface MapSubDepDto {
 interface SubDepDto {
     sub_id: number,
     sub_name: string,
-    acPlDep_id: number,
-    acPlDep_name: string,
-    dep_id: number,
-    dep_name: string,
+    AcPlDep_id: number,
+    AcPlDep_name: string,
+    Dep_id: number,
+    Dep_name: string,
 }
 interface SubDepModal {
     sub_id: number,
@@ -27,10 +27,10 @@ interface SubDepModal {
 }
 
 interface DepDepDto {
-    acPlDep_id: number,
-    acPlDep_name: string,
-    dep_id: number,
-    dep_name: string,
+    AcPlDep_id: number,
+    AcPlDep_name: string,
+    Dep_id: number,
+    Dep_name: string,
 }
 interface DepDepModal {
     acPlDep_id: number,

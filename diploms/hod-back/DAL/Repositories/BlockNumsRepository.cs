@@ -61,7 +61,10 @@ namespace hod_back.DAL.Repositories
         }
         public override async Task<IEnumerable<BlockNum>> GetManyWithIncludeAsync(Func<BlockNum, bool> func)
         {
-            return db.BlockNums
+        mark:
+            try
+            {
+                return db.BlockNums
 
                 .Include(x => x.BlockRecs)
                 .ThenInclude(y => y.Sub)
@@ -84,7 +87,13 @@ namespace hod_back.DAL.Repositories
                 //.ThenInclude(z => z.Directions)
                 //.ThenInclude(k => k.Dep)
 
-                .Where(func);
+                .Where(func).ToList();
+            }
+            catch (InvalidOperationException ex)
+            {
+                Task.Delay(1000);
+                goto mark;
+            }
         }
 
         //public IEnu

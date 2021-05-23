@@ -1,5 +1,6 @@
 <div class="row">
   <div class="col-md-6 mx-auto p-0">
+    <br />
     <div class="card">
       <div class="login-box">
         <div class="login-snip"> <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
@@ -34,6 +35,11 @@
               <div class="group">
                 <input (click)="login()" type="submit" class="button" value="Войти">
               </div>
+
+              <div>
+                <label *ngIf="authError" class="label" style="color: red; font-size: large;">{{authError}}</label>
+              </div>
+
               <div class="hr"></div>
               <div class="foot"> <a style="color:aqua;" href="#">Забыли пароль?</a> </div>
             </div>

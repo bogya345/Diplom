@@ -31,7 +31,7 @@ namespace hod_back.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return BadRequest("lol, nope");
+                return BadRequest("Ошибка 403: Неавторизированный пользователь.");
             }
 
             var now = DateTime.UtcNow;
@@ -53,7 +53,7 @@ namespace hod_back.Controllers
                 access_role_id = User.Claims.ToList()[1].Value,
                 access_role = User.Claims.ToList()[2].Value,
                 dep_id = User.Claims.ToList()[3].Value,
-                dep_name = User.Claims.ToList()[4].Value,
+                dep = User.Claims.ToList()[4].Value,
                 access_token = encodedJwt
             };
 
