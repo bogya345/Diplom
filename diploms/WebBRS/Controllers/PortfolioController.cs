@@ -88,9 +88,9 @@ namespace WebBRS.Controllers
 			}
 			return portfolioVMs;
 		}
-		[HttpGet("GetPortfoliosForConfirm/{conf}")]
+		[HttpGet("GetPortfoliosForConfirm/{conf}/{datestart}/{dateend}")]
 
-		public List<PortfolioVM> GetPortfoliosForConfirm(bool conf)
+		public List<PortfolioVM> GetPortfoliosForConfirm(bool conf, DateTime datestart, DateTime dateend)
 		{
 			List<PortfolioVM> portfolioVMs = new List<PortfolioVM>();
 			//изменить когда появится авторизация
@@ -102,7 +102,7 @@ namespace WebBRS.Controllers
 			{
 				foreach (var c in curators)
 				{
-					List<Portfolio> portfoliosBUF = unit.Portfolios.GetAll(po => po.IdCurator == c.CuratorID && po.Confirmed == conf).ToList();
+					List<Portfolio> portfoliosBUF = unit.Portfolios.GetAll(po => po.IdCurator == c.CuratorID && po.Confirmed == conf && po.DateAdded > datestart && po.DateAdded < dateend).ToList();
 					foreach (var p in portfoliosBUF)
 					{
 						portfolios.Add(p);
@@ -113,7 +113,7 @@ namespace WebBRS.Controllers
 			{
 				foreach (var c in curators)
 				{
-					List<Portfolio> portfoliosBUF = unit.Portfolios.GetAll(po => po.IdCurator == c.CuratorID).ToList();
+					List<Portfolio> portfoliosBUF = unit.Portfolios.GetAll(po => po.IdCurator == c.CuratorID&&po.DateAdded>datestart&&po.DateAdded<dateend).ToList();
 					foreach (var p in portfoliosBUF)
 					{
 						portfolios.Add(p);

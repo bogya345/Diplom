@@ -18,12 +18,12 @@
     <div class="container-fluid">
       <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-7">
           <div class="card">
             <div class="card-header p-2">
               <ul class="nav nav-pills">
-                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Портфолио</a></li>
-                <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Добавить файл портфолио</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab" (click)="update()">Портфолио</a></li>
+                <li class="nav-item"><a class="nav-link" href="#attedances" data-toggle="tab" (click)="update()">Добавить файл портфолио</a></li>
               </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -34,9 +34,30 @@
                       <div class="col-3">
                         <label>Подтвержденные</label>
                       </div>
-                      <div class="col-4">
+                      <div class="col-1">
                         <input class="form-check-input" type="checkbox" id="flexCheckChecked" (click)="selectChangeHandler4($event)" checked>
                       </div>
+
+                      <div class="col-1 ">
+                        <label>С:</label>
+                      </div>
+                      <div class="col-3 ">
+                        <div class="input-group">
+                          <input id="datetime" value="{{DateTimeStart}}" (change)="selectChangeHandler6($event)" type="date">
+                        </div>
+                      </div>
+
+
+                      <div class="col-1 ">
+                        <label>По:</label>
+                      </div>
+                      <div class="col-2 ">
+
+                        <div class="input-group">
+                          <input id="datetime" value="{{DateTimeEnd}}" (change)="selectChangeHandler7($event)" type="date">
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -74,6 +95,49 @@
 
                       </div><div class="col-3">
                         <button type="button" class="btn btn-danger" value="{{i.IdPortfolio}}" (click)="openDialog2($event)">Отклонить</button>
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- /.post -->
+                  <!-- Post -->
+                  <!-- /.post -->
+                </div>
+                <div class="active tab-pane" id="attedances">
+                  <!-- Post -->
+                  <div class="post" *ngFor="let i of attedances">
+                    <div class="user-block">
+                      <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
+                      <span class="username">
+                        <a href="#">
+                          {{i.PersonFIO}}
+                        </a>
+
+
+
+                        <!--<a class="float-right btn-tool"></a>-->
+                      </span>
+                      <span class="description">Активность добавлена - {{i.DateAdded}}</span>
+                      <span class="description">Активность подтверждена - {{i.DateConfirmed}}</span>
+                      <span class="description">Активность отклонена - {{i.DateNotConfirmed}}</span>
+                    </div>
+                    <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
+                    <h3>
+                      {{i.DocName}}
+
+                    </h3>
+                    <!--<p>
+                      {{i.Description}}
+                    </p>-->
+
+                    <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
+                    <div class="row">
+                      <div class="col-3">
+                        <button type="button" class="btn btn-primary" value="{{i.IdAttReas}}" (click)="openDialog3($event)">Подтвердить</button>
+
+                      </div><div class="col-3">
+                        <button type="button" class="btn btn-danger" value="{{i.IdAttReas}}" (click)="openDialog4($event)">Отклонить</button>
 
                       </div>
                     </div>

@@ -20,10 +20,13 @@ export class CuratorConfirmedListComponent implements OnInit {
   public portfolioAdd: PortfolioVM;
   public profile: ProfileVM;
   public portfolios: PortfolioVM[];
+  public attedances: AttedanceReason[];
   //@ViewChild('deleteModal', { static: false }) public deleteModal: YesNoModalComponent;
   public dialog: MatDialog;
   public snackBar: MatSnackBar;
   public idPortfolioUpdate: 0;
+  public DateTimeStart: string;
+  public DateTimeEnd: string;
   public notConfirmed: boolean;
   //private confirmDialogService: ConfirmDialogService;
   constructor(http: HttpClient, private router: Router, private _route: ActivatedRoute, private dialog2: MatDialog, private snackBar2: MatSnackBar) {
@@ -38,11 +41,22 @@ export class CuratorConfirmedListComponent implements OnInit {
 
     this.conf = event.target.checked;
     console.log('кликлак',this.conf );
-    this.http.getPortfolios(this.conf)
+    this.http.getPortfolios(this.conf, this.DateTimeStart, this.DateTimeEnd)
       .subscribe(result => {
         this.portfolios = result;
 
         console.log('portfolios', this.portfolios);
+        console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+    );
+    this.http.getAttedanceReasons(this.conf, this.DateTimeStart, this.DateTimeEnd)
+      .subscribe(result => {
+        this.attedances = result;
+
+        console.log('attedance', this.portfolios);
         console.log('result/constructor', result);
 
       }, error => {
@@ -86,7 +100,7 @@ export class CuratorConfirmedListComponent implements OnInit {
         this.http.execute(this.portfolios[this.portfolios.findIndex(st => st.IdPortfolio == this.idPortfolioUpdate as number)])
           .subscribe(result => {
             console.log(result);
-            this.http.getPortfolios(this.conf)
+            this.http.getPortfolios(this.conf, this.DateTimeStart, this.DateTimeEnd)
               .subscribe(result => {
                 this.portfolios = result;
 
@@ -115,6 +129,60 @@ export class CuratorConfirmedListComponent implements OnInit {
       },
     });
   }
+  selectChangeHandler6(event: any) {
+
+    this.DateTimeStart = event.target.value;
+    this.http.getPortfolios(this.conf, this.DateTimeStart, this.DateTimeEnd)
+      .subscribe(result => {
+        this.portfolios = result;
+
+        console.log('portfolios', this.portfolios);
+        console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+    );
+    this.http.getAttedanceReasons(this.conf, this.DateTimeStart, this.DateTimeEnd)
+      .subscribe(result => {
+        this.attedances = result;
+
+        console.log('attedance', this.portfolios);
+        console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+      );
+    console.log(event.target.value);
+  }
+  selectChangeHandler7(event: any) {
+
+    this.DateTimeEnd = event.target.value;
+    this.http.getPortfolios(this.conf, this.DateTimeStart, this.DateTimeEnd)
+      .subscribe(result => {
+        this.portfolios = result;
+
+        console.log('portfolios', this.portfolios);
+        console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+    );
+    this.http.getAttedanceReasons(this.conf, this.DateTimeStart, this.DateTimeEnd)
+      .subscribe(result => {
+        this.attedances = result;
+
+        console.log('attedance', this.attedances);
+        console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+      );
+    console.log(event.target.value);
+  }
   openDialog2(event: any) {
     console.log('event: ', event);
     this.idPortfolioUpdate = event.target.value;
@@ -142,7 +210,7 @@ export class CuratorConfirmedListComponent implements OnInit {
           this.http.execute(this.portfolios[this.portfolios.findIndex(st => st.IdPortfolio == this.idPortfolioUpdate as number)])
             .subscribe(result => {
               console.log(result);
-              this.http.getPortfolios(this.conf)
+              this.http.getPortfolios(this.conf, this.DateTimeStart, this.DateTimeEnd)
                 .subscribe(result => {
                   this.portfolios = result;
 
@@ -175,12 +243,150 @@ export class CuratorConfirmedListComponent implements OnInit {
   //   
   //  });
   //}
+  openDialog3(event: any) {
+    console.log('event: ', event);
+    this.idPortfolioUpdate = event.target.value;
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        message: 'Вы хотите подтвердить справку?',
+        buttonText: {
+          ok: 'Да',
+          cancel: 'Нет'
+        }
+      }
+    });
+    //const snack = this.snackBar.open('Snack bar open before dialog');
+
+    dialogRef.afterClosed()
+      .subscribe((confirmed: boolean) => {
+        if (confirmed) {
+          //snack.dismiss();
+          //const a = document.createElement('a');
+          //a.click();
+          //a.remove();
+          //snack.dismiss();
+          this.attedances[this.attedances.findIndex(st => st.IdAttReas == this.idPortfolioUpdate as number)].Confirmed = 'true';
+
+          this.http.execute2(this.attedances[this.attedances.findIndex(st => st.IdAttReas == this.idPortfolioUpdate as number)])
+            .subscribe(result => {
+              console.log(result);
+              this.http.getPortfolios(this.conf, this.DateTimeStart, this.DateTimeEnd)
+                .subscribe(result => {
+                  this.portfolios = result;
+
+                  console.log('portfolios', this.portfolios);
+                  console.log('result/constructor', result);
+
+                }, error => {
+                  console.log('error/constructor', error);
+                }
+              );
+              this.http.getAttedanceReasons(this.conf, this.DateTimeStart, this.DateTimeEnd)
+                .subscribe(result => {
+                  this.attedances = result;
+
+                  console.log('attedance', this.portfolios);
+                  console.log('result/constructor', result);
+
+                }, error => {
+                  console.log('error/constructor', error);
+                }
+                );
+            });
+
+          //this.snackBar.open('Удаляется', 'Fechar', {
+          //  duration: 2000,
+          //});
+        }
+      });
+  }
+  openDialog4(event: any) {
+    console.log('event: ', event);
+    this.idPortfolioUpdate = event.target.value;
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        message: 'Вы хотите отклонить справку?',
+        buttonText: {
+          ok: 'Да',
+          cancel: 'Нет'
+        }
+      }
+    });
+    //const snack = this.snackBar.open('Snack bar open before dialog');
+
+    dialogRef.afterClosed()
+      .subscribe((confirmed: boolean) => {
+        if (confirmed) {
+          //snack.dismiss();
+          //const a = document.createElement('a');
+          //a.click();
+          //a.remove();
+          //snack.dismiss();
+          this.attedances[this.attedances.findIndex(st => st.IdAttReas == this.idPortfolioUpdate as number)].Confirmed = 'false';
+
+          this.http.execute2(this.attedances[this.attedances.findIndex(st => st.IdAttReas == this.idPortfolioUpdate as number)])
+            .subscribe(result => {
+              console.log(result);
+              this.http.getPortfolios(this.conf, this.DateTimeStart, this.DateTimeEnd)
+                .subscribe(result => {
+                  this.portfolios = result;
+
+                  console.log('portfolios', this.portfolios);
+                  console.log('result/constructor', result);
+
+                }, error => {
+                  console.log('error/constructor', error);
+                }
+              );
+              this.http.getAttedanceReasons(this.conf, this.DateTimeStart, this.DateTimeEnd)
+                .subscribe(result => {
+                  this.attedances = result;
+
+                  console.log('attedance', this.portfolios);
+                  console.log('result/constructor', result);
+
+                }, error => {
+                  console.log('error/constructor', error);
+                }
+                );
+            });
+
+          //this.snackBar.open('Удаляется', 'Fechar', {
+          //  duration: 2000,
+          //});
+        }
+      });
+  }
   postData() {
 
     return this.http.postData(this.portfolioAdd)
       .subscribe(result => {
         console.log(result);
       });
+  }
+  update() {
+    this.http.getPortfolios(this.conf, this.DateTimeStart, this.DateTimeEnd)
+      .subscribe(result => {
+        this.portfolios = result;
+
+        console.log('portfolios', this.portfolios);
+        console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+      );
+    this.http.getAttedanceReasons(this.conf, this.DateTimeStart, this.DateTimeEnd)
+      .subscribe(result => {
+        this.attedances = result;
+
+        console.log('attedance', this.portfolios);
+        console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+      );
   }
   ngOnInit() {
     this.http.getPortfolio(0)
@@ -193,12 +399,25 @@ export class CuratorConfirmedListComponent implements OnInit {
       }, error => {
         console.log('error/constructor', error);
       }
-      );
-    this.http.getPortfolios(this.conf)
+    );
+    this.DateTimeStart = String(Date.now());
+    this.DateTimeEnd = String(Date.now());
+    this.http.getPortfolios(this.conf, this.DateTimeStart, this.DateTimeEnd)
       .subscribe(result => {
         this.portfolios = result;
 
         console.log('portfolios', this.portfolios);
+        console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+    );
+    this.http.getAttedanceReasons(this.conf, this.DateTimeStart, this.DateTimeEnd)
+      .subscribe(result => {
+        this.attedances = result;
+
+        console.log('attedance', this.portfolios);
         console.log('result/constructor', result);
 
       }, error => {
@@ -232,4 +451,21 @@ interface PortfolioVM {
   DateNotConfirmed: string,
   Confirmed: string
 
+}
+interface AttedanceReason {
+
+  IdAttReas: number,
+  DocName: string,
+  IdPerson: number,
+  IdSGH: number,
+  IdCurator: number,
+  PersonFIO: string,
+  CuratorFIO: string,
+  FilePath: string,
+  DateTimeStart: string,
+  DateTimeEnd: string,
+  DateAdded: string,
+  DateConfirmed: string,
+  DateNotConfirmed: string,
+  Confirmed: string
 }

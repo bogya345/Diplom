@@ -8,6 +8,7 @@ import { MethodCall } from '@angular/compiler';
 
 export class confirmedList_HttpService {
   private url = "/prortfolio";
+  private url2 = "/attedanceReason";
 
   constructor(private http: HttpClient) { }
   getPortfolio(IdECFLCT): Observable<PortfolioVM> {
@@ -37,8 +38,25 @@ export class confirmedList_HttpService {
     //return this.http.post(this.url + '/DeletePortfolio', dataToSend, { observe: 'response' });
     return this.http.post(this.url + '/UpdatePortfolioWork', portfolioAdd, { observe: 'response' });
   }
-  getPortfolios(conf: boolean): Observable<PortfolioVM[]> {
-    return this.http.get<PortfolioVM[]>(`prortfolio/GetPortfoliosForConfirm/${conf}`,
+  execute2(portfolioAdd: AttedanceReason) {
+    console.log('нажали ', portfolioAdd);
+    //let dataToSend = { data: { 'IdPortfolio': IdPortfolio } }; 
+    //console.log('нажали 2222', this.http.post(this.url + '/DeletePortfolio', IdPortfolio, { observe: 'response' }));
+    //const body = { name: user.name, age: user.age };
+    //return this.http.post(this.url + '/DeletePortfolio', dataToSend, { observe: 'response' });
+    return this.http.post(this.url2 + '/UpdateAttedanceReason', portfolioAdd, { observe: 'response' });
+  }
+  getPortfolios(conf: boolean,  DateTimeStart, DateTimeEnd): Observable<PortfolioVM[]> {
+    return this.http.get<PortfolioVM[]>(`prortfolio/GetPortfoliosForConfirm/${conf}/${DateTimeStart}/${DateTimeEnd}`,
+      {
+        //headers: {
+        //  'Accept': 'application/json',
+        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
+        //}
+      });
+  }
+  getAttedanceReasons(conf: boolean, DateTimeStart, DateTimeEnd): Observable<AttedanceReason[]> {
+    return this.http.get<AttedanceReason[]>(`attedanceReason/GetAttedanceForConfirm/${conf}/${DateTimeStart}/${DateTimeEnd}`,
       {
         //headers: {
         //  'Accept': 'application/json',
@@ -75,4 +93,21 @@ interface PortfolioVM {
   DateNotConfirmed: string,
   Confirmed: string
 
+}
+interface AttedanceReason {
+
+  IdAttReas: number,
+  DocName: string,
+  IdPerson: number,
+  IdSGH: number,
+  IdCurator: number,
+  PersonFIO: string,
+  CuratorFIO: string,
+  FilePath: string,
+  DateTimeStart: string,
+  DateTimeEnd: string,
+  DateAdded: string,
+  DateConfirmed: string,
+  DateNotConfirmed: string,
+  Confirmed: string
 }

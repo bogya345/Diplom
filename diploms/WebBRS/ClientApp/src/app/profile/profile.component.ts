@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   public http: profile_HttpService;
   public baseUrl: string;
   public portfolioAdd: PortfolioVM;
+  public attedanceReason: AttedanceReason;
   public profile: ProfileVM;
   public portfolios: PortfolioVM[];
   public attedanceReasons: AttedanceReason[];
@@ -39,6 +40,21 @@ export class ProfileComponent implements OnInit {
   selectChangeHandler4(event: any) {
 
     this.portfolioAdd.Name = event.target.value;
+    console.log(event.target.value);
+  }
+  selectChangeHandler5(event: any) {
+
+    this.attedanceReason.DocName = event.target.value;
+    console.log(event.target.value);
+  }
+  selectChangeHandler6(event: any) {
+
+    this.attedanceReason.DateTimeStart = event.target.value;
+    console.log(event.target.value);
+  }
+  selectChangeHandler7(event: any) {
+
+    this.attedanceReason.DateTimeEnd = event.target.value;
     console.log(event.target.value);
   }
 
@@ -165,12 +181,123 @@ export class ProfileComponent implements OnInit {
         console.log(result);
       });
   }
+  openDialog3(event: any) {
+    console.log('event: ', event);
+    //this.idPortfolioDelete = event.target.value;
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        message: 'Вы хотите добавить справку?',
+        buttonText: {
+          ok: 'Да',
+          cancel: 'Нет'
+        }
+      }
+    });
+    //const snack = this.snackBar.open('Snack bar open before dialog');
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        //snack.dismiss();
+        //const a = document.createElement('a');
+        //a.click();
+        //a.remove();
+        //snack.dismiss();
+
+        this.postDataAtt();
+        this.http.getPortfolios()
+          .subscribe(result => {
+            this.portfolios = result;
+
+            console.log('portfolios', this.portfolios);
+            console.log('result/constructor', result);
+
+          }, error => {
+            console.log('error/constructor', error);
+          }
+          );
+        //this.snackBar.open('Удаляется', 'Fechar', {
+        //  duration: 2000,
+        //});
+      }
+    });
+  }
+  openDialog4(event: any) {
+    console.log('event: ', event);
+    this.idPortfolioDelete = event.target.value;
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        message: 'Вы хотите удалить справку?',
+        buttonText: {
+          ok: 'Да',
+          cancel: 'Нет'
+        }
+      }
+    });
+    //const snack = this.snackBar.open('Snack bar open before dialog');
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        //snack.dismiss();
+        //const a = document.createElement('a');
+        //a.click();
+        //a.remove();
+        //snack.dismiss();
+
+        this.http.execute2(this.idPortfolioDelete).subscribe(result => {
+          console.log(result);
+          this.http.getPortfolios()
+            .subscribe(result => {
+              this.portfolios = result;
+
+              console.log('portfolios', this.portfolios);
+              console.log('result/constructor', result);
+
+            }, error => {
+              console.log('error/constructor', error);
+            }
+            );
+        });
+        this.http.getPortfolios()
+          .subscribe(result => {
+            this.portfolios = result;
+
+            console.log('portfolios', this.portfolios);
+            console.log('result/constructor', result);
+
+          }, error => {
+            console.log('error/constructor', error);
+          }
+          );
+        //this.snackBar.open('Удаляется', 'Fechar', {
+        //  duration: 2000,
+        //});
+      }
+    });
+  }
+  postDataAtt() {
+
+    return this.http.postDataReason(this.attedanceReason)
+      .subscribe(result => {
+        console.log(result);
+      });
+  }
   ngOnInit() {
     this.http.getPortfolio(0)
       .subscribe(result => {
         this.portfolioAdd = result;
 
         console.log('keks', this.portfolioAdd = result);
+        console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+    );
+    this.http.getAttedance(0)
+      .subscribe(result => {
+        this.attedanceReason = result;
+
+        console.log('keks', this.attedanceReason = result);
         console.log('result/constructor', result);
 
       }, error => {
@@ -244,6 +371,7 @@ interface AttedanceReason {
   CuratorFIO: string,
   FilePath: string,
   DateTimeStart: string,
+  DateTimeEnd: string,
   DateAdded: string,
   DateConfirmed: string,
   DateNotConfirmed: string

@@ -44,6 +44,7 @@ namespace WebBRS.ViewModels.toRecieve
 		public string FilePath { get; set; }
 		public string DateTimeStart { get; set; }
 		public string DateTimeEnd { get; set; }
+		public string Confirmed { get; set; }
 		public string DateAdded { get; set; }
 		public string DateConfirmed { get; set; }
 		public string DateNotConfirmed { get; set; }

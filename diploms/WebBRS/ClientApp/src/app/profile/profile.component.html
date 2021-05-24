@@ -111,6 +111,8 @@
               <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Портфолио</a></li>
                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Добавить файл портфолио</a></li>
+                <li class="nav-item"><a class="nav-link" href="#attedance" data-toggle="tab">Подтверждающие справки</a></li>
+                <li class="nav-item"><a class="nav-link" href="#addattedance" data-toggle="tab">Добавить справку</a></li>
               </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -124,13 +126,15 @@
                         <a href="#">
                           {{i.PersonFIOconfirmed}}
                         </a>
-                    
+
 
                         <button type="button" class="btn btn-primary" value="{{i.IdPortfolio}}" (click)="openDialog($event)">    X </button>
-                        
+
                         <!--<a class="float-right btn-tool"></a>-->
                       </span>
                       <span class="description">Активность добавлена - {{i.DateAdded}}</span>
+                      <span class="description">Активность подтверждена - {{i.DateConfirmed}}</span>
+                      <span class="description">Активность отклонена - {{i.DateNotConfirmed}}</span>
                     </div>
                     <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
                     <p>
@@ -164,7 +168,75 @@
 
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-danger"(click)="openDialog2()">Добавить</button>
+                        <button type="submit" class="btn btn-danger" (click)="openDialog2()">Добавить</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="active tab-pane" id="attedance">
+                  <!-- Post -->
+                  <div class="post" *ngFor="let i of attedanceReasons">
+                    <div class="user-block">
+                      <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
+                      <span class="username">
+                        <a href="#">
+                          {{i.CuratorFIO}}
+                        </a>
+
+
+                        <button type="button" class="btn btn-primary" value="{{i.IdAttReas}}" (click)="openDialog4($event)">    X </button>
+
+                        <!--<a class="float-right btn-tool"></a>-->
+                      </span>
+                      <span class="description">Добавлена - {{i.DateAdded}}</span>
+                      <span class="description">Подтверждена - {{i.DateConfirmed}}</span>
+                      <span class="description">Отклонена - {{i.DateNotConfirmed}}</span>
+                    </div>
+                    <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
+                    <p>
+                      {{i.DocName}}
+                    </p>
+
+                    <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
+
+                  </div>
+                  <!-- /.post -->
+                  <!-- Post -->
+                  <!-- /.post -->
+                </div>
+                <div class="tab-pane" id="addattedance">
+                  <form class="form-horizontal">
+                    <div class="form-group row">
+                      <label for="inputName" class="col-sm-2 col-form-label">Название справки</label>
+                      <div class="col-sm-6">
+                        <input type="email" class="form-control" id="inputName" placeholder="Название справки" (change)="selectChangeHandler5($event)" value="{{attedanceReason.DocName}}">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-2 col-sm-12">
+                      <label>С:</label>
+
+                      <div class="input-group">
+                        <input id="datetime" value="{{attedanceReason.DateTimeStart}}" (change)="selectChangeHandler6($event)" type="date">
+                      </div>
+                      </div>
+                      <div class="col-4 col-sm-12">
+
+                      <label>По:</label>
+
+                      <div class="input-group">
+
+                        <!--(change)="selectChangeHandler6($event)"-->
+
+                        <input id="datetime" value="{{attedanceReason.DateTimeEnd}}" (change)="selectChangeHandler7($event)" type="date">
+                      </div>
+                      </div>
+                    </div>
+                    
+
+                    <div class="form-group row">
+                      <div class="offset-sm-2 col-sm-10">
+                        <button type="submit" class="btn btn-danger" (click)="openDialog3()">Добавить</button>
                       </div>
                     </div>
                   </form>

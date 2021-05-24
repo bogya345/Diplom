@@ -21,7 +21,7 @@ namespace WebBRS.Models
 		[ForeignKey("GroupIdGroup")]
 		public Group Group { get; set; }
 		public DateTime DateTimeStart { get; set; }
-		public DateTime DateTimeEnd { get; set; }
+		public DateTime? DateTimeEnd { get; set; }
 		public bool Actual { get; set; }
 		[JsonIgnore]
 		public virtual List<Portfolio> Portfolios { get; set; } = new List<Portfolio>();

@@ -8,10 +8,20 @@ import { MethodCall } from '@angular/compiler';
 
 export class profile_HttpService {
   private url = "/prortfolio";
+  private url2 = "/attedanceReason";
 
   constructor(private http: HttpClient) { }
   getPortfolio(IdECFLCT): Observable<PortfolioVM> {
     return this.http.get<PortfolioVM>(`prortfolio/GetPortfolio/${IdECFLCT}`,
+      {
+        //headers: {
+        //  'Accept': 'application/json',
+        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
+        //}
+      });
+  }
+  getAttedance(IdECFLCT): Observable<AttedanceReason> {
+    return this.http.get<AttedanceReason>(`attedanceReason/GetAttedanceReason/${IdECFLCT}`,
       {
         //headers: {
         //  'Accept': 'application/json',
@@ -37,6 +47,15 @@ export class profile_HttpService {
     //return this.http.post(this.url + '/DeletePortfolio', dataToSend, { observe: 'response' });
     return this.http.delete(this.url + '/' + IdPortfolio);
   }
+  execute2(IdPortfolio: number) {
+    console.log('нажали удалить справку: ', IdPortfolio);
+    //let dataToSend = { data: { 'IdPortfolio': IdPortfolio } }; 
+    //console.log('нажали 2222', this.http.post(this.url + '/DeletePortfolio', IdPortfolio, { observe: 'response' }));
+    //const body = { name: user.name, age: user.age };
+    //return this.http.post(this.url + '/DeletePortfolio', dataToSend, { observe: 'response' });
+
+    return this.http.delete(this.url2 + '/' + IdPortfolio);
+  }
   getPortfolios(): Observable<PortfolioVM[]> {
     return this.http.get<PortfolioVM[]>(`prortfolio/GetPortfolios`,
       {
@@ -47,7 +66,7 @@ export class profile_HttpService {
       });
   }
   getAttedanceReason(): Observable<AttedanceReason[]> {
-    return this.http.get<AttedanceReason[]>(`prortfolio/GetAttedanceReason`,
+    return this.http.get<AttedanceReason[]>(`attedanceReason/GetAttedanceReason`,
       {
         //headers: {
         //  'Accept': 'application/json',
@@ -59,6 +78,11 @@ export class profile_HttpService {
     console.log('нажали ', portfolioAdd);
     //const body = { name: user.name, age: user.age };
     return this.http.post(this.url + '/UpdatePortfolioWork', portfolioAdd, { observe: 'response' });
+  }
+  postDataReason(portfolioAdd: AttedanceReason) {
+    console.log('нажали ', portfolioAdd);
+    //const body = { name: user.name, age: user.age };
+    return this.http.post(this.url2 + '/UpdateAttedanceReason', portfolioAdd, { observe: 'response' });
   }
 }
 interface ProfileVM {
@@ -93,6 +117,7 @@ interface AttedanceReason {
   CuratorFIO: string,
   FilePath: string,
   DateTimeStart: string,
+  DateTimeEnd: string,
   DateAdded: string,
   DateConfirmed: string,
   DateNotConfirmed: string

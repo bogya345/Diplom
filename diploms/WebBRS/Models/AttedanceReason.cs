@@ -24,6 +24,7 @@ namespace WebBRS.Models
 
 		public Curator  Curator { get; set; }
 		public string FilePath { get; set; }
+		public bool Confirmed { get; set; }
 		public DateTime DateTimeStart { get; set; }
 		public DateTime DateTimeEnd { get; set; }
 		public DateTime DateAdded { get; set; }

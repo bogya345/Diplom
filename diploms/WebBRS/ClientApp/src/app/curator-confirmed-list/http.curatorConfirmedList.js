@@ -5,6 +5,7 @@ var confirmedList_HttpService = /** @class */ (function () {
     function confirmedList_HttpService(http) {
         this.http = http;
         this.url = "/prortfolio";
+        this.url2 = "/attedanceReason";
     }
     confirmedList_HttpService.prototype.getPortfolio = function (IdECFLCT) {
         return this.http.get("prortfolio/GetPortfolio/" + IdECFLCT, {
@@ -31,8 +32,24 @@ var confirmedList_HttpService = /** @class */ (function () {
         //return this.http.post(this.url + '/DeletePortfolio', dataToSend, { observe: 'response' });
         return this.http.post(this.url + '/UpdatePortfolioWork', portfolioAdd, { observe: 'response' });
     };
-    confirmedList_HttpService.prototype.getPortfolios = function (conf) {
-        return this.http.get("prortfolio/GetPortfoliosForConfirm/" + conf, {
+    confirmedList_HttpService.prototype.execute2 = function (portfolioAdd) {
+        console.log('нажали ', portfolioAdd);
+        //let dataToSend = { data: { 'IdPortfolio': IdPortfolio } }; 
+        //console.log('нажали 2222', this.http.post(this.url + '/DeletePortfolio', IdPortfolio, { observe: 'response' }));
+        //const body = { name: user.name, age: user.age };
+        //return this.http.post(this.url + '/DeletePortfolio', dataToSend, { observe: 'response' });
+        return this.http.post(this.url2 + '/UpdateAttedanceReason', portfolioAdd, { observe: 'response' });
+    };
+    confirmedList_HttpService.prototype.getPortfolios = function (conf, DateTimeStart, DateTimeEnd) {
+        return this.http.get("prortfolio/GetPortfoliosForConfirm/" + conf + "/" + DateTimeStart + "/" + DateTimeEnd, {
+        //headers: {
+        //  'Accept': 'application/json',
+        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
+        //}
+        });
+    };
+    confirmedList_HttpService.prototype.getAttedanceReasons = function (conf, DateTimeStart, DateTimeEnd) {
+        return this.http.get("attedanceReason/GetAttedanceForConfirm/" + conf + "/" + DateTimeStart + "/" + DateTimeEnd, {
         //headers: {
         //  'Accept': 'application/json',
         //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)

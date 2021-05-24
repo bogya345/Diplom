@@ -40,7 +40,7 @@ namespace WebBRS.DAL.Repositories
 
 		public AttedanceReason Get(int id)
 		{
-			throw new NotImplementedException();
+			return db.AttedanceReasons.Where(at=>at.IdAttReas==id).FirstOrDefault();
 		}
 		public override AttedanceReason Get(Func<AttedanceReason, bool> func)
 		{
