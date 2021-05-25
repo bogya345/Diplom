@@ -104,7 +104,7 @@ interface StudentTable {
   IdStudent: number,
   PersonFIO: string,
 Balls:number,
-  Attedanced: string[]
+  Attedanced: AttedancedVMType[]
 }
 interface Lecturer2 {
   IdLecturer: number,
@@ -117,4 +117,10 @@ interface ExactClass {
   DateExactClass: string,
   numberClass: number,
   //Group: GroupAttedanceTable
+}
+interface AttedancedVMType {
+  Type: string,
+  attedanced: string,
+  Ball: string,
+  BallHW: string
 }

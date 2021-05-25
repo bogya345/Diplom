@@ -1,257 +1,272 @@
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1>Профиль</h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">User Profile</li>
-          </ol>
-        </div>
-      </div>
-    </div><!-- /.container-fluid -->
-  </section>
-  <!--<app-yes-no-modal #deleteModal
-                    body="Вы действительно хотите удалить свой аккаунт?"
-                    title="Предупреждение"
-                    type="danger"></app-yes-no-modal>-->
-  <!--<app-confirm-dialog></app-confirm-dialog>-->
-  <!--Main content-->
-  <!-- <button class="btn btn-primary pull-right" (click)="showDialog()">Show Dialog</button>-->
-  <!--<button mat-button (click)="openAlertDialog()">Open Alert Dialog</button>-->
-  <p>
-
-  </p>
-  <p>
-    <!--<button mat-button (click)="openAlertDialog()">Open Alert Dialog</button>-->
-  </p>
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3">
-
-          <!-- Profile Image -->
-          <div class="card card-primary card-outline">
-            <div class="card-body box-profile">
-              <div class="text-center">
-                <img class="profile-user-img img-fluid img-circle"
-                     src="../../assets/img/user2-160x160.jpg"
-                     alt="User profile picture">
-              </div>
-
-              <h3 class="profile-username text-center">{{profile.PersonFIO}}</h3>
-
-              <p class="text-muted text-center">{{profile.Group}}</p>
-
-              <ul class="list-group list-group-unbordered mb-3">
-                <li class="list-group-item">
-                  <b>Кол-во пропусков за семестр</b> <a class="float-right">{{profile.NopeAttedance}}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>% пропусков </b> <a class="float-right">{{profile.NopeAttedanceProc}}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Friends</b> <a class="float-right">13,287</a>
-                </li>
-              </ul>
-                <a href="/dashboard/timetable" class="btn btn-primary btn-block"><b>Расписание</b></a>
+  <div class="card">
+    <!-- /.card-header -->
+    <div class="card-body">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Профиль</h1>
             </div>
-            <!-- /.card-body -->
+            <!--<div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">User Profile</li>
+              </ol>
+            </div>-->
           </div>
-          <!-- /.card -->
-          <!-- About Me Box -->
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">About Me</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <strong><i class="fas fa-book mr-1"></i> Education</strong>
+        </div><!-- /.container-fluid -->
+      </section>
+      <!--<app-yes-no-modal #deleteModal
+                        body="Вы действительно хотите удалить свой аккаунт?"
+                        title="Предупреждение"
+                        type="danger"></app-yes-no-modal>-->
+      <!--<app-confirm-dialog></app-confirm-dialog>-->
+      <!--Main content-->
+      <!-- <button class="btn btn-primary pull-right" (click)="showDialog()">Show Dialog</button>-->
+      <!--<button mat-button (click)="openAlertDialog()">Open Alert Dialog</button>-->
 
-              <p class="text-muted">
-                B.S. in Computer Science from the University of Tennessee at Knoxville
-              </p>
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-3">
 
-              <hr>
-
-              <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-              <p class="text-muted">Malibu, California</p>
-
-              <hr>
-
-              <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-              <p class="text-muted">
-                <span class="tag tag-danger">UI Design</span>
-                <span class="tag tag-success">Coding</span>
-                <span class="tag tag-info">Javascript</span>
-                <span class="tag tag-warning">PHP</span>
-                <span class="tag tag-primary">Node.js</span>
-              </p>
-
-              <hr>
-
-              <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-9">
-          <div class="card">
-            <div class="card-header p-2">
-              <ul class="nav nav-pills">
-                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Портфолио</a></li>
-                <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Добавить файл портфолио</a></li>
-                <li class="nav-item"><a class="nav-link" href="#attedance" data-toggle="tab">Подтверждающие справки</a></li>
-                <li class="nav-item"><a class="nav-link" href="#addattedance" data-toggle="tab">Добавить справку</a></li>
-              </ul>
-            </div><!-- /.card-header -->
-            <div class="card-body">
-              <div class="tab-content">
-                <div class="active tab-pane" id="activity">
-                  <!-- Post -->
-                  <div class="post" *ngFor="let i of portfolios">
-                    <div class="user-block">
-                      <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
-                      <span class="username">
-                        <a href="#">
-                          {{i.PersonFIOconfirmed}}
-                        </a>
-
-
-                        <button type="button" class="btn btn-primary" value="{{i.IdPortfolio}}" (click)="openDialog($event)">    X </button>
-
-                        <!--<a class="float-right btn-tool"></a>-->
-                      </span>
-                      <span class="description">Активность добавлена - {{i.DateAdded}}</span>
-                      <span class="description">Активность подтверждена - {{i.DateConfirmed}}</span>
-                      <span class="description">Активность отклонена - {{i.DateNotConfirmed}}</span>
-                    </div>
-                    <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
-                    <p>
-                      {{i.Description}}
-                    </p>
-
-                    <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
-
+              <!-- Profile Image -->
+              <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+                  <div class="text-center">
+                    <img class="profile-user-img img-fluid img-circle"
+                         src="../../assets/img/user2-160x160.jpg"
+                         alt="User profile picture">
                   </div>
-                  <!-- /.post -->
-                  <!-- Post -->
-                  <!-- /.post -->
+
+                  <h3 class="profile-username text-center">{{profile.PersonFIO}}</h3>
+
+                  <p class="text-muted text-center">{{profile.Group}}</p>
+
+                  <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                      <b>Кол-во пропусков за семестр</b> <a class="float-right">{{profile.NopeAttedance}}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>% пропусков </b> <a class="float-right">{{profile.NopeAttedanceProc}}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>Friends</b> <a class="float-right">13,287</a>
+                    </li>
+                  </ul>
+                  <a href="/dashboard/timetable" class="btn btn-primary btn-block"><b>Расписание</b></a>
                 </div>
-                <!-- /.tab-pane -->
-
-                <div class="tab-pane" id="settings">
-                  <form class="form-horizontal">
-                    <div class="form-group row">
-                      <label for="inputName" class="col-sm-2 col-form-label">Название активности</label>
-                      <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputName" placeholder="Название активности" (change)="selectChangeHandler4($event)" value="{{portfolioAdd.Name}}">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputExperience" class="col-sm-2 col-form-label">Описание</label>
-                      <div class="col-sm-10">
-                        <textarea class="textarea" placeholder="Введите текст"
-                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" (change)="doTextareaValueChange($event)">{{portfolioAdd.Description}}</textarea>
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-danger" (click)="openDialog2()">Добавить</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="active tab-pane" id="attedance">
-                  <!-- Post -->
-                  <div class="post" *ngFor="let i of attedanceReasons">
-                    <div class="user-block">
-                      <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
-                      <span class="username">
-                        <a href="#">
-                          {{i.CuratorFIO}}
-                        </a>
-
-
-                        <button type="button" class="btn btn-primary" value="{{i.IdAttReas}}" (click)="openDialog4($event)">    X </button>
-
-                        <!--<a class="float-right btn-tool"></a>-->
-                      </span>
-                      <span class="description">Добавлена - {{i.DateAdded}}</span>
-                      <span class="description">Подтверждена - {{i.DateConfirmed}}</span>
-                      <span class="description">Отклонена - {{i.DateNotConfirmed}}</span>
-                    </div>
-                    <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
-                    <p>
-                      {{i.DocName}}
-                    </p>
-
-                    <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
-
-                  </div>
-                  <!-- /.post -->
-                  <!-- Post -->
-                  <!-- /.post -->
-                </div>
-                <div class="tab-pane" id="addattedance">
-                  <form class="form-horizontal">
-                    <div class="form-group row">
-                      <label for="inputName" class="col-sm-2 col-form-label">Название справки</label>
-                      <div class="col-sm-6">
-                        <input type="email" class="form-control" id="inputName" placeholder="Название справки" (change)="selectChangeHandler5($event)" value="{{attedanceReason.DocName}}">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <div class="col-2 col-sm-12">
-                      <label>С:</label>
-
-                      <div class="input-group">
-                        <input id="datetime" value="{{attedanceReason.DateTimeStart}}" (change)="selectChangeHandler6($event)" type="date">
-                      </div>
-                      </div>
-                      <div class="col-4 col-sm-12">
-
-                      <label>По:</label>
-
-                      <div class="input-group">
-
-                        <!--(change)="selectChangeHandler6($event)"-->
-
-                        <input id="datetime" value="{{attedanceReason.DateTimeEnd}}" (change)="selectChangeHandler7($event)" type="date">
-                      </div>
-                      </div>
-                    </div>
-                    
-
-                    <div class="form-group row">
-                      <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-danger" (click)="openDialog3()">Добавить</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <!-- /.tab-pane -->
+                <!-- /.card-body -->
               </div>
-              <!-- /.tab-content -->
-            </div><!-- /.card-body -->
+              <!-- /.card -->
+              <!-- About Me Box -->
+              <!--<div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">About Me</h3>
+                </div>-->
+              <!-- /.card-header -->
+              <!--<div class="card-body">
+                <strong><i class="fas fa-book mr-1"></i> Education</strong>
+
+                <p class="text-muted">
+                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+
+                <p class="text-muted">Malibu, California</p>
+
+                <hr>
+
+                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+
+                <p class="text-muted">
+                  <span class="tag tag-danger">UI Design</span>
+                  <span class="tag tag-success">Coding</span>
+                  <span class="tag tag-info">Javascript</span>
+                  <span class="tag tag-warning">PHP</span>
+                  <span class="tag tag-primary">Node.js</span>
+                </p>
+
+                <hr>
+
+                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+
+                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+              </div>-->
+              <!-- /.card-body -->
+              <!--</div>-->
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+              <div class="card">
+                <div class="card-header p-2">
+                  <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Портфолио</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Добавить файл портфолио</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#attedance" data-toggle="tab">Подтверждающие справки</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#addattedance" data-toggle="tab">Добавить справку</a></li>
+                  </ul>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div class="active tab-pane" id="activity">
+                      <!-- Post -->
+                      <div class="post" *ngFor="let i of portfolios">
+                        <div class="user-block">
+                          <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
+                          <span class="username">
+                            <a href="#">
+                              {{i.PersonFIOconfirmed}}
+                            </a>
+
+
+                            <!--<button type="button" class="btn btn-primary" >    X </button>-->
+
+                            <!--<a class="float-right btn-tool"></a>-->
+                          </span>
+                          <span class="description">Активность добавлена - {{i.DateAdded}}</span>
+                          <span class="description">Активность подтверждена - {{i.DateConfirmed}}</span>
+                          <span class="description">Активность отклонена - {{i.DateNotConfirmed}}</span>
+                        </div>
+                        <h4>{{i.Name}}</h4>
+                        <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
+                        <p>
+                          {{i.Description}}
+                        </p>
+                        <div class="btn-group btn-group-sm">
+                          <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                          <button href="#" class="btn btn-danger" value="{{i.IdPortfolio}}" (click)="openDialog($event)"><i  class="fas fa-trash"></i></button>
+                        </div>
+                        <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
+                        <!--<div class="row no-print">
+                          <div class="col-12">
+                            <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                           
+                              <i class="fas fa-download"></i> Скачать файл
+                            </button>
+                          </div>
+                        </div>-->
+                      </div>
+                      <!-- /.post -->
+                      <!-- Post -->
+                      <!-- /.post -->
+                    </div>
+                    <!-- /.tab-pane -->
+
+                    <div class="tab-pane" id="settings">
+                      <form class="form-horizontal">
+                        <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Название активности</label>
+                          <div class="col-sm-10">
+                            <input type="email" class="form-control" id="inputName" placeholder="Название активности" (change)="selectChangeHandler4($event)" value="{{portfolioAdd.Name}}">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputExperience" class="col-sm-2 col-form-label">Описание</label>
+                          <div class="col-sm-10">
+                            <textarea class="textarea" placeholder="Введите текст"
+                                      style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" (change)="doTextareaValueChange($event)">{{portfolioAdd.Description}}</textarea>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="offset-sm-2 col-sm-10">
+                            <button type="submit" class="btn btn-danger" (click)="openDialog2()">Добавить</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="active tab-pane" id="attedance">
+                      <!-- Post -->
+                      <div class="post" *ngFor="let i of attedanceReasons">
+                        <div class="user-block">
+                          <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
+                          <span class="username">
+                            <a href="#">
+                              {{i.CuratorFIO}}
+                            </a>
+
+
+                            <!--<button type="button" class="btn btn-primary" >    X </button>-->
+
+                            <!--<a class="float-right btn-tool"></a>-->
+                          </span>
+                          <span class="description">Добавлена - {{i.DateAdded}}</span>
+                          <span class="description">Подтверждена - {{i.DateConfirmed}}</span>
+                          <span class="description">Отклонена - {{i.DateNotConfirmed}}</span>
+                        </div>
+                        <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
+                        <p>
+                          {{i.DocName}}
+                        </p>
+                        <div class="btn-group btn-group-sm">
+                          <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                          <button href="#" class="btn btn-danger"value="{{i.IdAttReas}}" (click)="openDialog4($event)"><i class="fas fa-trash"></i></button>
+                        </div>
+                        <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
+
+                      </div>
+                      <!-- /.post -->
+                      <!-- Post -->
+                      <!-- /.post -->
+                    </div>
+                    <div class="tab-pane" id="addattedance">
+                      <form class="form-horizontal">
+                        <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Название справки</label>
+                          <div class="col-sm-6">
+                            <input type="email" class="form-control" id="inputName" placeholder="Название справки" (change)="selectChangeHandler5($event)" value="{{attedanceReason.DocName}}">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-2 col-sm-12">
+                            <label>С:</label>
+
+                            <div class="input-group">
+                              <input id="datetime" value="{{attedanceReason.DateTimeStart}}" (change)="selectChangeHandler6($event)" type="date">
+                            </div>
+                          </div>
+                          <div class="col-4 col-sm-12">
+
+                            <label>По:</label>
+
+                            <div class="input-group">
+
+                              <!--(change)="selectChangeHandler6($event)"-->
+
+                              <input id="datetime" value="{{attedanceReason.DateTimeEnd}}" (change)="selectChangeHandler7($event)" type="date">
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                          <div class="offset-sm-2 col-sm-10">
+                            <button type="submit" class="btn btn-danger" (click)="openDialog3()">Добавить</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- /.tab-pane -->
+                  </div>
+                  <!-- /.tab-content -->
+                </div><!-- /.card-body -->
+              </div>
+              <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
           </div>
-          <!-- /.nav-tabs-custom -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
+          <!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
+
+    </div>
+  </div>
 </div>

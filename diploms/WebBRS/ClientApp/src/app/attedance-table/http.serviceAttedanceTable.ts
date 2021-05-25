@@ -57,7 +57,7 @@ interface Student {
   IdStudent: number,
   PersonFIO: string,
   Balls: number,
-  Attedanced: string[]
+  Attedanced: AttedancedVMType[]
 }
 interface Lecturer {
   IdLecturer: number,
@@ -75,4 +75,10 @@ interface AttedanceTableRow {
   Student: Student,
   DateTimeReg: Date,
   BirthDate: Date
+}
+interface AttedancedVMType {
+  Type: string,
+  attedanced: string,
+  Ball: string,
+  BallHW: string
 }

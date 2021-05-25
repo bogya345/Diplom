@@ -12,8 +12,15 @@ namespace WebBRS.ViewModels.toRecieve
 		public int IdStudent { get; set; }
 		public string PersonFIO { get; set; }
 		public double Balls { get; set; }
-		public List<string> Attedanced { get; set; } = new List<string>();
+		public List<AttedancedVMType> Attedanced { get; set; } = new List<AttedancedVMType>();
 
+	}
+	public class AttedancedVMType
+	{
+		public string Type { get; set; }
+		public string attedanced { get; set; }
+		public string Ball { get; set; }
+		public string BallHW { get; set; }
 	}
 	public class GroupAttedanceTable
 	{

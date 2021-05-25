@@ -22,7 +22,7 @@
           <div class="card">
             <div class="card-header p-2">
               <ul class="nav nav-pills">
-                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab" (click)="update()">Портфолио</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab" (click)="update()">Статистика по группе</a></li>
                 <li class="nav-item"><a class="nav-link" href="#attedances" data-toggle="tab" (click)="update()">Добавить файл портфолио</a></li>
               </ul>
             </div><!-- /.card-header -->
@@ -31,12 +31,12 @@
                 <div class="card">
                   <div class="card-header p-2">
                     <div class="row">
-                      <div class="col-3">
-                        <label>Подтвержденные</label>
-                      </div>
-                      <div class="col-1">
-                        <input class="form-check-input" type="checkbox" id="flexCheckChecked" (click)="selectChangeHandler4($event)" checked>
-                      </div>
+                      <!--<div class="col-3">
+                    <label>Подтвержденные</label>
+                  </div>-->
+                      <!--<div class="col-1">
+                    <input class="form-check-input" type="checkbox" id="flexCheckChecked" (click)="selectChangeHandler4($event)" checked>
+                  </div>-->
 
                       <div class="col-1 ">
                         <label>С:</label>
@@ -63,14 +63,12 @@
                 </div>
                 <div class="active tab-pane" id="activity">
                   <!-- Post -->
-                
                   <!-- /.post -->
                   <!-- Post -->
                   <!-- /.post -->
                 </div>
                 <div class="active tab-pane" id="attedances">
                   <!-- Post -->
-               
                   <!-- /.post -->
                   <!-- Post -->
                   <!-- /.post -->
@@ -84,6 +82,58 @@
           <!-- /.nav-tabs-custom -->
         </div>
         <!-- /.col -->
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">{{ Groups[0].GroupName }}</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body" style="overflow-y: scroll;">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>ФИО</th>
+                        <!--<th>Сумма баллов</th>-->
+                        <th *ngFor="let j of SelectedGroup.SubjectVMs"> {{j.SubjectName}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let j of  SelectedGroup.studentVMs; let n = index">
+                        <td>{{j.PersonFIO}}</td>
+                        <!--<td>{{j.Balls}}</td>-->
+                        <td *ngFor="let k of SelectedGroup.studentVMs[n].Attedanced">
+                          <div>
+                            <span _ngcontent-ng-cli-universal-c0="" class="badge badge-success">{{k.Ball}}</span>
+
+                          </div>
+                          <div>
+                            <span _ngcontent-ng-cli-universal-c0="">{{k.BallHW}}</span>
+                          </div>
+                          <div>
+                            <span _ngcontent-ng-cli-universal-c0="" class="badge badge-danger">{{k.attedanced}}</span>
+
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <!--<tfoot>
+                  <tr>
+                    <th>Rendering engine</th>
+                    <th>Browser</th>
+                    <th>Platform(s)</th>
+
+                  </tr>
+                </tfoot>-->
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- /.row -->
     </div><!-- /.container-fluid -->

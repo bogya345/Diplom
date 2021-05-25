@@ -104,11 +104,12 @@ namespace WebBRS.Controllers
 				Person person = unit.Persons.Get(p => p.IdPerson == item.Student.IdPerson);
 				groupAttedanceTable.PersonFIO = person.PersonFIOShort();
 				groupAttedanceTable.IdStudent = item.IdStudent;
-				groupAttedanceTable.Attedanced = new List<string>(ecflct.ExactClasses.Count);
+				groupAttedanceTable.Attedanced = new List<AttedancedVMType>(ecflct.ExactClasses.Count);
 				List<Attendance> attendances = new List<Attendance>(ecflct.ExactClasses.Count);
 				foreach (var i in ecflct.ExactClasses)
 				{
-					groupAttedanceTable.Attedanced.Add("");
+					AttedancedVMType attedanced = new AttedancedVMType();
+					groupAttedanceTable.Attedanced.Add(attedanced);
 				}
 				attendances = unit.Attendances.GetAll(a => a.SGH.IdSGH == item.IdSGH).ToList();
 				//int i = 0;
@@ -125,12 +126,34 @@ namespace WebBRS.Controllers
 							{
 								groupAttedanceTable.Balls = (double)item2.Ball + groupAttedanceTable.Balls;
 							};
-							groupAttedanceTable.Attedanced[i] = item2.TypeAttedance.TAShortName + "	|	балл: " + item2.Ball.ToString();
+							groupAttedanceTable.Attedanced[i].attedanced = item2.TypeAttedance.TAShortName ;
+							groupAttedanceTable.Attedanced[i].Ball =  item2.Ball.ToString();
+							groupAttedanceTable.Attedanced[i].BallHW =  item2.BallHW.ToString();
+							List<AttedanceReason> attedanceReason = unit.AttedanceReasons.GetAll(ar=>ar.Confirmed==true&&ar.DateTimeStart<item2.ExactClass.DateClassStart&&ar.DateTimeEnd>item2.ExactClass.DateClassEnd).ToList();
+							if (item2.TypeAttedanceIdTA == 4)
+							{
+								groupAttedanceTable.Attedanced[i].Type = "danger";
+
+							}
+							else
+							{
+								groupAttedanceTable.Attedanced[i].Type = "success";
+
+							}
+
+							foreach (var att in attedanceReason)
+							{
+								if (att.Confirmed)
+								{
+									groupAttedanceTable.Attedanced[i].Type = "success";
+
+								}
+							}
 							break;
 						}
 						else
 						{
-							groupAttedanceTable.Attedanced[i] = "";
+							groupAttedanceTable.Attedanced[i].attedanced = " ";
 						}
 					}
 				}

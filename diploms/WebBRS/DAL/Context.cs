@@ -129,6 +129,10 @@ namespace WebBRS.DAL
 			.HasOne(p => p.TypeAttedance)
 			.WithMany(t => t.Attendances)
 			.HasForeignKey(st => st.TypeAttedanceIdTA);
+			modelBuilder.Entity<Attendance>()
+			.HasOne(p => p.ExactClass)
+			.WithMany(t => t.Attendances)
+			.HasForeignKey(st => st.ExactClassIdClass);
 			modelBuilder.Entity<DraftTimeTable>()
 			.HasOne(p => p.StudyYear)
 			.WithMany(t => t.DraftTimeTables)

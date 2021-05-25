@@ -65,7 +65,10 @@
                       <tr *ngFor="let j of ecflct.Students; let n = index">
                         <td >{{j.PersonFIO}}</td>
                         <td>{{j.Balls}}</td>
-                        <td *ngFor="let k of ecflct.Students[n].Attedanced"><span _ngcontent-ng-cli-universal-c0="" class="badge badge-success">{{k}}</span></td>
+                        <td *ngFor="let k of ecflct.Students[n].Attedanced">
+                          <span _ngcontent-ng-cli-universal-c0="" class="badge badge-success">{{k.Ball}}</span>
+                          <span _ngcontent-ng-cli-universal-c0="" class="badge badge-{{k.Type}}">{{k.attedanced}}</span>
+                        </td>
                       </tr>
                     </tbody>
                     <!--<tfoot>

@@ -55,260 +55,268 @@
 
       <div class="row">
         <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Проект расписания</label>
 
-                <select class="form-control select2" style="width: 100%;" (change)="selectChangeHandler($event)">
 
-                  <option *ngFor="let i of TimeTable2.Drafts" value="{{i.IdDFTT}}"> {{i._Description}}  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Тип расписания</label>
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
 
-                <select class="form-control select2" style="width: 100%;" (change)="selectChangeHandler2($event)">
+                  <div class="form-group">
+                    <label>Проект расписания</label>
 
-                  <option *ngFor="let i of TimeTable2.DraftTypes" value="{{i.IdDTTT}}"> {{i._Description}}  </option>
-                </select>
-              </div>
+                    <select class="form-control select2" style="width: 100%;" (change)="selectChangeHandler($event)">
 
-            </div>
-            <div class="col-md-4">
-
-              <div class="form-group">
-                <label>Дата:</label>
-
-                <div class="input-group">
-                  <!--<button type="button" class="btn btn-default float-right" id="daterange-btn">
-    <i class="far fa-calendar-alt"></i> Date range picker
-    <i class="fas fa-caret-down"></i>
-  </button>-->
-                  <!--<mat-form-field appearance="fill">
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>-->
-                  <input id="datetime"  value = "{{TimeTable2.IdDateSelected}}" type="date" (change)="selectChangeHandler3($event)">
+                      <option *ngFor="let i of TimeTable2.Drafts" value="{{i.IdDFTT}}"> {{i._Description}}  </option>
+                    </select>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-5">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Тип расписания</label>
 
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">{{ TimeTable2.Days[0].DayOfWeek}}</h4>
+                    <select class="form-control select2" style="width: 100%;" (change)="selectChangeHandler2($event)">
+
+                      <option *ngFor="let i of TimeTable2.DraftTypes" value="{{i.IdDTTT}}"> {{i._Description}}  </option>
+                    </select>
+                  </div>
+
                 </div>
-                <div class="card-body">
-                  <!-- the events -->
-                  <div class="row">
-                    <div class="col-md-2">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[0].EXTCforTimeTables">
-                        <div class="external-event bg-gradient-gray">{{k.DateTime}}</div>
+                <div class="col-md-4">
 
-                      </div>
+                  <div class="form-group">
+                    <label>Дата:</label>
 
-                    </div>
-                    <div class="col-md-6">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[0].EXTCforTimeTables">
-                        <a href="/dashboard/attedancetable/{{k.IdECFLCT}}">
-                          <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
-                          </a>
-                      </div>
-
-                    </div>
-
-                    <div class="col-md-4">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[0].EXTCforTimeTables">
-                        <div class="external-event ">{{k.Auditory}}</div>
-
-                      </div>
-
+                    <div class="input-group">
+                      <!--<button type="button" class="btn btn-default float-right" id="daterange-btn">
+                        <i class="far fa-calendar-alt"></i> Date range picker
+                        <i class="fas fa-caret-down"></i>
+                      </button>-->
+                      <!--<mat-form-field appearance="fill">
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>-->
+                      <input id="datetime" value="{{TimeTable2.IdDateSelected}}" type="date" (change)="selectChangeHandler3($event)">
                     </div>
                   </div>
                 </div>
-                <!-- /.card-body -->
               </div>
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">{{ TimeTable2.Days[1].DayOfWeek}}</h4>
-                </div>
-                <div class="card-body">
-                  <!-- the events -->
-                  <div class="row">
-                    <div class="col-md-2">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[1].EXTCforTimeTables">
-                        <div class="external-event bg-gradient-gray">{{k.DateTime}}</div>
+              <div class="row">
+                <div class="col-md-5">
 
-                      </div>
-
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">{{ TimeTable2.Days[0].DayOfWeek}}</h4>
                     </div>
-                    <div class="col-md-6">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[1].EXTCforTimeTables">
-                        <a href="/dashboard/attedancetable/{{k.IdECFLCT}}">
-                          <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
-                        </a>
+                    <div class="card-body">
+                      <!-- the events -->
+                      <div class="row">
+                        <div class="col-md-2">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[0].EXTCforTimeTables">
+                            <div class="external-event bg-gradient-gray">{{k.DateTime}}</div>
+
+                          </div>
+
+                        </div>
+                        <div class="col-md-6">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[0].EXTCforTimeTables">
+                            <a href="/dashboard/attedancetable/{{k.IdECFLCT}}">
+                              <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
+                            </a>
+                          </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[0].EXTCforTimeTables">
+                            <div class="external-event ">{{k.Auditory}}</div>
+
+                          </div>
+
+                        </div>
                       </div>
-
                     </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">{{ TimeTable2.Days[1].DayOfWeek}}</h4>
+                    </div>
+                    <div class="card-body">
+                      <!-- the events -->
+                      <div class="row">
+                        <div class="col-md-2">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[1].EXTCforTimeTables">
+                            <div class="external-event bg-gradient-gray">{{k.DateTime}}</div>
 
-                    <div class="col-md-4">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[1].EXTCforTimeTables">
-                        <div class="external-event ">{{k.Auditory}}</div>
+                          </div>
 
+                        </div>
+                        <div class="col-md-6">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[1].EXTCforTimeTables">
+                            <a href="/dashboard/attedancetable/{{k.IdECFLCT}}">
+                              <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
+                            </a>
+                          </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[1].EXTCforTimeTables">
+                            <div class="external-event ">{{k.Auditory}}</div>
+
+                          </div>
+
+                        </div>
                       </div>
-
                     </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">{{ TimeTable2.Days[2].DayOfWeek}}</h4>
+                    </div>
+                    <div class="card-body">
+                      <!-- the events -->
+                      <div class="row">
+                        <div class="col-md-2">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[2].EXTCforTimeTables">
+                            <div class="external-event bg-gradient-gray">{{k.DateTime}}</div>
+
+                          </div>
+
+                        </div>
+                        <div class="col-md-6">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[2].EXTCforTimeTables">
+                            <a href="/dashboard/attedancetable/{{k.IdECFLCT}}">
+                              <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
+                            </a>
+                          </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[2].EXTCforTimeTables">
+                            <div class="external-event ">{{k.Auditory}}</div>
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
                   </div>
                 </div>
-                <!-- /.card-body -->
-              </div>
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">{{ TimeTable2.Days[2].DayOfWeek}}</h4>
-                </div>
-                <div class="card-body">
-                  <!-- the events -->
-                  <div class="row">
-                    <div class="col-md-2">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[2].EXTCforTimeTables">
-                        <div class="external-event bg-gradient-gray">{{k.DateTime}}</div>
 
-                      </div>
+                <div class="col-md-5">
 
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">{{ TimeTable2.Days[3].DayOfWeek}}</h4>
                     </div>
-                    <div class="col-md-6">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[2].EXTCforTimeTables">
-                        <a href="/dashboard/attedancetable/{{k.IdECFLCT}}">
-                          <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
-                          </a>
+                    <div class="card-body">
+                      <!-- the events -->
+                      <div class="row">
+                        <div class="col-md-2">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[3].EXTCforTimeTables">
+                            <div class="external-event bg-gradient-gray">{{k.DateTime}}</div>
+
+                          </div>
+
+                        </div>
+                        <div class="col-md-6">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[3].EXTCforTimeTables">
+                            <a href="/dashboard/attedancetable/{{k.IdECFLCT}}">
+                              <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
+                            </a>
+                          </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[3].EXTCforTimeTables">
+                            <div class="external-event ">{{k.Auditory}}</div>
+
+                          </div>
+
+                        </div>
                       </div>
-
                     </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">{{ TimeTable2.Days[4].DayOfWeek}}</h4>
+                    </div>
+                    <div class="card-body">
+                      <!-- the events -->
+                      <div class="row">
+                        <div class="col-md-2">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[4].EXTCforTimeTables">
+                            <div class="external-event bg-gradient-gray">{{k.DateTime}}</div>
 
-                    <div class="col-md-4">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[2].EXTCforTimeTables">
-                        <div class="external-event ">{{k.Auditory}}</div>
+                          </div>
 
+                        </div>
+                        <div class="col-md-6">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[4].EXTCforTimeTables">
+                            <a href="/dashboard/attedancetable/{{k.IdECFLCT}}">
+                              <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
+                            </a>
+                          </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[4].EXTCforTimeTables">
+                            <div class="external-event ">{{k.Auditory}}</div>
+
+                          </div>
+
+                        </div>
                       </div>
-
                     </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">{{ TimeTable2.Days[5].DayOfWeek}}</h4>
+                    </div>
+                    <div class="card-body">
+                      <!-- the events -->
+                      <div class="row">
+                        <div class="col-md-2">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[5].EXTCforTimeTables">
+                            <div class="external-event bg-gradient-gray">{{k.DateTime}}</div>
+
+                          </div>
+
+                        </div>
+                        <div class="col-md-6">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[5].EXTCforTimeTables">
+                            <a href="/dashboard/attedancetable/{{k.IdECFLCT}}">
+                              <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
+                            </a>
+                          </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+                          <div id="external-events" *ngFor="let k of  TimeTable2.Days[5].EXTCforTimeTables">
+                            <div class="external-event ">{{k.Auditory}}</div>
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
                   </div>
                 </div>
-                <!-- /.card-body -->
               </div>
-            </div>
 
-            <div class="col-md-5">
-
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">{{ TimeTable2.Days[3].DayOfWeek}}</h4>
-                </div>
-                <div class="card-body">
-                  <!-- the events -->
-                  <div class="row">
-                    <div class="col-md-2">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[3].EXTCforTimeTables">
-                        <div class="external-event bg-gradient-gray">{{k.DateTime}}</div>
-
-                      </div>
-
-                    </div>
-                    <div class="col-md-6">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[3].EXTCforTimeTables">
-                        <a href="/dashboard/attedancetable/{{k.IdECFLCT}}">
-                          <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
-                          </a>
-                      </div>
-
-                    </div>
-
-                    <div class="col-md-4">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[3].EXTCforTimeTables">
-                        <div class="external-event ">{{k.Auditory}}</div>
-
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">{{ TimeTable2.Days[4].DayOfWeek}}</h4>
-                </div>
-                <div class="card-body">
-                  <!-- the events -->
-                  <div class="row">
-                    <div class="col-md-2">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[4].EXTCforTimeTables">
-                        <div class="external-event bg-gradient-gray">{{k.DateTime}}</div>
-
-                      </div>
-
-                    </div>
-                    <div class="col-md-6">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[4].EXTCforTimeTables">
-                        <a href="/dashboard/attedancetable/{{k.IdECFLCT}}">
-                          <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
-</a>
-                      </div>
-
-                    </div>
-
-                    <div class="col-md-4">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[4].EXTCforTimeTables">
-                        <div class="external-event ">{{k.Auditory}}</div>
-
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">{{ TimeTable2.Days[5].DayOfWeek}}</h4>
-                </div>
-                <div class="card-body">
-                  <!-- the events -->
-                  <div class="row">
-                    <div class="col-md-2">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[5].EXTCforTimeTables">
-                        <div class="external-event bg-gradient-gray">{{k.DateTime}}</div>
-
-                      </div>
-
-                    </div>
-                    <div class="col-md-6">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[5].EXTCforTimeTables">
-                        <a href="/dashboard/attedancetable/{{k.IdECFLCT}}">
-                          <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
-                          </a>
-                      </div>
-
-                    </div>
-
-                    <div class="col-md-4">
-                      <div id="external-events" *ngFor="let k of  TimeTable2.Days[5].EXTCforTimeTables">
-                        <div class="external-event ">{{k.Auditory}}</div>
-
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-              </div>
             </div>
           </div>
 

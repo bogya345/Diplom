@@ -28,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeworkListTeacherComponent } from './homework-list-teacher/homework-list-teacher.component';
 import { CuratorConfirmedComponent } from './curator-confirmed/curator-confirmed.component';
 import { CuratorConfirmedListComponent } from './curator-confirmed-list/curator-confirmed-list.component';
+import { CuratorStatisticComponent } from './curator-statistic/curator-statistic.component';
 ////import { ConfirmDialogComponent } from './yes-no-modal/confirm-dialog.component';
 //import { DialogBodyComponent } from './dialog-body/dialog-body.component';
 
@@ -66,7 +67,8 @@ import { CuratorConfirmedListComponent } from './curator-confirmed-list/curator-
     TimetableTeacherComponent,
     HomeworkListTeacherComponent,
     CuratorConfirmedComponent,
-    CuratorConfirmedListComponent
+    CuratorConfirmedListComponent,
+    CuratorStatisticComponent
     //ConfirmDialogComponent,
     //DialogBodyComponent
   ],
@@ -85,6 +87,7 @@ import { CuratorConfirmedListComponent } from './curator-confirmed-list/curator-
         path: 'dashboard', component: MainSidebarComponent,
         children: [
           { path: 'profile/:IdPerson', component: ProfileComponent },
+          { path: 'CuratorStatisticComponent', component: CuratorStatisticComponent },
           { path: 'curator/:IdPortfolio', component: CuratorConfirmedComponent },
           { path: 'curatorPortfolioList', component: CuratorConfirmedListComponent },
           { path: 'mainpage', component: MainPageComponent },
