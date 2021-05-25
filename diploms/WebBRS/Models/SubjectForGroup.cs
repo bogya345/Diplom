@@ -34,6 +34,7 @@ namespace WebBRS.Models
 
 		public Department Department { get; set; }
 		public int IdPerson { get; set; }
+		public int TypeStudyIdTS { get; set; }
 
 		[ForeignKey("IdPerson")]
 
@@ -44,6 +45,7 @@ namespace WebBRS.Models
 		public Subject Subject { get; set; }
 
 		public virtual SubjectLecturer? Lecturer { get; set; }
+		[ForeignKey("TypeStudyIdTS")]
 
 		public virtual TypeStudy TypeStudy { get; set; }
 		/// <summary>

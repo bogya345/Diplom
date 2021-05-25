@@ -63,6 +63,7 @@ namespace WebBRS.DAL.Repositories
 				 .Include(sfg => sfg.Person)
 			 .Include(sfg => sfg.Group)
 			 .Include(sfg => sfg.Subject)
+			 .Include(sfg => sfg.TypeStudy)
 				.Where(func);
 		}
 

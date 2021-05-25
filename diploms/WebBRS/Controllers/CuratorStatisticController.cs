@@ -46,7 +46,7 @@ namespace WebBRS.Controllers
 				{
 					SubjectVM subjectVM = new SubjectVM();
 					subjectVM.IdSubject = sfg.IdSubject;
-					subjectVM.SubjectName = sfg.Subject.NameSubject;
+					subjectVM.SubjectName = sfg.Subject.NameSubject + "	"+sfg.TypeStudy.TypeStudyName;
 					groupVM.SubjectVMs.Add(subjectVM);
 
 				}

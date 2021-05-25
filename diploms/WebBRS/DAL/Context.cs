@@ -206,6 +206,10 @@ namespace WebBRS.DAL
 			.HasOne(p => p.Person)
 			.WithMany(t => t.SubjectsForGroup)
 			.HasForeignKey(st => st.IdPerson);
+			modelBuilder.Entity<SubjectForGroup>()
+			.HasOne(p => p.TypeStudy)
+			.WithMany(t => t.SubjectsForGroup)
+			.HasForeignKey(st => st.TypeStudyIdTS);
 
 			//modelBuilder.Entity<SubjectForGroup>()
 			//.HasOne(p => p.Group)
