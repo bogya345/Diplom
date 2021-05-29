@@ -7,12 +7,14 @@ export const environment = {
 
   production: false,
   apiUrl: 'https://localhost:44336/',
-
+  authUrl: 'https://localhost:44371/',
+  tokenWhiteListedDomains: ['localhost:44336'],
   sessionConst: {
     username: 'hod_username',
     role: 'hod_rolename',
+    roleId: 'hod_roleid',
     department: 'hod_department',
-    accessTokenName: 'hod_accessToken'
+    accessTokenName: 'WebBRS_access_token'
   },
 
   // втисит

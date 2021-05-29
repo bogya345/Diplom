@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using WebBRS.DAL;
@@ -15,18 +17,17 @@ namespace WebBRS.Controllers
 	[ApiController]
 
 	[Route("homeworks")]
-
+	[Authorize]
 	public class HomeWorkController : Controller
 	{
 		// GET: HomeWorkController
 		private UnitOfWork unit = new UnitOfWork();
-
+		private Guid UserId => Guid.Parse(User.Claims.Single(c=>c.Type==ClaimTypes.NameIdentifier).Value);
 		public ActionResult Index()
 		{
 			return View();
 		}
 		[HttpGet("GetDraftTimeTables/{IdDraft}")]
-
 		public List<DraftTimeTableVM> GetDraftTimeTables(int IdDraft)
 		{
 			List<DraftTimeTableVM> drafts = new List<DraftTimeTableVM>();
@@ -423,6 +424,7 @@ namespace WebBRS.Controllers
 		public AttedanceForWork GetClassWorkStudentAnswer(int IdClass)
 		{
 			ClassWork classWork = unit.ClassWorks.Get(cw => cw.IdClass == IdClass);
+			//изменить когда появится аутнетификация
 			int IdPerson = 1739436577;
 			Student student = unit.Students.Get(s => s.IdPerson == IdPerson);
 			ExactClass exactClass = unit.ExactClasses.Get(ex => ex.IdClass == IdClass);

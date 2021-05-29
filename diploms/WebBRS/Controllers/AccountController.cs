@@ -8,7 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebBRS.Services.Auth;
-using WebBRS.Models;
+//using WebBRS.Models;
 using WebBRS.Models.Views;
 using WebBRS.DAL;
 using WebBRS.Models.Auth;

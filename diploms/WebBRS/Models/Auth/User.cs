@@ -11,8 +11,13 @@ namespace WebBRS.Models.Auth
 	{
 		[Key]
 		public int id_user { get; set; }    // generated (NOT AUTO-INCREMENT)
+		[ForeignKey("PersonIdPerson")]
+
+		public int PersonIdPerson { get; set; }    // generated (NOT AUTO-INCREMENT)
 
 		public Person Person { get; set; }
+		[ForeignKey("Roleid_role")]
+		public int Roleid_role { get; set; }    // generated (NOT AUTO-INCREMENT)
 
 		public Role Role { get; set; }
 		
@@ -24,7 +29,7 @@ namespace WebBRS.Models.Auth
 		public string name_role { get; set; }
 		[NotMapped]
 		public int id_department { get; set; }
-		[NotMapped]
-		public List<Role> Roles { get; set; }
+		//[NotMapped]
+		//public List<Role> Roles { get; set; }
 	}
 }

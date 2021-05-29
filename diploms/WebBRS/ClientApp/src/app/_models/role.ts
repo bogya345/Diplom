@@ -7,6 +7,7 @@ export enum Role {
   HeadCath = 'Заведующий',
   Decan = 'Декан',
   Student = 'Студент',
+  Curator = 'Куратор',
 
   // 3
   UmuStaff = 'УМУ',

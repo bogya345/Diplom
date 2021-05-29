@@ -5,11 +5,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { JwtModule } from '@auth0/angular-jwt';
 import { ConfirmationDialog } from './dialog-body/confirmation-dialog.component';
 import { AlertDialogComponent } from './dialog-body/alert-dialog/alert-dialog.component';
 import { VERSION, MatDialogRef,   MatDialog, MatSnackBar,  MAT_DIALOG_DATA, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
 
 import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
+import { ACCESS_TOKEN_KEY } from './_services/auth.service';
 
 import { ProfileComponent } from './profile/profile.component';
 import { MainSidebarComponent } from './main-sidebar/main-sidebar.component';
@@ -29,6 +32,8 @@ import { HomeworkListTeacherComponent } from './homework-list-teacher/homework-l
 import { CuratorConfirmedComponent } from './curator-confirmed/curator-confirmed.component';
 import { CuratorConfirmedListComponent } from './curator-confirmed-list/curator-confirmed-list.component';
 import { CuratorStatisticComponent } from './curator-statistic/curator-statistic.component';
+import { AUTH_API_URL } from './app-injection-tokens';
+import { AuthGuard } from './guards/auth.guard';
 ////import { ConfirmDialogComponent } from './yes-no-modal/confirm-dialog.component';
 //import { DialogBodyComponent } from './dialog-body/dialog-body.component';
 
@@ -45,13 +50,14 @@ import { CuratorStatisticComponent } from './curator-statistic/curator-statistic
 //  { path: '**', redirectTo: '/login', pathMatch: 'full' }
 
 //];
-
+export function tokenGetter() {
+  return localStorage.getItem(ACCESS_TOKEN_KEY);
+}
 @NgModule({
   declarations: [
     AppComponent,
     ConfirmationDialog,
     AlertDialogComponent,
-
     MainSidebarComponent,
     ProfileComponent,
     MainPageComponent,
@@ -76,7 +82,12 @@ import { CuratorStatisticComponent } from './curator-statistic/curator-statistic
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     [MatDialogModule],
-
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: environment.tokenWhiteListedDomains
+      }
+    }),
     FormsModule,
     RouterModule.forRoot([
       //{ path: '', component: HomeComponent, pathMatch: 'full' },
@@ -84,34 +95,34 @@ import { CuratorStatisticComponent } from './curator-statistic/curator-statistic
       //{ path: 'fetch-data', component: FetchDataComponent },
       //{ path: 'person', component: PersonComponent },
       {
-        path: 'dashboard', component: MainSidebarComponent,
+        path: 'dashboard', component: MainSidebarComponent, 
         children: [
-          { path: 'profile/:IdPerson', component: ProfileComponent },
-          { path: 'CuratorStatisticComponent', component: CuratorStatisticComponent },
-          { path: 'curator/:IdPortfolio', component: CuratorConfirmedComponent },
-          { path: 'curatorPortfolioList', component: CuratorConfirmedListComponent },
+          { path: 'profile/:IdPerson', canActivate: [AuthGuard], component: ProfileComponent },
+          { path: 'CuratorStatisticComponent', canActivate: [AuthGuard], component: CuratorStatisticComponent },
+          { path: 'curator/:IdPortfolio', canActivate: [AuthGuard], component: CuratorConfirmedComponent },
+          { path: 'curatorPortfolioList', canActivate: [AuthGuard],component: CuratorConfirmedListComponent },
           { path: 'mainpage', component: MainPageComponent },
-          { path: 'attendance-current/:IdECFLCT/:IdClass/:IdselectedGroup', component: AttendanceComponent },
+          { path: 'attendance-current/:IdECFLCT/:IdClass/:IdselectedGroup', canActivate: [AuthGuard], component: AttendanceComponent },
           {
-            path: 'timetable', component: TimetableComponent
+            path: 'timetable', canActivate: [AuthGuard], component: TimetableComponent
           },
           {
-            path: 'homeworks', component: HomeworksComponent
+            path: 'homeworks', canActivate: [AuthGuard], component: HomeworksComponent
           },
           {
-            path: 'attedancetable/:IdECFLCT', component: AttedanceTableComponent
+            path: 'attedancetable/:IdECFLCT', canActivate: [AuthGuard], component: AttedanceTableComponent
           },
           {
-            path: 'attedance', component: AttendanceComponent,
+            path: 'attedance', canActivate: [AuthGuard], component: AttendanceComponent,
             children: [
               { path: 'addhomework', component: AddHomeworkComponent }
             ]
           },
-          { path: 'homeworks/:IdClass', component: HomeworkComponent },
-          { path: 'personlist', component: PersonListComponent },
-          { path: 'addhomework', component: AddHomeworkComponent },
-          { path: 'checkhomework', component: HomeworkListTeacherComponent },
-          { path: 'timetableTeacher', component: TimetableTeacherComponent },
+          { path: 'homeworks/:IdClass', canActivate: [AuthGuard], component: HomeworkComponent },
+          { path: 'personlist', canActivate: [AuthGuard], component: PersonListComponent },
+          { path: 'addhomework', canActivate: [AuthGuard], component: AddHomeworkComponent },
+          { path: 'checkhomework', canActivate: [AuthGuard], component: HomeworkListTeacherComponent },
+          { path: 'timetableTeacher', canActivate: [AuthGuard], component: TimetableTeacherComponent },
 
 
 
@@ -130,6 +141,10 @@ import { CuratorStatisticComponent } from './curator-statistic/curator-statistic
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'fill' }
+    },
+    {
+      provide: AUTH_API_URL,
+      useValue: environment.authUrl
     }
   ],
   bootstrap: [AppComponent]

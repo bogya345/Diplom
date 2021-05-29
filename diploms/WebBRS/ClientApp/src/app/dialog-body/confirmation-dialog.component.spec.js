@@ -1,18 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var testing_1 = require("@angular/core/testing");
-var dialog_body_component_1 = require("./dialog-body.component");
+var confirmation_dialog_component_1 = require("./confirmation-dialog.component");
 describe('DialogBodyComponent', function () {
     var component;
     var fixture;
     beforeEach(testing_1.async(function () {
         testing_1.TestBed.configureTestingModule({
-            declarations: [dialog_body_component_1.DialogBodyComponent]
+            declarations: [confirmation_dialog_component_1.ConfirmationDialog]
         })
             .compileComponents();
     }));
     beforeEach(function () {
-        fixture = testing_1.TestBed.createComponent(dialog_body_component_1.DialogBodyComponent);
+        fixture = testing_1.TestBed.createComponent(confirmation_dialog_component_1.ConfirmationDialog);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
@@ -20,4 +20,4 @@ describe('DialogBodyComponent', function () {
         expect(component).toBeTruthy();
     });
 });
-//# sourceMappingURL=dialog-body.component.spec.js.map
+//# sourceMappingURL=confirmation-dialog.component.spec.js.map

@@ -15,5 +15,6 @@ namespace WebBRS.Models.Auth
 		public int id_role { get; set; }    // generated (NOT AUTO-INCREMENT)
 
 		public string name_role { get; set; }
+		public virtual List<User> Users { get; set; } = new List<User>();
 	}
 }

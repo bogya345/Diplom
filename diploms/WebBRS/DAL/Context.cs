@@ -14,6 +14,7 @@ namespace WebBRS.DAL
 		#region Tables
 		public DbSet<Attendance> Attendances { get; set; }
 		public DbSet<AttedanceReason> AttedanceReasons { get; set; }
+		public DbSet<Role> Roles { get; set; }
 		public DbSet<DraftTimeTable> DraftTimeTable { get; set; }
 		public DbSet<Portfolio> Portfolios { get; set; }
 		public DbSet<TypeTimeTable> TypeTimeTables { get; set; }
@@ -29,7 +30,7 @@ namespace WebBRS.DAL
 		public DbSet<Department> Departments { get; set; }
 		public DbSet<DepartmentType> DepartmentTypes { get; set; }
 		public DbSet<User> Users { get; set; }
-		public DbSet<Role> Roles { get; set; }
+		//public DbSet<Role> Roles { get; set; }
 		public DbSet<TypeStudy> TypeStudies { get; set; }
 		public DbSet<StudyPlanRecord> StudyPlanRecords { get; set; }
 		public DbSet<StudyYear> StudyYears { get; set; }
@@ -129,6 +130,10 @@ namespace WebBRS.DAL
 			.HasOne(p => p.TypeAttedance)
 			.WithMany(t => t.Attendances)
 			.HasForeignKey(st => st.TypeAttedanceIdTA);
+			modelBuilder.Entity<User>()
+			.HasOne(p => p.Role)
+			.WithMany(t => t.Users)
+			.HasForeignKey(st => st.Roleid_role);
 			modelBuilder.Entity<Attendance>()
 			.HasOne(p => p.ExactClass)
 			.WithMany(t => t.Attendances)

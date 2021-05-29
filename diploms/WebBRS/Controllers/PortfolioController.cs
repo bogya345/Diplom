@@ -6,6 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebBRS.DAL;
 using WebBRS.Models;
+using WebBRS.Models.Auth;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 using WebBRS.Models.Views;
 using WebBRS.ViewModels.toRecieve;
@@ -17,15 +20,23 @@ namespace WebBRS.Controllers
 	}
 	[Route("prortfolio")]
 	[ApiController]
+	[Authorize]
 	public class PortfolioController : ControllerBase
 	{
 		private UnitOfWork unit = new UnitOfWork();
+		[Authorize(Roles = "admin, student, curator")]
 		[HttpGet("GetPortfile")]
-
+		
 		public ProfileVM GetProfile()
 		{
 			//изменить когда появится авторизация
-			int IdPerson = 1739436577;
+			ClaimsIdentity claimsIdentity; 
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user =unit.Users.Get(u=>u.login== yearClaims.Value);
+			int IdPerson = user.PersonIdPerson;
+
+			//var a = User.Identity;
 			ProfileVM profileVM = new ProfileVM();
 			Person person = unit.Persons.Get(p => p.IdPerson == IdPerson);
 			Student student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
@@ -94,8 +105,12 @@ namespace WebBRS.Controllers
 		{
 			List<PortfolioVM> portfolioVMs = new List<PortfolioVM>();
 			//изменить когда появится авторизация
-
-			int idPerson = 1739436573;
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			int idPerson = user.PersonIdPerson;
+			//int idPerson = 1739436573;
 			List<Curator> curators = unit.Curators.GetAll(c => c.PersonIdPerson == idPerson && c.Actual == true).ToList();
 			List<Portfolio> portfolios = new List<Portfolio>();
 			if (!conf)

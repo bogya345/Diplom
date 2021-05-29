@@ -21,6 +21,7 @@ namespace WebBRS
 {
 	public class Startup
 	{
+
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -31,6 +32,18 @@ namespace WebBRS
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddControllers();
+			var authOptionsConfigure = Configuration.GetSection("Auth").Get<AuthOptions>();
+			AuthOptions authOptionsConfigure2 = new AuthOptions();	
+			//authOptionsConfigure2.
+			//	Issuer= "authServer",
+   // Audience= "resourseServer",
+   // Secret= "secretKey1234567789+-",
+   // TokenLifetime= "3600"
+			//};
+			//authOptionsConfigure.
+
+			//services.Configure<AuthOptions>(authOptionsConfigure2);
 			// In production, the Angular files will be served from this directory
 			services.AddAuthentication(IISDefaults.AuthenticationScheme);
 			services.AddMvc()
@@ -70,6 +83,7 @@ namespace WebBRS
 //);
 			services.AddDbContext<MyContext>(
 	   options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+
 			services.AddControllers().AddJsonOptions(options =>
 			{
 				options.JsonSerializerOptions.PropertyNamingPolicy = null;
@@ -84,6 +98,17 @@ namespace WebBRS
 			{
 				configuration.RootPath = "ClientApp/dist";
 			});
+			services.AddCors(OptionsBuilderConfigurationExtensions =>
+			{
+				OptionsBuilderConfigurationExtensions.AddDefaultPolicy(
+					builder =>
+					{
+						builder.AllowAnyOrigin()
+								.AllowAnyMethod()
+								.AllowAnyHeader();
+					});
+			});
+			
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -108,7 +133,9 @@ namespace WebBRS
 			}
 
 			app.UseRouting();
-
+			app.UseCors();
+			app.UseAuthentication();
+			app.UseAuthorization();
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllerRoute(

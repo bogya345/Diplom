@@ -32,6 +32,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,6 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\app-injection-tokens.ts" />
     <None Remove="ClientApp\src\app\attedance-table\http.serviceAttedanceTable.ts" />
     <None Remove="ClientApp\src\app\attendance\http.serviceAttedance.ts" />
     <None Remove="ClientApp\src\app\curator-confirmed-list\http.curatorConfirmedList.ts" />
@@ -58,6 +60,7 @@
     <None Remove="ClientApp\src\app\dialog-body\alert-dialog\alert-dialog.component.ts" />
     <None Remove="ClientApp\src\app\homeworks\http.serviceHomeworks.ts" />
     <None Remove="ClientApp\src\app\homework\http.serviceHomework.ts" />
+    <None Remove="ClientApp\src\app\main-sidebar\http.serviceMainSidebar.ts" />
     <None Remove="ClientApp\src\app\person-list\http.servicePersonList.ts" />
     <None Remove="ClientApp\src\app\profile\http.serviceProfile.ts" />
     <None Remove="ClientApp\src\app\timetable-part\http.timetable-part.ts" />
@@ -66,7 +69,9 @@
     <None Remove="ClientApp\src\app\yes-no-modal\confirm-dialog.module.ts" />
     <None Remove="ClientApp\src\app\yes-no-modal\confirm-dialog.service.ts" />
     <None Remove="ClientApp\src\app\_models\role.ts" />
+    <None Remove="ClientApp\src\app\_models\token.ts" />
     <None Remove="ClientApp\src\app\_models\user.ts" />
+    <None Remove="ClientApp\src\app\_services\auth.service.ts" />
     <None Remove="ClientApp\src\app\_services\authentication.ts" />
     <None Remove="ClientApp\src\app\_services\user.service.ts" />
     <None Remove="ClientApp\src\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />

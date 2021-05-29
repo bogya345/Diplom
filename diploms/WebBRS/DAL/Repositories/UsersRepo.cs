@@ -40,8 +40,9 @@ namespace WebBRS.DAL.Repositories
         public override User Get(Func<User, bool> func)
         {
             return db.Users
-                .Include(g => g.Role)
-                .FirstOrDefault(func);
+                .Include(g=>g.Person)
+				.Include(g => g.Role)
+				.FirstOrDefault(func);
         }
 
         public IEnumerable<Attendance> GetAll()
