@@ -65,7 +65,7 @@ D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\staticwebassets\hod-back
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.dll
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.pdb
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.genruntimeconfig.cache
-D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csprojAssemblyReference.cache
 D:\Unic\Diplom\diploms\hod-back\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csproj.CoreCompileInputs.cache
 D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.MvcApplicationPartsAssemblyInfo.cache
+D:\Unic\Diplom\diploms\hod-back\obj\Debug\netcoreapp3.1\hod-back.csprojAssemblyReference.cache

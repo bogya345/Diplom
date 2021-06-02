@@ -24,6 +24,8 @@ namespace hod_back.Model
         [Column("workT_shortname")]
         [StringLength(50)]
         public string WorkTShortname { get; set; }
+        [Column("applyT_id")]
+        public int? ApplyTId { get; set; }
         [Column("ps_id")]
         public int? PsId { get; set; }
         [Column("post_id")]

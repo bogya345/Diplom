@@ -150,7 +150,7 @@ namespace hod_back.Services.Excel
                 ws.Cell("D" + activeRow).Value = post;
                 exT.DegId = eDoc.DegId;
                 exT.RankId = eDoc.RankId;
-                //exT.IsInner = rate.IsInner;
+                exT.IsForeign = (rate.ApplyTId == 2);
 
                 ws.Cell("F" + activeRow).Value = "Уровень образования (нет данных)";
                 ws.Cell("G" + activeRow).Value = "Дополнительное образование (нет данных)";

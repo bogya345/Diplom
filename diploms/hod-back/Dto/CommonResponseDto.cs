@@ -11,7 +11,7 @@ namespace hod_back.Dto
         public CommonResponseDto(bool done, string path, string message = "")
         {
             this.Done = done;
-            this.Path = path;
+            this.Path = path.Replace(@"\\", @"\");
             this.Message = message;
         }
 

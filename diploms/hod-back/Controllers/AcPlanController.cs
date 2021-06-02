@@ -41,10 +41,15 @@ namespace hod_back.Controllers
             this._config = config;
         }
 
+        /// <summary>
+        /// Возавразает документ - учебный план
+        /// </summary>
+        /// <param name="dir_id"></param>
+        /// <returns></returns>
         [HttpGet("get/{dir_id}")]
-        public CommonResponseDto GetAcPlan([FromRoute] int dir_id)
+        public async Task<CommonResponseDto> GetAcPlan([FromRoute] int dir_id)
         {
-            var dir = _unit.Directions.GetOrDefaultWithInclude(x => x.DirId == dir_id);
+            var dir = await _unit.Directions.GetOrDefaultWithIncludeAsync(x => x.DirId == dir_id);
 
             if (dir == null) { return new CommonResponseDto("Направление не найдено."); }
             if (dir.AcPlId == null) { return new CommonResponseDto("Учебный план не найден."); }
@@ -108,12 +113,9 @@ namespace hod_back.Controllers
         }
 
         [HttpGet("/weatherforecast"), DisableRequestSizeLimit]
-        public object Test2([FromRoute] int dep_id, [FromRoute] int dir_id, [FromRoute] int group_id)
+        public async Task<object> Test2([FromRoute] int dep_id, [FromRoute] int dir_id, [FromRoute] int group_id)
         {
-            var tmp = _unit.Subjects.GetManyWithIncludeAsync(x => x.SubId > 0)
-                .Result
-                .ToList()
-                ;
+            var tmp = await _unit.Subjects.GetManyWithIncludeAsync(x => x.SubId > 0);
 
             var res = _mapper.Map<IEnumerable<SubDepDto>>(tmp);
             return res;

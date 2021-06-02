@@ -28,6 +28,7 @@ namespace hod_back.Model
         public virtual DbSet<DepDirFac> DepDirFacs { get; set; }
         public virtual DbSet<DepType> DepTypes { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<DepartmentLoad> DepartmentLoads { get; set; }
         public virtual DbSet<DepsInfo> DepsInfos { get; set; }
         public virtual DbSet<DirFgo> DirFgos { get; set; }
         public virtual DbSet<DirGroup> DirGroups { get; set; }
@@ -200,6 +201,11 @@ namespace hod_back.Model
                     .WithMany(p => p.Departments)
                     .HasForeignKey(d => d.RoleId)
                     .HasConstraintName("Departments_role");
+            });
+
+            modelBuilder.Entity<DepartmentLoad>(entity =>
+            {
+                entity.ToView("DepartmentLoads");
             });
 
             modelBuilder.Entity<DepsInfo>(entity =>

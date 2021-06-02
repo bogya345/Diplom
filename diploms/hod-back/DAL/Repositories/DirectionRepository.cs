@@ -55,6 +55,23 @@ namespace hod_back.DAL.Repositories
                 .Include(x => x.AcPl)
                 .FirstOrDefault(func);
         }
+        public async override Task<Direction> GetOrDefaultWithIncludeAsync(Func<Direction, bool> func, Direction def = null)
+        {
+            mark:
+            try
+            {
+                return db.Directions
+                    .Include(x => x.EForm)
+                    .Include(x => x.EBr)
+                    .Include(x => x.AcPl)
+                    .FirstOrDefault(func);
+            }
+            catch(InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
+        }
         //public override Task<Direction> GetOrDefaultWithIncludeAsync(Func<Direction, bool> func, Direction def = null)
         //{
         //    //Expression andExpr = Expression.Convert(Expression.Lambda<Func<Direction, bool>>, typeof(Func<Direction, bool>), func.Method);

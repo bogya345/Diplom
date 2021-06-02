@@ -70,6 +70,17 @@ namespace hod_back.DAL
         }
 
         // views
+        private DepartmentLoadsRepository depLoadRepository;
+        public DepartmentLoadsRepository DepartmentLoads
+        {
+            get
+            {
+                if (depLoadRepository == null)
+                    depLoadRepository = new DepartmentLoadsRepository(context);
+                return depLoadRepository;
+            }
+        }
+
         private DepsInfoRepository depsInfoRepository;
         public DepsInfoRepository DepsInfo
         {

@@ -9,16 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-//using hod_back.DAL.Models;
-//using hod_back.DAL.Models.Views;
-//using hod_back.DAL.Models.ToRecieve;
-//using hod_back.DAL.Models.ToSend;
-//using hod_back.DAL.Models.ToParse;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using System;
 
-//using hod_back.DAL;
-//using hod_back.DAL.Contexts;
-
-//using hod_back.Services.Excel;
+using hod_back.Services.Excel;
+using hod_back.Extentions;
 
 namespace hod_back.Controllers
 {
@@ -30,11 +26,45 @@ namespace hod_back.Controllers
         private IMapper _mapper;
         private IHostingEnvironment _hostEnv;
 
-        public DepartmentController(UnitOfWork unit, IMapper mapper, IHostingEnvironment hostEnv)
+        private IConfiguration _config;
+
+        public DepartmentController(UnitOfWork unit, IMapper mapper, IHostingEnvironment hostEnv, IConfiguration config)
         {
             this._unit = unit;
             this._mapper = mapper;
             this._hostEnv = hostEnv;
+            this._config = config;
+        }
+
+        /// <summary>
+        /// Получить все кафедры с информацией
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Roles = "препод,завед,админ,уму")]
+        [HttpGet("get/load/{dep_id}")]
+        public async Task<CommonResponseDto> GetLoad([FromRoute] int dep_id)
+        {
+            var Dep = await _unit.Departments.GetOrDefaultAsync(x => x.DepId == dep_id);
+            if (Dep == null) { return new CommonResponseDto("Такая кафедра не найдена."); }
+
+            string tmp = _hostEnv.WebRootPath;
+
+            string folderName = "Export";
+            string webRootPath = _config.GetSection("WebRootPath").Value.ToString();
+            string newPath = Path.Combine(webRootPath, folderName);
+
+            string fileName = "";
+
+            if (!Directory.Exists(newPath))
+            {
+                Directory.CreateDirectory(newPath);
+            }
+
+            Excel_Load ex = new Excel_Load(newPath + @$"\Кафедральная нагрузка {Dep.DepShortname}.xlsx", dep_id, _unit);
+            // 'D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\ExcelPattern_Property.xlsx'."
+            var res = ex.CreateAndFillTempFile();
+
+            return new CommonResponseDto(true, res, "Кафедральная нагрузка.");
         }
 
         /// <summary>
@@ -105,14 +135,16 @@ namespace hod_back.Controllers
                                                 StartYear = x.StartYear,
                                                 Requirs = _unit.DirRequirs.GetMany(y => y.DirId == x.DirId).Select(z => new DirRequirDto()
                                                 {
-                                                    Fgos_num = z.FgosNum,
+                                                    Fgos_num = z.FgosNum.NewFgos(),
                                                     SettedValue = z.SettedValue,
                                                     Unit_name = z.UnitName
                                                 }).ToArray(),
                                                 Groups = _unit.DirGroups.GetMany(y => y.DirId == x.DirId).Select(z => new GroupDto()
                                                 {
                                                     Group_id = z.GroupId,
-                                                    Group_name = z.GroupName
+                                                    Group_name = z.GroupName,
+                                                    CreatedDate = z.DateCreate.Value.Year.ToString(),
+                                                    ExitDate = z.DateExit.Value.Year.ToString()
                                                     //group_acPlan_id = z.AcPlId
                                                 }).ToArray()
 
@@ -160,6 +192,8 @@ namespace hod_back.Controllers
                                {
                                    Group_id = z.GroupId,
                                    Group_name = z.GroupName,
+                                   CreatedDate = z.DateCreate.Value.Year.ToString(),
+                                   ExitDate = z.DateExit.Value.Year.ToString()
                                    //group_acPlan_id = z.AcPlId
                                }).ToArray()
 

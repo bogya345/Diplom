@@ -27,6 +27,20 @@ namespace hod_back.DAL.Repositories
         {
             return db.DirRequirs.FirstOrDefault(func) ?? def;
         }
+        public async override Task<DirRequir> GetOrDefaultAsync(Func<DirRequir, bool> func, DirRequir def = null)
+        {
+            mark:
+            try
+            {
+                return db.DirRequirs.FirstOrDefault(func) ?? def;
+            }
+            catch(InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
+        }
+
         //public override async Task<DirRequir> GetOrDefaultAsync(Func<DirRequir, bool> func, DirRequir def = null)
         //{
         //    return db.DirRequirs.FirstOrDefaultAsync(func, CancellationToken.None);

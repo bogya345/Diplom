@@ -54,7 +54,7 @@ namespace hod_back.Services.Analyse
 
                 exT.DegId = eDoc.DegId;
                 exT.RankId = eDoc.RankId;
-                //exT.IsInner = rate.IsInner;
+                exT.IsForeign = rate.ApplyTId == 2;
 
                 foreach (var item3 in item2.ToList())
                 {
@@ -138,7 +138,7 @@ namespace hod_back.Services.Analyse
 
         public Requir Execute_Partial(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList)
         {
-            var fgos = unit.DirRequirs.GetOrDefault(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum);
+            var fgos = unit.DirRequirs.GetOrDefaultAsync(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum).Result;
 
             //int numA = items.Count();
             //int status = exList.Where(x => x.is723).Count();
@@ -162,7 +162,7 @@ namespace hod_back.Services.Analyse
 
         public Requir Execute_Full(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList, int totalCount)
         {
-            var fgos = unit.DirRequirs.GetOrDefault(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum);
+            var fgos = unit.DirRequirs.GetOrDefaultAsync(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum).Result;
 
             //int numA = items.Count();
             //int status = exList.Where(x => x.is723).Count();

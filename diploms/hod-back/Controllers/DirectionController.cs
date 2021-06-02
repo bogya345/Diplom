@@ -18,17 +18,6 @@ using hod_back.Services.Excel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 
-//using hod_back.DAL.Models;
-//using hod_back.DAL.Models.Views;
-//using hod_back.DAL.Models.ToRecieve;
-//using hod_back.DAL.Models.ToSend;
-//using hod_back.DAL.Models.ToParse;
-
-//using hod_back.DAL;
-//using hod_back.DAL.Contexts;
-
-//using hod_back.Services.Excel;
-
 namespace hod_back.Controllers
 {
     [ApiController]

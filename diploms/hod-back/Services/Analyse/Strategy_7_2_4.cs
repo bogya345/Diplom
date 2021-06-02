@@ -136,10 +136,12 @@ namespace hod_back.Services.Analyse
 
         public Requir Execute_Partial(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList)
         {
-            var fgos = unit.DirRequirs.GetOrDefault(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum);
+            var fgos = unit.DirRequirs.GetOrDefaultAsync(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum).Result;
 
-            int numA = items.Count();
-            int status = exList.Where(x => x.is723_Part).Count();
+            //int numA = items.Count();
+
+            double numA = exList.Sum(x => x.TotalRate);
+            double status = exList.Where(x => x.is724_Part).Sum(x => x.TotalRate);
 
             Requir res = new Requir_7_2()
             {
@@ -156,7 +158,7 @@ namespace hod_back.Services.Analyse
         }
         public Requir Execute_Full(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList, int totalCount)
         {
-            var fgos = unit.DirRequirs.GetOrDefault(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum);
+            var fgos = unit.DirRequirs.GetOrDefaultAsync(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum).Result;
 
             //int numA = items.Count();
             int status = exList.Where(x => x.is723_Part).Count();

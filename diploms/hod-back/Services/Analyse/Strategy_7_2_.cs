@@ -62,7 +62,7 @@ namespace hod_back.Services.Analyse
 
                 exT.DegId = eDoc != null ? eDoc.DegId : 1;
                 exT.RankId = eDoc != null ? eDoc.RankId : 1;
-                //exT.IsInner = rate.IsInner;
+                exT.IsForeign = rate.ApplyTId == 2;
 
                 foreach (var item3 in item2.ToList())
                 {

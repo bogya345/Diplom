@@ -11,5 +11,6 @@ namespace hod_back.Dto
         public DepsDto CorrespDep { get; set; }
         public int? SemestrNum { get; set; }
         public LoadDto[] Loads { get; set; }
+        public string Mark { get; set; }
     }
 }

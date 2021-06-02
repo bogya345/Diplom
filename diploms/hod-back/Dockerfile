@@ -2,14 +2,16 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
+COPY ./_Resources ./_Resources
 EXPOSE 80
 EXPOSE 443
 
+
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["hod-back/hod-back.csproj", "hod-back/"]
+COPY ["hod-back.csproj", "hod-back/"]
 RUN dotnet restore "hod-back/hod-back.csproj"
-COPY . .
+COPY . ./hod-back/
 WORKDIR "/src/hod-back"
 RUN dotnet build "hod-back.csproj" -c Release -o /app/build
 

@@ -19,6 +19,20 @@ namespace hod_back.DAL.Repositories
             return db.Departments.FirstOrDefault(func) ?? def;
         }
 
+        public override async Task<Department> GetOrDefaultAsync(Func<Department, bool> func, Department def = null)
+        {
+            mark:
+            try
+            {
+                return db.Departments.FirstOrDefault(func) ?? def;
+            }
+            catch(InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
+        }
+
         //public override Department GetOrDefaultWithIncliude(Func<Department, bool> func, Department def = null)
         //{
         //    return db.Departments

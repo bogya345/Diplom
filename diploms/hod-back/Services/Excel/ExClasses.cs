@@ -14,7 +14,7 @@ namespace hod_back.Services.Excel
         public string Fullname { get; set; }
         public int? DegId { get; set; }
         public int? RankId { get; set; }
-        public bool IsInner { get; set; }
+        public bool IsForeign { get; set; }
 
         public List<exSubject> Subs { get; set; }
 
@@ -23,7 +23,7 @@ namespace hod_back.Services.Excel
 
         public bool is722_Part { get { return Rules.isFgos_7_2_2_Partial(DegId, RankId); } } //
         public bool is723_Part { get { return Rules.isFgos_7_2_3_Partial(DegId, RankId); } }
-        public bool is724_Part { get { return IsInner; } }
+        public bool is724_Part { get { return IsForeign; } }
 
         public bool is722_Full { get; set; }
         public bool is723_Full { get; set; }

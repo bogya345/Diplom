@@ -33,7 +33,7 @@ namespace hod_back.Extentions
             return tmp;
         }
 
-        public static LoadDto TransformToLoadDto(this AttachedAcPlan item, int? SemNum, string teachName="")
+        public static LoadDto TransformToLoadDto(this AttachedAcPlan item, int? SemNum, string teachName = "")
         {
             LoadDto res = new LoadDto()
             {
@@ -74,7 +74,8 @@ namespace hod_back.Extentions
                         SubjectName = i.Sub.SubName,
                         CorrespDep = i.Sub.AcPlDep.Dep.TransformToDepsDto(),
                         SemestrNum = i.SemestrNum,
-                        Loads = i.AttachedAcPlans.TransformToLoadDtoArray(group_id)
+                        Loads = i.AttachedAcPlans.TransformToLoadDtoArray(group_id),
+                        Mark = i.AttachedAcPlans.GetMark(group_id),
                     });
                 }
             }
@@ -102,6 +103,18 @@ namespace hod_back.Extentions
 
             return res.ToArray();
         }
+        public static string GetMark(this IEnumerable<AttachedAcPlan> items, int group_id)
+        {
+            string res = "";
+
+            items = items.Where(x => x.GroupId == group_id).ToList();
+
+            res = $"{items.Count(x => x.FshId != null)}/{items.Count()}";
+
+            return res;
+        }
+
+
 
         //public static LoadDto TransformToLoadDto(this AttachedAcPlan item, int? SemNum)
         //{
