@@ -43,7 +43,8 @@
           <!-- SubjectName Column -->
           <ng-container matColumnDef="SubjectName">
             <th mat-header-cell *matHeaderCellDef> Название дисциплины </th>
-            <td mat-cell *matCellDef="let element"> {{element.SubjectName}} (<b>Семестр {{element.SemestrNum}}</b>)
+            <td mat-cell *matCellDef="let element">
+              {{element.SubjectName}} (<b>Семестр {{element.SemestrNum}}</b>) # {{element.Mark}}
             </td>
           </ng-container>
 
@@ -76,13 +77,13 @@
 
                           <div
                             *ngIf="selectedSubject.CorrespDep == null || selectedSubject.CorrespDep.Dep_id == null; else elseBlock_info">
-                            <button
-                              class="btn btn-warning" (click)="openModal( direction, group, acPlan, element, i )">
+                            <button class="btn btn-warning" (click)="openModal( direction, group, acPlan, element, i )">
                               Назначить
                             </button>
                           </div>
                           <ng-template #elseBlock_info>
-                            <button *ngIf="(_userDepId != null && _userDepId == selectedSubject.CorrespDep.Dep_id) || isAdmin"
+                            <button
+                              *ngIf="(_userDepId != null && _userDepId == selectedSubject.CorrespDep.Dep_id) || isAdmin || isYmy"
                               class="btn btn-info" (click)="openModal( direction, group, acPlan, element, i )">
                               Назначить
                             </button>

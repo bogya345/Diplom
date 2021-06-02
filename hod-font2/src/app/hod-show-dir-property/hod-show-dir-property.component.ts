@@ -68,16 +68,22 @@ export class HodShowDirPropertyComponent implements OnInit {
   pathExcel: any;
   downloadProperty() {
 
-    let path = this._http.get<PropertyDoc>(`${environment.hod_api_url}dirs/get/property-doc/${this.selectedDir.Dir_id}`)
+    let path = this._http.get<PropertyDoc>(`${environment.hod_api_url}dirs/get/property-doc/${this.selectedDir.Dir_id}`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+        }
+      })
       .subscribe(result => {
         // path = result;
         console.log(result);
 
         if (result) {
-          this.pathExcel = result.path;
-          window.open(`${environment.hod_api_url}${result.path}`);
+          this.pathExcel = result.Path;
+          window.open(`${environment.hod_api_url}${result.Path}`);
         }
-        else{
+        else {
           console.log('cant download file');
           this.snack.openSnackBarFull(`Сервер недоступен.`, 'center', '', 3000);
         }
@@ -120,5 +126,5 @@ export class HodShowDirPropertyComponent implements OnInit {
 }
 
 interface PropertyDoc {
-  path: string
+  Path: string
 }

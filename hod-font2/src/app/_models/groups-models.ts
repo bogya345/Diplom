@@ -7,7 +7,9 @@ export {
 interface Group {
     Group_id: number,
     Group_name: string,
-    Group_acPlan_id: number
+    Group_acPlan_id: number,
+    CreatedDate: string,
+    ExitDate: string
 }
 interface BlockRec {
     BlockRec_id: number,
@@ -42,6 +44,7 @@ interface Subject {
     CorrespDep: DepsDto,
     SemestrNum: number,
     Loads: Load[],
+    Mark: string
 }
 interface Semester {
     

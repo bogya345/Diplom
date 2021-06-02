@@ -2,7 +2,7 @@
 export { CommonResponse }
 
 interface CommonResponse {
-    done: boolean,
-    path: string,
-    message: string
+    Done: boolean,
+    Path: string,
+    Message: string
 }

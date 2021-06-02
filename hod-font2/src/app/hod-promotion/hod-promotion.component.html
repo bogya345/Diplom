@@ -15,18 +15,21 @@
 
                         <thead>
                             <tr>
-                                <th>Номер</th>
                                 <th>Название</th>
-                                <th></th>
+                                <th>Кафедральная нагрузка</th>
                                 <th></th>
                             </tr>
                         </thead>
 
                         <tr *ngFor="let item of deps">
-                            <td></td>
                             <td>{{ item.Dep_name }}</td>
-                            <td></td>
-                            <td><button class="btn btn-light" (click)="setSelectedDepartment( item )">Выбрать</button>
+                            <td>
+                                <button class="btn btn-primary" (click)="downloadDepLoad(item)">
+                                    Формирование нагрузки
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-light" (click)="setSelectedDepartment( item )">Выбрать</button>
                             </td>
                         </tr>
 
@@ -66,9 +69,10 @@
                                     <input #file type="file" accept=".xlsx" multiple
                                         (change)="upload(file.files, item)" />
                                 </td>
-                                <td>
+                                <td *ngIf="user.dep_id != selectedDep.Dep_id">
                                     <p>Учебный план не был загружен</p>
                                 </td>
+
                             </p>
                             <ng-template #elseBlock_acPlan>
                                 <td>
@@ -218,7 +222,7 @@
 
                         <thead>
                             <tr>
-                                <th>Номер</th>
+                                <!-- <th>Номер</th> -->
                                 <th>Название</th>
                                 <th>Год начала</th>
                                 <th>Год выпуска</th>
@@ -228,10 +232,10 @@
                         </thead>
 
                         <tr *ngFor="let item of selectedDir.Groups">
-                            <td></td>
+                            <!-- <td></td> -->
                             <td>{{ item.Group_name }}</td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ item.CreatedDate }}</td>
+                            <td>{{ item.ExitDate }}</td>
                             <td>
                                 <section *ngIf="selectedDir.AcPl_id != null" class="">
 

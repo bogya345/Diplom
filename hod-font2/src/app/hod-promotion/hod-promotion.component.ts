@@ -139,12 +139,13 @@ export class HodPromotionComponent implements OnInit {
     if (!this.pathExcel) {
       this._httpOwn.getAcPlan(item.Dir_id)
         .subscribe(result => {
-          if (result.done) {
-            this.pathExcel = result.path;
-            window.open(`${environment.hod_api_url}${result.path}`);
+          console.log(result);
+          if (result.Done) {
+            this.pathExcel = result.Path;
+            window.open(`${environment.hod_api_url}${result.Path}`);
           }
           else {
-            this.snack.openSnackBarWithMsg(result.message);
+            this.snack.openSnackBarWithMsg(result.Message);
           }
         })
     }
@@ -165,6 +166,28 @@ export class HodPromotionComponent implements OnInit {
     return path; // `::${this.selectedDep.dep_name}/${this.selectedDir.dir_name}/${this.selectedGroup.group_name}`
   }
 
+  downloadDepLoad(item) {
+    let path = this._http.get<PropertyDoc>(`${environment.hod_api_url}deps/get/load/${item.Dep_id}`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+        }
+      })
+      .subscribe(result => {
+        console.log(result);
+
+        if (result) {
+          this.pathExcel = result.Path;
+          window.open(`${environment.hod_api_url}${result.Path}`);
+        }
+        else {
+          console.log('cant download file');
+          this.snack.openSnackBarFull(`Сервер недоступен.`, 'center', '', 3000);
+        }
+      })
+      ;
+  }
   openModal(item) {
     // this.share.doSelectedDir(item);
     const dialogConfig = new MatDialogConfig();
@@ -425,4 +448,8 @@ export class HodPromotionComponent implements OnInit {
 
   // public debugger(item) { console.log(item); }
 
+}
+
+interface PropertyDoc {
+  Path: string
 }

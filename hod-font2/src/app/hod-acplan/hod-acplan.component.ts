@@ -81,6 +81,7 @@ export class HodAcplanComponent implements OnInit {
   public _userDepId: number;
 
   public isAdmin: boolean;
+  public isYmy: boolean;
 
   constructor(
     private _router: Router,
@@ -97,6 +98,7 @@ export class HodAcplanComponent implements OnInit {
     this._user = this.share.getUser();
     this._userDepId = this._user.dep_id;
     this.isAdmin = (this._user.access_role_id == 4);
+    this.isYmy = (this._user.access_role_id == 3);
   }
   ngOnChanges(): void {
     // this._httpOwn.getAcPlan(this.group.group_id)
