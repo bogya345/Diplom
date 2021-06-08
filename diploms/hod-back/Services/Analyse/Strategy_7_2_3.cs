@@ -22,14 +22,15 @@ namespace hod_back.Services.Analyse
             this.OldNum = "7.2.3";
             this.Num = "4.4.5";
         }
+
         /// <summary>
-        /// Подсчет преподавателей, подходящие под определение в требованиях ФГОС п.7.2.2
+        /// Подсчет преподавателей, подходящие под определение в требованиях ФГОС п.7.2.2 (4.4.3)
         /// </summary>
         /// <param name="items">Множество преподавателей</param>
         /// <returns></returns>
         public Requir Execute(UnitOfWork unit, int dir_id)
         {
-            var Dir = unit.Directions.GetOrDefault(x => x.DirId == dir_id);
+            var Dir = unit.Directions.GetOrDefaultAsync(x => x.DirId == dir_id).Result;
 
             List<TeacherLoadsView> dataLoads = unit.TeacherLoadsViews.GetMany(x => x.DirId == dir_id && x.EFormId == 1).ToList();
 
@@ -37,9 +38,9 @@ namespace hod_back.Services.Analyse
 
             var teachList = groupData.Select(x => x.Key);
 
-            List<TeacherRate> dataRates = unit.TeacherRates.GetMany(x => teachList.Contains(x.EmpId)).ToList();
-            List<TeacherSuitability> dataEDs = unit.TeacherSuitabilities.GetMany(x => teachList.Contains(x.EmpId)).ToList();
-            List<BlockRec> dataRecs = unit.BlockRecs.GetMany(x => x.AcPlId == Dir.AcPlId).ToList();
+            List<TeacherRate> dataRates = unit.TeacherRates.GetManyAsync(x => teachList.Contains(x.EmpId)).Result.ToList();
+            List<TeacherSuitability> dataEDs = unit.TeacherSuitabilities.GetManyAsync(x => teachList.Contains(x.EmpId)).Result.ToList();
+            List<BlockRec> dataRecs = unit.BlockRecs.GetManyAsync(x => x.AcPlId == Dir.AcPlId).Result.ToList();
 
             List<exTeacher> exList = new List<exTeacher>();
 
@@ -52,8 +53,13 @@ namespace hod_back.Services.Analyse
                 var rate = dataRates.FirstOrDefault(x => x.EmpId == item.Key);
                 var eDoc = dataEDs.FirstOrDefault(x => x.EmpId == item.Key);
 
-                exT.DegId = eDoc.DegId;
-                exT.RankId = eDoc.RankId;
+                exT.DegId = 1;
+                exT.RankId = 1;
+                if (eDoc != null)
+                {
+                    exT.DegId = eDoc.DegId;
+                    exT.RankId = eDoc.RankId;
+                }
                 exT.IsForeign = rate.ApplyTId == 2;
 
                 foreach (var item3 in item2.ToList())
@@ -164,11 +170,12 @@ namespace hod_back.Services.Analyse
         {
             var fgos = unit.DirRequirs.GetOrDefaultAsync(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum).Result;
 
-            //int numA = items.Count();
-            //int status = exList.Where(x => x.is723).Count();
-
+            double numA = totalCount;
             //double numA = exList.Sum(x => x.TotalRate);
             double status = exList.Where(x => x.is723_Part).Sum(x => x.TotalRate);
+
+            //double numA = exList.Sum(x => x.TotalRate);
+            //double status = exList.Where(x => x.is723_Part).Sum(x => x.TotalRate);
 
             Requir res = new Requir_7_2()
             {
@@ -177,7 +184,8 @@ namespace hod_back.Services.Analyse
                 //Value = null, // auto
                 ValueNeeded = fgos.SettedValue,
                 Direction = null,
-                NumberAll = totalCount,
+                //NumberAll = totalCount,
+                NumberAll = numA,
                 NumberSuitable = status
             };
 

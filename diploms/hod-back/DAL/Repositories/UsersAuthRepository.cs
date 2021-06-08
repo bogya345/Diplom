@@ -27,6 +27,20 @@ namespace hod_back.DAL.Repositories
             }
         }
 
+        public async override Task<AuthUser> GetOrDefaultAsync(Func<AuthUser, bool> func, AuthUser def = null)
+        {
+            mark:
+            try
+            {
+                return db.AuthUsers.FirstOrDefault(func) ?? def;
+            }
+            catch (InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
+        }
+
         //public override AuthUser GetOrDefault(Func<AuthUser, bool> func)
         //{
         //    return db.AuthUsers.FirstOrDefault(func);

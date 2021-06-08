@@ -112,46 +112,65 @@ namespace hod_back.Controllers
         [HttpGet("getall/dirfac")]
         public async Task<IEnumerable<DepsDto>> GetDeps()
         {
-            var tmp = await _unit.DepDirFac.GetAllAsync();
+            mark:
+            try
+            {
+                var tmp = await _unit.DepDirFac.GetAllAsync();
 
-            IEnumerable<DepsDto> tmp2 = from i in tmp
-                                        group i by new
-                                        {
-                                            i.DepId,
-                                            i.DepGuid,
-                                            i.DepName,
-                                            i.FacId,
-                                            i.FacName
-                                        } into dep
-                                        select new DepsDto()
-                                        {
-                                            Dep_id = dep.Key.DepId,
-                                            Dep_name = dep.Key.DepName,
-                                            Dirs = tmp.Where(x => x.DepId == dep.Key.DepId).Select(x => new DirectionDto()
+                IEnumerable<DepsDto> tmp2 = from i in tmp
+                                            group i by new
                                             {
-                                                Dir_id = x.DirId,
-                                                Dir_name = x.EBrName,
-                                                AcPl_id = x.AcPlId,
-                                                StartYear = x.StartYear,
-                                                Requirs = _unit.DirRequirs.GetMany(y => y.DirId == x.DirId).Select(z => new DirRequirDto()
+                                                i.DepId,
+                                                i.DepGuid,
+                                                i.DepName,
+                                                i.FacId,
+                                                i.FacName
+                                            } into dep
+                                            select new DepsDto()
+                                            {
+                                                Dep_id = dep.Key.DepId,
+                                                Dep_name = dep.Key.DepName,
+                                                Dirs = tmp.Where(x => x.DepId == dep.Key.DepId).Select(x => new DirectionDto()
                                                 {
-                                                    Fgos_num = z.FgosNum.NewFgos(),
-                                                    SettedValue = z.SettedValue,
-                                                    Unit_name = z.UnitName
-                                                }).ToArray(),
-                                                Groups = _unit.DirGroups.GetMany(y => y.DirId == x.DirId).Select(z => new GroupDto()
-                                                {
-                                                    Group_id = z.GroupId,
-                                                    Group_name = z.GroupName,
-                                                    CreatedDate = z.DateCreate.Value.Year.ToString(),
-                                                    ExitDate = z.DateExit.Value.Year.ToString()
-                                                    //group_acPlan_id = z.AcPlId
+                                                    Dir_id = x.DirId,
+                                                    Dir_name = x.EBrName,
+                                                    AcPl_id = x.AcPlId,
+                                                    StartYear = x.StartYear,
+                                                    Status = x.GetDirStatus(x.DirId, _unit),
+                                                    //Status_msg // auto
+
+                                                    Requirs = _unit.DirRequirs.GetManyAsync(y => x.DirId == y.DirId).Result.Select(z => new DirRequirDto()
+                                                    {
+                                                        Fgos_num = z.FgosNum.NewFgos(),
+                                                        SettedValue = z.SettedValue,
+                                                        Unit_name = z.UnitName
+                                                    }).ToArray(),
+
+                                                    //Requirs = _unit.DirRequirs.GetManyAsync(x.DirId).Result != null ? _unit.DirRequirs.GetManyAsync(x.DirId).Result.Select(z => new DirRequirDto()
+                                                    //{
+                                                    //    Fgos_num = z.FgosNum.NewFgos(),
+                                                    //    SettedValue = z.SettedValue,
+                                                    //    Unit_name = z.UnitName
+                                                    //}).ToArray() : null,
+
+                                                    Groups = _unit.DirGroups.GetMany(y => y.DirId == x.DirId).Select(z => new GroupDto()
+                                                    {
+                                                        Group_id = z.GroupId,
+                                                        Group_name = z.GroupName,
+                                                        CreatedDate = z.DateCreate.Value.Year.ToString(),
+                                                        ExitDate = z.DateExit.Value.Year.ToString()
+                                                        //group_acPlan_id = z.AcPlId
+                                                    }).ToArray()
+
                                                 }).ToArray()
-
-                                            }).ToArray()
-                                        };
-
-            return tmp2;
+                                            };
+                return tmp2;
+            }
+            catch(InvalidOperationException ex)
+            {
+                await Task.Delay(500);
+                goto mark;
+            }
         }
 
         /// <summary>

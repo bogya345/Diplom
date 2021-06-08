@@ -37,7 +37,7 @@ namespace hod_back.DAL.Repositories
         mark:
             try
             {
-                var res = await db.Directions.ToListAsync();
+                var res = db.Directions.ToList();
                 return res.FirstOrDefault(func) ?? def;
             }
             catch (InvalidOperationException ex)

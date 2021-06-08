@@ -1,0 +1,8 @@
+.goodStatus {
+    background-color: greenyellow;
+    color: blue;
+}
+
+.badStatus {
+    background-color: red;
+}

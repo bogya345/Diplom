@@ -45,7 +45,7 @@ namespace hod_back.Controllers
             this._hostEnv = hostEnv;
         }
 
-        [Authorize(Roles = "препод,завед,админ")]
+        [Authorize(Roles = "препод,завед,уму,админ")]
         [HttpGet("get/correspond/{dep_id}")]
         public IEnumerable<GroupTeacherDto> GetCorrespond([FromRoute] int dep_id)
         {
@@ -72,7 +72,7 @@ namespace hod_back.Controllers
             return res;
         }
 
-        [Authorize(Roles = "препод,завед,админ")]
+        [Authorize(Roles = "препод,завед,уму,админ")]
         [HttpGet("get/all")]
         public async Task<IEnumerable<GroupTeacherDto>> GetCorrespond()
         {
@@ -99,7 +99,7 @@ namespace hod_back.Controllers
             return res;
         }
 
-        [Authorize(Roles = "препод,завед,админ")]
+        [Authorize(Roles = "препод,завед,уму,админ")]
         [HttpPost("post/on/att-ac-plan/{attAcPl_id}")]
         public LoadPartDto PostSubmitTeacher([FromRoute] int attAcPl_id, AttAcPlanTeacherModel model)
         {
@@ -107,7 +107,7 @@ namespace hod_back.Controllers
             {
                 return null;
             }
-            var tmp = this._unit.AttAcPlans.GetOrDefault(x => x.AttAcPlId == attAcPl_id);
+            var tmp = this._unit.AttAcPlans.GetOrDefaultAsync(x => x.AttAcPlId == attAcPl_id).Result;
             tmp.FshId = model.fsh_id;
             this._unit.AttAcPlans.Update(tmp);
 
@@ -120,7 +120,7 @@ namespace hod_back.Controllers
             return res;
         }
 
-        [Authorize(Roles = "препод,завед,админ")]
+        [Authorize(Roles = "препод,завед,уму,админ")]
         [HttpGet("get/info/{fsh_id}")]
         public async Task<TeacherRateDto> GetTeacherInfo([FromRoute] int fsh_id)
         {

@@ -135,7 +135,9 @@ export class HodAcplanComponent implements OnInit {
 
   openModal(direction, group, acPlan, subject, item) {
     let isUnmapped = false;
-    if (!this.isAdmin) {
+    if (
+      !((this.isAdmin || this.isYmy) && !(this.isAdmin && this.isYmy))
+    ) {
       if (subject.CorrespDep == null || subject.CorrespDep.Dep_id == null) {
         if (!confirm(`К выбранной дисциплине не привазяна кафедра, продолжить со всем перечнем преподавателей?`)) { return; }
         isUnmapped = true;

@@ -18,9 +18,39 @@ namespace hod_back.DAL.Repositories
             {
                 return db.DirRequirs.Where(func);
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
                 return new Context().DirRequirs.Where(func);
+            }
+        }
+        public async override Task<IEnumerable<DirRequir>> GetManyAsync(Func<DirRequir, bool> func)
+        {
+        mark:
+            try
+            {
+                return db.DirRequirs.Where(func).ToList();
+            }
+            catch (InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
+        }
+        public async Task<IEnumerable<DirRequir>> GetManyAsync(int? dirId)
+        {
+            if (dirId == null) { return null; }
+        mark:
+            try
+            {
+                var edBr = db.EducBranches.Include(x => x.Directions).FirstOrDefault(x => x.Directions.Any(x => x.DirId == dirId));
+                var tmp = edBr.Directions.ToList();
+                var res = db.DirRequirs.Where(x => tmp.Any(y => x.DirId == y.DirId)).ToList();
+                return res;
+            }
+            catch (InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
             }
         }
         public override DirRequir GetOrDefault(Func<DirRequir, bool> func, DirRequir def = null)
@@ -29,12 +59,12 @@ namespace hod_back.DAL.Repositories
         }
         public async override Task<DirRequir> GetOrDefaultAsync(Func<DirRequir, bool> func, DirRequir def = null)
         {
-            mark:
+        mark:
             try
             {
                 return db.DirRequirs.FirstOrDefault(func) ?? def;
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
                 await Task.Delay(1000);
                 goto mark;

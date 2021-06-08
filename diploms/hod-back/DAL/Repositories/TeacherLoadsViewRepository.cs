@@ -49,7 +49,7 @@ namespace hod_back.DAL.Repositories
         mark:
             try
             {
-                var list = await db.TeacherLoadsViews.ToListAsync();
+                var list = db.TeacherLoadsViews.ToList();
                 return list.Where(func).ToList();
             }
             catch (InvalidOperationException ex)

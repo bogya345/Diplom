@@ -10,6 +10,7 @@ using System.IO;
 using hod_back.DAL;
 using hod_back.Model;
 using hod_back.misc;
+using hod_back.Extentions;
 
 //using hod_back.DAL.Models.Views;
 //using hod_back.DAL.Models.Dictionaries;
@@ -385,9 +386,11 @@ namespace hod_back.Services.Excel
                 //        ? 0 : Convert.ToDouble(ws.Cell("H" + j).Value.ToString());
                 //}
                 string strHourSum = "=";
-                for (int j = activeRow; j <= secondaryRow; j++)
+                int k = activeRow;
+                while (k < secondaryRow)
                 {
-                    strHourSum += $"O{j}+";
+                    strHourSum += $"O{k}+";
+                    k++;
                 }
                 strHourSum = strHourSum.Remove(strHourSum.Length - 1);
                 ws.Cell("I" + activeRow).FormulaA1 = strHourSum;
@@ -460,7 +463,7 @@ namespace hod_back.Services.Excel
 
                 var requir = listRequirs.FirstOrDefault(x => x.FgosNum == k);
                 float value = 0;
-                ws.Cell("B" + activeRow).Value = $"п. {k}";
+                ws.Cell("B" + activeRow).Value = $"п. {k.NewFgos()}";
                 ws.Range("C" + activeRow.ToString() + ":E" + activeRow.ToString()).Merge();
 
                 //ws.Cell("C" + activeRow).Value = requir.Content;

@@ -120,7 +120,7 @@ namespace hod_back.Controllers
         /// <returns></returns>
         private ClaimsIdentity GetIdentity(string username, string password)
         {
-            var person = _unit.AuthUsers.GetOrDefault(x => x.UserLogin == username && x.UserPassword == password);
+            var person = _unit.AuthUsers.GetOrDefaultAsync(x => x.UserLogin == username && x.UserPassword == password).Result;
 
             if (person == null) { return null; } 
 

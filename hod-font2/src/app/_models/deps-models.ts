@@ -39,8 +39,14 @@ interface DirRequir {
 interface Direction {
     Dir_id: number,
     Dir_name: string,
+    Status: StatusDto,
+    Status_mgs: string,
     StartYear: number,
     AcPl_id: number,
     Requirs: DirRequir[]
     Groups: Group[],
+}
+interface StatusDto {
+    Status_up: number,
+    Status_down: number
 }

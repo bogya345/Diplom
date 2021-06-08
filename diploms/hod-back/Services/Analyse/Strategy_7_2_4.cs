@@ -29,7 +29,7 @@ namespace hod_back.Services.Analyse
         /// <returns></returns>
         public Requir Execute(UnitOfWork unit, int dir_id)
         {
-            var Dir = unit.Directions.GetOrDefault(x => x.DirId == dir_id);
+            var Dir = unit.Directions.GetOrDefaultAsync(x => x.DirId == dir_id).Result;
 
             List<TeacherLoadsView> dataLoads = unit.TeacherLoadsViews.GetMany(x => x.DirId == dir_id && x.EFormId == 1).ToList();
 
@@ -161,7 +161,11 @@ namespace hod_back.Services.Analyse
             var fgos = unit.DirRequirs.GetOrDefaultAsync(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum).Result;
 
             //int numA = items.Count();
-            int status = exList.Where(x => x.is723_Part).Count();
+            //int status = exList.Where(x => x.is723_Part).Count();
+
+            //double numA = exList.Sum(x => x.TotalRate);
+            double numA = totalCount;
+            double status = exList.Where(x => x.is724_Part).Sum(x => x.TotalRate);
 
             Requir res = new Requir_7_2()
             {
@@ -170,7 +174,8 @@ namespace hod_back.Services.Analyse
                 //Value = null, // auto
                 ValueNeeded = fgos.SettedValue,
                 Direction = null,
-                NumberAll = totalCount,
+                //NumberAll = totalCount,
+                NumberAll = numA,
                 NumberSuitable = status
             };
 

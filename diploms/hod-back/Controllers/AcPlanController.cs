@@ -124,7 +124,7 @@ namespace hod_back.Controllers
         [HttpPost("post/promote/{attAcPl_id}")]
         public AttAcPlanDto PostPromotedTeacher([FromRoute] int attAcPl_id, [FromForm] int fsh_id)
         {
-            var tmp = _unit.AttAcPlans.GetOrDefault(x => x.AttAcPlId == attAcPl_id);
+            var tmp = _unit.AttAcPlans.GetOrDefaultAsync(x => x.AttAcPlId == attAcPl_id).Result;
             tmp.FshId = fsh_id;
             _unit.AttAcPlans.Update(tmp);
 
@@ -244,7 +244,7 @@ namespace hod_back.Controllers
                 docBuf = ReadFully(fs);
             }
 
-            _unit.DepDirFac.GetOrDefault(x => x.DepId == dep_id && x.DirId == dir_id);
+            //_unit.DepDirFac.GetOrDefaultAsync(x => x.DepId == dep_id && x.DirId == dir_id);
 
             Excel ex = new Excel(
                 $"{newPath}/{fileName}",

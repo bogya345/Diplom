@@ -60,7 +60,7 @@ export class AppComponent {
           console.log('error/constructor', error);
           // this.depsInfo = nu
           this.depsInfo = null;
-          this.snack.openSnackBarWithMsg('Нет соединения с сервером...');
+          //this.snack.openSnackBarWithMsg('Нет соединения с сервером...');
         }
         );
 

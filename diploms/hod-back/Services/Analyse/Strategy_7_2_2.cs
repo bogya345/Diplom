@@ -63,6 +63,7 @@ namespace hod_back.Services.Analyse
             //int status = exList.Where(x => x.is723_Part).Count();
             double numA = exList.Sum(x => x.TotalRate);
             double status = exList.Where(x => x.is722_Part).Sum(x => x.TotalRate);
+            //double status = numA - 1.1;
 
             Requir res = new Requir_7_2()
             {
@@ -81,9 +82,17 @@ namespace hod_back.Services.Analyse
         public Requir Execute_Full(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList, int totalCount)
         {
             var fgos = unit.DirRequirs.GetOrDefaultAsync(x => x.DirId == dir.DirId && x.FgosNum == this.OldNum).Result;
+            var groups = unit.DirGroups.GetManyAsync(x => x.DirId == dir.DirId).Result.Select(x => x.GroupId);
+            var realTotal = unit.AttAcPlans.GetManyAsync(x => groups.Any(y => y == x.GroupId)).Result;
 
+            double realNumA = realTotal.Sum(x => x.HourValue).Value;
+            int numA = totalCount;
             //int numA = items.Count();
             int status = exList.Where(x => x.is723_Part).Count();
+
+            //double numA = exList.Sum(x => x.TotalRate);
+            //double status = exList.Where(x => x.is722_Part).Sum(x => x.TotalRate);
+            //double status = numA - 1.1;
 
             Requir res = new Requir_7_2()
             {
@@ -92,7 +101,8 @@ namespace hod_back.Services.Analyse
                 //Value = null, // auto
                 ValueNeeded = fgos.SettedValue,
                 Direction = null,
-                NumberAll = totalCount,
+                //NumberAll = totalCount,
+                NumberAll = numA,
                 NumberSuitable = status
             };
 

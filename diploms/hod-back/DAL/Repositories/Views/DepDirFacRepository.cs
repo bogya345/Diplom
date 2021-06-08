@@ -21,8 +21,8 @@ namespace hod_back.DAL.Repositories
         {
             try
             {
-                var tmp = db.DepDirFacs.ToListAsync();
-                return tmp.Result;
+                var tmp = db.DepDirFacs.ToList();
+                return tmp;
 
                 //IEnumerable<DepDirFac> GetData()
                 //{

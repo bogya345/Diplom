@@ -21,6 +21,19 @@ namespace hod_back.DAL.Repositories
                 return new Context().DirGroups.Where(func);
             }
         }
+        public async override Task<IEnumerable<DirGroup>> GetManyAsync(Func<DirGroup, bool> func)
+        {
+            mark:
+            try
+            {
+                return db.DirGroups.Where(func).ToList();
+            }
+            catch (InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
+        }
         public IEnumerable<DirGroup> GetAll()
         {
             return db.DirGroups;

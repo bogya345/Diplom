@@ -38,8 +38,8 @@ namespace hod_back.DAL.Repositories
         mark:
             try
             {
-                var tmp = db.AttachedAcPlans.ToListAsync();
-                return tmp.Result.Where(func);
+                var tmp = db.AttachedAcPlans.ToList();
+                return tmp.Where(func);
             }
             catch (InvalidOperationException ex)
             {
@@ -72,6 +72,19 @@ namespace hod_back.DAL.Repositories
         public override AttachedAcPlan GetOrDefault(Func<AttachedAcPlan, bool> func, AttachedAcPlan def = null)
         {
             return db.AttachedAcPlans.FirstOrDefault(func) ?? def;
+        }
+        public async override Task<AttachedAcPlan> GetOrDefaultAsync(Func<AttachedAcPlan, bool> func, AttachedAcPlan def = null)
+        {
+            mark:
+            try
+            {
+                return db.AttachedAcPlans.FirstOrDefault(func) ?? def;
+            }
+            catch(InvalidProgramException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
         }
 
         public override void Update(AttachedAcPlan item)

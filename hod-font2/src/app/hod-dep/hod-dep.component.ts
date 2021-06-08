@@ -42,7 +42,7 @@ export class HodDepComponent implements OnInit {
         console.log('result/constructor', result);
       }, error => {
         console.log('error/constructor', error);
-        this.snack.openSnackBarWithMsg('Using fake data');
+        //this.snack.openSnackBarWithMsg('Using fake data');
       }
       );
 

@@ -18,8 +18,17 @@ namespace hod_back.DAL.Repositories
         }
         public override async Task<IEnumerable<TeacherLoadSuitability>> GetManyAsync(Func<TeacherLoadSuitability, bool> func)
         {
-            var tmp = db.TeacherLoadSuitabilities.ToListAsync();
-            return tmp.Result.Where(func);
+        mark:
+            try
+            {
+                var tmp = db.TeacherLoadSuitabilities.ToListAsync();
+                return tmp.Result.Where(func);
+            }
+            catch (InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
         }
 
         public IEnumerable<TeacherLoadSuitability> GetAll() { return db.TeacherLoadSuitabilities; }

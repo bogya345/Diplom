@@ -22,7 +22,7 @@ namespace hod_back.misc
         public static bool isFgos_7_2_2_Partial(int? DegId, int? RankId)
         {
             Random rdm = new Random();
-            return (rdm.Next(0, 100) > 50);
+            return (rdm.Next(47, 72) > 1);
 
             List<int> degs_needed = new List<int>() { 2, 3 };   // 2-д-р наук, 3-кандидат наук
             List<int> ranks_needed = new List<int>() { 4 }; // 4-доцент

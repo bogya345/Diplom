@@ -19,12 +19,12 @@ namespace hod_back.Model
         [StringLength(100)]
         public string DepName { get; set; }
         [Column("fac_id")]
-        public int FacId { get; set; }
+        public int? FacId { get; set; }
         [Column("fac_name")]
         [StringLength(100)]
-        public string FacName { get; set; }
+        public string? FacName { get; set; }
         [Column("dir_id")]
-        public int DirId { get; set; }
+        public int? DirId { get; set; }
         [Column("acPl_id")]
         public int? AcPlId { get; set; }
         [Column("startYear")]
@@ -32,6 +32,6 @@ namespace hod_back.Model
         public string StartYear { get; set; }
         [Column("eBr_name")]
         [StringLength(100)]
-        public string EBrName { get; set; }
+        public string? EBrName { get; set; }
     }
 }

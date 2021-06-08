@@ -120,6 +120,7 @@ namespace hod_back.Controllers
 
             #region Partial
             // 4.4.3
+            strategy = new Strategy_7_2_2();
             Requir tmp722_Part = strategy.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
             res.Partial.NumberAll722 = tmp722_Part.NumberAll;
             res.Partial.NumberSubmitted722 = tmp722_Part.NumberSuitable;
@@ -142,17 +143,23 @@ namespace hod_back.Controllers
 
             #region Full
             // 4.4.3
+            strategy = new Strategy_7_2_2();
             Requir tmp722 = strategy.Execute_Full(_unit, this.accum.Dir, this.accum.items, this.accum.exList, this.accum.TotalCount);
             res.Full.NumberAll722 = tmp722.NumberAll;
             res.Full.NumberSubmitted722 = tmp722.NumberSuitable;
             res.Full.Mark722 = tmp722.isDone ? "+" : "-";
 
-            // 4.4.5
+            // 4.4.5 - 7.2.3
             strategy = new Strategy_7_2_3();
             Requir tmp723 = strategy.Execute_Full(_unit, this.accum.Dir, this.accum.items, this.accum.exList, this.accum.TotalCount);
             res.Full.NumberAll723 = tmp723.NumberAll;
             res.Full.NumberSubmitted723 = tmp723.NumberSuitable;
+            //res.Full.NumberSubmitted723 = 0.41;
             res.Full.Mark723 = tmp723.isDone ? "+" : "-";
+
+            //res.Full.NumberAll723 = 0.1;
+            //res.Full.NumberAll723 = tmp722.NumberAll;
+            //res.Full.Mark723 = tmp722.isDone ? "+" : "-";
 
             // 4.4.4
             strategy = new Strategy_7_2_4();
@@ -160,6 +167,22 @@ namespace hod_back.Controllers
             res.Full.NumberAll724 = tmp724.NumberAll;
             res.Full.NumberSubmitted724 = tmp724.NumberSuitable;
             res.Full.Mark724 = tmp724.isDone ? "+" : "-";
+
+            //if (this.accum.exList.Count() < 10)
+            //{
+            //    if (this.accum.exList.Count() > 1)
+            //    {
+            //        res.Full.NumberAll724 = tmp722.NumberAll;
+            //        res.Full.NumberSubmitted724 = tmp722.NumberSuitable / 2;
+            //    }
+            //    if (this.accum.exList.Count() == 3)
+            //    {
+            //        res.Full.NumberAll724 = tmp722.NumberAll;
+            //        res.Full.NumberSubmitted724 = tmp722.NumberSuitable / 3;
+            //    }
+
+            //}
+            
             #endregion
 
             return res;
@@ -179,7 +202,7 @@ namespace hod_back.Controllers
 
             if (strategy == null) { return null; }
 
-            var requir = _unit.DirRequirs.GetOrDefault(x => x.DirId == dir_id && x.FgosNum == requir_code);
+            var requir = await _unit.DirRequirs.GetOrDefaultAsync(x => x.DirId == dir_id && x.FgosNum == requir_code);
 
             Requir res = strategy.Execute(_unit, dir_id);
 

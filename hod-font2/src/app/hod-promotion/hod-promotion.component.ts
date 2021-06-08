@@ -91,7 +91,7 @@ export class HodPromotionComponent implements OnInit {
         console.log('result/constructor', result);
       }, error => {
         console.log('error/constructor', error);
-        this.snack.openSnackBarWithMsg('Using fake data');
+        //this.snack.openSnackBarWithMsg('Using fake data');
       }
       );
 
@@ -260,7 +260,7 @@ export class HodPromotionComponent implements OnInit {
 
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(ProgressModalComponent, dialogConfig);
-    modalDialog.componentInstance.title = "Обратка импортированных данных";
+    modalDialog.componentInstance.title = "Обработка импортированных данных";
     modalDialog.componentInstance.message = "Происходит обработка учебного плана, пожалуйста, подождите...";
   }
 
@@ -336,6 +336,7 @@ export class HodPromotionComponent implements OnInit {
 
   public getGroupStatus(item) {
     if (item == null) { console.log(this.selectedDir); console.log('item is null'); }
+    if (this.groupStatus == null) { return; }
     // console.log(this.groupStatus, item);
     // console.log(this.groupStatus.filter(x => { return x.group_id == item.group_id }));
     // console.log(this.groupStatus.filter(x => { return x.group_id == item.group_id })[0]);

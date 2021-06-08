@@ -27,7 +27,9 @@ export const environment = {
     // втисит 
     // email: 't1@ugtu.net', 
     // pass: 'password1',
-    email: 'dorogobeda@ugtu.net', 
+    // email: 'dorogobeda@ugtu.net', 
+    // pass: 'password',
+    email: 'zorinaa@ugtu.net', 
     pass: 'password',
     // email: 'pelmegovr@ugtu.net', 
     // pass: 'password',
