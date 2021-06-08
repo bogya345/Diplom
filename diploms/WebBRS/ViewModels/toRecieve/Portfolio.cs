@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,7 +27,8 @@ namespace WebBRS.ViewModels.toRecieve
 		public string FilePath { get; set; }
 		public string PersonFIOconfirmed { get; set; }
 		public string PersonFIO { get; set; }
-
+		[NotMapped]
+		public IFormFile File { get; set; }
 		public string DateAdded { get; set; }
 		public string DateConfirmed { get; set; }
 		public string DateNotConfirmed { get; set; }
@@ -45,6 +48,8 @@ namespace WebBRS.ViewModels.toRecieve
 		public string DateTimeStart { get; set; }
 		public string DateTimeEnd { get; set; }
 		public string Confirmed { get; set; }
+		public IFormFile File { get; set; }
+
 		public string DateAdded { get; set; }
 		public string DateConfirmed { get; set; }
 		public string DateNotConfirmed { get; set; }

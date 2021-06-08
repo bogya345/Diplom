@@ -32,11 +32,11 @@
                   <div class="card-header p-2">
                     <div class="row">
                       <!--<div class="col-3">
-                    <label>Подтвержденные</label>
-                  </div>-->
+    <label>Подтвержденные</label>
+  </div>-->
                       <!--<div class="col-1">
-                    <input class="form-check-input" type="checkbox" id="flexCheckChecked" (click)="selectChangeHandler4($event)" checked>
-                  </div>-->
+    <input class="form-check-input" type="checkbox" id="flexCheckChecked" (click)="selectChangeHandler4($event)" checked>
+  </div>-->
 
                       <div class="col-1 ">
                         <label>С:</label>
@@ -55,6 +55,16 @@
 
                         <div class="input-group">
                           <input id="datetime" value="{{DateTimeEnd}}" (change)="selectChangeHandler7($event)" type="date">
+                        </div>
+                      </div>
+
+                      <div class="col-1 ">
+                        <label></label>
+                      </div>
+                      <div class="col-2 ">
+
+                        <div class="input-group">
+                          <a href="/statisticCurator/{{DateTimeStart}}/{{DateTimeEnd}}" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
                         </div>
                       </div>
 
@@ -83,60 +93,71 @@
         </div>
         <!-- /.col -->
       </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">{{ Groups[0].GroupName }}</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body" style="overflow-y: scroll;">
-                  <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th>ФИО</th>
-                        <!--<th>Сумма баллов</th>-->
-                        <th *ngFor="let j of SelectedGroup.SubjectVMs"> {{j.SubjectName}}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let j of  SelectedGroup.studentVMs; let n = index">
-                        <td>{{j.PersonFIO}}</td>
-                        <!--<td>{{j.Balls}}</td>-->
-                        <td *ngFor="let k of SelectedGroup.studentVMs[n].Attedanced">
-                          <div>
-                            Б. :     <span _ngcontent-ng-cli-universal-c0="" class="badge badge-success">{{k.Ball}}</span>
+      <div class="row no-print">
+        <!--<div class="col-12">-->
+          <!--<button type="button" class="btn btn-success float-right">
+            <i class="far fa-credit-card"></i> Submit
+            Payment
+          </button>-->
+          <!--<button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+            <i class="fas fa-download"></i> Скачать PDF
+          </button>
+        </div>-->
+        <div class="row">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">{{ Groups[0].GroupName }}</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body" style="overflow-y: scroll;">
+                    <table id="example1" class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th>ФИО</th>
+                          <!--<th>Сумма баллов</th>-->
+                          <th *ngFor="let j of SelectedGroup.SubjectVMs">{{j.SubjectName}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let j of  SelectedGroup.studentVMs; let n = index">
+                          <td>{{j.PersonFIO}}</td>
+                          <!--<td>{{j.Balls}}</td>-->
+                          <td *ngFor="let k of SelectedGroup.studentVMs[n].Attedanced">
+                            <div>
+                              Б. :     <span _ngcontent-ng-cli-universal-c0="" class="badge badge-success">{{k.Ball}}</span>
 
-                          </div>
-                          <div>
-                            Б. за д/з:    <span _ngcontent-ng-cli-universal-c0="">{{k.BallHW}}</span>
-                          </div>
-                          <div>
-                            Пр. : <span _ngcontent-ng-cli-universal-c0="" class="badge badge-danger"> {{k.attedanced}}</span>
+                            </div>
+                            <div>
+                              Б. за д/з:    <span _ngcontent-ng-cli-universal-c0="">{{k.BallHW}}</span>
+                            </div>
+                            <div>
+                              Пр. : <span _ngcontent-ng-cli-universal-c0="" class="badge badge-danger"> {{k.attedanced}}</span>
 
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                    <!--<tfoot>
-                  <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <!--<tfoot>
+                    <tr>
+                      <th>Rendering engine</th>
+                      <th>Browser</th>
+                      <th>Platform(s)</th>
 
-                  </tr>
-                </tfoot>-->
-                  </table>
+                    </tr>
+                  </tfoot>-->
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </section>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+      </div><!-- /.container-fluid -->
+</section>
   <!-- /.content -->
 </div>

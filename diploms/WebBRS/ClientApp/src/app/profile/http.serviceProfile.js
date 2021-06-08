@@ -65,13 +65,35 @@ var profile_HttpService = /** @class */ (function () {
     };
     profile_HttpService.prototype.postData = function (portfolioAdd) {
         console.log('нажали ', portfolioAdd);
+        var formData = new FormData();
+        // optional you can pass a file name as third parameter
+        formData.append('file', portfolioAdd.File);
+        formData.append('IdPortfolio', String(portfolioAdd.IdPortfolio));
+        formData.append('IdPerson', String(portfolioAdd.IdPerson));
+        formData.append('Description', String(portfolioAdd.Description));
+        formData.append('Name', String(portfolioAdd.Name));
+        formData.append('PersonFIOconfirmed', String(portfolioAdd.PersonFIOconfirmed));
+        formData.append('DateAdded', String(portfolioAdd.DateAdded));
+        formData.append('DateConfirmed', String(portfolioAdd.DateConfirmed));
+        formData.append('Confirmed', String(portfolioAdd.Confirmed));
         //const body = { name: user.name, age: user.age };
-        return this.http.post(this.url + '/UpdatePortfolioWork', portfolioAdd, { observe: 'response' });
+        return this.http.post(this.url + '/UpdatePortfolioWork', formData, { observe: 'response' });
     };
     profile_HttpService.prototype.postDataReason = function (portfolioAdd) {
         console.log('нажали ', portfolioAdd);
+        var formData = new FormData();
+        // optional you can pass a file name as third parameter
+        formData.append('file', portfolioAdd.File);
+        formData.append('IdAttReas', String(portfolioAdd.IdAttReas));
+        formData.append('IdPerson', String(portfolioAdd.IdPerson));
+        formData.append('DocName', String(portfolioAdd.DocName));
+        formData.append('PersonFIO', String(portfolioAdd.PersonFIO));
+        //formData.append('PersonFIOconfirmed', String(portfolioAdd.PersonFIOconfirmed));
+        formData.append('DateAdded', String(portfolioAdd.DateAdded));
+        formData.append('DateConfirmed', String(portfolioAdd.DateConfirmed));
+        //formData.append('Confirmed', String(portfolioAdd.Confirmed));
         //const body = { name: user.name, age: user.age };
-        return this.http.post(this.url2 + '/UpdateAttedanceReason', portfolioAdd, { observe: 'response' });
+        return this.http.post(this.url2 + '/UpdateAttedanceReason', formData, { observe: 'response' });
     };
     return profile_HttpService;
 }());

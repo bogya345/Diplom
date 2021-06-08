@@ -1,15 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using WebBRS.DAL;
 using WebBRS.Models;
-
+using WebBRS.Models.Auth;
 using WebBRS.Models.Views;
 using WebBRS.ViewModels.toRecieve;
 namespace WebBRS.Controllers
@@ -22,7 +24,12 @@ namespace WebBRS.Controllers
 	{
 		// GET: HomeWorkController
 		private UnitOfWork unit = new UnitOfWork();
-		private Guid UserId => Guid.Parse(User.Claims.Single(c=>c.Type==ClaimTypes.NameIdentifier).Value);
+		public HomeWorkController(IWebHostEnvironment appEnvironment)
+		{
+			_appEnvironment = appEnvironment;
+		}
+		IWebHostEnvironment _appEnvironment;
+		private Guid UserId => Guid.Parse(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
 		public ActionResult Index()
 		{
 			return View();
@@ -56,6 +63,55 @@ namespace WebBRS.Controllers
 			}
 			return drafts;
 		}
+		[HttpGet("GetSubjects/{IdSelectedDraft}")]
+
+		public List<SubjectForGroupVM> GetSubjects(int IdSelectedDraft)
+		{
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			//int idPerson = user.PersonIdPerson;
+			int IdLecturerPerson = user.PersonIdPerson;
+			List<SubjectForGroup> sfgs = unit.SubjectForGroups.GetAll(sfg => sfg.IdPerson == user.PersonIdPerson && sfg.DraftTimeTableIdDFTT == IdSelectedDraft).ToList();
+			SubjectForGroupVM subjectForGroup = new SubjectForGroupVM();
+			List<SubjectForGroupVM> subjectForGroupVMs = new List<SubjectForGroupVM>();
+			foreach (var s in sfgs)
+			{
+				SubjectForGroupVM buf = new SubjectForGroupVM();
+				buf.ID_reff = s.ID_reff;
+				buf.IdSubject = s.IdSubject;
+				buf.NameSubject = s.Subject.NameSubject + "	" + s.TypeStudy.TypeStudyName;
+				subjectForGroupVMs.Add(buf);
+			}
+			Subject subject = new Subject();
+			subject.NameSubject = "все";
+			subjectForGroup.ID_reff = 0;
+			subjectForGroup.NameSubject = "все";
+			subjectForGroupVMs.Add(subjectForGroup);
+			//foreach (var item in sfgs)
+			//{
+			//	TypeTimeTableVM tableVM = new TypeTimeTableVM();
+			//	tableVM.IdDTTT = item.idTTT;
+			//	tableVM._Description = item.Name;
+			//	drafts.Add(tableVM);
+			//}
+			return subjectForGroupVMs;
+		}
+		[HttpPost("UpdateAnswerByTeacher")]
+		public IActionResult UpdateAnswerByTeacher(AttedanceForWork data)
+		{
+			if (ModelState.IsValid)
+			{
+				Attendance cw = unit.Attendances.Get(c => c.IdAtt == data.IdAtt);
+				cw.BallHW = data.BallHW;
+				cw.Checked = true;	
+				unit.Attendances.Update(cw);
+				unit.Save();
+				return Ok(data);
+			}
+			return BadRequest(ModelState);
+		}
 		[HttpGet("getall")]
 		public IEnumerable<ClassWork> GetDepartments()
 		{
@@ -85,14 +141,37 @@ namespace WebBRS.Controllers
 			}
 			return workTypes;
 		}
-		[HttpGet("getClassWork/{IdSelectedDraft}/{IdSelectedDraftType}/{DateTimeExact}/{Done}/{Checked}")]
-		public List<AttedanceForWork> GetAttedanceForWorks(string IdSelectedDraft, string IdSelectedDraftType, bool Done, bool Checked)
+		[HttpGet("getClassWork/{IdSelectedDraft}/{IdSelectedDraftType}/{datestart}/{dateend}/{Done}/{Checked}/{ID_reff}")]
+		public List<AttedanceForWork> GetAttedanceForWorks(string IdSelectedDraft, string IdSelectedDraftType, DateTime datestart, DateTime dateend, bool Done, bool Checked, int ID_reff)
 		{
 			List<AttedanceForWork> attedanceForWorks = new List<AttedanceForWork>();
-			int IdLecturerPerson = 1739436573;
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			//int idPerson = user.PersonIdPerson;
+			int IdLecturerPerson = user.PersonIdPerson;
+			List<ExactClass> exactClasses;
+
 			Person person = unit.Persons.Get(p => p.IdPerson == IdLecturerPerson);
-			List<ExactClass> exactClasses = unit.ExactClasses
-				.GetAll(ex => ex.PersonLecturerIdPerson == person.IdPerson && ex.DraftTimeTableIdDFTT.ToString() == IdSelectedDraft && ex.TypeTimeTableidTTT.ToString() == IdSelectedDraftType).ToList();
+			if (ID_reff == 0)
+			{
+				exactClasses = unit.ExactClasses
+				   .GetAll(ex => ex.PersonLecturerIdPerson == person.IdPerson && ex.DraftTimeTableIdDFTT.ToString() == IdSelectedDraft
+				   && ex.TypeTimeTableidTTT.ToString() == IdSelectedDraftType
+				   && ex.DateClassStart > datestart.AddYears(2000)
+				   && ex.DateClassStart < dateend.AddYears(2000)).ToList();
+			}
+			else
+			{
+				exactClasses = unit.ExactClasses
+				   .GetAll(ex => ex.PersonLecturerIdPerson == person.IdPerson && ex.DraftTimeTableIdDFTT.ToString() == IdSelectedDraft
+				   && ex.TypeTimeTableidTTT.ToString() == IdSelectedDraftType
+				   && ex.DateClassStart > datestart.AddYears(2000)
+				   && ex.DateClassStart < dateend.AddYears(2000)
+				   && ex.ID_reff == ID_reff).ToList();
+			}
+
 			List<Attendance> attendances = new List<Attendance>();
 			foreach (var item in exactClasses)
 			{
@@ -100,29 +179,59 @@ namespace WebBRS.Controllers
 				{
 					if (j.Loaded != null)
 					{
-						if ((bool)j.Loaded)
+						if (!Checked )
 						{
-							AttedanceForWork attedanceForWork = new AttedanceForWork();
-							attedanceForWork.IdAtt = j.IdAtt;
-							attedanceForWork.BallHW = 0;
-							attedanceForWork.FilePath = j.FilePath;
-							attedanceForWork.PersonFIO = j.FilePath;
-							attedanceForWork.TextDoClassWork = j.TextDoClassWork;
-							attedanceForWork.DatePass = j.DatePass.ToString();
-							StudentsGroupHistory studentsGroupHistory = unit.StudentGroupHistories.Get(sgh => sgh.IdSGH == j.IdSGH);
-							Student student = unit.Students.Get(s => s.IdStudent == studentsGroupHistory.IdStudent);
-							Person personStud = unit.Persons.Get(p => p.IdPerson == student.IdPerson);
-							attedanceForWork.PersonFIO = personStud.PersonFIOShort();
-							if (j.BallHW != null)
+							if ((bool)j.Loaded&&(bool)j.Checked== Checked)
 							{
-								attedanceForWork.BallHW = (double)j.BallHW;
+								AttedanceForWork attedanceForWork = new AttedanceForWork();
+								attedanceForWork.IdAtt = j.IdAtt;
+								attedanceForWork.BallHW = 0;
+								attedanceForWork.FilePath = j.FilePath;
+								attedanceForWork.PersonFIO = j.FilePath;
+								attedanceForWork.TextDoClassWork = j.TextDoClassWork;
+								attedanceForWork.DatePass = j.DatePass.ToString();
+								StudentsGroupHistory studentsGroupHistory = unit.StudentGroupHistories.Get(sgh => sgh.IdSGH == j.IdSGH);
+								Student student = unit.Students.Get(s => s.IdStudent == studentsGroupHistory.IdStudent);
+								Person personStud = unit.Persons.Get(p => p.IdPerson == student.IdPerson);
+								attedanceForWork.PersonFIO = personStud.PersonFIOShort();
+								if (j.BallHW != null)
+								{
+									attedanceForWork.BallHW = (double)j.BallHW;
+								}
+								if (j.Checked != null)
+								{
+									attedanceForWork.Checked = (bool)j.Checked;
+								}
+								attedanceForWorks.Add(attedanceForWork);
 							}
-							if (j.Done != null)
-							{
-								attedanceForWork.Done = (bool)j.Done;
-							}
-							attedanceForWorks.Add(attedanceForWork);
 						}
+						else
+						{
+							if ((bool)j.Loaded)
+							{
+								AttedanceForWork attedanceForWork = new AttedanceForWork();
+								attedanceForWork.IdAtt = j.IdAtt;
+								attedanceForWork.BallHW = 0;
+								attedanceForWork.FilePath = j.FilePath;
+								attedanceForWork.PersonFIO = j.FilePath;
+								attedanceForWork.TextDoClassWork = j.TextDoClassWork;
+								attedanceForWork.DatePass = j.DatePass.ToString();
+								StudentsGroupHistory studentsGroupHistory = unit.StudentGroupHistories.Get(sgh => sgh.IdSGH == j.IdSGH);
+								Student student = unit.Students.Get(s => s.IdStudent == studentsGroupHistory.IdStudent);
+								Person personStud = unit.Persons.Get(p => p.IdPerson == student.IdPerson);
+								attedanceForWork.PersonFIO = personStud.PersonFIOShort();
+								if (j.BallHW != null)
+								{
+									attedanceForWork.BallHW = (double)j.BallHW;
+								}
+								if (j.Checked != null)
+								{
+									attedanceForWork.Checked = (bool)j.Checked;
+								}
+								attedanceForWorks.Add(attedanceForWork);
+							}
+						}
+					
 					}
 
 				}
@@ -137,7 +246,12 @@ namespace WebBRS.Controllers
 		{
 			//try
 			{
-				int IdPerson = 1739436577;
+				ClaimsIdentity claimsIdentity;
+				claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+				var yearClaims = claimsIdentity.FindFirst("Name");
+				User user = unit.Users.Get(u => u.login == yearClaims.Value);
+				int IdPerson = user.PersonIdPerson;
+				//int IdPerson = 1739436577;
 
 				Person person = unit.Persons.Get(IdPerson);
 				Student student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
@@ -225,7 +339,7 @@ namespace WebBRS.Controllers
 				List<ExactClass> exactClasses2 = unit.ExactClasses
 					.GetAll(ex => ex.DraftTimeTableIdDFTT.ToString() == IdSelectedDraft
 					&& ex.TypeTimeTableidTTT.ToString() == IdSelectedDraftType
-					&& ex.DateClassStart > Days[0].Date && ex.DateClassStart < Days[6].Date).ToList();
+					&& ex.DateClassStart > Days[0].Date.AddYears(2000) && ex.DateClassStart < Days[6].Date.AddYears(2000)).ToList();
 				List<ClassWorkVM> tmp2 = new List<ClassWorkVM>();
 				foreach (var i in exactClasses2)
 				{
@@ -286,14 +400,30 @@ namespace WebBRS.Controllers
 			return null;
 		}
 		[HttpPost("UpdateHomeWork")]
-		public IActionResult UpdateHomeWork(AttedanceForWork data)
+		public IActionResult UpdateHomeWork([FromForm] AttedanceForWork data)
 		{
 			if (ModelState.IsValid)
 			{
+				string filepath = "	";
+				Random random = new Random();
+				int count = random.Next(0, 1000);
+				if (data.File != null)
+				{
+					filepath = "/_Resources/attedances/" + count.ToString() + data.File.FileName;
+
+				}
 				Attendance att = unit.Attendances.Get(c => c.IdAtt == data.IdAtt);             //cw.IdWT = data.IdWT;
+
 				att.TextDoClassWork = data.TextDoClassWork;
 				att.DatePass = DateTime.Now;
-				att.FilePath = data.FilePath;
+				if (data.File != null)
+				{
+					using (var fileStream = new FileStream(_appEnvironment.ContentRootPath + filepath, FileMode.Create))
+					{
+						data.File.CopyTo(fileStream);
+					}
+				}
+				att.FilePath = count.ToString() + data.File.FileName;
 				unit.Attendances.Update(att);
 				unit.Save();
 
@@ -328,35 +458,63 @@ namespace WebBRS.Controllers
 
 		// GET: HomeWorkController/Details/5
 		[HttpPost("UpdateClassWork")]
-		public IActionResult UpdateClassWork(ClassWork data)
+		public IActionResult UpdateClassWork([FromForm] ClassWork data)
 		{
 			if (ModelState.IsValid)
 			{
 				ClassWork cw = new ClassWork();
 				ClassWork cw2 = unit.ClassWorks.Get(c => c.IdClass == data.IdClass);
-				if (data.IdClassWork==0&&cw2==null)
+				//string filepath = @"D:\Diploma\Projects\Test 1\Diplom_main\diploms\WebBRS\ClientApp\_Resources\homeworks";
+				string filepath = "	";
+				Random random = new Random();
+
+				int count = random.Next(0, 1000);
+				if (data.File != null)
+				{
+					filepath = "/_Resources/homeworks/" + count.ToString() + data.File.FileName;
+
+				}
+
+				if (data.IdClassWork == 0 && cw2 == null)
 				{
 					cw.MaxBall = data.MaxBall;
 					cw.TextWork = data.TextWork;
-					cw.FilePathWork = data.FilePathWork;
-					cw.DateGiven = data.DateGiven;
+					cw.FilePathWork = count.ToString() + data.File.FileName;
+					cw.DateGiven = DateTime.Now;
 					cw.IdWT = data.IdWT;
+					cw.File = data.File;
+					// сохраняем файл в папку Files в каталоге wwwroot
+					using (var fileStream = new FileStream(_appEnvironment.ContentRootPath + filepath, FileMode.Create))
+					{
+						cw.File.CopyTo(fileStream);
+					}
 					cw.IdClass = data.IdClass;
 					cw.DatePass = data.DatePass;
+
 					unit.ClassWorks.Create(cw);
 				}
 				else
 				{
-					cw = unit.ClassWorks.Get(c => c.IdClass == data.IdClass);             
+					cw = unit.ClassWorks.Get(c => c.IdClass == data.IdClass);
 					cw.MaxBall = data.MaxBall;
 					cw.TextWork = data.TextWork;
-					cw.FilePathWork = data.FilePathWork;
-					cw.DateGiven = data.DateGiven;
-					cw.IdWT = data.IdWT;					
+					cw.File = data.File;
+					cw.FilePathWork = data.File.FileName;
+					cw.DateGiven = DateTime.Now;
+					cw.IdWT = data.IdWT;
 					cw.DatePass = data.DatePass;
+					if (data.File != null)
+					{
+						using (var fileStream = new FileStream(_appEnvironment.ContentRootPath + filepath, FileMode.Create))
+						{
+							cw.File.CopyTo(fileStream);
+						}
+					}
+
+
 					unit.ClassWorks.Update(cw);
 				}
-		
+
 				unit.Save();
 
 				return Ok(cw);
@@ -408,7 +566,7 @@ namespace WebBRS.Controllers
 				classWorkVM.IdClass = IdClass;
 				classWorkVM.MaxBall = 0;
 				classWorkVM.TextWork = "";
-				classWorkVM.IdClassWork =0;
+				classWorkVM.IdClassWork = 0;
 				classWorkVM.DateGiven = DateTime.Now.ToString("d");
 				classWorkVM.DatePass = DateTime.Now.ToString("d");
 				ExactClass exactClass = unit.ExactClasses.Get(ex => ex.IdClass == IdClass);
@@ -416,7 +574,7 @@ namespace WebBRS.Controllers
 				classWorkVM.SubjectName = sfg.Subject.NameSubject;
 				classWorkVM.LecturerFIO = exactClass.PersonLecturer.PersonFIOShort();
 			}
-			
+
 			return classWorkVM;
 		}
 		[HttpGet("GetClassWorkStudentAnswer/{IdClass}")]
@@ -425,7 +583,14 @@ namespace WebBRS.Controllers
 		{
 			ClassWork classWork = unit.ClassWorks.Get(cw => cw.IdClass == IdClass);
 			//изменить когда появится аутнетификация
-			int IdPerson = 1739436577;
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			//int IdPerson = user.PersonIdPerson;
+			int IdPerson = user.PersonIdPerson;
+			//int IdPerson = 1739436577;
+
 			Student student = unit.Students.Get(s => s.IdPerson == IdPerson);
 			ExactClass exactClass = unit.ExactClasses.Get(ex => ex.IdClass == IdClass);
 			SubjectForGroup subjectForGroup = unit.SubjectForGroups.Get(sfg => sfg.ID_reff == exactClass.ID_reff);
@@ -438,17 +603,22 @@ namespace WebBRS.Controllers
 			StudentsGroupHistory sgh = studentsSortedList[0];
 			Attendance attendance = unit.Attendances.Get(cw => cw.ExactClassIdClass == IdClass);
 			AttedanceForWork attedanceForWork = new AttedanceForWork();
-			attedanceForWork.IdAtt = attendance.IdAtt;
-			attedanceForWork.BallHW = (double)attendance.BallHW;
-			attedanceForWork.TextDoClassWork = attendance.TextDoClassWork;
-			attedanceForWork.FilePath = attendance.FilePath;
-			attedanceForWork.DatePass = "не сдано";
-
-			if (attendance.DatePass != null)
+			if (attendance != null)
 			{
-				DateTime datepass = (DateTime)attendance.DatePass;
-				attedanceForWork.DatePass = datepass.ToString("d");
-			}
+				attedanceForWork = new AttedanceForWork();
+				attedanceForWork.IdAtt = attendance.IdAtt;
+				attedanceForWork.BallHW = (double)attendance.BallHW;
+				attedanceForWork.TextDoClassWork = attendance.TextDoClassWork;
+				attedanceForWork.FilePath = attendance.FilePath;
+				attedanceForWork.DatePass = "не сдано";
+				attedanceForWork.Email = user.login;
+				attedanceForWork.PersonFIO = unit.Persons.Get(p => p.IdPerson == IdPerson).PersonFIOShort();
+				if (attendance.DatePass != null)
+				{
+					DateTime datepass = (DateTime)attendance.DatePass;
+					attedanceForWork.DatePass = datepass.ToString("d");
+				}
+			};
 			return attedanceForWork;
 		}
 

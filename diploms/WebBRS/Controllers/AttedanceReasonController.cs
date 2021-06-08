@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebBRS.DAL;
 using WebBRS.Models;
-
+using WebBRS.Models.Auth;
 using WebBRS.Models.Views;
 using WebBRS.ViewModels.toRecieve;
 namespace WebBRS.Controllers
@@ -16,13 +19,25 @@ namespace WebBRS.Controllers
 	public class AttedanceReasonController : ControllerBase
 	{
 		private UnitOfWork unit = new UnitOfWork();
+		public AttedanceReasonController(IWebHostEnvironment appEnvironment)
+		{
+			_appEnvironment = appEnvironment;
+		}
+		IWebHostEnvironment _appEnvironment;
 		[HttpGet("GetAttedanceReason")]
 		public List<AttedanceReasonVM> GetAttedanceReason()
 		{
 			List<AttedanceReasonVM> AttedanceReasonVMs = new List<AttedanceReasonVM>();
 			//изменить когда появится авторизация
-
-			int idPerson = 1739436577;
+			//изменить когда появится авторизация
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			//int IdPerson = user.PersonIdPerson;
+			//int PersonId =;
+			int idPerson = user.PersonIdPerson;
+			//int idPerson = 1739436577;
 			Person person = unit.Persons.Get(p => p.IdPerson == idPerson);
 			List<AttedanceReason> attedances = unit.AttedanceReasons.GetAll(po => po.IdPerson == idPerson).ToList();
 			foreach (var i in attedances)
@@ -68,8 +83,14 @@ namespace WebBRS.Controllers
 			AttedanceReason portfolio = unit.AttedanceReasons.Get(cw => cw.IdAttReas == IdPortfolio);
 			AttedanceReasonVM portfolioVM = new AttedanceReasonVM();
 			//изменить когда появится авторизация
-
-			portfolioVM.IdPerson = 1739436577;
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			//int IdPerson = user.PersonIdPerson;
+			//int PersonId =;
+			int idPerson = user.PersonIdPerson;
+			portfolioVM.IdPerson = idPerson;
 
 			Person person = unit.Persons.Get(portfolioVM.IdPerson);
 			Student student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
@@ -114,8 +135,13 @@ namespace WebBRS.Controllers
 		{
 			List<AttedanceReasonVM> portfolioVMs = new List<AttedanceReasonVM>();
 			//изменить когда появится авторизация
-
-			int idPerson = 1739436573;
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			//int IdPerson = user.PersonIdPerson;
+			//int PersonId =;
+			int idPerson = user.PersonIdPerson;
 			List<Curator> curators = unit.Curators.GetAll(c => c.PersonIdPerson == idPerson && c.Actual == true).ToList();
 			List<AttedanceReason> portfolios = new List<AttedanceReason>();
 			if (!conf)
@@ -180,17 +206,24 @@ namespace WebBRS.Controllers
 			return Ok(id);
 
 		}
-
-		[HttpPost("UpdateAttedanceReason")]
-		public IActionResult UpdateAttedanceReason(AttedanceReasonVM data)
+		[HttpPost("UpdateAttedanceReason2")]
+		public IActionResult UpdateAttedanceReason2(AttedanceReasonVM data)
 		{
 			if (ModelState.IsValid)
 			{
 				AttedanceReason cw = new AttedanceReason();
 
 				//int IdPerson = 1739436577;
+				Random random = new Random();
+				int count = random.Next(0, 1000);
 
-				Person person = unit.Persons.Get(data.IdPerson);
+				ClaimsIdentity claimsIdentity;
+				claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+				var yearClaims = claimsIdentity.FindFirst("Name");
+				User user = unit.Users.Get(u => u.login == yearClaims.Value);
+				//int IdPerson = user.PersonIdPerson;
+				int PersonId = user.PersonIdPerson;
+				Person person = unit.Persons.Get(PersonId);
 				Student student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
 				int IdCourse = 1363575543;
 				List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
@@ -238,7 +271,7 @@ namespace WebBRS.Controllers
 					//cw.Description = data.Description;
 					//cw.IdPerson = data.IdPerson;
 					cw.DocName = data.DocName;
-					cw.FilePath = data.FilePath;
+					//cw.FilePath = data.FilePath;
 					//cw.DateAdded = DateTime.Now;
 					unit.AttedanceReasons.Update(cw);
 					unit.Save();
@@ -247,15 +280,124 @@ namespace WebBRS.Controllers
 				else
 				{
 					//изменить после добавления авторизации
-					cw.IdCurator = 3;
+					string filepath = "/_Resources/attedanceReasons/" + count.ToString() + data.File.FileName;
+
+					cw.IdCurator = curator.CuratorID;
 					cw.DateAdded = DateTime.Now;
 					cw.DateConfirmed = null;
 					cw.Confirmed = false;
-					cw.FilePath = "";
+					cw.FilePath = count.ToString() + data.File.FileName;
 					cw.IdSGH = sgh.IdSGH;
 					cw.DateTimeStart = Convert.ToDateTime(data.DateTimeStart);
 					cw.DateTimeEnd = Convert.ToDateTime(data.DateTimeEnd);
-					
+
+					using (var fileStream = new FileStream(_appEnvironment.ContentRootPath + filepath, FileMode.Create))
+					{
+						data.File.CopyTo(fileStream);
+					}
+					//cw./*Description*/ = data.Description;
+					cw.DocName = data.DocName;
+					cw.IdPerson = data.IdPerson;
+					//cw.IdCurator = data.IdCurator;
+					unit.AttedanceReasons.Create(cw);
+				}
+
+
+				unit.Save();
+				return Ok(data);
+			}
+			return BadRequest(ModelState);
+		}
+		[HttpPost("UpdateAttedanceReason")]
+		public IActionResult UpdateAttedanceReason([FromForm] AttedanceReasonVM data)
+		{
+			if (ModelState.IsValid)
+			{
+				AttedanceReason cw = new AttedanceReason();
+
+				//int IdPerson = 1739436577;
+				Random random = new Random();
+				int count = random.Next(0, 1000);
+
+				string filepath = "/_Resources/attedanceReasons/"+ count.ToString() + data.File.FileName;
+
+				ClaimsIdentity claimsIdentity;
+				claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+				var yearClaims = claimsIdentity.FindFirst("Name");
+				User user = unit.Users.Get(u => u.login == yearClaims.Value);
+				//int IdPerson = user.PersonIdPerson;
+				int PersonId = user.PersonIdPerson;
+				Person person = unit.Persons.Get(PersonId);
+				Student student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
+				int IdCourse = 1363575543;
+				List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
+					.GetAll(sgh => sgh.IdStudent == student.IdStudent && sgh.CourseIdCourse == IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
+				var studentsSorted = from s in studentsGroupHistories
+									 orderby s.DateSGHFinished
+									 select s;
+				List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
+				StudentsGroupHistory sgh = studentsSortedList[0];
+				Curator curator = unit.Curators.Get(c => c.GroupIdGroup == sgh.GroupIdGroup);
+				if (data.IdAttReas != 0)
+				{
+					cw = unit.AttedanceReasons.Get(c => c.IdAttReas == data.IdAttReas);
+					cw.DateConfirmed = DateTime.Now;
+					cw.Confirmed = Convert.ToBoolean(data.Confirmed);
+
+					if (cw.Confirmed)
+					{
+						if (!Convert.ToBoolean(data.Confirmed))
+						{
+							cw.DateConfirmed = null;
+							cw.DateNotConfirmed = DateTime.Now;
+							cw.Confirmed = Convert.ToBoolean(data.Confirmed);
+						}
+						else
+						{
+							cw.DateNotConfirmed = null;
+
+						}
+					}
+					else
+					{
+						if (!Convert.ToBoolean(data.Confirmed))
+						{
+							cw.DateConfirmed = null;
+							cw.DateNotConfirmed = DateTime.Now;
+							cw.Confirmed = Convert.ToBoolean(data.Confirmed);
+						}
+						else
+						{
+							cw.DateNotConfirmed = null;
+
+						}
+					}
+					//cw.Description = data.Description;
+					//cw.IdPerson = data.IdPerson;
+					cw.DocName = data.DocName;
+					//cw.FilePath = data.FilePath;
+					//cw.DateAdded = DateTime.Now;
+					unit.AttedanceReasons.Update(cw);
+					unit.Save();
+
+				}
+				else
+				{
+					//изменить после добавления авторизации
+
+					cw.IdCurator = curator.CuratorID;
+					cw.DateAdded = DateTime.Now;
+					cw.DateConfirmed = null;
+					cw.Confirmed = false;
+					cw.FilePath = count.ToString() + data.File.FileName;
+					cw.IdSGH = sgh.IdSGH;
+					cw.DateTimeStart = Convert.ToDateTime(data.DateTimeStart);
+					cw.DateTimeEnd = Convert.ToDateTime(data.DateTimeEnd);
+
+					using (var fileStream = new FileStream(_appEnvironment.ContentRootPath + filepath, FileMode.Create))
+					{
+						data.File.CopyTo(fileStream);
+					}
 					//cw./*Description*/ = data.Description;
 					cw.DocName = data.DocName;
 					cw.IdPerson = data.IdPerson;

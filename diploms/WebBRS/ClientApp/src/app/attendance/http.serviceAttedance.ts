@@ -18,6 +18,7 @@ export class attedance_HttpService {
         //}
       });
   }
+
   private url = "/attedance";
   private url2 = "/homeworks";
   //createProduct(product: Product) {
@@ -30,8 +31,16 @@ export class attedance_HttpService {
   }
   updateCW(data: ClassWork) {
     console.log('Дз 2 http', data);
-
-    return this.http.post<ClassWork>(this.url2 + "/UpdateClassWork", data);
+    const formData = new FormData();
+    // optional you can pass a file name as third parameter
+    formData.append('file', data.File);
+    formData.append('TextWork', data.TextWork);
+    formData.append('DatePass', String(data.DatePass));
+    formData.append('IdWT', String(data.IdWT));
+    formData.append('IdClass', String(data.IdClass));
+    formData.append('MaxBall', String(data.MaxBall));
+    
+    return this.http.post<any>(this.url2 + "/UpdateClassWork", formData);
   }
   postData(ExactClass: ExactClassForLecturerClass) {
     console.log('нажали ', ExactClass);
@@ -112,6 +121,7 @@ interface StudentEXC {
   AttedanceTypeSelected: number,
   Attedanced: TypeAttedanceVM[],
   Ball: number,
+  BallHW: number,
   HW: HomeWorkStudent
 }
 interface HomeWorkStudent {
@@ -127,14 +137,15 @@ interface Lecturer {
 
 interface ClassWork {
   IdClassWork: number,
-  IdClasss: number,
+  IdClass: number,
   TextWork: string,
   FilePathWork: string,
   MaxBall: number,
   WorkType: WorkType,
   DatePass: Date,
   IdWT: number,
-  WorkTypes: WorkType[]
+  WorkTypes: WorkType[],
+  File: File
 }
 interface WorkType {
   IdWT: number,

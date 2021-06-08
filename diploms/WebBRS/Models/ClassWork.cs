@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.IO;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace WebBRS.Models
 {
@@ -22,6 +24,8 @@ namespace WebBRS.Models
 		public string  TextWork { get; set; }
 		public string  FilePathWork { get; set; }
 		public double MaxBall { get; set; }
+		[NotMapped]
+		public IFormFile File { get; set; }
 		[JsonIgnore]
 		public List<DoClassWorkAttend> DoClassWorkAttends { get; set; } = new List<DoClassWorkAttend>();
 		public int IdWT { get; set; }

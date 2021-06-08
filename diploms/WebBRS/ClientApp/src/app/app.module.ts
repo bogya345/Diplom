@@ -34,6 +34,8 @@ import { CuratorConfirmedListComponent } from './curator-confirmed-list/curator-
 import { CuratorStatisticComponent } from './curator-statistic/curator-statistic.component';
 import { AUTH_API_URL } from './app-injection-tokens';
 import { AuthGuard } from './guards/auth.guard';
+import { CuratorstatforPDFComponent } from './curatorstatfor-pdf/curatorstatfor-pdf.component';
+import { PortfoliocardComponent } from './portfoliocard/portfoliocard.component';
 ////import { ConfirmDialogComponent } from './yes-no-modal/confirm-dialog.component';
 //import { DialogBodyComponent } from './dialog-body/dialog-body.component';
 
@@ -74,7 +76,9 @@ export function tokenGetter() {
     HomeworkListTeacherComponent,
     CuratorConfirmedComponent,
     CuratorConfirmedListComponent,
-    CuratorStatisticComponent
+    CuratorStatisticComponent,
+    CuratorstatforPDFComponent,
+    PortfoliocardComponent
     //ConfirmDialogComponent,
     //DialogBodyComponent
   ],
@@ -127,6 +131,9 @@ export function tokenGetter() {
 
 
         ]
+      },
+      {
+        path: 'statisticCurator/:DateStart/:DateEnd', component: CuratorstatforPDFComponent
       },
       //{ path: 'login', component: LoginComponentComponent },
       { path: '**', redirectTo: '/dashboard/mainpage', pathMatch: 'full' }

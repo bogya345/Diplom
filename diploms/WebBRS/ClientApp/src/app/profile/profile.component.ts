@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   public baseUrl: string;
   public portfolioAdd: PortfolioVM;
   public attedanceReason: AttedanceReason;
+  public Url = 'https://localhost:44371/';
   public profile: ProfileVM;
   public portfolios: PortfolioVM[];
   public attedanceReasons: AttedanceReason[];
@@ -66,6 +67,15 @@ export class ProfileComponent implements OnInit {
       console.info('could not set textarea-value');
     }
   }
+  onSelectFile(fileInput: any) {
+    this.portfolioAdd.File = <File>fileInput.target.files[0];
+    console.log('FileAdded  ', this.portfolioAdd);
+  }
+  onSelectFile2(fileInput: any) {
+    this.attedanceReason.File = <File>fileInput.target.files[0];
+    console.log('FileAdded  2', this.attedanceReason);
+  }
+
   openDialog(event: any) {
     console.log('event: ', event);
     this.idPortfolioDelete = event.target.value;
@@ -346,7 +356,7 @@ interface ProfileVM {
   NopeAttedanceProc: number,
   NopeAttedance: number,
   Group: string,
-  Portfolios: PortfolioVM[];
+  Portfolios: PortfolioVM[]
 }
 interface PortfolioVM {
   IdPortfolio: number,
@@ -357,7 +367,8 @@ interface PortfolioVM {
   PersonFIOconfirmed: string,
   DateAdded: string,
   DateConfirmed: string,
-  Confirmed: string
+  Confirmed: string,
+  File: File
 
 }
 interface AttedanceReason {
@@ -374,5 +385,6 @@ interface AttedanceReason {
   DateTimeEnd: string,
   DateAdded: string,
   DateConfirmed: string,
-  DateNotConfirmed: string
+  DateNotConfirmed: string,
+  File: File
 }

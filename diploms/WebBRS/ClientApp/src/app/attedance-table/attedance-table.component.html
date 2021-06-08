@@ -21,7 +21,7 @@
         <div class="col-6">
           <div class="card card-default">
             <div class="card-header">
-              <h3 class="card-title"></h3>
+              <h3 class="card-title">             <label>Группа</label></h3>
           
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -32,12 +32,14 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Группа</label>
+       
                     <select class="form-control select2" style="width: 100%;" (change)="selectChangeHandler($event)">
                       <option *ngFor="let i of ecflct.Groups" value="{{i.idGroup}}"> {{i.GroupName}}  </option>
                     </select>
                   </div>
                 </div>
+              </div>
+
               </div>
             </div>
           </div>
@@ -58,7 +60,7 @@
                       <tr>
                         <th>ФИО</th>
                         <th>Сумма баллов</th>
-                        <th *ngFor="let j of ecflct.ExactClasses"> <a href="/dashboard/attendance-current/{{ecflct.IdECFLCT}}/{{j.IdClass}}/{{ecflct.SelectedGroup}}" class="nav-link">{{j.DateExactClass}}</a></th>
+                        <th *ngFor="let j of ecflct.ExactClasses" > <a href="/dashboard/attendance-current/{{ecflct.IdECFLCT}}/{{j.IdClass}}/{{ecflct.SelectedGroup}}" class="nav-link" style="    writing-mode: vertical-lr;">{{j.DateExactClass}}</a></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -67,7 +69,7 @@
                         <td>{{j.Balls}}</td>
                         <td *ngFor="let k of ecflct.Students[n].Attedanced">
                           <span _ngcontent-ng-cli-universal-c0="" class="badge badge-success">{{k.Ball}}</span>
-                          <span _ngcontent-ng-cli-universal-c0="" class="badge badge-{{k.Type}}">{{k.attedanced}}</span>
+                          <span _ngcontent-ng-cli-universal-c0="" class="badge badge-{{k.Type}}" *ngIf="k.attedanced!=' '">{{k.attedanced}}</span>
                         </td>
                       </tr>
                     </tbody>
@@ -86,7 +88,7 @@
           </div>
         </div>
       </div>
-    </div>
+ 
   </section>
 </div>
 

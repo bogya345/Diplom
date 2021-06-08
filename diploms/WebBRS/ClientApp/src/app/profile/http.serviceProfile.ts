@@ -76,13 +76,35 @@ export class profile_HttpService {
   }
   postData(portfolioAdd: PortfolioVM) {
     console.log('нажали ', portfolioAdd);
+    const formData = new FormData();
+    // optional you can pass a file name as third parameter
+    formData.append('file', portfolioAdd.File);
+    formData.append('IdPortfolio', String(portfolioAdd.IdPortfolio));
+    formData.append('IdPerson', String(portfolioAdd.IdPerson));
+    formData.append('Description', String(portfolioAdd.Description));
+    formData.append('Name', String(portfolioAdd.Name));
+    formData.append('PersonFIOconfirmed', String(portfolioAdd.PersonFIOconfirmed));
+    formData.append('DateAdded', String(portfolioAdd.DateAdded));
+    formData.append('DateConfirmed', String(portfolioAdd.DateConfirmed));
+    formData.append('Confirmed', String(portfolioAdd.Confirmed));
     //const body = { name: user.name, age: user.age };
-    return this.http.post(this.url + '/UpdatePortfolioWork', portfolioAdd, { observe: 'response' });
+    return this.http.post(this.url + '/UpdatePortfolioWork', formData, { observe: 'response' });
   }
   postDataReason(portfolioAdd: AttedanceReason) {
     console.log('нажали ', portfolioAdd);
+    const formData = new FormData();
+    // optional you can pass a file name as third parameter
+    formData.append('file', portfolioAdd.File);
+    formData.append('IdAttReas', String(portfolioAdd.IdAttReas));
+    formData.append('IdPerson', String(portfolioAdd.IdPerson));
+    formData.append('DocName', String(portfolioAdd.DocName));
+    formData.append('PersonFIO', String(portfolioAdd.PersonFIO));
+    //formData.append('PersonFIOconfirmed', String(portfolioAdd.PersonFIOconfirmed));
+    formData.append('DateAdded', String(portfolioAdd.DateAdded));
+    formData.append('DateConfirmed', String(portfolioAdd.DateConfirmed));
+    //formData.append('Confirmed', String(portfolioAdd.Confirmed));
     //const body = { name: user.name, age: user.age };
-    return this.http.post(this.url2 + '/UpdateAttedanceReason', portfolioAdd, { observe: 'response' });
+    return this.http.post(this.url2 + '/UpdateAttedanceReason', formData, { observe: 'response' });
   }
 }
 interface ProfileVM {
@@ -103,8 +125,8 @@ interface PortfolioVM {
   PersonFIOconfirmed: string,
   DateAdded: string,
   DateConfirmed: string,
-  Confirmed: string
-
+  Confirmed: string,
+  File: File
 }
 interface AttedanceReason {
 
@@ -120,5 +142,6 @@ interface AttedanceReason {
   DateTimeEnd: string,
   DateAdded: string,
   DateConfirmed: string,
-  DateNotConfirmed: string
+  DateNotConfirmed: string,
+  File: File
 }

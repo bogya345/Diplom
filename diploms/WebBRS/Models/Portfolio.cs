@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,6 +23,8 @@ namespace WebBRS.Models
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public string FilePath { get; set; }
+		[NotMapped]
+		public IFormFile File { get; set; }
 		public DateTime DateAdded { get; set; }
 		public DateTime? DateConfirmed { get; set; }
 		public DateTime? DateNotConfirmed { get; set; }

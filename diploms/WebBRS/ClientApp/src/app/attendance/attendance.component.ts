@@ -11,13 +11,17 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './attendance.component.html',
   styleUrls: ['./attendance.component.css']
 })
-export class AttendanceComponent implements OnInit {
 
+
+export class AttendanceComponent implements OnInit {
+  public selectedFile: File = null;
   public http: attedance_HttpService;
   public baseUrl: string;
   public ecflct: ExactClassForLecturerClass;
   public selectedGroup: GroupVM;
   public now: Date;
+  public UrlFileUpload = 'api/fileupload';
+  public Url = 'https://localhost:44371/';
   public ta: string;
   public dialog: MatDialog;
   public snackBar: MatSnackBar;
@@ -117,6 +121,17 @@ export class AttendanceComponent implements OnInit {
         console.log(result);
       });
   }
+  selectChangeHandler10(event: any) {
+    //update the ui
+    this.ta = event.target.value;
+    let i = 0;
+    let IdAtt = event.target.id;
+    let Ball = event.target.value;
+    //let IdTA = '';
+    console.log(event.target.id);
+    this.ecflct.Students[this.ecflct.Students.findIndex(st => st.IdAttedance == IdAtt as number)].BallHW = Number(Ball);
+    console.log(this.ecflct);
+  }
   doTextareaValueChange(ev) {
     try {
       this.cw.TextWork = ev.target.value;
@@ -162,7 +177,10 @@ export class AttendanceComponent implements OnInit {
       }
     });
   }
-
+  onSelectFile(fileInput: any) {
+    this.cw.File = <File>fileInput.target.files[0];
+    console.log('FileAdded  ', this.cw);
+  }
   openDialog2(event: any) {
     console.log('event: ', event);
     //this.idPortfolioDelete = event.target.value;
@@ -260,14 +278,15 @@ export class AttendanceComponent implements OnInit {
 
 interface ClassWork {
   IdClassWork: number,
-  IdClasss: number,
+  IdClass: number,
   TextWork: string,
   FilePathWork: string,
   MaxBall: number,
   DatePass: Date,
   IdWT: number,
   WorkType: WorkType,
-  WorkTypes: WorkType[]
+  WorkTypes: WorkType[],
+  File: File
 }
 interface WorkType {
   IdWT: number,
@@ -304,6 +323,7 @@ interface StudentEXC {
   AttedanceTypeSelected: number,
   Attedanced: TypeAttedanceVM[],
   Ball: number,
+  BallHW: number,
   HW: HomeWorkStudent
 }
 interface HomeWorkStudent {

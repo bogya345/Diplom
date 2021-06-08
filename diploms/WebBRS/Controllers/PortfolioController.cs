@@ -12,28 +12,37 @@ using Microsoft.AspNetCore.Authorization;
 
 using WebBRS.Models.Views;
 using WebBRS.ViewModels.toRecieve;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+
 namespace WebBRS.Controllers
 {
 	public class Stroka
 	{
 		public string IdPortfolio { get; set; }
 	}
+
 	[Route("prortfolio")]
 	[ApiController]
 	[Authorize]
 	public class PortfolioController : ControllerBase
 	{
 		private UnitOfWork unit = new UnitOfWork();
-		[Authorize(Roles = "admin, student, curator")]
+		public PortfolioController(IWebHostEnvironment appEnvironment)
+		{
+			_appEnvironment = appEnvironment;
+		}
+		IWebHostEnvironment _appEnvironment;
+		[Authorize(Roles = "admin, student, curator, studentlector, lectcur,lectcurstud")]
 		[HttpGet("GetPortfile")]
-		
+
 		public ProfileVM GetProfile()
 		{
 			//изменить когда появится авторизация
-			ClaimsIdentity claimsIdentity; 
+			ClaimsIdentity claimsIdentity;
 			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
 			var yearClaims = claimsIdentity.FindFirst("Name");
-			User user =unit.Users.Get(u=>u.login== yearClaims.Value);
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
 			int IdPerson = user.PersonIdPerson;
 
 			//var a = User.Identity;
@@ -65,7 +74,7 @@ namespace WebBRS.Controllers
 			};
 			double count = attendances.Count();
 			double procents = (profileVM.NopeAttedance) / count * 100;
-			profileVM.NopeAttedanceProc =Convert.ToInt32(procents);
+			profileVM.NopeAttedanceProc = Convert.ToInt32(procents);
 			profileVM.Group = sgh.Group.GroupName;
 			return profileVM;
 		}
@@ -75,8 +84,12 @@ namespace WebBRS.Controllers
 		{
 			List<PortfolioVM> portfolioVMs = new List<PortfolioVM>();
 			//изменить когда появится авторизация
-
-			int idPerson = 1739436577;
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			int idPerson = user.PersonIdPerson;
+			//int idPerson = 1739436577;
 			Person person = unit.Persons.Get(p => p.IdPerson == idPerson);
 			List<Portfolio> portfolios = unit.Portfolios.GetAll(po => po.IdPerson == idPerson).ToList();
 			foreach (var i in portfolios)
@@ -128,14 +141,14 @@ namespace WebBRS.Controllers
 			{
 				foreach (var c in curators)
 				{
-					List<Portfolio> portfoliosBUF = unit.Portfolios.GetAll(po => po.IdCurator == c.CuratorID&&po.DateAdded>datestart&&po.DateAdded<dateend).ToList();
+					List<Portfolio> portfoliosBUF = unit.Portfolios.GetAll(po => po.IdCurator == c.CuratorID && po.DateAdded > datestart && po.DateAdded < dateend).ToList();
 					foreach (var p in portfoliosBUF)
 					{
 						portfolios.Add(p);
 					}
 				}
 			}
-			
+
 			foreach (var i in portfolios)
 			{
 				PortfolioVM buf = new PortfolioVM();
@@ -145,13 +158,15 @@ namespace WebBRS.Controllers
 				buf.IdCurator = i.IdCurator;
 				buf.IdPortfolio = i.IdPortfolio;
 				buf.Name = i.Name;
+				buf.Confirmed = i.Confirmed.ToString();
 				buf.Description = i.Description;
 				buf.FilePath = i.FilePath;
 				buf.DateAdded = i.DateAdded.ToString("d");
 				if (i.DateConfirmed != null)
 				{
 					buf.DateConfirmed = Convert.ToDateTime(i.DateConfirmed).ToString("d");
-				}if (i.DateNotConfirmed != null)
+				}
+				if (i.DateNotConfirmed != null)
 				{
 					buf.DateNotConfirmed = Convert.ToDateTime(i.DateNotConfirmed).ToString("d");
 				}
@@ -202,16 +217,18 @@ namespace WebBRS.Controllers
 			return Ok(id);
 
 		}
-		[HttpPost("UpdatePortfolioWork")]
-		public IActionResult UpdatePortfolioWork(PortfolioVM data)
+		[HttpPost("UpdatePortfolioWork2")]
+		public IActionResult UpdatePortfolioWork2(PortfolioVM data)
 		{
 			if (ModelState.IsValid)
 			{
 				Portfolio cw = new Portfolio();
 
 				//int IdPerson = 1739436577;
-
+				Random random = new Random();
+				int count = random.Next(0, 1000);
 				Person person = unit.Persons.Get(data.IdPerson);
+
 				Student student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
 				int IdCourse = 1363575543;
 				List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
@@ -259,7 +276,7 @@ namespace WebBRS.Controllers
 					cw.Description = data.Description;
 					//cw.IdPerson = data.IdPerson;
 					cw.Name = data.Name;
-					cw.FilePath = data.FilePath;
+					//cw.FilePath = count.ToString() + data.FilePath;
 					//cw.DateAdded = DateTime.Now;
 					unit.Portfolios.Update(cw);
 					unit.Save();
@@ -268,14 +285,118 @@ namespace WebBRS.Controllers
 				else
 				{
 					//изменить после добавления авторизации
-					cw.IdCurator = 3;					
+					cw.IdCurator = curator.CuratorID;
+					string filepath = "/_Resources/portfolios/" + count.ToString() + data.File.FileName;
+
 					cw.DateAdded = DateTime.Now;
 					cw.DateConfirmed = null;
 					cw.Confirmed = false;
-					cw.FilePath = "";
+					cw.FilePath = count.ToString() + data.File.FileName;
 					cw.Description = data.Description;
 					cw.Name = data.Name;
 					cw.IdPerson = data.IdPerson;
+					cw.File = data.File;
+
+					using (var fileStream = new FileStream(_appEnvironment.ContentRootPath + filepath, FileMode.Create))
+					{
+						cw.File.CopyTo(fileStream);
+					}
+
+					//cw.IdCurator = data.IdCurator;
+					unit.Portfolios.Create(cw);
+				}
+
+
+				unit.Save();
+				return Ok(data);
+			}
+			return BadRequest(ModelState);
+		}
+		[HttpPost("UpdatePortfolioWork")]
+		public IActionResult UpdatePortfolioWork([FromForm] PortfolioVM data)
+		{
+			if (ModelState.IsValid)
+			{
+				Portfolio cw = new Portfolio();
+
+				//int IdPerson = 1739436577;
+				Random random = new Random();
+				int count = random.Next(0, 1000);
+				Person person = unit.Persons.Get(data.IdPerson);
+
+				Student student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
+				int IdCourse = 1363575543;
+				List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
+					.GetAll(sgh => sgh.IdStudent == student.IdStudent && sgh.CourseIdCourse == IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
+				var studentsSorted = from s in studentsGroupHistories
+									 orderby s.DateSGHFinished
+									 select s;
+				List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
+				StudentsGroupHistory sgh = studentsSortedList[0];
+				Curator curator = unit.Curators.Get(c => c.GroupIdGroup == sgh.GroupIdGroup);
+				if (data.IdPortfolio != 0)
+				{
+					cw = unit.Portfolios.Get(c => c.IdPortfolio == data.IdPortfolio);
+					cw.DateConfirmed = DateTime.Now;
+					cw.Confirmed = Convert.ToBoolean(data.Confirmed);
+
+					if (cw.Confirmed)
+					{
+						if (!Convert.ToBoolean(data.Confirmed))
+						{
+							cw.DateConfirmed = null;
+							cw.DateNotConfirmed = DateTime.Now;
+							cw.Confirmed = Convert.ToBoolean(data.Confirmed);
+						}
+						else
+						{
+							cw.DateNotConfirmed = null;
+
+						}
+					}
+					else
+					{
+						if (!Convert.ToBoolean(data.Confirmed))
+						{
+							cw.DateConfirmed = null;
+							cw.DateNotConfirmed = DateTime.Now;
+							cw.Confirmed = Convert.ToBoolean(data.Confirmed);
+						}
+						else
+						{
+							cw.DateNotConfirmed = null;
+
+						}
+					}
+					cw.Description = data.Description;
+					//cw.IdPerson = data.IdPerson;
+					cw.Name = data.Name;
+					//cw.FilePath = count.ToString() + data.FilePath;
+					//cw.DateAdded = DateTime.Now;
+					unit.Portfolios.Update(cw);
+					unit.Save();
+
+				}
+				else
+				{
+					//изменить после добавления авторизации
+					cw.IdCurator = curator.CuratorID;
+					string filepath = "/_Resources/portfolios/" + count.ToString() + data.File.FileName;
+
+					cw.DateAdded = DateTime.Now;
+					cw.DateConfirmed = null;
+					cw.Confirmed = false;
+					cw.FilePath = count.ToString() + data.File.FileName;
+					cw.Description = data.Description;
+					cw.Name = data.Name;
+					cw.IdPerson = data.IdPerson;
+					cw.File = data.File;
+
+					using (var fileStream = new FileStream(_appEnvironment.ContentRootPath + filepath, FileMode.Create))
+					{
+						cw.File.CopyTo(fileStream);
+					}
+
 					//cw.IdCurator = data.IdCurator;
 					unit.Portfolios.Create(cw);
 				}

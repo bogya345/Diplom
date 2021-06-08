@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,10 +25,14 @@ namespace WebBRS.ViewModels.toRecieve
 	{
 		public int IdAtt { get; set; }
 		public string PersonFIO { get; set; }
+		public string Email { get; set; }
 		public string TextDoClassWork { get; set; }
 		public string FilePath { get; set; }
 		public double BallHW { get; set; }
 		public bool Done { get; set; }
+		public bool Checked { get; set; }
+		[NotMapped]
+		public IFormFile File { get; set; }
 		public string? DatePass { get; set; }
 
 	}

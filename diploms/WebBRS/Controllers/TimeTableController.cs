@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using WebBRS.DAL;
 using WebBRS.Models;
+using WebBRS.Models.Auth;
+using System.Security.Claims;
 
 using WebBRS.Models.Views;
 using WebBRS.ViewModels.toRecieve;
@@ -41,7 +43,13 @@ namespace WebBRS.Controllers
 			}
 			timeTable.Courses = unit.Courses.GetAll().ToList();
 			DateTime dateChoosen = Convert.ToDateTime(DateTimeExact);
-			int IdPerson = 1739436577;
+			dateChoosen = dateChoosen.AddYears(2000);
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			int IdPerson = user.PersonIdPerson;
+			//int IdPerson = 1739436577;
 
 			Person person = unit.Persons.Get(IdPerson);
 			Student student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
@@ -62,7 +70,7 @@ namespace WebBRS.Controllers
 			DateTime dayBuf = dateChoosen;
 			if (currentDoW > 1)
 			{
-				var Day1 = dayBuf.AddDays(-currentDoW);
+				var Day1 = dayBuf.AddDays(-currentDoW+1);
 				DayStudent dayVM1 = new DayStudent();
 				dayVM1.Date = Day1.Date;
 				dayVM1.DayOfWeek = GetDayOfWeek(Day1);
@@ -113,6 +121,8 @@ namespace WebBRS.Controllers
 				{
 					EXTCforStudentTimeTable newExclass = new EXTCforStudentTimeTable();
 					newExclass.DateTime = item.DateClassStart.ToShortTimeString();
+					//newExclass.DateTime = item.DateClassStart.TimeOfDay.ToString("t");
+			
 					newExclass.DayOfWeek = item.DateClassStart.DayOfWeek.ToString();
 					newExclass.IdECFLCT = item.ID_reff;
 					newExclass.IdClass = item.IdClass;
@@ -129,6 +139,7 @@ namespace WebBRS.Controllers
 					SubjectForGroup subjectForGroup = unit.SubjectForGroups.Get(sfg => sfg.ID_reff == item.ID_reff);
 					newExclass.SubjectName = subjectForGroup.Subject.NameSubject;
 					newExclass.DateTime = item.DateClassStart.TimeOfDay.ToString();
+					newExclass.DateTime = newExclass.DateTime.Substring(0, 5);
 					if (Days[Days.FindIndex(d => d.Date == item.DateClassStart.Date)].EXTCforTimeTablesStudent.Any(ec => ec.IdECFLCT == newExclass.IdECFLCT))
 					{
 						if (newExclass.Auditory != "nope")
@@ -177,6 +188,7 @@ namespace WebBRS.Controllers
 			//teacherSubjects.idLect = lecturer.IdPerson;
 			//teacherSubjects.LecturerFIO = lecturer.PersonFIOShort();
 			timeTable.DaysStudent = Days;
+
 			foreach (var item in dfts)
 			{
 				DraftTimeTableVM k = new DraftTimeTableVM();
@@ -191,9 +203,17 @@ namespace WebBRS.Controllers
 				k._Description = item.Name;
 				timeTable.DraftTypes.Add(k);
 			}
-			foreach (var item in timeTable.Days)
+			foreach (var item in timeTable.DaysStudent)
 			{
+			
 				item.EXTCforTimeTables.Distinct();
+			}
+			foreach (var d in timeTable.DaysStudent)
+			{
+				var lessonsSorted = from s in d.EXTCforTimeTablesStudent
+									orderby s.DateTime
+									select s;
+				d.EXTCforTimeTablesStudent = lessonsSorted.ToList();
 			}
 			#region SwapDrafts
 			var buf = timeTable.Drafts.Find(g => g.IdDFTT.ToString() == IdSelectedDraft);
@@ -249,8 +269,15 @@ namespace WebBRS.Controllers
 			{
 				DateTimeExact = DateTime.Now.ToString();
 			}
+
 			DateTime dateChoosen = Convert.ToDateTime(DateTimeExact);
-			int IdPerson = 1739436573;
+			dateChoosen = dateChoosen.AddYears(2000);
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			int IdPerson = user.PersonIdPerson;
+			//int IdPerson = 1739436573;
 			//int IdPerson = 237609111;
 			TeacherSubjects teacherSubjects = new TeacherSubjects();
 			TimeTable timeTable = new TimeTable();
@@ -321,7 +348,8 @@ namespace WebBRS.Controllers
 					newExclass.Auditory = item.Auditory.ShortNameDepart;
 					SubjectForGroup subjectForGroup = unit.SubjectForGroups.Get(sfg => sfg.ID_reff == item.ID_reff);
 					newExclass.SubjectName = subjectForGroup.Subject.NameSubject;
-					newExclass.DateTime = item.DateClassStart.TimeOfDay.ToString();
+					newExclass.DateTime = item.DateClassStart.TimeOfDay.ToString("t");
+					newExclass.DateTime = newExclass.DateTime.Substring(0, 5);
 					if (Days[Days.FindIndex(d => d.Date == item.DateClassStart.Date)].EXTCforTimeTables.Any(ec => ec.IdECFLCT == newExclass.IdECFLCT))
 					{
 						if (newExclass.Auditory != "nope") 

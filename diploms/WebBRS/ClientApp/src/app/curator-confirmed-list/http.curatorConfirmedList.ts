@@ -36,7 +36,7 @@ export class confirmedList_HttpService {
     //console.log('нажали 2222', this.http.post(this.url + '/DeletePortfolio', IdPortfolio, { observe: 'response' }));
     //const body = { name: user.name, age: user.age };
     //return this.http.post(this.url + '/DeletePortfolio', dataToSend, { observe: 'response' });
-    return this.http.post(this.url + '/UpdatePortfolioWork', portfolioAdd, { observe: 'response' });
+    return this.http.post(this.url + '/UpdatePortfolioWork2', portfolioAdd, { observe: 'response' });
   }
   execute2(portfolioAdd: AttedanceReason) {
     console.log('нажали ', portfolioAdd);
@@ -44,7 +44,7 @@ export class confirmedList_HttpService {
     //console.log('нажали 2222', this.http.post(this.url + '/DeletePortfolio', IdPortfolio, { observe: 'response' }));
     //const body = { name: user.name, age: user.age };
     //return this.http.post(this.url + '/DeletePortfolio', dataToSend, { observe: 'response' });
-    return this.http.post(this.url2 + '/UpdateAttedanceReason', portfolioAdd, { observe: 'response' });
+    return this.http.post(this.url2 + '/UpdateAttedanceReason2', portfolioAdd, { observe: 'response' });
   }
   getPortfolios(conf: boolean,  DateTimeStart, DateTimeEnd): Observable<PortfolioVM[]> {
     return this.http.get<PortfolioVM[]>(`prortfolio/GetPortfoliosForConfirm/${conf}/${DateTimeStart}/${DateTimeEnd}`,

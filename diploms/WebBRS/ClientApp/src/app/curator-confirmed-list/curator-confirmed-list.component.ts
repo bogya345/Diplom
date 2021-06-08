@@ -17,6 +17,7 @@ export class CuratorConfirmedListComponent implements OnInit {
   public conf: boolean;
   public http: confirmedList_HttpService;
   public baseUrl: string;
+  public Url =  'https://localhost:44371/';
   public portfolioAdd: PortfolioVM;
   public profile: ProfileVM;
   public portfolios: PortfolioVM[];
@@ -29,9 +30,9 @@ export class CuratorConfirmedListComponent implements OnInit {
   public DateTimeEnd: string;
   public notConfirmed: boolean;
   //private confirmDialogService: ConfirmDialogService;
-  constructor(http: HttpClient, private router: Router, private _route: ActivatedRoute, private dialog2: MatDialog, private snackBar2: MatSnackBar) {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private router: Router, private _route: ActivatedRoute, private dialog2: MatDialog, private snackBar2: MatSnackBar) {
     this.http = new confirmedList_HttpService(http);
-    //this.baseUrl = baseUrl; , private snackBar: MatSnackBar
+    this.baseUrl = baseUrl; /*, private snackBar: MatSnackBar*/
     this.dialog = dialog2;
     this.snackBar = snackBar2;
     this.conf = false;
@@ -74,8 +75,9 @@ export class CuratorConfirmedListComponent implements OnInit {
     }
   }
   openDialog(event: any) {
-    console.log('event: ', event);
+    console.log('event: ', event.target.value);
     this.idPortfolioUpdate = event.target.value;
+
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         message: 'Вы хотите подтвердить активность?',
@@ -95,8 +97,10 @@ export class CuratorConfirmedListComponent implements OnInit {
         //a.click();
         //a.remove();
         //snack.dismiss();
-        this.portfolios[this.portfolios.findIndex(st => st.IdPortfolio == this.idPortfolioUpdate as number)].Confirmed = 'true';
+        console.log("факт", this.portfolios[this.portfolios.findIndex(st => st.IdPortfolio == this.idPortfolioUpdate as number)].Confirmed);
 
+        this.portfolios[this.portfolios.findIndex(st => st.IdPortfolio == this.idPortfolioUpdate as number)].Confirmed = 'true';
+        console.log("подтверждение",this.portfolios[this.portfolios.findIndex(st => st.IdPortfolio == this.idPortfolioUpdate as number)]);
         this.http.execute(this.portfolios[this.portfolios.findIndex(st => st.IdPortfolio == this.idPortfolioUpdate as number)])
           .subscribe(result => {
             console.log(result);
@@ -246,6 +250,9 @@ export class CuratorConfirmedListComponent implements OnInit {
   openDialog3(event: any) {
     console.log('event: ', event);
     this.idPortfolioUpdate = event.target.value;
+   console.log ('Idatt ', this.idPortfolioUpdate as number);
+   console.log ('att ',this.attedances.findIndex(st => st.IdAttReas == this.idPortfolioUpdate as number));
+
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         message: 'Вы хотите подтвердить справку?',
@@ -350,10 +357,7 @@ export class CuratorConfirmedListComponent implements OnInit {
                 }
                 );
             });
-
-          //this.snackBar.open('Удаляется', 'Fechar', {
-          //  duration: 2000,
-          //});
+ 
         }
       });
   }

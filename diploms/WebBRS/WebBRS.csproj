@@ -57,6 +57,7 @@
     <None Remove="ClientApp\src\app\curator-confirmed-list\http.curatorConfirmedList.ts" />
     <None Remove="ClientApp\src\app\curator-confirmed\http.curatorConfirmed.ts" />
     <None Remove="ClientApp\src\app\curator-statistic\http.serviceStatistic.ts" />
+    <None Remove="ClientApp\src\app\curatorstatfor-pdf\http.curatorStatistic.ts" />
     <None Remove="ClientApp\src\app\dialog-body\alert-dialog\alert-dialog.component.ts" />
     <None Remove="ClientApp\src\app\homeworks\http.serviceHomeworks.ts" />
     <None Remove="ClientApp\src\app\homework\http.serviceHomework.ts" />

@@ -8,7 +8,7 @@ export const environment = {
   production: false,
   apiUrl: 'https://localhost:44336/',
   authUrl: 'https://localhost:44371/',
-  tokenWhiteListedDomains: ['localhost:44336'],
+  tokenWhiteListedDomains: ['localhost:44371'],
   sessionConst: {
     username: 'hod_username',
     role: 'hod_rolename',

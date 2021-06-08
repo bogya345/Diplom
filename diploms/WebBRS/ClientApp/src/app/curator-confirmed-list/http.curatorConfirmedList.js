@@ -30,7 +30,7 @@ var confirmedList_HttpService = /** @class */ (function () {
         //console.log('нажали 2222', this.http.post(this.url + '/DeletePortfolio', IdPortfolio, { observe: 'response' }));
         //const body = { name: user.name, age: user.age };
         //return this.http.post(this.url + '/DeletePortfolio', dataToSend, { observe: 'response' });
-        return this.http.post(this.url + '/UpdatePortfolioWork', portfolioAdd, { observe: 'response' });
+        return this.http.post(this.url + '/UpdatePortfolioWork2', portfolioAdd, { observe: 'response' });
     };
     confirmedList_HttpService.prototype.execute2 = function (portfolioAdd) {
         console.log('нажали ', portfolioAdd);
@@ -38,7 +38,7 @@ var confirmedList_HttpService = /** @class */ (function () {
         //console.log('нажали 2222', this.http.post(this.url + '/DeletePortfolio', IdPortfolio, { observe: 'response' }));
         //const body = { name: user.name, age: user.age };
         //return this.http.post(this.url + '/DeletePortfolio', dataToSend, { observe: 'response' });
-        return this.http.post(this.url2 + '/UpdateAttedanceReason', portfolioAdd, { observe: 'response' });
+        return this.http.post(this.url2 + '/UpdateAttedanceReason2', portfolioAdd, { observe: 'response' });
     };
     confirmedList_HttpService.prototype.getPortfolios = function (conf, DateTimeStart, DateTimeEnd) {
         return this.http.get("prortfolio/GetPortfoliosForConfirm/" + conf + "/" + DateTimeStart + "/" + DateTimeEnd, {

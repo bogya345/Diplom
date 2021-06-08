@@ -11,24 +11,36 @@ using WebBRS.Models;
 using WebBRS.DAL;
 using WebBRS.ViewModels;
 using WebBRS.ViewModels.toRecieve;
+using WebBRS.Models.Auth;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+
 namespace WebBRS.Controllers
 {
 	[Route("CuratorStatisticController")]
 	[ApiController]
+	[Authorize]
 	public class CuratorStatisticController : ControllerBase
 	{
 		private UnitOfWork unit = new UnitOfWork();
 
 		[Route("GetCharts/{dateTimeStart}/{dateTimeEnd}")]
 		[HttpGet]
+		[Authorize(Roles ="curator, lectcurstud, lectcur")]
 		public List<GroupVMStatic> GetChartsData(DateTime dateTimeStart, DateTime dateTimeEnd)
 		{
 			//изменить авторизация
-			int curatorPersonId = 1739436573;
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			//int IdPerson = user.PersonIdPerson;
+			int curatorPersonId = user.PersonIdPerson;
 			Person person = unit.Persons.Get(p => p.IdPerson == curatorPersonId);
 			List<Curator> curator = unit.Curators.GetAll(c => c.PersonIdPerson == curatorPersonId).ToList();
 			List<GroupVMStatic> groupVMs = new List<GroupVMStatic>(curator.Count);
-			
+			dateTimeEnd = dateTimeEnd.AddYears(2000);
+			dateTimeStart = dateTimeStart.AddYears(2000);
 			int i = 0;
 			foreach (var c in curator)
 			{
@@ -41,8 +53,16 @@ namespace WebBRS.Controllers
 				GroupVMStatic groupVM = new GroupVMStatic(); 
 				groupVM.idGroup = c.GroupIdGroup;
 				groupVM.GroupName = c.Group.GroupName;
-
+				List<SubjectForGroup> subjects = new List<SubjectForGroup>();
 				foreach(var sfg in subjectForGroups)
+				{
+					ExactClass exactClass = unit.ExactClasses.Get(e => e.ID_reff == sfg.ID_reff&&e.DateClassStart>dateTimeStart&&e.DateClassStart<dateTimeEnd);
+					if (exactClass != null)
+					{
+						subjects.Add(sfg);
+					}
+				}
+				foreach(var sfg in subjects)
 				{
 					SubjectVM subjectVM = new SubjectVM();
 					subjectVM.IdSubject = sfg.IdSubject;
@@ -65,7 +85,7 @@ namespace WebBRS.Controllers
 						a.ExactClass = unit.ExactClasses.Get(e => e.IdClass == a.ExactClassIdClass);
 					}
 					studentVM.Attedanced = new List<AttedancedVM>();
-					foreach (var sg in subjectForGroups)
+					foreach (var sg in subjects)
 					{
 						AttedancedVM attedancedVM = new AttedancedVM();
 						attedancedVM.IdReff = sg.ID_reff;
@@ -101,5 +121,6 @@ namespace WebBRS.Controllers
 			//ChartsDemoEntities DB = new ChartsDemoEntities();
 			return groupVMs;
 		}
+
 	}
 }

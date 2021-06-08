@@ -48,7 +48,7 @@ namespace WebBRS.DAL.Repositories
 
 		public IEnumerable<Attendance> GetAll()
 		{
-			throw new NotImplementedException();
+			return db.Attendances;
 			//return db.AuthUsers;
 		}
 		public override IEnumerable<Attendance> GetAll(Func<Attendance, bool> func)

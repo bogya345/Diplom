@@ -8,12 +8,7 @@
   <!--Main content-->
   <!-- <button class="btn btn-primary pull-right" (click)="showDialog()">Show Dialog</button>-->
   <!--<button mat-button (click)="openAlertDialog()">Open Alert Dialog</button>-->
-  <p>
 
-  </p>
-  <p>
-    <!--<button mat-button (click)="openAlertDialog()">Open Alert Dialog</button>-->
-  </p>
   <section class="content">
     <div class="container-fluid">
       <div class="row">
@@ -23,7 +18,7 @@
             <div class="card-header p-2">
               <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab" (click)="update()">Портфолио</a></li>
-                <li class="nav-item"><a class="nav-link" href="#attedances" data-toggle="tab" (click)="update()">Добавить файл портфолио</a></li>
+                <li class="nav-item"><a class="nav-link" href="#attedances" data-toggle="tab" (click)="update()">Справки</a></li>
               </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -63,14 +58,80 @@
                 </div>
                 <div class="active tab-pane" id="activity">
                   <!-- Post -->
-                
+                  <div class="post" *ngFor="let i of portfolios">
+                    <div class="user-block">
+                      <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
+                      <span class="username">
+                        <a href="#">
+                          {{i.PersonFIOconfirmed}}
+                        </a>
+
+
+                        <!--<button type="button" class="btn btn-primary" >    X </button>-->
+                        <!--<a class="float-right btn-tool"></a>-->
+                      </span>
+                      <span class="description">Активность добавлена - {{i.DateAdded}}</span>
+                      <span class="description">Активность подтверждена - {{i.DateConfirmed}}</span>
+                      <span class="description">Активность отклонена - {{i.DateNotConfirmed}}</span>
+                    </div>
+                    <h4>{{i.Name}}</h4>
+                    <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
+                    <p>
+                      {{i.Description}}
+                    </p>
+                    <div class="btn-group btn-group-sm">
+                      <a href="{{Url}}_Resources/portfolios/{{i.FilePath}}" target="_blank" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                      <button class="btn btn-success" value="{{i.IdPortfolio}}" (click)="openDialog($event)"><i class="fas fa-check"></i></button>
+                      <!--<ion-icon name="close-circle-outline"></ion-icon>-->
+                      <button href="#" class="btn btn-danger" value="{{i.IdPortfolio}}" (click)="openDialog2($event)"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
+                    <!--<div class="row no-print">
+      <div class="col-12">
+        <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+
+          <i class="fas fa-download"></i> Скачать файл
+        </button>
+      </div>
+    </div>-->
+                  </div>
+
                   <!-- /.post -->
                   <!-- Post -->
                   <!-- /.post -->
                 </div>
                 <div class="active tab-pane" id="attedances">
                   <!-- Post -->
-               
+                  <div class="post" *ngFor="let i of attedances">
+                    <div class="user-block">
+                      <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
+                      <span class="username">
+                        <a href="#">
+                          {{i.CuratorFIO}}
+                        </a>
+
+
+                        <!--<button type="button" class="btn btn-primary" >    X </button>-->
+                        <!--<a class="float-right btn-tool"></a>-->
+                      </span>
+                      <span class="description">Добавлена - {{i.DateAdded}}</span>
+                      <span class="description">Подтверждена - {{i.DateConfirmed}}</span>
+                      <span class="description">Отклонена - {{i.DateNotConfirmed}}</span>
+                    </div>
+                    <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
+                    <p>
+                      {{i.DocName}}
+                    </p>
+                    <div class="btn-group btn-group-sm">
+                      <a href="{{Url}}_Resources/attedanceReasons/{{i.FilePath}}" target="_blank" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                      <button href="#" class="btn btn-success" value="{{i.IdAttReas}}" (click)="openDialog3($event)"><i class="fas fa-check"></i></button>
+
+                      <button href="#" class="btn btn-danger" value="{{i.IdAttReas}}" (click)="openDialog4($event)"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
+
+                  </div>
+
                   <!-- /.post -->
                   <!-- Post -->
                   <!-- /.post -->

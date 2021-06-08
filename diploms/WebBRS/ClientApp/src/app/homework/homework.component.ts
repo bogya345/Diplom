@@ -12,6 +12,7 @@ export class HomeworkComponent implements OnInit {
   public http: homework_HttpService;
   public baseUrl: string;
   public now: Date;
+  public Url = 'https://localhost:44371/';
   public HW: ClassWork;
   public StudentAnswer: AttedanceForWork;
   public cw: HomeWorksModelView = {
@@ -55,6 +56,10 @@ export class HomeworkComponent implements OnInit {
     //    console.log('error/constructor', error);
     //  }
     //  );
+  }
+  onSelectFile(fileInput: any) {
+    this.StudentAnswer.File = <File>fileInput.target.files[0];
+    console.log('FileAdded  ', this.StudentAnswer);
   }
   postData() {
 
@@ -151,8 +156,14 @@ interface AttedanceForWork {
   IdAtt: number,
   TextDoClassWork: string,
   PersonFIO: string,
+  Email: string,
   FilePath: string,
   BallHW: number,
   Done: string,
-  DatePass: string
+  DatePass: string,
+  File: File
 }
+//interface Profile {
+//  IdPerson: number,
+//  PersonFIO: string
+//}

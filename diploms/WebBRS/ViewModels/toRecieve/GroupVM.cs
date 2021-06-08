@@ -21,6 +21,15 @@ namespace WebBRS.ViewModels.toRecieve
 		public List<AttedancedVM> Attedanced { get; set; } = new List<AttedancedVM>();
 
 	}
+	public class SubjectForGroupVM
+	{
+	public int	IdSFG { get; set; }
+		public int ID_reff { get; set; }
+		public int IdSubject { get; set; }
+		public string  NameSubject { get; set; }
+
+	}
+
 	public class AttedancedVM
 	{
 		public int IdReff { get; set; }

@@ -24,7 +24,15 @@ var attedance_HttpService = /** @class */ (function () {
     };
     attedance_HttpService.prototype.updateCW = function (data) {
         console.log('Дз 2 http', data);
-        return this.http.post(this.url2 + "/UpdateClassWork", data);
+        var formData = new FormData();
+        // optional you can pass a file name as third parameter
+        formData.append('file', data.File);
+        formData.append('TextWork', data.TextWork);
+        formData.append('DatePass', String(data.DatePass));
+        formData.append('IdWT', String(data.IdWT));
+        formData.append('IdClass', String(data.IdClass));
+        formData.append('MaxBall', String(data.MaxBall));
+        return this.http.post(this.url2 + "/UpdateClassWork", formData);
     };
     attedance_HttpService.prototype.postData = function (ExactClass) {
         console.log('нажали ', ExactClass);

@@ -19,6 +19,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AttedanceTableComponent implements OnInit {
   public http: attedanceTable_HttpService;
   public baseUrl: string;
+  public Url = 'https://localhost:44371/';
   public ecflct: ExactClassForLecturerClassTable;
   public selectedGroup: GroupAttedanceTable;
   public now: Date;

@@ -42,6 +42,7 @@ namespace WebBRS.ViewModels.toRecieve
 		public int AttedanceTypeSelected { get; set; }
 		public List<TypeAttedanceVM> Attedanced { get; set; } = new List<TypeAttedanceVM>();
 		public double Ball { get; set; }
+		public double BallHW { get; set; }
 		public HomeWorkStudent HW { get; set; }
 	}
 	public class ExactClassForLecturerClassVM

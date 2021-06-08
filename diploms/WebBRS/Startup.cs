@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using WebBRS.DAL;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace WebBRS
 {
@@ -131,7 +133,11 @@ namespace WebBRS
 			{
 				app.UseSpaStaticFiles();
 			}
-
+			app.UseStaticFiles(new StaticFileOptions()
+			{
+				FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"_Resources")),
+				RequestPath = new PathString("/_Resources")
+			});
 			app.UseRouting();
 			app.UseCors();
 			app.UseAuthentication();

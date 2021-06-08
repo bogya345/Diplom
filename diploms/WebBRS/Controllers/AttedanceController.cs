@@ -66,7 +66,7 @@ namespace WebBRS.Controllers
 				ExactClassVMforTable ex = new ExactClassVMforTable
 				{
 					IdClass = i.IdClass,
-					DateExactClass = i.DateClassStart.ToString("d")
+					DateExactClass = i.DateClassStart.AddYears(-2000).ToString("d")
 				};
 				ecflct.ExactClasses.Add(ex);
 			}
@@ -202,7 +202,7 @@ namespace WebBRS.Controllers
 				classVM.SelectedGroup = Convert.ToInt32(id_group);
 				classVM.IdClass = Convert.ToInt32(IdClass);
 				var kek = CreateAttedances(IdECFLCT, IdClass, sfgReact.IdPerson, sfgReact.IdSubject);
-				classVM.DateTime = exactClass.DateClassStart.ToString("d");
+				classVM.DateTime = exactClass.DateClassStart.AddYears(-2000).ToString("d");
 				List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
 				.GetAll(sgh => sgh.GroupIdGroup == classVM.SelectedGroup && sgh.CourseIdCourse == sfgReact.IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
 				var studentsSorted = from student in studentsGroupHistories
@@ -245,7 +245,12 @@ namespace WebBRS.Controllers
 					groupAttedanceTable.Attedanced[groupAttedanceTable.Attedanced.Count() - 1] = buf;
 					groupAttedanceTable.Attedanced[groupAttedanceTable.Attedanced.FindIndex(g => g.IdTA == groupAttedanceTable.AttedanceTypeSelected)] = buf2;
 					groupAttedanceTable.IdAttedance = attendance.IdAtt;
+					groupAttedanceTable.HW = new HomeWorkStudent();
+
 					groupAttedanceTable.Ball = (double)attendance.Ball;
+					groupAttedanceTable.BallHW = (double)attendance.BallHW;
+					groupAttedanceTable.HW.StringFilePath = attendance.FilePath;
+					groupAttedanceTable.HW.ShortTextHW = attendance.TextDoClassWork;
 					classVM.Students.Add(groupAttedanceTable);
 				}
 				if (classVM.Groups.Count > 2)
@@ -280,6 +285,7 @@ namespace WebBRS.Controllers
 					var att = unit.Attendances.Get(a => a.IdAtt == i.IdAttedance);
 					att.TypeAttedanceIdTA = i.AttedanceTypeSelected;
 					att.Ball = i.Ball;
+					att.BallHW = i.BallHW;
 					unit.Attendances.Update(att);
 					unit.Save();
 				}
@@ -305,6 +311,7 @@ namespace WebBRS.Controllers
 			}
 			return BadRequest(ModelState);
 		}
+		
 		public bool CreateAttedances(string IdECFLCT, string IdClass, int IdPerson, int IdSubject)
 		{
 			ExactClass exactClass = unit.ExactClasses.Get(ec => ec.IdClass.ToString() == IdClass);

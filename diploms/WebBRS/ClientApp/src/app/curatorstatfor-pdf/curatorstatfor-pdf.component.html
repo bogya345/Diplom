@@ -1,0 +1,149 @@
+
+
+  <div class="wrapper" style="padding:30px;">
+    <!-- Main content -->
+    <section class="invoice">
+      <!-- title row -->
+      <div class="row">
+        <div class="col-12">
+          <img src="../../assets/img/AdminLTELogoDark.png"
+               alt="AdminLTE Logo"
+               class="brand-image img-circle elevation-3"
+               style="opacity: .8; height: 120px;">
+          <h2 class="page-header float-right">
+
+
+            <!--<i class="fas fa-globe"></i>--> Электронный журнал<br />
+
+            <small class="float-right">Отчёт куратора по группе</small>
+
+
+          </h2>
+        </div>
+        <!-- /.col -->
+      </div><br /><br /><br />
+      <!-- info row -->
+      <div class="row invoice-info">
+        <div class="col-sm-4 invoice-col">
+          
+          <address>
+            Группа:
+            <strong class=" float-right">  {{ Groups[0].GroupName }}</strong><br>
+            Период:
+            <p class="float-right">
+              {{DateTimeStart | date:'yyyy/MM/dd'}}  -
+              {{DateTimeEnd | date:'yyyy/MM/dd'}}
+            </p>
+            <br />
+            Email: <p class="float-right">
+  info@almasaeedstudio.com
+</p> 
+          </address>
+        </div>
+        <!-- /.col -->
+
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+      <!-- Table row -->
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+  
+                <!-- /.card-header -->
+                <div class="card-body" >
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>ФИО</th>
+                        <!--<th>Сумма баллов</th>-->
+                        <th *ngFor="let j of SelectedGroup.SubjectVMs">{{j.SubjectName}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let j of  SelectedGroup.studentVMs; let n = index">
+                        <td>{{j.PersonFIO}}</td>
+                        <!--<td>{{j.Balls}}</td>-->
+                        <td *ngFor="let k of SelectedGroup.studentVMs[n].Attedanced">
+                          <div>
+                            Б. :     <span _ngcontent-ng-cli-universal-c0="" class="badge badge-success">{{k.Ball}}</span>
+
+                          </div>
+                          <div>
+                            Б. за д/з:    <span _ngcontent-ng-cli-universal-c0="">{{k.BallHW}}</span>
+                          </div>
+                          <div>
+                            Пр. : <span _ngcontent-ng-cli-universal-c0="" class="badge badge-danger"> {{k.attedanced}}</span>
+
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <!--<tfoot>
+                  <tr>
+                    <th>Rendering engine</th>
+                    <th>Browser</th>
+                    <th>Platform(s)</th>
+
+                  </tr>
+                </tfoot>-->
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <div class="row">
+        <!-- accepted payments column -->
+        <div class="col-6">
+          <!--<p class="lead">Payment Methods:</p>
+          <img src="../../dist/img/credit/visa.png" alt="Visa">
+          <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
+          <img src="../../dist/img/credit/american-express.png" alt="American Express">
+          <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
+
+          <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr
+            jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+          </p>-->
+        </div>
+        <!-- /.col -->
+        <div class="col-6">
+          <p class="lead  float-right">Дата/подпись: </p>
+
+          <div class="table-responsive">
+            <table class="table  table-borderless">
+              <tr>
+                <th style="width:50%">Куратор:</th>
+                <td>Щеннинков</td>
+                <td>___________________</td>
+              </tr>
+              <tr>
+                <th>Дата</th>
+                <td>{{DateNow | date:'yyyy-MM-dd'}}</td>
+              </tr>
+              <!--<tr>
+                <th>Shipping:</th>
+                <td>$5.80</td>
+              </tr>
+              <tr>
+                <th>Total:</th>
+                <td>$265.24</td>
+              </tr>-->
+            </table>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- ./wrapper -->
+
+

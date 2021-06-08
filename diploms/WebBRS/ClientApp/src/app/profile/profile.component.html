@@ -52,9 +52,9 @@
                     <li class="list-group-item">
                       <b>% пропусков </b> <a class="float-right">{{profile.NopeAttedanceProc}}</a>
                     </li>
-                    <li class="list-group-item">
+                    <!--<li class="list-group-item">
                       <b>Friends</b> <a class="float-right">13,287</a>
-                    </li>
+                    </li>-->
                   </ul>
                   <a href="/dashboard/timetable" class="btn btn-primary btn-block"><b>Расписание</b></a>
                 </div>
@@ -122,12 +122,11 @@
                           <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
                           <span class="username">
                             <a href="#">
-                              {{i.PersonFIOconfirmed}}
+                           Проверяющий:   {{i.PersonFIOconfirmed}}
                             </a>
 
 
                             <!--<button type="button" class="btn btn-primary" >    X </button>-->
-
                             <!--<a class="float-right btn-tool"></a>-->
                           </span>
                           <span class="description">Активность добавлена - {{i.DateAdded}}</span>
@@ -139,19 +138,20 @@
                         <p>
                           {{i.Description}}
                         </p>
+
                         <div class="btn-group btn-group-sm">
-                          <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                          <button href="#" class="btn btn-danger" value="{{i.IdPortfolio}}" (click)="openDialog($event)"><i  class="fas fa-trash"></i></button>
+                          <a href="{{Url}}_Resources/portfolios/{{i.FilePath}}" target="_blank" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                          <button href="#" class="btn btn-danger" value="{{i.IdPortfolio}}" (click)="openDialog($event)"><i class="fas fa-trash"></i></button>
                         </div>
                         <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
                         <!--<div class="row no-print">
-                          <div class="col-12">
-                            <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                           
-                              <i class="fas fa-download"></i> Скачать файл
-                            </button>
-                          </div>
-                        </div>-->
+    <div class="col-12">
+      <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+
+        <i class="fas fa-download"></i> Скачать файл
+      </button>
+    </div>
+  </div>-->
                       </div>
                       <!-- /.post -->
                       <!-- Post -->
@@ -174,7 +174,19 @@
                                       style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" (change)="doTextareaValueChange($event)">{{portfolioAdd.Description}}</textarea>
                           </div>
                         </div>
-
+                        <div class="form-group">
+                          <label for="exampleInputFile">Файл активности</label>
+                          <div class="input-group">
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="exampleInputFile" (change)="onSelectFile($event)">
+                              <label class="custom-file-label" for="exampleInputFile" *ngIf="portfolioAdd.File!=null">{{portfolioAdd.File.name}}</label>
+                              <label class="custom-file-label" for="exampleInputFile" *ngIf="portfolioAdd.File==null">{{portfolioAdd.FilePath}}</label>
+                            </div>
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="">Загрузить</span>
+                            </div>
+                          </div>
+                        </div>
                         <div class="form-group row">
                           <div class="offset-sm-2 col-sm-10">
                             <button type="submit" class="btn btn-danger" (click)="openDialog2()">Добавить</button>
@@ -189,7 +201,7 @@
                           <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
                           <span class="username">
                             <a href="#">
-                              {{i.CuratorFIO}}
+                              Проверяющий:      {{i.CuratorFIO}}
                             </a>
 
 
@@ -206,7 +218,7 @@
                           {{i.DocName}}
                         </p>
                         <div class="btn-group btn-group-sm">
-                          <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                          <a href="{{Url}}_Resources/attedanceReasons/{{i.FilePath}}" target="_blank" class="btn btn-info"><i class="fas fa-eye"></i></a>
                           <button href="#" class="btn btn-danger"value="{{i.IdAttReas}}" (click)="openDialog4($event)"><i class="fas fa-trash"></i></button>
                         </div>
                         <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
@@ -245,7 +257,19 @@
                           </div>
                         </div>
 
-
+                        <div class="form-group">
+                          <label for="exampleInputFile">Файл документа</label>
+                          <div class="input-group">
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="exampleInputFile" (change)="onSelectFile2($event)">
+                              <label class="custom-file-label" for="exampleInputFile" *ngIf="portfolioAdd.File!=null">{{attedanceReason.File.name}}</label>
+                              <label class="custom-file-label" for="exampleInputFile" *ngIf="portfolioAdd.File==null">{{attedanceReason.FilePath}}</label>
+                            </div>
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="">Загрузить</span>
+                            </div>
+                          </div>
+                        </div>
                         <div class="form-group row">
                           <div class="offset-sm-2 col-sm-10">
                             <button type="submit" class="btn btn-danger" (click)="openDialog3()">Добавить</button>
