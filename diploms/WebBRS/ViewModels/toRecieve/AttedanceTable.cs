@@ -12,6 +12,7 @@ namespace WebBRS.ViewModels.toRecieve
 		public int IdStudent { get; set; }
 		public string PersonFIO { get; set; }
 		public double Balls { get; set; }
+		public int Misses { get; set; }
 		public List<AttedancedVMType> Attedanced { get; set; } = new List<AttedancedVMType>();
 
 	}
@@ -32,6 +33,8 @@ namespace WebBRS.ViewModels.toRecieve
 	{
 		public int IdECFLCT { get; set; }
 		public Lecturer Lecturer { get; set; }
+		public string LecturerFIO { get; set; }
+		public string Date { get; set; }
 
 		public List<ExactClassVMforTable> ExactClasses { get; set; } = new List<ExactClassVMforTable>();
 		public List<StudentTable> Students { get; set; } = new List<StudentTable>();
@@ -45,6 +48,8 @@ namespace WebBRS.ViewModels.toRecieve
 	{
 		public int IdClass { get; set; }
 		public string DateExactClass { get; set; }
+		public string Theme { get; set; }
+		public string ThemeShort { get; set; }
 		//[JsonIgnore]
 		//public virtual List<int> idClasses { get; set; } = new List<int>();
 

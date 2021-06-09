@@ -55,6 +55,7 @@ namespace WebBRS.ViewModels.toRecieve
 		public List<GroupVM> Groups { get; set; } = new List<GroupVM>();
 		public int SelectedGroup { get; set; }
 		public string SubjectName { get; set; }
+		public string Theme { get; set; }
 		public string DateTime { get; set; }
 
 		public List<TypeAttedance> TypeAttedances { get; set; }

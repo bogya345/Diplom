@@ -66,7 +66,7 @@ namespace WebBRS.DAL.Repositories
 
         public override void Update(ExactClass item)
         {
-            throw new NotImplementedException();
+            db.ExactClasses.Update(item);
         }
     }
 }

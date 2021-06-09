@@ -117,6 +117,8 @@ interface ExactClass {
   IdClass: number,
   DateExactClass: string,
   numberClass: number,
+  Theme: string,
+  ThemeShort: string
   //Group: GroupAttedanceTable
 }
 interface AttedancedVMType {

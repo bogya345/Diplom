@@ -113,7 +113,7 @@ namespace WebBRS.Controllers
 			return portfolioVMs;
 		}
 		[HttpGet("GetPortfoliosForConfirm/{conf}/{datestart}/{dateend}")]
-
+		[Authorize(Roles = "curator, lectcurstud, lectcur")]
 		public List<PortfolioVM> GetPortfoliosForConfirm(bool conf, DateTime datestart, DateTime dateend)
 		{
 			List<PortfolioVM> portfolioVMs = new List<PortfolioVM>();

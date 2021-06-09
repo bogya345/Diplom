@@ -60,14 +60,22 @@ namespace WebBRS.Controllers
 		public ExactClassForLecturerClassTable GetAttedanceTable(string ID_reff, string id_selected_group, string actual)
 		{
 			ExactClassForLecturerClassTable ecflct = new ExactClassForLecturerClassTable();
+
 			List<ExactClass> exactClasses = unit.ExactClasses.GetAll(ec => ec.ID_reff.ToString() == ID_reff).ToList();
+			ecflct.LecturerFIO = exactClasses[0].PersonLecturer.PersonFIOShort();
+			ecflct.Date = DateTime.Now.ToString("d");
 			foreach (var i in exactClasses)
 			{
 				ExactClassVMforTable ex = new ExactClassVMforTable
 				{
 					IdClass = i.IdClass,
-					DateExactClass = i.DateClassStart.AddYears(-2000).ToString("d")
+					DateExactClass = i.DateClassStart.AddYears(-1995).ToString("d"),
+					Theme = i.Theme,
 				};
+				if (i.Theme != null)
+				{
+					ex.ThemeShort = i.Theme.Substring(0, 11);
+				}				
 				ecflct.ExactClasses.Add(ex);
 			}
 			ecflct.IdSFG = Convert.ToInt32(ID_reff);
@@ -126,6 +134,10 @@ namespace WebBRS.Controllers
 							{
 								groupAttedanceTable.Balls = (double)item2.Ball + groupAttedanceTable.Balls;
 							};
+							if(item2.TypeAttedanceIdTA == 3)
+							{
+								groupAttedanceTable.Misses += 1;
+							}
 							groupAttedanceTable.Attedanced[i].attedanced = item2.TypeAttedance.TAShortName ;
 							groupAttedanceTable.Attedanced[i].Ball =  item2.Ball.ToString();
 							groupAttedanceTable.Attedanced[i].BallHW =  item2.BallHW.ToString();
@@ -201,8 +213,16 @@ namespace WebBRS.Controllers
 				classVM.SubjectName = sfgReact.Subject.NameSubject;
 				classVM.SelectedGroup = Convert.ToInt32(id_group);
 				classVM.IdClass = Convert.ToInt32(IdClass);
+				if (exactClass.Theme != null)
+				{
+					classVM.Theme = exactClass.Theme;
+				}
+				else
+				{
+					classVM.Theme = "";
+				}
 				var kek = CreateAttedances(IdECFLCT, IdClass, sfgReact.IdPerson, sfgReact.IdSubject);
-				classVM.DateTime = exactClass.DateClassStart.AddYears(-2000).ToString("d");
+				classVM.DateTime = exactClass.DateClassStart.AddYears(-1995).ToString("d");
 				List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
 				.GetAll(sgh => sgh.GroupIdGroup == classVM.SelectedGroup && sgh.CourseIdCourse == sfgReact.IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
 				var studentsSorted = from student in studentsGroupHistories
@@ -280,6 +300,9 @@ namespace WebBRS.Controllers
 			{
 				List<Attendance> attendances = new List<Attendance>();
 				List<TypeAttedanceVM> attVm = new List<TypeAttedanceVM>();
+				var exactclass = unit.ExactClasses.Get(ex => ex.IdClass == data.IdClass);
+				exactclass.Theme = data.Theme;
+				unit.ExactClasses.Update(exactclass);
 				foreach (var i in data.Students)
 				{
 					var att = unit.Attendances.Get(a => a.IdAtt == i.IdAttedance);

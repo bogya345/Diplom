@@ -22,7 +22,8 @@ namespace WebBRS.Models
 		public string? FirstName { get; set; }
 		public string? LastName { get; set; }
 		public string? PatronicName { get; set; }
-		public string? Email { get; set; }
+		public string? Telephone { get; set; }
+		public string Rabota { get; set; }
 		public DateTime? DateTimeReg { get; set; }  
 		public DateTime? BirthDate { get; set; }
 
@@ -33,7 +34,7 @@ namespace WebBRS.Models
 		}
 		public string PersonsEmailUpdate()
 		{
-			return Email;
+			return Telephone;
 		}
 		public string PersonFIOShort()
 		{

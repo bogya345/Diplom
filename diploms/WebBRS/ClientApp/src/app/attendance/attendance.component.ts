@@ -140,6 +140,14 @@ export class AttendanceComponent implements OnInit {
       console.info('could not set textarea-value');
     }
   }
+  doTextareaValueChange2(ev) {
+    try {
+      this.ecflct.Theme = ev.target.value;
+      console.info(this.cw.TextWork);
+    } catch (e) {
+      console.info('could not set textarea-value');
+    }
+  }
   constructor(http: HttpClient, private router: Router, private _route: ActivatedRoute, @Inject('BASE_URL') baseUrl: string, private dialog2: MatDialog, private snackBar2: MatSnackBar) {
     this.http = new attedance_HttpService(http);
     this.baseUrl = baseUrl;
@@ -307,7 +315,8 @@ interface ExactClassForLecturerClass {
   Students: StudentEXC[],
   Groups: GroupVM[],
   SelectedGroup: number,
-  SubjectName: string
+  SubjectName: string,
+  Theme: string,
   DateTime: string
 }
 class TypeAttedanceVM {

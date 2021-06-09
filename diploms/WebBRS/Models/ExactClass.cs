@@ -24,6 +24,7 @@ namespace WebBRS.Models
 		//public int IdDFTT { get; set; }
 		public int DraftTimeTableIdDFTT { get; set; }
 		public int TypeTimeTableidTTT { get; set; }
+		public string? Theme { get; set; }
 		public DraftTimeTable DraftTimeTable { get; set; }
 		public TypeTimeTable TypeTimeTable { get; set; }
 		//public byte ClassNumber { get; set; }

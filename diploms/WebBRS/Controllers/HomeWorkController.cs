@@ -431,6 +431,38 @@ namespace WebBRS.Controllers
 			}
 			return BadRequest(ModelState);
 		}
+		[HttpPost("UpdatExactClass")]
+		public IActionResult UpdatExactClass( AttedanceForWork data)
+		{
+			if (ModelState.IsValid)
+			{
+				string filepath = "	";
+				Random random = new Random();
+				int count = random.Next(0, 1000);
+				if (data.File != null)
+				{
+					filepath = "/_Resources/attedances/" + count.ToString() + data.File.FileName;
+
+				}
+				Attendance att = unit.Attendances.Get(c => c.IdAtt == data.IdAtt);             //cw.IdWT = data.IdWT;
+
+				att.TextDoClassWork = data.TextDoClassWork;
+				att.DatePass = DateTime.Now;
+				if (data.File != null)
+				{
+					using (var fileStream = new FileStream(_appEnvironment.ContentRootPath + filepath, FileMode.Create))
+					{
+						data.File.CopyTo(fileStream);
+					}
+				}
+				att.FilePath = count.ToString() + data.File.FileName;
+				unit.Attendances.Update(att);
+				unit.Save();
+
+				return Ok(data);
+			}
+			return BadRequest(ModelState);
+		}
 		[HttpPost("addMyHW")]
 		public JsonResult AddCW([FromBody] HomeWorksModelView data)
 		{

@@ -22,7 +22,7 @@
           <div class="card card-default">
             <div class="card-header">
               <h3 class="card-title">             <label>Группа</label></h3>
-          
+
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                 <!--<button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>-->
@@ -32,63 +32,85 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-       
+
                     <select class="form-control select2" style="width: 100%;" (change)="selectChangeHandler($event)">
                       <option *ngFor="let i of ecflct.Groups" value="{{i.idGroup}}"> {{i.GroupName}}  </option>
                     </select>
                   </div>
                 </div>
-              </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">{{ ecflct.Groups[0].GroupName }}</h3>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <a href="/statistic/{{ecflct.IdECFLCT}}/{{ecflct.SelectedGroup}}" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Печатать</a>
+                    </div>
+                  </div>
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body"  style="overflow-y: scroll;">
-                  <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th>ФИО</th>
-                        <th>Сумма баллов</th>
-                        <th *ngFor="let j of ecflct.ExactClasses" > <a href="/dashboard/attendance-current/{{ecflct.IdECFLCT}}/{{j.IdClass}}/{{ecflct.SelectedGroup}}" class="nav-link" style="    writing-mode: vertical-lr;">{{j.DateExactClass}}</a></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let j of ecflct.Students; let n = index">
-                        <td >{{j.PersonFIO}}</td>
-                        <td>{{j.Balls}}</td>
-                        <td *ngFor="let k of ecflct.Students[n].Attedanced">
-                          <span _ngcontent-ng-cli-universal-c0="" class="badge badge-success">{{k.Ball}}</span>
-                          <span _ngcontent-ng-cli-universal-c0="" class="badge badge-{{k.Type}}" *ngIf="k.attedanced!=' '">{{k.attedanced}}</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                    <!--<tfoot>
-                      <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
-
-                      </tr>
-                    </tfoot>-->
-                  </table>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <a href="/statisticThemes/{{ecflct.IdECFLCT}}/{{ecflct.SelectedGroup}}" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Печатать тем занятий</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <a href="/statisticAttedance/{{ecflct.IdECFLCT}}/{{ecflct.SelectedGroup}}" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Отчёт по посещаемости</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
- 
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">{{ ecflct.Groups[0].GroupName }}</h3>
+              </div>
+            
+              <!-- /.card-header -->
+              <div class="card-body" style="overflow-y: scroll;">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>ФИО</th>
+                      <th>Сумма баллов</th>
+                      <th *ngFor="let j of ecflct.ExactClasses"> <a href="/dashboard/attendance-current/{{ecflct.IdECFLCT}}/{{j.IdClass}}/{{ecflct.SelectedGroup}}" class="nav-link" style="    writing-mode: vertical-lr;" title="{{j.Theme}}">{{j.DateExactClass}}</a></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr *ngFor="let j of ecflct.Students; let n = index">
+                      <td>{{j.PersonFIO}}</td>
+                      <td>{{j.Balls}}</td>
+                      <td *ngFor="let k of ecflct.Students[n].Attedanced">
+                        <span _ngcontent-ng-cli-universal-c0="" class="badge badge-success">{{k.Ball}}</span>
+                        <span _ngcontent-ng-cli-universal-c0="" class="badge badge-{{k.Type}}" *ngIf="k.attedanced!=' '">{{k.attedanced}}</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td>Темы занятий</td>
+                      <td></td>
+                      <td *ngFor="let s of ecflct.ExactClasses"><p style=" writing-mode: vertical-lr; font-size:12px;">{{s.ThemeShort}}</p></td>
+                    </tr>
+
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </section>
 </div>
 

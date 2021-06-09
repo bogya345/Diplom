@@ -15,6 +15,8 @@ namespace WebBRS.ViewModels.toRecieve
 		public int NopeAttedanceConfirmed { get; set; }
 		public int NopeAttedanceProc { get; set; }
 		public string Group { get; set; }
+		public string Rabota { get; set; }
+		public string Telephone { get; set; }
 		public List<PortfolioVM> Portfolios { get; set; } = new List<PortfolioVM>();
 	}
 	public class PortfolioVM

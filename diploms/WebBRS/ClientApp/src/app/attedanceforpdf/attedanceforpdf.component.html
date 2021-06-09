@@ -1,0 +1,147 @@
+
+<style type="text/css" media="print">
+  .landScape {
+    width: 100%;
+    height: 100%;
+    margin: 0% 0% 0% 0%;
+    filter: progid:DXImageTransform.Microsoft.BasicImage(Rotation=3);
+  }
+</style>
+
+<div class="wrapper landScape" style="padding:30px;">
+  <!-- Main content -->
+  <section class="invoice">
+    <!-- title row -->
+    <div class="row">
+      <div class="col-12">
+        <img src="../../assets/img/AdminLTELogoDark.png"
+             alt="AdminLTE Logo"
+             class="brand-image img-circle elevation-3"
+             style="opacity: .8; height: 120px;">
+
+        <h5 class="page-header float-sm-right">
+
+
+          <!--<i class="fas fa-globe"></i>-->МИНОБРНАУКИ РОССИИ          <br />
+          <small class="float-right">
+            Государственное образовательное учреждение высшего<br /> профессионального образования
+            <br />
+            Ухтинский государственный технический университет
+          </small>
+          <br />
+
+
+
+
+
+        </h5>
+        <br />
+        <br />
+        <h5>Отчёт по предмету</h5>
+      </div>
+      <!-- /.col -->
+    </div><br /><br /><br />
+    <!-- info row -->
+    <div class="row invoice-info">
+      <div class="col-sm-4 invoice-col">
+
+        <address>
+          Группа:
+          <strong class=" float-right">  {{ ecflct.Groups[0].GroupName }}</strong><br>
+          Предмет:
+          <p class="float-right">
+            {{ecflct.SubjectName}}
+          </p>
+          <br />
+          Email: <p class="float-right">
+            info@almasaeedstudio.com
+          </p>
+        </address>
+      </div>
+      <!-- /.col -->
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <!-- Table row -->
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">{{ ecflct.Groups[0].GroupName }}</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>ФИО</th>
+                      <th>Сумма<br /> баллов</th>
+                      <th>Кол-во<br /> Пропусков</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let j of ecflct.Students; let n = index">
+                      <td>{{j.PersonFIO}}</td>
+                      <td>{{j.Balls}}</td>
+                      <td>{{j.Misses}}</td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+      <!-- accepted payments column -->
+      <div class="col-6">
+        <!--<p class="lead">Payment Methods:</p>
+        <img src="../../dist/img/credit/visa.png" alt="Visa">
+        <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
+        <img src="../../dist/img/credit/american-express.png" alt="American Express">
+        <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
+
+        <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+          Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr
+          jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+        </p>-->
+
+      </div>
+      <!-- /.col -->
+      <div class="col-6">
+        <p class="lead  float-right">Дата/подпись: </p>
+
+        <div class="table-responsive">
+          <table class="table  table-borderless">
+            <tr>
+              <th style="width:50%">Преподаватель:</th>
+              <td>{{  ecflct.LecturerFIO}}</td>
+              <td>___________________</td>
+            </tr>
+            <tr>
+              <th>Дата</th>
+              <td>{{ecflct.Date | date:'yyyy-MM-dd'}}</td>
+            </tr>
+            <!--<tr>
+              <th>Shipping:</th>
+              <td>$5.80</td>
+            </tr>
+            <tr>
+              <th>Total:</th>
+              <td>$265.24</td>
+            </tr>-->
+          </table>
+        </div>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>

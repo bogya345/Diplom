@@ -69,6 +69,8 @@ interface ExactClass {
   IdClass: number,
   DateExactClass: string,
   numberClass: number,
+  Theme: string,
+  ThemeShort: string
 }
 interface AttedanceTableRow {
   id: number,

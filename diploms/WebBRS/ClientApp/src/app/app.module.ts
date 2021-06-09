@@ -36,6 +36,10 @@ import { AUTH_API_URL } from './app-injection-tokens';
 import { AuthGuard } from './guards/auth.guard';
 import { CuratorstatforPDFComponent } from './curatorstatfor-pdf/curatorstatfor-pdf.component';
 import { PortfoliocardComponent } from './portfoliocard/portfoliocard.component';
+import { AttedancetableforpdfComponent } from './attedancetableforpdf/attedancetableforpdf.component';
+import { ThemesforpdfComponent } from './themesforpdf/themesforpdf.component';
+import { AttedanceforpdfComponent } from './attedanceforpdf/attedanceforpdf.component';
+import { PrikazCuratorComponent } from './prikaz-curator/prikaz-curator.component';
 ////import { ConfirmDialogComponent } from './yes-no-modal/confirm-dialog.component';
 //import { DialogBodyComponent } from './dialog-body/dialog-body.component';
 
@@ -78,7 +82,11 @@ export function tokenGetter() {
     CuratorConfirmedListComponent,
     CuratorStatisticComponent,
     CuratorstatforPDFComponent,
-    PortfoliocardComponent
+    PortfoliocardComponent,
+    AttedancetableforpdfComponent,
+    ThemesforpdfComponent,
+    AttedanceforpdfComponent,
+    PrikazCuratorComponent
     //ConfirmDialogComponent,
     //DialogBodyComponent
   ],
@@ -127,6 +135,7 @@ export function tokenGetter() {
           { path: 'addhomework', canActivate: [AuthGuard], component: AddHomeworkComponent },
           { path: 'checkhomework', canActivate: [AuthGuard], component: HomeworkListTeacherComponent },
           { path: 'timetableTeacher', canActivate: [AuthGuard], component: TimetableTeacherComponent },
+          { path: 'CuratorGroup', canActivate: [AuthGuard], component: PortfoliocardComponent},
 
 
 
@@ -134,6 +143,15 @@ export function tokenGetter() {
       },
       {
         path: 'statisticCurator/:DateStart/:DateEnd', component: CuratorstatforPDFComponent
+      },
+      {
+        path: 'statistic/:IdECFLCT/:IdselectedGroup', component: AttedancetableforpdfComponent
+      },
+      {
+        path: 'statisticThemes/:IdECFLCT/:IdselectedGroup', component: ThemesforpdfComponent
+      },
+      {
+        path: 'statisticAttedance/:IdECFLCT/:IdselectedGroup', component: AttedanceforpdfComponent
       },
       //{ path: 'login', component: LoginComponentComponent },
       { path: '**', redirectTo: '/dashboard/mainpage', pathMatch: 'full' }

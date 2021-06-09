@@ -105,7 +105,8 @@ interface ExactClassForLecturerClass {
   Students: StudentEXC[],
   Groups: GroupVM[],
   SelectedGroup: number,
-  SubjectName: string
+  SubjectName: string,
+  Theme: string,
   DateTime: string
 }
 interface TypeAttedanceVM {

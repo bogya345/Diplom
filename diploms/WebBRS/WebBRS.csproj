@@ -53,6 +53,7 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\app-injection-tokens.ts" />
     <None Remove="ClientApp\src\app\attedance-table\http.serviceAttedanceTable.ts" />
+    <None Remove="ClientApp\src\app\attedancetableforpdf\http.serviceAttedance.ts" />
     <None Remove="ClientApp\src\app\attendance\http.serviceAttedance.ts" />
     <None Remove="ClientApp\src\app\curator-confirmed-list\http.curatorConfirmedList.ts" />
     <None Remove="ClientApp\src\app\curator-confirmed\http.curatorConfirmed.ts" />

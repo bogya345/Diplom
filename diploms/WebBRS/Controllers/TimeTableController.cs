@@ -43,7 +43,7 @@ namespace WebBRS.Controllers
 			}
 			timeTable.Courses = unit.Courses.GetAll().ToList();
 			DateTime dateChoosen = Convert.ToDateTime(DateTimeExact);
-			dateChoosen = dateChoosen.AddYears(2000);
+			dateChoosen = dateChoosen.AddYears(1995);
 			ClaimsIdentity claimsIdentity;
 			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
 			var yearClaims = claimsIdentity.FindFirst("Name");
@@ -271,7 +271,7 @@ namespace WebBRS.Controllers
 			}
 
 			DateTime dateChoosen = Convert.ToDateTime(DateTimeExact);
-			dateChoosen = dateChoosen.AddYears(2000);
+			dateChoosen = dateChoosen.AddYears(1995);
 			ClaimsIdentity claimsIdentity;
 			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
 			var yearClaims = claimsIdentity.FindFirst("Name");

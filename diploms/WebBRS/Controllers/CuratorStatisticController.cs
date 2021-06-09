@@ -99,7 +99,8 @@ namespace WebBRS.Controllers
 						{
 							if (a.TypeAttedanceIdTA ==3)
 							{
-								att.attedanced += 1;
+
+								att.attedanced += 1;								
 							}
 							if (a.Ball!=null)
 							{
@@ -120,6 +121,86 @@ namespace WebBRS.Controllers
 			}
 			//ChartsDemoEntities DB = new ChartsDemoEntities();
 			return groupVMs;
+		}
+		[Route("GetPortfolioCards")]
+
+		[HttpGet]
+		[Authorize(Roles ="curator, lectcurstud, lectcur")]
+		public List<ProfileVM> GetPortfolioCards()
+		{
+			//изменить авторизация
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			//int IdPerson = user.PersonIdPerson;
+			int curatorPersonId = user.PersonIdPerson;
+			Person person = unit.Persons.Get(p => p.IdPerson == curatorPersonId);
+			List<Curator> curator = unit.Curators.GetAll(c => c.PersonIdPerson == curatorPersonId).ToList();
+
+			List<ProfileVM> profilesVM = new List<ProfileVM>();
+			List<SubjectForGroup> subjectForGroups = unit.SubjectForGroups.GetAll(s => s.IdGroup == curator[0].GroupIdGroup).ToList();
+			List<StudentsGroupHistory> students = unit.StudentGroupHistories
+				.GetAll(sgh => sgh.GroupIdGroup == curator[0].GroupIdGroup
+				&& sgh.ConditionOfPersonIdConditionOfPerson == 1601441643)
+				.ToList();
+			GroupVMStatic groupVM = new GroupVMStatic();
+			groupVM.idGroup = curator[0].GroupIdGroup;
+			groupVM.GroupName = curator[0].Group.GroupName;
+			List<SubjectForGroup> subjects = new List<SubjectForGroup>();
+			foreach (var sfg in subjectForGroups)
+			{
+				ExactClass exactClass = unit.ExactClasses.Get(e => e.ID_reff == sfg.ID_reff);
+				if (exactClass != null)
+				{
+					subjects.Add(sfg);
+				}
+			}
+
+
+			foreach (var s in students)
+			{
+				StudentVM studentVM = new StudentVM();
+				studentVM.IdStudent = s.IdStudent;
+				ProfileVM profileVM = new ProfileVM();
+
+				Person personStudent = unit.Persons.Get(p => p.IdPerson == s.Student.IdPerson);
+				studentVM.IdStudent = s.IdStudent;
+				studentVM.PersonFIO = personStudent.PersonFIOShort();
+				List<Attendance> attendances = unit.Attendances.GetAll(a => a.IdSGH == s.IdSGH).ToList();
+				foreach (var i in attendances)
+				{
+					if (i.TypeAttedanceIdTA == 3)
+					{
+						profileVM.NopeAttedance += 1;
+					};
+					if (i.TypeAttedanceIdTA == 4)
+					{
+						profileVM.NopeAttedanceConfirmed += 1;
+					};
+
+				};
+				studentVM.Attedanced = new List<AttedancedVM>();
+				foreach (var sg in subjects)
+				{
+					AttedancedVM attedancedVM = new AttedancedVM();
+					attedancedVM.IdReff = sg.ID_reff;
+					//attedancedVM.attedanced = sg.ID_reff;
+					studentVM.Attedanced.Add(attedancedVM);
+				};
+				double count = attendances.Count();
+				double procents = (profileVM.NopeAttedance) / count * 100;
+				profileVM.NopeAttedanceProc = Convert.ToInt32(procents);
+				profileVM.Group = s.Group.GroupName;
+				profileVM.Rabota = personStudent.Rabota;
+				profileVM.PersonFIO = personStudent.PersonFIOShort();
+				profileVM.Telephone = personStudent.Telephone;
+				profilesVM.Add(profileVM);
+
+			}
+
+			//ChartsDemoEntities DB = new ChartsDemoEntities();
+			return profilesVM;
 		}
 
 	}
