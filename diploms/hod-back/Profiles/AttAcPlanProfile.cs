@@ -15,7 +15,8 @@ namespace hod_back.Profiles
         public AttAcPlanProfile()
         {
             CreateMap<AttachedAcPlan, AttAcPlanDto>()
-                .ForMember(m => m.fsh_id, opt => opt.MapFrom(m => m.FshId))
+                .ForMember(m => m.fsh_id1, opt => opt.MapFrom(m => m.FshId1))
+                .ForMember(m => m.fsh_id2, opt => opt.MapFrom(m => m.FshId2))
                 .ForAllOtherMembers(m => m.Ignore())
                 ;
 

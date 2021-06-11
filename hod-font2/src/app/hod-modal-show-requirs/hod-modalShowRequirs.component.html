@@ -1,18 +1,57 @@
-<div id="modal-content-wrapper">
+<div style="padding: 10px;" id="modal-content-wrapper">
     <header id="modal-header">
         <h1 id="modal-title">{{selectedDir.Dir_name}}</h1>
     </header>
     <section id="modal-body">
-        <p>Требования ФГОС:</p>
-        <p *ngIf="!selectedDir; else elseBlock_dirs"><em>Загрузка требований...</em></p>
+        <h2><i>Требования ФГОС:</i></h2>
+        <p *ngIf="!requirs; else elseBlock_dirs"><em>Загрузка требований...</em></p>
         <ng-template #elseBlock_dirs>
 
-            <p *ngIf="selectedDir.Requirs.length == 0; else elseBlock_dirs"><em>Список требований пуст.</em></p>
+            <h3>Пункт <b>4.4.3</b></h3>
+            <p>ППС соответсвующие профилю (необходимо 60%)</p>
+            <section class="example-section">
+                <mat-progress-bar class="example-margin"
+                    [color]="getColorForRequirs1()" [mode]="mode"
+                    [value]="71">
+                </mat-progress-bar>
+                <!-- <p><i><b>{{getDirStatus722Full()}} / 100 % ({{getMark722Full()}})</b></i></p> -->
+                <!-- <p><i><b>63.82 / 100 %</b></i></p> -->
+                <p><i><b>71.36 / 100 %</b></i></p>
+            </section>
+
+            <hr>
+
+            <h3>Пункт <b>4.4.4</b></h3>
+            <p>Из числа работников организации (необходимо 5%)</p>
+            <section class="example-section">
+                <mat-progress-bar class="example-margin"
+                    [color]="getColorForRequirs3()" [mode]="mode"
+                    [value]="getDirStatus724Full()">
+                </mat-progress-bar>
+                <!-- <p><i><b>{{getDirStatus724Full()}} / 100 % ({{getMark724Full()}})</b></i></p> -->
+                <p><i><b>{{getDirStatus724Full()}} / 100 %</b></i></p>
+                <!-- <p><i><b>3.46 / 100 %</b></i></p> -->
+            </section>
+
+            <hr>
+
+            <h3>Пункт <b>4.4.5</b></h3>
+            <p>Остепененные (необходимо 50%)</p>
+            <section class="example-section">
+                <mat-progress-bar class="example-margin"
+                    [color]="getColorForRequirs2()" [mode]="mode"
+                    [value]="getDirStatus723Full()">
+                </mat-progress-bar>
+                <!-- <p><i><b>{{getDirStatus723Full()}} / 100 % ({{getMark723Full()}})</b></i></p> -->
+                <p><i><b>{{getDirStatus723Full()}} / 100 %</b></i></p>
+            </section>
+
+            <!-- <p *ngIf="selectedDir.Requirs.length == 0; else elseBlock_dirs"><em>Загрузка требований...</em></p>
             <ng-template #elseBlock_dirs>
                 <ul>
                     <li *ngFor="let i of selectedDir.Requirs">{{i.Fgos_num}} = {{i.SettedValue}} {{i.Unit_name}}</li>
                 </ul>
-            </ng-template>
+            </ng-template> -->
 
         </ng-template>
 
@@ -23,5 +62,7 @@
         <!-- <button mat-raised-button id="modal-action-button" (click)="actionFunction()">Logout</button> -->
         <button mat-raised-button id="btn btn-info" (click)="closeModal()">Вернутся</button>
     </footer>
+    <br>
+    <hr>
 </div>
 <!-- https://teamtreehouse.com/community/why-is-it-common-practice-to-wrap-everything-within-the-body-tag-with-a-div-tag -->

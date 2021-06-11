@@ -122,11 +122,21 @@ namespace hod_back.Controllers
         }
 
         [HttpPost("post/promote/{attAcPl_id}")]
-        public AttAcPlanDto PostPromotedTeacher([FromRoute] int attAcPl_id, [FromForm] int fsh_id)
+        public AttAcPlanDto PostPromotedTeacher([FromRoute] int attAcPl_id, [FromForm] int[] fsh_id)
         {
-            var tmp = _unit.AttAcPlans.GetOrDefaultAsync(x => x.AttAcPlId == attAcPl_id).Result;
-            tmp.FshId = fsh_id;
-            _unit.AttAcPlans.Update(tmp);
+            AttachedAcPlan tmp = _unit.AttAcPlans.GetOrDefaultAsync(x => x.AttAcPlId == attAcPl_id).Result;
+
+            if (fsh_id.Length == 1)
+            {
+                tmp.FshId1 = fsh_id[0];
+                _unit.AttAcPlans.Update(tmp);
+            }
+            else
+            {
+                tmp.FshId1 = fsh_id[0];
+                tmp.FshId2 = fsh_id[1];
+                _unit.AttAcPlans.Update(tmp);
+            }
 
             var res = _mapper.Map<AttAcPlanDto>(tmp);
             return res;
@@ -138,19 +148,43 @@ namespace hod_back.Controllers
         /// <param name="acPl_id"></param>
         /// <param name="group_id"></param>
         /// <returns>Дисциплины по группе</returns>
-        [HttpGet("get/{acPl_id}/{group_id}")]
-        public async Task<BlockNumDto[]> GetFullAttAcPlan([FromRoute] int acPl_id, [FromRoute] int group_id)
+        [HttpGet("get/{acPl_id}/all")]
+        public async Task<SubjectDto[]> GetFullAttAcPlan([FromRoute] int acPl_id)
         {
-            var tmp = (await _unit.BlockNums.GetManyWithIncludeAsync(x => x.BlockNumId != 0)).ToList();
-            //var tmp2 = _unit.TeacherDeps.GetOrDefault(x => x.)
+            var blockRecs = _unit.BlockRecs.GetManyWithIncludeAsync(x => x.AcPlId == acPl_id).Result.OrderBy(x => x.Sub.SubName);
 
-            var res = from i in tmp
-                      select new BlockNumDto()
-                      {
-                          BlockNumId = i.BlockNumId,
-                          BlockName = i.BlockNumName,
-                          Subjects = i.BlockRecs.TransformToSubjectDtoArray(acPl_id, group_id)
-                      };
+            List<SubjectDto> res = new List<SubjectDto>();
+
+            foreach (var i in blockRecs)
+            {
+                if (i.AttachedAcPlans.Count() == 0) { continue; }
+                var tmp2 = i.AttachedAcPlans.TransformToLoadDtoArray().OrderBy(x => x.SubTypeId).ToArray();
+                var kek = new SubjectDto()
+                {
+                    SemestrNum = i.SemestrNum,
+                    CorrespDep = i.Sub.AcPlDep.Dep.TransformToDepsDto(),
+                    Mark = i.AttachedAcPlans.GetMark(),
+                    SubjectName = i.Sub.SubName,
+                    Loads = tmp2
+                };
+                res.Add(kek);
+            }
+
+            //var res = blockRecs.
+
+
+            //var t = (await _unit.AttAcPlans.GetManyWithIncludeAsync(x => x.BlockRec.AcPlId == acPl_id));
+
+            //var tmp = (await _unit.BlockNums.GetManyWithIncludeAsync(x => x.BlockNumId != 0)).ToList();
+            ////var tmp2 = _unit.TeacherDeps.GetOrDefault(x => x.)
+
+            //var res = from i in tmp
+            //          select new BlockNumDto()
+            //          {
+            //              BlockNumId = i.BlockNumId,
+            //              BlockName = i.BlockNumName,
+            //              Subjects = i.BlockRecs.TransformToSubjectDtoArray(acPl_id, group_id)
+            //          };
 
             return res.ToArray();
         }
@@ -172,7 +206,7 @@ namespace hod_back.Controllers
                       {
                           BlockNumId = i.BlockNumId,
                           BlockName = i.BlockNumName,
-                          Subjects = i.BlockRecs.TransformToSubjectDtoArray(acPl_id, group_id)
+                          Subjects = i.BlockRecs.TransformToSubjectDtoArrayWithGroup(acPl_id, group_id)
                       };
 
             return res.ToArray();
@@ -193,6 +227,8 @@ namespace hod_back.Controllers
 
             //try
             //{
+
+            dep_id = 1; 
 
             if (model.file == null)
                 return Json("LOX");

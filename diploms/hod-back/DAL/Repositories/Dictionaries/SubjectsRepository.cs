@@ -33,6 +33,21 @@ namespace hod_back.DAL.Repositories
         {
             return db.Subjects.Where(func);
         }
+        public async override Task<IEnumerable<Subject>> GetManyAsync(Func<Subject, bool> func)
+        {
+            mark:
+            try
+            {
+                return db.Subjects
+                    .Include(x => x.AcPlDep)
+                    .Where(func).ToList();
+            }
+            catch(InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
+        }
 
         public override IEnumerable<Subject> GetManyWithInclude(Func<Subject, bool> func)
         {

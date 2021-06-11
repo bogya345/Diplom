@@ -56,12 +56,9 @@ export class HodAcplanComponent implements OnInit {
   @ViewChild('') accordion: MatAccordion;
 
   @Input() direction: Direction;
-  @Input() group: Group;
 
   dataSource_subjects: any;
   displayedColumns_subjects: string[] = ['SubjectName'];
-
-  dataSource_loads: any;
 
   expandedElement: Subject | null;
 
@@ -73,6 +70,7 @@ export class HodAcplanComponent implements OnInit {
   public blockRecs: BlockRec[];
   // public acPlan: AcPlan;
   public acPlan: BlockNum[];
+  public subjects: Subject[];
 
   private submittedTeacher: any;
 
@@ -113,12 +111,13 @@ export class HodAcplanComponent implements OnInit {
     console.log('changed: user is ', this._user);
 
     console.log(this.direction);
-    console.log(this.group);
 
-    this._httpOwn.getBlockNums(this.direction.AcPl_id, this.group.Group_id)
+    this._httpOwn.getSubjects(this.direction.AcPl_id)
       .subscribe(result => {
-        this.acPlan = result
-        console.log(this.acPlan);
+        this.subjects = result;
+        // this.dataSource_subjects = this.subjects;
+        this.dataSource_subjects = new MatTableDataSource(this.subjects);
+        console.log(this.subjects);
         // this.snack.openSnackBarWithMsg('Учебный план был загружен и обработан.');
       });
 
@@ -131,9 +130,11 @@ export class HodAcplanComponent implements OnInit {
 
     console.log('variables changes');
     console.log(this.blockRecs);
+
+    this.snack.openSnackBarFull('Загрузка дисциплин...', 'center', 'right', 1000);
   }
 
-  openModal(direction, group, acPlan, subject, item) {
+  openModal(direction, acPlan, subject, item) {
     let isUnmapped = false;
     if (
       !((this.isAdmin || this.isYmy) && !(this.isAdmin && this.isYmy))
@@ -162,7 +163,6 @@ export class HodAcplanComponent implements OnInit {
       isUnmappedSubject: isUnmapped,
       subjectDepId: !isUnmapped ? subject.CorrespDep.Dep_id : null,
       selectedDir: direction,
-      selectedGroup: group,
       selectedAcPl: acPlan,
       selectedSubject: subject,
       selectedAttRec: item
@@ -173,7 +173,6 @@ export class HodAcplanComponent implements OnInit {
     modalDialog.componentInstance.isUnmappedSubject = isUnmapped;
     modalDialog.componentInstance.subjectDepId = subject.CorrespDep.Dep_id;
     modalDialog.componentInstance.selectedDir = direction;
-    modalDialog.componentInstance.selectedGroup = group;
     modalDialog.componentInstance.selectedAcPl = acPlan;
     modalDialog.componentInstance.selectedSubject = subject;
     modalDialog.componentInstance.selectedAttRec = item;
@@ -184,49 +183,19 @@ export class HodAcplanComponent implements OnInit {
       // this.submittedTeacher = result;
 
       this.selectedSubject.Loads.forEach(x => {
-        x.AtAcPlId == item.AtAcPlId ? x.FshId = result.fsh_id : x.FshId = x.FshId;
-        x.AtAcPlId == item.AtAcPlId ? x.TeachName = result.teacherName : x.TeachName = x.TeachName;
+        x.AtAcPlId == item.AtAcPlId ? x.FshId1 = result.fsh_id1 : x.FshId1 = x.FshId1;
+        x.AtAcPlId == item.AtAcPlId ? x.TeachName1 = result.teacherName1 : x.TeachName1 = x.TeachName1;
       });
       console.log('lol, i did it');
 
     });
-
-    // this.matDialog.
-
-    // this.matDialog.afterAllClosed.toPromise() .subscribe(result => {
-    //   console.log(result);
-    //   console.log('in close event, lol');
-
-    //   if(result != undefined && result.fsh_id != undefined)
-    //   {
-    //     this.selectedSubject.loads.forEach(x => {
-    //       x.atAcPlId == item.atAcPlId ? x.fshId = res.fsh_id : x.fshId = x.fshId;
-    //       x.atAcPlId == item.atAcPlId ? x.teachName = res.teacherName : x.teachName = x.teachName;
-    //     });
-    //     console.log('lol, i did it');
-    //   }
-
-    //   setTimeout(() => {
-    //     console.log('time is up');
-    //     function findSelectedItem(value) {
-    //       if (item.atAcPlId == value.atAcPlId) { return true; }
-    //       return false;
-    //     }
-
-    //     let res = this.share.getUpdateAttAcPlan();
-    //     console.log('result ==', res);
-    //     if (res) {
-    //       // this.selectedSubject.loads.filter(findSelectedItem)
-
-    //     }
-    //   }, 2000);
-    // });
-
   }
 
   applyFilter(event: Event) {
+    console.log(event);
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource_subjects.filter = filterValue.trim().toLowerCase();
+    console.log(this.dataSource_subjects.filter);
   }
 
   public subjectClicked(item) {
@@ -246,7 +215,8 @@ export class HodAcplanComponent implements OnInit {
     console.log(item);
     this.selectedBlockNum = item;
     // this.pathString = `::/${item.dir_name}`;
-    this.dataSource_subjects = new MatTableDataSource(this.selectedBlockNum.Subjects);
+    // this.dataSource_subjects = new MatTableDataSource(this.selectedBlockNum.Subjects);
+    this.dataSource_subjects = new MatTableDataSource(this.subjects);
     this.selectedIndex_plan = 2;
     console.log(item);
     console.log(this.selectedBlockNum);

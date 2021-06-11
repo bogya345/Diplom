@@ -24,6 +24,8 @@ namespace hod_back.Model
         public int FsId { get; set; }
         [Column("workT_id")]
         public int? WorkTId { get; set; }
+        [Column("applyT_id")]
+        public int? ApplyTId { get; set; }
         [Column("workT_name")]
         [StringLength(100)]
         public string WorkTName { get; set; }
@@ -31,6 +33,9 @@ namespace hod_back.Model
         public int? DepId { get; set; }
         [Column("post_id")]
         public int? PostId { get; set; }
+        [Column("post_name")]
+        [StringLength(100)]
+        public string PostName { get; set; }
         [Column("fsh_id")]
         public int FshId { get; set; }
         public float? StaffCount { get; set; }

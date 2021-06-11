@@ -37,7 +37,7 @@ namespace hod_back.Controllers
         }
 
         /// <summary>
-        /// Получить все кафедры с информацией
+        /// Получить нагрузку кафедры
         /// </summary>
         /// <returns></returns>
         [Authorize(Roles = "препод,завед,админ,уму")]
@@ -62,7 +62,7 @@ namespace hod_back.Controllers
 
             Excel_Load ex = new Excel_Load(newPath + @$"\Кафедральная нагрузка {Dep.DepShortname}.xlsx", dep_id, _unit);
             // 'D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\ExcelPattern_Property.xlsx'."
-            var res = ex.CreateAndFillTempFile();
+            var res = ex.CreateAndFillTempFile  ();
 
             return new CommonResponseDto(true, res, "Кафедральная нагрузка.");
         }

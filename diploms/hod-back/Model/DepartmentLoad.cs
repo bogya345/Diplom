@@ -50,9 +50,15 @@ namespace hod_back.Model
         public int? EBrId { get; set; }
         [Column("eForm_id")]
         public int? EFormId { get; set; }
+        [Column("startYear")]
+        [StringLength(4)]
+        public string StartYear { get; set; }
         [Column("eBr_name")]
         [StringLength(100)]
         public string EBrName { get; set; }
+        [Column("eBr_shortname")]
+        [StringLength(50)]
+        public string EBrShortname { get; set; }
         [Column("eForm_name")]
         [StringLength(100)]
         public string EFormName { get; set; }

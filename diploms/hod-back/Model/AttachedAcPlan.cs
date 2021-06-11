@@ -21,15 +21,20 @@ namespace hod_back.Model
         public int? SubTId { get; set; }
         [Column("hourValue")]
         public float? HourValue { get; set; }
-        [Column("fsh_id")]
-        public int? FshId { get; set; }
+        [Column("fsh_id1")]
+        public int? FshId1 { get; set; }
+        [Column("fsh_id2")]
+        public int? FshId2 { get; set; }
 
         [ForeignKey(nameof(BlockRecId))]
         [InverseProperty("AttachedAcPlans")]
         public virtual BlockRec BlockRec { get; set; }
-        [ForeignKey(nameof(FshId))]
-        [InverseProperty(nameof(FactStaffsHistory.AttachedAcPlans))]
-        public virtual FactStaffsHistory Fsh { get; set; }
+        [ForeignKey(nameof(FshId1))]
+        [InverseProperty(nameof(FactStaffsHistory.AttachedAcPlanFshId1Navigations))]
+        public virtual FactStaffsHistory FshId1Navigation { get; set; }
+        [ForeignKey(nameof(FshId2))]
+        [InverseProperty(nameof(FactStaffsHistory.AttachedAcPlanFshId2Navigations))]
+        public virtual FactStaffsHistory FshId2Navigation { get; set; }
         [ForeignKey(nameof(GroupId))]
         [InverseProperty("AttachedAcPlans")]
         public virtual Group Group { get; set; }

@@ -13,7 +13,8 @@ namespace hod_back.Model
     {
         public FactStaffsHistory()
         {
-            AttachedAcPlans = new HashSet<AttachedAcPlan>();
+            AttachedAcPlanFshId1Navigations = new HashSet<AttachedAcPlan>();
+            AttachedAcPlanFshId2Navigations = new HashSet<AttachedAcPlan>();
         }
 
         [Key]
@@ -33,7 +34,9 @@ namespace hod_back.Model
         [ForeignKey(nameof(WorkTId))]
         [InverseProperty(nameof(WorkType.FactStaffsHistories))]
         public virtual WorkType WorkT { get; set; }
-        [InverseProperty(nameof(AttachedAcPlan.Fsh))]
-        public virtual ICollection<AttachedAcPlan> AttachedAcPlans { get; set; }
+        [InverseProperty(nameof(AttachedAcPlan.FshId1Navigation))]
+        public virtual ICollection<AttachedAcPlan> AttachedAcPlanFshId1Navigations { get; set; }
+        [InverseProperty(nameof(AttachedAcPlan.FshId2Navigation))]
+        public virtual ICollection<AttachedAcPlan> AttachedAcPlanFshId2Navigations { get; set; }
     }
 }

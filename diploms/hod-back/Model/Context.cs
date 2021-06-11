@@ -119,10 +119,15 @@ namespace hod_back.Model
                     .HasForeignKey(d => d.BlockRecId)
                     .HasConstraintName("BlockRecs_blockRec");
 
-                entity.HasOne(d => d.Fsh)
-                    .WithMany(p => p.AttachedAcPlans)
-                    .HasForeignKey(d => d.FshId)
+                entity.HasOne(d => d.FshId1Navigation)
+                    .WithMany(p => p.AttachedAcPlanFshId1Navigations)
+                    .HasForeignKey(d => d.FshId1)
                     .HasConstraintName("BlockRecs_factStaffsHistory");
+
+                entity.HasOne(d => d.FshId2Navigation)
+                    .WithMany(p => p.AttachedAcPlanFshId2Navigations)
+                    .HasForeignKey(d => d.FshId2)
+                    .HasConstraintName("BlockRecs_factStaffsHistory2");
 
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.AttachedAcPlans)
@@ -206,6 +211,8 @@ namespace hod_back.Model
             modelBuilder.Entity<DepartmentLoad>(entity =>
             {
                 entity.ToView("DepartmentLoads");
+
+                entity.Property(e => e.StartYear).IsUnicode(false);
             });
 
             modelBuilder.Entity<DepsInfo>(entity =>

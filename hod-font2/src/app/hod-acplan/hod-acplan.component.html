@@ -5,9 +5,9 @@
   <mat-tab-group mat-align-tabs=" start" [(selectedIndex)]="selectedIndex_plan">
     <!-- #enddocregion align-start -->
 
-    <mat-tab label="Блоки">
+    <!-- <mat-tab label="Блоки">
       <div class="row">
-        <p *ngIf="!acPlan; else elseBlock_blockNums"><em>Загрузка блоков учебного плана...</em></p>
+        <p *ngIf="!subjects; else elseBlock_blockNums"><em>Загрузка блоков учебного плана...</em></p>
         <ng-template #elseBlock_blockNums>
           <table class='table table-striped groupstable' aria-labelledby="tableLabel" *ngIf="acPlan">
 
@@ -20,7 +20,7 @@
               </tr>
             </thead>
 
-            <tr *ngFor="let item of acPlan">
+            <tr *ngFor="let item of subjects">
               <td></td>
               <td>{{ item.BlockName }}</td>
               <td></td>
@@ -30,13 +30,19 @@
           </table>
         </ng-template>
       </div>
-    </mat-tab>
+    </mat-tab> -->
 
-    <mat-tab label="Дисциплины" [disabled]="(selectedBlockNum==null)">
-      <div class="row">
+    <mat-tab label="Дисциплины">
+      <div style="margin-left: 1px; margin-top: 5px;" class="row">
 
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+        <div class="col-1" style="margin-top: 5px;">
+          <mat-label>Поиск по дисциплине: </mat-label>
+        </div>
+        <div class="col-11">
+          <input matInput (keyup)="applyFilter($event)" placeholder="Например, математика" #input>
+        </div>
+
+        <!-- <div *ngIf="!dataSource_subjects">Загрузка дисциплин...</div> -->
 
         <table mat-table [dataSource]="dataSource_subjects" class="mat-elevation-z8" multiTemplateDataRows>
 
@@ -72,19 +78,19 @@
                           <h3 class="card-title">{{i.SubTypeName}} Часы:<b>{{i.LoadValue}}</b></h3>
                           <p class="card-text mb-2 text-muted">
                             Преподаватель:
-                            <i>{{i.FshId == null ? '<не назначен>' : i.TeachName}}</i>
+                            <i>{{i.FshId1 == null ? '<не назначен>' : i.TeachName1}}</i>
                           </p>
 
                           <div
                             *ngIf="selectedSubject.CorrespDep == null || selectedSubject.CorrespDep.Dep_id == null; else elseBlock_info">
-                            <button class="btn btn-warning" (click)="openModal( direction, group, acPlan, element, i )">
+                            <button class="btn btn-warning" (click)="openModal( direction, acPlan, element, i )">
                               Назначить
                             </button>
                           </div>
                           <ng-template #elseBlock_info>
                             <button
                               *ngIf="(_userDepId != null && _userDepId == selectedSubject.CorrespDep.Dep_id) || isAdmin || isYmy"
-                              class="btn btn-info" (click)="openModal( direction, group, acPlan, element, i )">
+                              class="btn btn-info" (click)="openModal( direction, acPlan, element, i )">
                               Назначить
                             </button>
                           </ng-template>
@@ -120,7 +126,7 @@
 
           <!-- Row shown when there is no matching data. -->
           <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            <td class="mat-cell" colspan="4">Не найдено подходящих дисциплин по запросу: "{{input.value}}"</td>
           </tr>
 
         </table>

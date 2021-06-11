@@ -15,8 +15,10 @@ using hod_back.Model;
 using AutoMapper;
 using hod_back.Dto;
 using hod_back.Services.Excel;
+using hod_back.Extentions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
+using hod_back.Services.Analyse;
 
 namespace hod_back.Controllers
 {
@@ -121,6 +123,50 @@ namespace hod_back.Controllers
         //    //    "report.xlsx");
         //}
         #endregion
+
+        [Authorize(Roles = "препод,завед,админ")]
+        [AllowAnonymous]
+        [HttpGet("get/all/{dep_id}")]
+        public IEnumerable<DirectionDto> GetAllDirs([FromRoute] int dep_id)
+        {
+            List<int> list = new List<int>() { 11016, 21017, 21020, 21021, 31020, 31021, 31022, 31023, 31024, 31025, 31026 };
+            var res = _unit.Directions.GetManyAsync(x => list.Contains(x.DirId)).Result.Select(x => new DirectionDto()
+            {
+                Dep_id = x.DepId,
+                Dir_id = x.DirId,
+                Dir_name = x.EBr.EBrName,
+                AcPl_id = x.AcPlId,
+                StartYear = x.StartYear,
+                Highlight = x.HighlightNum(_unit),
+                Status_pps = x.GetDirStatusPPS(x.DirId, _unit, dep_id),
+                Status = x.GetDirStatus(x.DirId, _unit, dep_id),
+                Requirs = _unit.DirRequirs.GetMany(y => y.DirId == x.DirId).Select(z => new DirRequirDto()
+                {
+                    Fgos_num = z.FgosNum,
+                    SettedValue = z.SettedValue,
+                    Unit_name = z.UnitName
+                }).ToArray(),
+                Groups = _unit.DirGroups.GetMany(y => y.DirId == x.DirId).Select(z => new GroupDto()
+                {
+                    Group_id = z.GroupId,
+                    Group_name = z.GroupName,
+                    CreatedDate = z.DateCreate.Value.Year.ToString(),
+                    ExitDate = z.DateExit.Value.Year.ToString()
+                    //group_acPlan_id = z.AcPlId
+                }).ToArray()
+            });
+
+            foreach(var i in res)
+            {
+                if((i.Status.Status_up != i.Status.Status_down) || i.Status.Status_down == 0)
+                {
+                    i.Highlight = -1;
+                    continue;
+                }
+            }
+
+            return res;
+        }
 
         [Authorize(Roles = "препод,завед,админ")]
         [HttpGet("get/property-doc/{dir_id}")]

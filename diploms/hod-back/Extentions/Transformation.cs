@@ -38,7 +38,7 @@ namespace hod_back.Extentions
             LoadDto res = new LoadDto()
             {
                 AtAcPlId = item.AttAcPlId,
-                FshId = item.FshId,
+                FshId = item.FshId1,
                 //teachName = $"{item.Fsh.Fs.Emp.LastName} {item.Fsh.Fs.Emp.FirstName} {item.Fsh.Fs.Emp.MiddleName}",
                 LoadValue = (double)item.HourValue,
                 SemNum = SemNum,
@@ -58,8 +58,41 @@ namespace hod_back.Extentions
             };
             return res;
         }
+        public static SubjectDto[] TransformToSubjectDtoArray(this BlockRec item, int acPl_id)
+        {
+            var res = new List<SubjectDto>();
+            foreach (var i in item.AttachedAcPlans)
+            {
+                var kek = new SubjectDto()
+                {
+                    SemestrNum = item.SemestrNum,
+                    CorrespDep = item.Sub.AcPlDep.Dep.TransformToDepsDto(),
+                    Mark = item.AttachedAcPlans.GetMark(),
+                    SubjectName = item.Sub.SubName,
+                    Loads = i.TransformToLoadDtoArraySingle()
+                };
+            }
+            return res.ToArray();
+        }
+        public static LoadDto[] TransformToLoadDtoArraySingle(this AttachedAcPlan item)
+        {
+            List<LoadDto> res = new List<LoadDto>();
+            res.Add(new LoadDto()
+            {
+                AtAcPlId = item.AttAcPlId,
+                FshId1 = item.FshId1,
+                FshId2 = item.FshId2,
+                TeachName1 = item.FshId1Navigation == null ? "" : $"{item.FshId1Navigation.Fs.Emp.LastName} {item.FshId1Navigation.Fs.Emp.FirstName} {item.FshId1Navigation.Fs.Emp.MiddleName}",
+                TeachName2 = item.FshId2Navigation == null ? "" : $"{item.FshId2Navigation.Fs.Emp.LastName} {item.FshId2Navigation.Fs.Emp.FirstName} {item.FshId2Navigation.Fs.Emp.MiddleName}",
+                LoadValue = (double)item.HourValue,
+                SemNum = item.BlockRec.SemestrNum,
+                SubTypeName = item.SubT.SubTName,
+            });
+            return res.ToArray();
+        }
 
-        public static SubjectDto[] TransformToSubjectDtoArray(this ICollection<BlockRec> items, int acPl_id, int group_id)
+
+        public static SubjectDto[] TransformToSubjectDtoArrayWithGroup(this ICollection<BlockRec> items, int acPl_id, int group_id)
         {
             items = items.Where(x => x.AcPlId == acPl_id).ToList();
 
@@ -74,15 +107,15 @@ namespace hod_back.Extentions
                         SubjectName = i.Sub.SubName,
                         CorrespDep = i.Sub.AcPlDep.Dep.TransformToDepsDto(),
                         SemestrNum = i.SemestrNum,
-                        Loads = i.AttachedAcPlans.TransformToLoadDtoArray(group_id),
-                        Mark = i.AttachedAcPlans.GetMark(group_id),
+                        Loads = i.AttachedAcPlans.TransformToLoadDtoArrayWithGroup(group_id),
+                        Mark = i.AttachedAcPlans.GetMarkWithGroup(group_id),
                     });
                 }
             }
 
             return res.ToArray();
         }
-        public static LoadDto[] TransformToLoadDtoArray(this IEnumerable<AttachedAcPlan> items, int group_id)
+        public static LoadDto[] TransformToLoadDtoArrayWithGroup(this IEnumerable<AttachedAcPlan> items, int group_id)
         {
             items = items.Where(x => x.GroupId == group_id).ToList();
 
@@ -93,8 +126,8 @@ namespace hod_back.Extentions
                 res.Add(new LoadDto()
                 {
                     AtAcPlId = item.AttAcPlId,
-                    FshId = item.FshId,
-                    TeachName = item.Fsh == null ? "" : $"{item.Fsh.Fs.Emp.LastName} {item.Fsh.Fs.Emp.FirstName} {item.Fsh.Fs.Emp.MiddleName}",
+                    FshId = item.FshId1,
+                    TeachName = item.FshId1Navigation == null ? "" : $"{item.FshId1Navigation.Fs.Emp.LastName} {item.FshId1Navigation.Fs.Emp.FirstName} {item.FshId1Navigation.Fs.Emp.MiddleName}",
                     LoadValue = (double)item.HourValue,
                     SemNum = item.BlockRec.SemestrNum,
                     SubTypeName = item.SubT.SubTName,
@@ -103,13 +136,46 @@ namespace hod_back.Extentions
 
             return res.ToArray();
         }
-        public static string GetMark(this IEnumerable<AttachedAcPlan> items, int group_id)
+        public static LoadDto[] TransformToLoadDtoArray(this IEnumerable<AttachedAcPlan> items)
+        {
+            List<LoadDto> res = new List<LoadDto>();
+            foreach (var item in items)
+            {
+                if (!StaticsData.ignore_load.Contains(item.SubTId))
+                {
+                    res.Add(new LoadDto()
+                    {
+                        AtAcPlId = item.AttAcPlId,
+                        FshId1 = item.FshId1,
+                        FshId2 = item.FshId2,
+                        TeachName1 = item.FshId1Navigation == null ? "" : $"{item.FshId1Navigation.Fs.Emp.LastName} {item.FshId1Navigation.Fs.Emp.FirstName} {item.FshId1Navigation.Fs.Emp.MiddleName}",
+                        TeachName2 = item.FshId2Navigation == null ? "" : $"{item.FshId2Navigation.Fs.Emp.LastName} {item.FshId2Navigation.Fs.Emp.FirstName} {item.FshId2Navigation.Fs.Emp.MiddleName}",
+                        LoadValue = (double)item.HourValue,
+                        SemNum = item.BlockRec.SemestrNum,
+                        SubTypeName = item.SubT.SubTName,
+                        SubTypeId = item.SubTId.Value
+                    });
+                }
+            }
+            return res.ToArray();
+        }
+        public static string GetMark(this IEnumerable<AttachedAcPlan> items)
+        {
+            string res = "";
+
+            items = items.ToList().Where(x => !StaticsData.ignore_load.Contains(x.SubTId));
+
+            res = $"{items.Count(x => x.FshId1 != null)}/{items.Count()}";
+
+            return res;
+        }
+        public static string GetMarkWithGroup(this IEnumerable<AttachedAcPlan> items, int group_id)
         {
             string res = "";
 
             items = items.Where(x => x.GroupId == group_id).ToList();
 
-            res = $"{items.Count(x => x.FshId != null)}/{items.Count()}";
+            res = $"{items.Count(x => x.FshId1 != null)}/{items.Count()}";
 
             return res;
         }
@@ -140,7 +206,7 @@ namespace hod_back.Extentions
                 var lul = attAcPls.FirstOrDefault(x => x.BlockRecId == blockRec.BlockRecId && x.SubTId == 1);
                 tmp.Add(new LoadDto
                 {
-                    FshId = lul.FshId,
+                    FshId = lul.FshId1,
                     LoadValue = (double)blockRec.Les,
                     SubTypeName = lul.SubT.SubTName,
                     SubTypeId = lul.SubT.SubTId,
@@ -152,7 +218,7 @@ namespace hod_back.Extentions
                 var lul = attAcPls.FirstOrDefault(x => x.BlockRecId == blockRec.BlockRecId && x.SubTId == 1);
                 tmp.Add(new LoadDto
                 {
-                    FshId = lul.FshId,
+                    FshId = lul.FshId1,
                     LoadValue = (double)blockRec.Les,
                     SubTypeName = lul.SubT.SubTName,
                     SubTypeId = lul.SubT.SubTId,

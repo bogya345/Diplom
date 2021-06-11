@@ -171,6 +171,26 @@ namespace hod_back.DAL.Repositories
                 .Where(func);
         }
 
+        public async override Task<IEnumerable<BlockRec>> GetManyWithIncludeAsync(Func<BlockRec, bool> func)
+        {
+        mark:
+            try
+            {
+                return db.BlockRecs
+                    .Include(x => x.Sub).ThenInclude(y => y.AcPlDep).ThenInclude(z => z.Dep)
+                    .Include(x => x.AttachedAcPlans).ThenInclude(z => z.FshId1Navigation).ThenInclude(k => k.Fs).ThenInclude(p => p.Emp)
+                    .Include(x => x.AttachedAcPlans).ThenInclude(z => z.FshId2Navigation).ThenInclude(k => k.Fs).ThenInclude(p => p.Emp)
+                    .Include(X => X.AttachedAcPlans).ThenInclude(y => y.SubT)
+                    .Where(func)
+                    .ToList();
+            }
+            catch (InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
+        }
+
         public override void UpdateRange(BlockRec[] items)
         {
             db.UpdateRange(items);

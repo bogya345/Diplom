@@ -52,7 +52,11 @@ interface Semester {
 interface Load {
     AtAcPlId: number,
     FshId: number,
+    FshId1: number,
+    FshId2: number,
     TeachName: string,
+    TeachName1: string,
+    TeachName2: string,
     BlocRecId: number,
     SemNum: number,
     SubTypeId: number,

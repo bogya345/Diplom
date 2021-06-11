@@ -40,6 +40,7 @@ export class HodPromotionComponent implements OnInit {
 
   public selectedDep: DepsDto;
   public selectedDir: Direction;
+  public dirs: Direction[];
   public selectedGroup: Group;
 
   public pathString: string;
@@ -95,6 +96,17 @@ export class HodPromotionComponent implements OnInit {
       }
       );
 
+    this._http.get<Direction[]>(`${environment.hod_api_url}dirs/get/all/${this.user.dep_id}`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+        }
+      }).subscribe(result => {
+        console.log(result);
+        this.dirs = result;
+      });
+
     // this.openModalProgress();
 
     // alert();
@@ -114,7 +126,7 @@ export class HodPromotionComponent implements OnInit {
 
     this.snack.openSnackBarFull('Обработка учебного плана. Это может занять некоторое время...', 'right', 'bottom', 50000);
 
-    this._httpOwn.postUploadRequest(files, this.selectedDep.Dep_id, item.Dir_id)
+    this._httpOwn.postUploadRequest(files, 1, item.Dir_id)
       .subscribe(event => {
 
         if (event.type === HttpEventType.UploadProgress)
@@ -156,13 +168,13 @@ export class HodPromotionComponent implements OnInit {
   }
 
   public getPathString() {
-    let path = '::/';
-    if (this.selectedDep) { path += `/${this.selectedDep.Dep_name}`; }
+    let path = '';
+    // if (this.selectedDep) { path += `/${this.selectedDep.Dep_name}`; }
+    // else { return path; }
+    if (this.selectedDir) { path += `Направление: ${this.selectedDir.Dir_name} - ${this.selectedDir.StartYear}`; }
     else { return path; }
-    if (this.selectedDir) { path += `/${this.selectedDir.Dir_name}`; }
-    else { return path; }
-    if (this.selectedGroup) { path += `/${this.selectedGroup.Group_name}`; }
-    else { return path; }
+    // if (this.selectedGroup) { path += `/${this.selectedGroup.Group_name}`; }
+    // else { return path; }
     return path; // `::${this.selectedDep.dep_name}/${this.selectedDir.dir_name}/${this.selectedGroup.group_name}`
   }
 
@@ -183,7 +195,7 @@ export class HodPromotionComponent implements OnInit {
         }
         else {
           console.log('cant download file');
-          this.snack.openSnackBarFull(`Сервер недоступен.`, 'center', '', 3000);
+          // this.snack.openSnackBarFull(`Сервер недоступен.`, 'center', '', 3000);
         }
       })
       ;
@@ -194,8 +206,8 @@ export class HodPromotionComponent implements OnInit {
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id = "modalShowRequirs-component";
-    dialogConfig.height = "350px";
-    dialogConfig.width = "600px";
+    dialogConfig.height = "590px";
+    dialogConfig.width = "580px";
     dialogConfig.data = {}
 
     // https://material.angular.io/components/dialog/overview
@@ -269,12 +281,8 @@ export class HodPromotionComponent implements OnInit {
     // this.pathString = `::/${item.dir_name}`;
     this.selectedIndex = 1;
   }
-  public showFgosRequirs(item) {
-    // show modal window with requirs
 
-  }
-
-  public async setSelectedDirection(item) {
+  public setSelectedDirection(item) {
     this.selectedDir = item;
     if (!this.selectedDir.Groups.includes(this.selectedGroup)) {
       this.selectedGroup = null;
@@ -282,26 +290,38 @@ export class HodPromotionComponent implements OnInit {
 
     //this.groupStatus.filter(x => {return x.group_id == item.group_id})[0].getStatus();
     // this.pathString = `::/${item.dir_name}`;
-    this.selectedIndex = 2;
+    this.selectedIndex = 1;
 
     console.log('dir_id is ', item.Dir_id);
 
-    this._httpOwn.getGroupsInfo(item.Dir_id)
-      .subscribe(result => {
-        console.log(result);
-        this.groupStatus = result;
-      });
+    // показатели направления
+    // this._http.get<DirAnalysDto>(`${environment.hod_api_url}analyser/get/fgos-requirs/${this.selectedDir.Dir_id}/7-2`,
+    //   {
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+    //     }
+    //   }).subscribe(result => {
+    //     console.log(result);
+    //     this.dirStatus = result;
+    //   });
 
-    this._http.get<DirAnalysDto>(`${environment.hod_api_url}analyser/get/fgos-requirs/${this.selectedDir.Dir_id}/7-2`,
-      {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
-        }
-      }).subscribe(result => {
-        console.log(result);
-        this.dirStatus = result;
-      });
+    // this._httpOwn.getGroupsInfo(item.Dir_id)
+    //   .subscribe(result => {
+    //     console.log(result);
+    //     this.groupStatus = result;
+    //   });
+
+    // this._http.get<DirAnalysDto>(`${environment.hod_api_url}analyser/get/fgos-requirs/${this.selectedDir.Dir_id}/7-2`,
+    //   {
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Authorization': 'Bearer ' + sessionStorage.getItem(environment.hod_sessionConst.accessTokenName)
+    //     }
+    //   }).subscribe(result => {
+    //     console.log(result);
+    //     this.dirStatus = result;
+    //   });
 
     // setTimeout(() => {
     //   this._httpOwn.getDirStatus(item.dir_id)
@@ -310,10 +330,12 @@ export class HodPromotionComponent implements OnInit {
     //       this.dirStatus = result;
     //     });
     // }, 1000);
-
-
-
   }
+  // public setSelectedGroup(item) {
+  //   this.selectedGroup = item;
+  //   this.selectedIndex = 3;
+  // }
+
   public getDirInfo() {
     if (!this.dirStatus) {
       this._httpOwn.getDirStatus(this.selectedDir.Dir_id)
@@ -352,100 +374,7 @@ export class HodPromotionComponent implements OnInit {
     return x;
   }
 
-  public getColorForRequirs(mark) {
-    // console.log(mark);
-    if (mark == "+") { return this.colorPrimary; }
-    return this.colorWarn;
-  }
-
-
-  public getDirStatus722Full() {
-    let tmp = this.dirStatus;
-    if (tmp.Full.NumberSubmitted722 == tmp.Full.NumberAll722) { return 100; }
-    let x = (tmp.Full.NumberSubmitted722 * 100) / tmp.Full.NumberAll722;
-    x = Math.round((x + Number.EPSILON) * 100) / 100;
-    return x;
-  }
-  public getDirStatus723Full() {
-    let tmp = this.dirStatus;
-    if (tmp.Full.NumberSubmitted723 == tmp.Full.NumberAll723) { return 100; }
-    let x = (tmp.Full.NumberSubmitted723 * 100) / tmp.Full.NumberAll723;
-    x = Math.round((x + Number.EPSILON) * 100) / 100;
-    return x;
-  }
-  public getDirStatus724Full() {
-    let tmp = this.dirStatus;
-    if (tmp.Full.NumberSubmitted724 == tmp.Full.NumberAll724) { return 100; }
-    let x = (tmp.Full.NumberSubmitted724 * 100) / tmp.Full.NumberAll724;
-    x = Math.round((x + Number.EPSILON) * 100) / 100;
-    return x;
-  }
-  public getMark722Full() {
-    // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
-    let tmp = this.dirStatus;
-    return tmp.Full.Mark722;
-  }
-  public getMark723Full() {
-    // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
-    let tmp = this.dirStatus;
-    return tmp.Full.Mark723;
-  }
-  public getMark724Full() {
-    // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
-    let tmp = this.dirStatus;
-    return tmp.Full.Mark724;
-  }
-
-
-  public getDirStatus722Part() {
-    let tmp = this.dirStatus;
-    if (tmp.Partial.NumberAll722 == 0) { return 0; }
-    if (tmp.Partial.NumberSubmitted722 == tmp.Partial.NumberAll722) { return 100; }
-    let x = (tmp.Partial.NumberSubmitted722 * 100) / tmp.Partial.NumberAll722;
-    x = Math.round((x + Number.EPSILON) * 100) / 100;
-    return x;
-  }
-  public getDirStatus723Part() {
-    let tmp = this.dirStatus;
-    if (tmp.Partial.NumberAll723 == 0) { return 0; }
-    if (tmp.Partial.NumberSubmitted723 == tmp.Partial.NumberAll723) { return 100; }
-    let x = (tmp.Partial.NumberSubmitted723 * 100) / tmp.Partial.NumberAll723;
-    x = Math.round((x + Number.EPSILON) * 100) / 100;
-    return x;
-  }
-  public getDirStatus724Part() {
-    let tmp = this.dirStatus;
-    if (tmp.Partial.NumberAll724 == 0) { return 0; }
-    if (tmp.Partial.NumberSubmitted724 == tmp.Partial.NumberAll724) { return 100; }
-    let x = (tmp.Partial.NumberSubmitted724 * 100) / tmp.Partial.NumberAll724;
-    x = Math.round((x + Number.EPSILON) * 100) / 100;
-    return x;
-  }
-  public getMark722Part() {
-    // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
-    let tmp = this.dirStatus;
-    if (tmp.Partial.NumberAll722 == 0) { return "-"; }
-    return tmp.Partial.Mark722;
-  }
-  public getMark723Part() {
-    // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
-    let tmp = this.dirStatus;
-    if (tmp.Partial.NumberAll723 == 0) { return "-"; }
-    return tmp.Partial.Mark723;
-  }
-  public getMark724Part() {
-    // let tmp = this.groupStatus.filter(x => { return x.group_id == item.group_id })[0];
-    let tmp = this.dirStatus;
-    if (tmp.Partial.NumberAll724 == 0) { return "-"; }
-    return tmp.Partial.Mark724;
-  }
-
-
-  public setSelectedGroup(item) {
-    this.selectedGroup = item;
-    // this.pathString += `/${item.group_name}`;
-    this.selectedIndex = 3;
-  }
+  
 
   // public debugger(item) { console.log(item); }
 

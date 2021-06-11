@@ -7,10 +7,25 @@ namespace hod_back.Dto
 {
     public class DirectionDto
     {
+        public int? Dep_id { get; set; }
         public int? Dir_id { get; set; }
         public string? Dir_name { get; set; }
         public string? StartYear { get; set; }
         public int? AcPl_id { get; set; }
+        /// <summary>
+        /// -1 - skip, 0 - red, 1 - yellow, 2 - green
+        /// </summary>
+        public int Highlight { get; set; }
+        public Status Status_pps { get; set; }
+        public string Status_pps_msg
+        {
+            get
+            {
+                if (Status_pps == null) { return "-"; }
+                if (Status_pps.Status_down == null) { return "-"; }
+                return $"{Status_pps.Status_up}/{Status_pps.Status_down}";
+            }
+        }
         public Status Status { get; set; }
         public string Status_msg
         {

@@ -16,6 +16,7 @@ namespace hod_back.Dto
         public string FullName { get; set; }
 
         public string WorkT_name { get; set; }
+        public int? ApplyT_id { get; set; }
         public string Post_name { get; set; }
         public int Dep_id { get; set; }
         public double StaffCount { get; set; }

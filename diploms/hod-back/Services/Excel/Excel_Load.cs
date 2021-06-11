@@ -30,6 +30,8 @@ namespace hod_back.Services.Excel
         private int dep_id { get; set; }
         private Department Dep { get; set; }
 
+        private List<int> subsDep { get; set; }
+
 
 
         public Excel_Load(string path, int dep_id, UnitOfWork unit)
@@ -40,6 +42,8 @@ namespace hod_back.Services.Excel
 
             this.dep_id = dep_id;
             this.Dep = unit.Departments.GetOrDefaultAsync(x => x.DepId == dep_id).Result;
+
+            this.subsDep = unit.Subjects.GetManyAsync(x => x.AcPlDep.DepId == dep_id).Result.Select(x => x.SubId).ToList();
         }
 
         public string CreateTempFile()
@@ -53,9 +57,13 @@ namespace hod_back.Services.Excel
             var wb = new XLWorkbook(this.patternPath);
             var ws = wb.Worksheet(1);
 
-            var data = unit.DepartmentLoads.GetManyAsync(x => x.DepId == this.dep_id).Result.OrderBy(x => x.SemestrNum).ThenBy(x => x.SubName);
+            var data = unit.DepartmentLoads.GetManyAsync(x =>
+                x.DepId == this.dep_id &&
+                this.subsDep.Contains(x.SubId.Value)
+                ).Result.OrderBy(x => x.SemestrNum).ThenBy(x => x.SubName);
 
             var groupData = data.GroupBy(x => new { x.EmpId, x.GroupId, x.SemestrNum, x.SubId });
+
 
             // заголовок
             ws.Cell("A" + 2).Value = this.Dep.DepName;
@@ -63,13 +71,19 @@ namespace hod_back.Services.Excel
             int activeRow = 4;
             foreach (var i in groupData)
             {
+                var t1 = i.ToList().FirstOrDefault(x => x.SubTId == 1) != null;
+                var t3 = i.ToList().FirstOrDefault(x => x.SubTId == 3) != null;
+                var t2 = i.ToList().FirstOrDefault(x => x.SubTId == 2) != null;
+
+                if (!t1 && !t2 && !t3) { continue; }
+
                 ws.Cell("A" + activeRow).Value = i.ToList()[0].SubName;
-                ws.Cell("B" + activeRow).Value = i.ToList()[0].GroupName;
+                ws.Cell("B" + activeRow).Value = $"{i.ToList()[0].EBrShortname}-{i.ToList()[0].StartYear}";
                 ws.Cell("C" + activeRow).Value = i.ToList()[0].SemestrNum;
 
-                ws.Cell("D" + activeRow).Value = i.ToList().FirstOrDefault(x => x.SubTId == 1) != null ? i.ToList().FirstOrDefault(x => x.SubTId == 1).HourValue : 0;
-                ws.Cell("E" + activeRow).Value = i.ToList().FirstOrDefault(x => x.SubTId == 3) != null ? i.ToList().FirstOrDefault(x => x.SubTId == 3).HourValue : 0;
-                ws.Cell("F" + activeRow).Value = i.ToList().FirstOrDefault(x => x.SubTId == 2) != null ? i.ToList().FirstOrDefault(x => x.SubTId == 2).HourValue : 0;
+                ws.Cell("D" + activeRow).Value = t1 ? i.ToList().FirstOrDefault(x => x.SubTId == 1).HourValue : 0;
+                ws.Cell("E" + activeRow).Value = t3 ? i.ToList().FirstOrDefault(x => x.SubTId == 3).HourValue : 0;
+                ws.Cell("F" + activeRow).Value = t2 ? i.ToList().FirstOrDefault(x => x.SubTId == 2).HourValue : 0;
 
                 if (i.ToList().FirstOrDefault(x => x.SubTId == 7) != null)
                 {

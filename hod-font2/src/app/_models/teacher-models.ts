@@ -25,6 +25,7 @@ class Teacher {
     public MiddleName: string;
     public FullName: string;
 
+    public ApplyT_id: string;
     public WorkT_name: string;
     public Post_name: string;
     public Dep_id: number;

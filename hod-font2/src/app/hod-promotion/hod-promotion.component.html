@@ -3,84 +3,74 @@
 <div class="common-indentation">
 
     <div class="row bg-light">
-        <h2><i>Путь{{getPathString()}}</i></h2>
+        <h2><i>{{getPathString()}}</i></h2>
     </div>
 
     <mat-tab-group mat-align-tabs="start" [(selectedIndex)]="selectedIndex">
         <!-- #enddocregion align-start -->
 
-        <mat-tab label="Кафедры">
+        <mat-tab label="Направления">
             <div class="row">
-                <p *ngIf="!deps; else elseBlock_deps"><em>Загрузка кафедр...</em></p>
-                <ng-template #elseBlock_deps>
-                    <table class='table table-striped groupstable' aria-labelledby="tableLabel" *ngIf="deps">
-
-                        <thead>
-                            <tr>
-                                <th>Название</th>
-                                <th>Кафедральная нагрузка</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-
-                        <tr *ngFor="let item of deps">
-                            <td>{{ item.Dep_name }}</td>
-                            <td>
-                                <button class="btn btn-primary" (click)="downloadDepLoad(item)">
-                                    Формирование нагрузки
-                                </button>
-                            </td>
-                            <td>
-                                <button class="btn btn-light" (click)="setSelectedDepartment( item )">Выбрать</button>
-                            </td>
-                        </tr>
-
-                    </table>
-                </ng-template>
-            </div>
-        </mat-tab>
-
-        <mat-tab label="Направления" [disabled]="(selectedDep==null)">
-            <div class="row">
-                <p *ngIf="!selectedDep; else elseBlock_dirs"><em>Загрузка направлений...</em></p>
+                <p *ngIf="!dirs; else elseBlock_dirs"><em>Загрузка направлений...</em></p>
                 <ng-template #elseBlock_dirs>
-                    <table class='table table-striped groupstable' aria-labelledby="tableLabel"
-                        *ngIf="selectedDep.Dirs">
+                    <table class='table table-striped groupstable' aria-labelledby="tableLabel" *ngIf="dirs">
 
                         <thead>
                             <tr>
                                 <th>Название</th>
                                 <th>Год начала</th>
                                 <th></th>
-                                <th>ФГОС требования</th>
+                                <th colspan="2">&nbsp;ФГОС требования</th>
                                 <th>Учебный план</th>
-                                <th>Статус</th>
+                                <th *ngIf="user.access_role_id != 3 && user.access_role_id != 4">Статус ППС</th>
+                                <th>Статус ОПОП</th>
                                 <th>Кадровая справка</th>
                             </tr>
                         </thead>
 
-                        <tr *ngFor="let item of selectedDep.Dirs">
+                        <tr *ngFor="let item of dirs">
+
+                            <!-- Название -->
                             <td>{{ item.Dir_name }}</td>
+
+                            <!-- Год начала -->
                             <td>{{ item.StartYear }}</td>
+
+                            <!-- Выбор направления -->
                             <td>
                                 <button class=" btn btn-primary" (click)="setSelectedDirection( item )">
                                     Выбрать
                                 </button>
                             </td>
-                            <!-- <td><button class="btn btn-info" (click)="showFgosRequirs( item )">Просмотр</button></td> -->
-                            <td><button class="btn btn-info" mat-raised-button id="logout-button"
-                                    (click)="openModal( item )">Подробнее</button></td>
+
+                            <!-- ФГОС требования -->
+                            <td>
+                                <button class="btn btn-info" mat-raised-button id="logout-button"
+                                    (click)="openModal( item )" [disabled]="item.Status.Status_up == 0">Подробнее</button>
+                                <!-- <div style="border: solid 2px;">
+                                    
+                                </div> -->
+                            </td>
+                            <td>
+                                <div *ngIf="item.Dep_id == user.dep_id">
+                                    <span *ngIf="item.Highlight == 2">✅</span>
+                                    <span *ngIf="item.Highlight == 1">🟧</span>
+                                    <span *ngIf="item.Highlight == 0">❌</span>
+                                    <span *ngIf="item.Highlight == -1">⬜</span>
+                                </div>
+                            </td>
+
+                            <!-- Учебный план -->
                             <p *ngIf="item.AcPl_id == null; else elseBlock_acPlan">
-                                <td *ngIf="user.dep_id == selectedDep.Dep_id">
+                                <td *ngIf="user.dep_id == item.Dep_id">
                                     <p>Загрузить учебный план</p>
                                     <!-- <mat-spinner *ngIf="spinnerIsOn" diameter="40"></mat-spinner> -->
                                     <input #file type="file" accept=".xlsx" multiple
                                         (change)="upload(file.files, item)" />
                                 </td>
-                                <td *ngIf="user.dep_id != selectedDep.Dep_id">
+                                <td *ngIf="user.dep_id != item.Dep_id">
                                     <p>Учебный план не был загружен</p>
                                 </td>
-
                             </p>
                             <ng-template #elseBlock_acPlan>
                                 <td>
@@ -97,24 +87,47 @@
                                 </td>
                             </ng-template>
 
-                            <td>
+                            <!-- Статус ППС -->
+                            <td *ngIf="user.access_role_id != 3 && user.access_role_id != 4">
                                 <div style="padding: 5px; width: 70px; height:30px;">
-                                    <div *ngIf="item.Status.Status_down != 0">
-                                        {{item.Status_msg}}
-                                        <div *ngIf="item.Status.Status_up != item.Status.Status_down">
-                                            <i class="fa fa-close"></i>
+                                    <div *ngIf="item.Status_pps.Status_down != 0">
+                                        {{item.Status_pps_msg}}
+                                        <div *ngIf="item.Status_pps.Status_up != item.Status_pps.Status_down">
+                                            <!-- <i class="fa fa-close"></i> -->
+                                            ❌
                                         </div>
-                                        <div *ngIf="item.Status.Status_up == item.Status.Status_down">
+                                        <div *ngIf="item.Status_pps.Status_up == item.Status_pps.Status_down">
                                             <!-- in decimal &#10004; -->
-                                            &#x2714;<!-- in hex      -->
+                                            <!-- in hex   &#x2714;   -->
+                                            ✅
                                         </div>
                                     </div>
                                 </div>
                             </td>
 
+                            <!-- Статус ОПОП -->
                             <td>
-                                <button [disabled]="item.AcPl_id == null"  
-                                    class="btn btn-primary" (click)="openModalShowDirProperty( item )"><!-- || user.dep_id != selectedDep.Dep_id -->
+                                <div style="padding: 5px; width: 70px; height:30px;">
+                                    <div *ngIf="item.Status.Status_down != 0">
+                                        {{item.Status_msg}}
+                                        <div *ngIf="item.Status.Status_up != item.Status.Status_down">
+                                            <!-- <i class="fa fa-close"></i> -->
+                                            ❌
+                                        </div>
+                                        <div *ngIf="item.Status.Status_up == item.Status.Status_down">
+                                            <!-- in decimal &#10004; -->
+                                            <!-- in hex  &#x2714;    -->
+                                            ✅
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <!-- Кадровая справка -->
+                            <td>
+                                <button [disabled]="item.AcPl_id == null" class="btn btn-primary"
+                                    (click)="openModalShowDirProperty( item )">
+                                    <!-- || user.dep_id != selectedDep.Dep_id -->
                                     Сформировать
                                 </button>
                             </td>
@@ -126,156 +139,8 @@
             </div>
         </mat-tab>
 
-        <mat-tab label="Группы" id="group_tab" [disabled]="(selectedDir==null)">
-            <div class="row">
-                <p *ngIf="!selectedDir; else elseBlock_groups"><em>Загрузка групп...</em></p>
-                <ng-template #elseBlock_groups>
-
-                    <div class="container" style="padding: 15px 0px 0px 15px;"
-                        *ngIf="dirStatus; else elseBlockDirStatus">
-                        <!-- Статус назначений преподавателей -->
-
-                        <div *ngIf="!dirStatus.Message; else elseBlockMsg">
-
-                            <div class="row">
-                                <div class="col-3">
-                                    <p>Показатели на общее назначение</p>
-                                </div>
-
-                                <div class="col-3">
-                                    <p>4.4.3</p>
-                                    <!--was 7.2.2-->
-                                    <section class="example-section">
-                                        <mat-progress-bar class="example-margin"
-                                            [color]="getColorForRequirs(getMark722Full())" [mode]="mode"
-                                            [value]="getDirStatus722Full()">
-                                        </mat-progress-bar>
-                                        <p><i><b>{{getDirStatus722Full()}} / 100 % ({{getMark722Full()}})</b></i></p>
-                                    </section>
-                                </div>
-
-                                <div class="col-3">
-                                    <p>4.4.4</p>
-                                    <!--was 7.2.4-->
-                                    <section class="example-section">
-                                        <mat-progress-bar class="example-margin"
-                                            [color]="getColorForRequirs(getMark724Full())" [mode]="mode"
-                                            [value]="getDirStatus724Full()">
-                                        </mat-progress-bar>
-                                        <p><i><b>{{getDirStatus724Full()}} / 100 % ({{getMark724Full()}}) </b></i></p>
-                                    </section>
-                                </div>
-
-                                <div class="col-3">
-                                    <p>4.4.5</p>
-                                    <!--was 7.2.3-->
-                                    <section class="example-section">
-                                        <mat-progress-bar class="mat-progress-bar-done"
-                                            [color]="getColorForRequirs(getMark723Full())" [mode]="mode"
-                                            [value]="getDirStatus723Full()">
-                                        </mat-progress-bar>
-                                        <p><i><b>{{getDirStatus723Full()}} / 100 % ({{getMark723Full()}})</b></i></p>
-                                    </section>
-                                </div>
-                            </div>
-
-                            <br />
-
-                            <div class="row">
-                                <div class="col-3">
-                                    <p><b>Показатели на текущее назначение</b></p>
-                                </div>
-
-                                <div class="col-3">
-                                    <p>4.4.3</p>
-                                    <!--was 7.2.2-->
-                                    <section class="example-section">
-                                        <mat-progress-bar class="example-margin"
-                                            [color]="getColorForRequirs(getMark722Part())" [mode]="mode"
-                                            [value]="getDirStatus722Part()">
-                                        </mat-progress-bar>
-                                        <p><i><b>{{getDirStatus722Part()}} / 100 % ({{getMark722Part()}})</b></i></p>
-                                    </section>
-                                </div>
-
-                                <div class="col-3">
-                                    <p>4.4.4</p>
-                                    <!--was 7.2.4-->
-                                    <section class="example-section">
-                                        <mat-progress-bar class="example-margin"
-                                            [color]="getColorForRequirs(getMark724Part())" [mode]="mode"
-                                            [value]="getDirStatus724Part()">
-                                        </mat-progress-bar>
-                                        <p><i><b>{{getDirStatus724Part()}} / 100 % ({{getMark724Part()}}) </b></i></p>
-                                    </section>
-                                </div>
-
-                                <div class="col-3">
-                                    <p>4.4.5</p>
-                                    <!--was 7.2.3-->
-                                    <section class="example-section">
-                                        <mat-progress-bar class="mat-progress-bar-done"
-                                            [color]="getColorForRequirs(getMark723Part())" [mode]="mode"
-                                            [value]="getDirStatus723Part()">
-                                        </mat-progress-bar>
-                                        <p><i><b>{{getDirStatus723Part()}} / 100 % ({{getMark723Part()}})</b></i></p>
-                                    </section>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <ng-template #elseBlockMsg>
-                            <p><b>{{dirStatus.Message}}</b></p>
-                        </ng-template>
-
-                    </div>
-
-                    <ng-template #elseBlockDirStatus>
-                        <p><i>Загрузка показателей...</i></p>
-                    </ng-template>
-
-                    <table class='table table-striped groupstable' aria-labelledby="tableLabel"
-                        *ngIf="selectedDir.Groups">
-
-                        <thead>
-                            <tr>
-                                <!-- <th>Номер</th> -->
-                                <th>Название</th>
-                                <th>Год начала</th>
-                                <th>Год выпуска</th>
-                                <th>Статус</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-
-                        <tr *ngFor="let item of selectedDir.Groups">
-                            <!-- <td></td> -->
-                            <td>{{ item.Group_name }}</td>
-                            <td>{{ item.CreatedDate }}</td>
-                            <td>{{ item.ExitDate }}</td>
-                            <td>
-                                <section *ngIf="selectedDir.AcPl_id != null" class="">
-
-                                    <mat-progress-bar class="example-margin" [color]="colorPrimary" [mode]="mode"
-                                        [value]="getGroupStatus(item)">
-                                    </mat-progress-bar>
-                                    <p><i><b>{{getGroupStatus(item)}} / 100 %</b></i></p>
-                                </section>
-                                <br />
-                                <button class="btn btn-info" mat-raised-button id="group-status"
-                                    (click)="openModalGroupStatus( item )">Подробнее</button>
-                            </td>
-                            <td><button class="btn btn-link" (click)="setSelectedGroup( item )">Выбрать</button></td>
-                        </tr>
-
-                    </table>
-                </ng-template>
-            </div>
-        </mat-tab>
-
-        <mat-tab label="Учебный план" class="bg-info" [disabled]="(selectedGroup==null)">
-            <app-hod-acplan *ngIf="selectedGroup" [direction]="selectedDir" [group]="selectedGroup">
+        <mat-tab label="Учебный план" class="bg-info" [disabled]="(selectedDir==null)">
+            <app-hod-acplan style="margin-left: 5px;" *ngIf="selectedDir" [direction]="selectedDir">
             </app-hod-acplan>
         </mat-tab>
 

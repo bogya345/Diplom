@@ -21,6 +21,24 @@ namespace hod_back.DAL.Repositories
             }));
         }
 
+        public override IEnumerable<Direction> GetAll()
+        {
+            return db.Directions.Include(x => x.EBr).ToList();
+        }
+        public async override Task<IEnumerable<Direction>> GetAllAsync()
+        {
+        mark:
+            try
+            {
+                return db.Directions.Include(x => x.EBr).ToList();
+            }
+            catch (InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
+        }
+
         public override Direction GetOrDefault(Func<Direction, bool> func, Direction def = null)
         {
             try
@@ -57,7 +75,7 @@ namespace hod_back.DAL.Repositories
         }
         public async override Task<Direction> GetOrDefaultWithIncludeAsync(Func<Direction, bool> func, Direction def = null)
         {
-            mark:
+        mark:
             try
             {
                 return db.Directions
@@ -66,16 +84,16 @@ namespace hod_back.DAL.Repositories
                     .Include(x => x.AcPl)
                     .FirstOrDefault(func);
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
                 await Task.Delay(1000);
                 goto mark;
             }
         }
+
         //public override Task<Direction> GetOrDefaultWithIncludeAsync(Func<Direction, bool> func, Direction def = null)
         //{
         //    //Expression andExpr = Expression.Convert(Expression.Lambda<Func<Direction, bool>>, typeof(Func<Direction, bool>), func.Method);
-
         //    return db.Directions
         //        .Include(x => x.EForm)
         //        .Include(x => x.EBr)
@@ -83,15 +101,31 @@ namespace hod_back.DAL.Repositories
         //        //.FirstOrDefaultAsync(Expression.Lambda(, new System.Threading.CancellationToken());
         //        .FirstOrDefaultAsync(func);
         //}
+
         public override IEnumerable<Direction> GetMany(Func<Direction, bool> func)
         {
             return db.Directions.Where(func);
         }
 
+        public async override Task<IEnumerable<Direction>> GetManyAsync(Func<Direction, bool> func)
+        {
+            mark:
+            try
+            {
+                var res = db.Directions.Include(x => x.EBr).Where(func).ToList();
+                return res;
+            }
+            catch(InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
+        }
+
         public override void Update(Direction item)
         {
             var i = db.Directions.FirstOrDefault(x => x.DirId == item.DirId);
-            _mapper.Map(item, i);
+            i.AcPlId = item.AcPlId;
             db.SaveChanges();
         }
     }

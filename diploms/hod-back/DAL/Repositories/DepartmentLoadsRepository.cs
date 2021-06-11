@@ -38,7 +38,8 @@ namespace hod_back.DAL.Repositories
         mark:
             try
             {
-                var tmp = db.DepartmentLoads.Where(func).ToList();
+                var tmp = db.DepartmentLoads
+                    .Where(func).ToList();
                 return tmp;
             }
             catch (InvalidOperationException ex)

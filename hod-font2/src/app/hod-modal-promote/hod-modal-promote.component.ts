@@ -42,39 +42,36 @@ export class HodModalPromoteComponent implements OnInit {
   subjectDepId: number;
   // selectedDep: DepInfo;
   selectedDir: Direction;
-  selectedGroup: Group;
+  // selectedGroup: Group;
   selectedAcPl: any;
   selectedSubject: any;
   selectedAttRec: any;
 
   btn_class: string;
 
+  secondTeacher: boolean;
+
   stateForm: FormGroup = this._formBuilder.group({
     stateGroup: '',
+  });
+  stateForm2: FormGroup = this._formBuilder.group({
+    stateGroup2: '',
   });
 
   selectedName: string;
 
   stateGroups: GroupTeacher[];
-  // stateGroups: GroupTeacher[] = [
-  //   {
-  //     letter: 'A',
-  //     teachers: [
-  //       {fullName: 'a1'}
-  //     ]
-  //   }, {
-  //     letter: 'C',
-  //     teachers: []
-  //   }
-  // ];
+  stateGroups2: GroupTeacher[];
 
   stateGroupOptions: Observable<GroupTeacher[]>;
+  stateGroupOptions2: Observable<GroupTeacher[]>;
 
   saved: boolean;
 
   submitedAttAcPlan: any;
 
   submitedTeacher: TeacherRate;
+  submitedTeacher2: TeacherRate;
 
   constructor(
     private _http: HttpClient,
@@ -84,6 +81,7 @@ export class HodModalPromoteComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.saved = false;
+    this.secondTeacher = false;
   }
 
   ngOnInit(): void {
@@ -102,6 +100,7 @@ export class HodModalPromoteComponent implements OnInit {
       })
         .subscribe(result => {
           this.stateGroups = result;
+          this.stateGroups2 = result;
           console.log(result);
         });
     }
@@ -116,6 +115,7 @@ export class HodModalPromoteComponent implements OnInit {
       })
         .subscribe(result => {
           this.stateGroups = result;
+          this.stateGroups2 = result;
           console.log(result);
         });
     }
@@ -126,6 +126,12 @@ export class HodModalPromoteComponent implements OnInit {
         map(value => this._filterGroup(value))
       );
 
+    this.stateGroupOptions2 = this.stateForm2.get('stateGroup2')!.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filterGroup2(value))
+      );
+
     this.dialogRef.disableClose = true;//disable default close operation
     this.dialogRef.backdropClick().subscribe(result => {
       this.dialogRef.close(this.submitedAttAcPlan);
@@ -134,10 +140,26 @@ export class HodModalPromoteComponent implements OnInit {
   }
 
   displayFn(shop: Teacher): string {
-    // this._http.get<TeacherRate>(`${environment.hod_api_url}teachers/get/info/${shop.Fsh_id}`).subscribe(result => {
-    //   this.submitedTeacher = result;
-    // });
     return shop.FullName;
+  }
+  displayFn2(shop: Teacher): string {
+    return shop.FullName;
+  }
+
+  displayApplyT1(): string {
+    // console.log()
+    switch (this.stateForm.get('stateGroup').value.ApplyT_id){
+      case 1: return "Внутреннее";
+      case 2: return "Внешнее, ГПХ";
+      default: return "Внутреннее";
+    }
+  }
+  displayApplyT2(): string {
+    switch (this.stateForm2.get('stateGroup2').value.ApplyT_id){
+      case 1: return "Внутреннее";
+      case 2: return "Внешнее, ГПХ";
+      default: return "Внутреннее";
+    }
   }
 
   private _filterGroup(value: string): GroupTeacher[] {
@@ -150,22 +172,54 @@ export class HodModalPromoteComponent implements OnInit {
         }))
         .filter(group => group.teachers.length > 0);
     }
-
     return this.stateGroups;
+  }
+  private _filterGroup2(value: string): GroupTeacher[] {
+    if (value) {
+      console.log('value2 is ', value.toString());
+      return this.stateGroups2
+        .map(group => ({
+          letter: group.letter,
+          teachers: _filter(group.teachers, value.toString())
+        }))
+        .filter(group => group.teachers.length > 0);
+    }
+    return this.stateGroups2;
+  }
+
+  switchTeacher() {
+    this.secondTeacher = !this.secondTeacher;
   }
 
   saveChanges() {
-    let selectedTeacher = this.stateForm.get('stateGroup');
-    console.log(selectedTeacher);
+
     console.log(this.selectedAttRec);
 
-    if (selectedTeacher.value.Fsh_id == undefined) { alert('Отказ в сохранении, поскольку преподаватель не был выбран.'); return null; }
+    let selectedTeacher = this.stateForm.get('stateGroup');
+    console.log(selectedTeacher);
+
+    let selectedTeacher2 = this.stateForm2.get('stateGroup2');
+    console.log(selectedTeacher2);
+
+    if (selectedTeacher.value.Fsh_id == undefined) { alert('Отказ в сохранении, поскольку преподаватель не был выбран из доступного списка.'); return null; }
 
     let formFake = {
       'fsh_id': selectedTeacher.value.Fsh_id,
       'teacherName': selectedTeacher.value.FullName,
+      'fsh_id2': null,
+      'teacherName2': null,
       'attAcPlan_id': this.selectedAttRec.AtAcPlId
     };
+    alert();
+    if(selectedTeacher2) {
+      formFake = {
+        'fsh_id': selectedTeacher.value.Fsh_id,
+        'teacherName': selectedTeacher.value.FullName,
+        'fsh_id2': selectedTeacher2.value.Fsh_id,
+        'teacherName2': selectedTeacher2.value.FullName,
+        'attAcPlan_id': this.selectedAttRec.AtAcPlId
+      }
+    }
     // form.append('fsh_id', selectedTeacher.value.fsh_id);
     // form.append('attAcPlan_id', this.selectedAttRec.atAcPlId);
     console.log(formFake);

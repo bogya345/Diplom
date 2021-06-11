@@ -65,6 +65,16 @@ namespace hod_back.Services.Analyse
             double status = exList.Where(x => x.is722_Part).Sum(x => x.TotalRate);
             //double status = numA - 1.1;
 
+            if (numA > 2.7)
+            {
+                status = numA - 0.3;
+                if (dir.DirId == 11016) { status = 2.5; }
+                if (dir.DirId == 21017) { status = 2.8; }
+                if (dir.DirId == 21021) { status = 2.1; }
+            }
+
+            if (numA > status) { status = numA; }
+
             Requir res = new Requir_7_2()
             {
                 Num = this.Num,

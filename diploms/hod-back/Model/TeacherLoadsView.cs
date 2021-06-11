@@ -15,6 +15,7 @@ namespace hod_back.Model
         public int AttAcPlId { get; set; }
         [Column("fsh_id")]
         public int FshId { get; set; }
+        public float? StaffCount { get; set; }
         [Column("fs_id")]
         public int FsId { get; set; }
         [Column("emp_id")]

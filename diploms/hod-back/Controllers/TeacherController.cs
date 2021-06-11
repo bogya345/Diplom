@@ -108,7 +108,7 @@ namespace hod_back.Controllers
                 return null;
             }
             var tmp = this._unit.AttAcPlans.GetOrDefaultAsync(x => x.AttAcPlId == attAcPl_id).Result;
-            tmp.FshId = model.fsh_id;
+            tmp.FshId1 = model.fsh_id;
             this._unit.AttAcPlans.Update(tmp);
 
             var res = new LoadPartDto()

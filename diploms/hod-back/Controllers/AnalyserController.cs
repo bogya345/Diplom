@@ -14,6 +14,7 @@ using hod_back.Dto.Analyser.FgosRequirs;
 using System.Threading.Tasks;
 using hod_back.Services.Analyse;
 using hod_back.Dto;
+using hod_back.Extentions;
 
 namespace hod_back.Controllers
 {
@@ -69,6 +70,61 @@ namespace hod_back.Controllers
         //    var requirs = _unit.Dir
         //}
 
+        //[Authorize(Roles = "препод,завед,админ")]
+        //[AllowAnonymous]
+        [HttpGet("get/requirs/{dir_id}")]
+        public async Task<PackageRequirsDto> GetDirsRequirs([FromRoute] int dir_id)
+        {
+            if (!this.accum.StoreIt(_unit, dir_id))
+            { return new PackageRequirsDto() { Done = false, Msg_text = "Ни один преподаватель не назначен для получения сведений о показателей требований ФГОС." }; }
+
+            // 4.4.3
+            Strategy strategy1 = new Strategy_7_2_2();
+            Requir tmp722 = strategy1.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
+
+            // 4.4.5 - 7.2.3
+            Strategy strategy2 = new Strategy_7_2_3();
+            Requir tmp723 = strategy2.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
+
+            // 4.4.4
+            Strategy strategy3 = new Strategy_7_2_4();
+            Requir tmp724 = strategy3.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
+
+
+            var res = new PackageRequirsDto();
+
+            var tmp = _unit.DirRequirs.GetManyAsync(x => x.DirId == dir_id).Result;
+            List<RequirInfoDto> res1 = new List<RequirInfoDto>();
+            foreach (var i in tmp)
+            {
+                var item = new RequirInfoDto()
+                {
+                    Fgos_content = i.FgosContent,
+                    Fgos_num = i.FgosNum.NewFgos(),
+                    SettedValue = i.SettedValue,
+                    Unit_name = i.UnitName,
+                };
+                res1.Add(item);
+            }
+
+            res.Requirs = res1.ToArray();
+
+            res.NumA722 = tmp722.NumberAll;
+            res.NumA723 = tmp723.NumberAll;
+            res.NumA724 = tmp724.NumberAll;
+
+            res.NumS722 = tmp722.NumberSuitable;
+            res.NumS723 = tmp723.NumberSuitable;
+            res.NumS724 = tmp724.NumberSuitable;
+
+            res.Mark722 = tmp722.isDone;
+            res.Mark723 = tmp723.isDone;
+            res.Mark724 = tmp724.isDone;
+
+            res.Done = true;
+            return res;
+        }
+
         [HttpGet("get/dir-groups/{dir_id}")]
         public async Task<GroupAnalyserDto[]> GetGroupAnalys([FromRoute] int dir_id)
         {
@@ -80,7 +136,7 @@ namespace hod_back.Controllers
             {
                 var info = await _unit.AttAcPlans.GetManyAsync(x => x.GroupId == group.GroupId);
                 int numberA = info.Count();
-                int numberS = info.Where(x => x.FshId != null).Count();
+                int numberS = info.Where(x => x.FshId1 != null).Count();
                 float value = -1;
                 if (numberA == numberS)
                 {
@@ -182,7 +238,7 @@ namespace hod_back.Controllers
             //    }
 
             //}
-            
+
             #endregion
 
             return res;

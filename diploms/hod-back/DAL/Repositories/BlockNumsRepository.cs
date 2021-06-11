@@ -48,7 +48,13 @@ namespace hod_back.DAL.Repositories
 
                 .Include(x => x.BlockRecs)
                 .ThenInclude(y => y.AttachedAcPlans)
-                .ThenInclude(z => z.Fsh)
+                .ThenInclude(z => z.FshId1Navigation)
+                .ThenInclude(k => k.Fs)
+                .ThenInclude(p => p.Emp)
+
+                .Include(x => x.BlockRecs)
+                .ThenInclude(y => y.AttachedAcPlans)
+                .ThenInclude(z => z.FshId2Navigation)
                 .ThenInclude(k => k.Fs)
                 .ThenInclude(p => p.Emp)
 
@@ -78,7 +84,13 @@ namespace hod_back.DAL.Repositories
 
                 .Include(x => x.BlockRecs)
                 .ThenInclude(y => y.AttachedAcPlans)
-                .ThenInclude(z => z.Fsh)
+                .ThenInclude(z => z.FshId1Navigation)
+                .ThenInclude(k => k.Fs)
+                .ThenInclude(p => p.Emp)
+
+                .Include(x => x.BlockRecs)
+                .ThenInclude(y => y.AttachedAcPlans)
+                .ThenInclude(z => z.FshId2Navigation)
                 .ThenInclude(k => k.Fs)
                 .ThenInclude(p => p.Emp)
 

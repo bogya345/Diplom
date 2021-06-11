@@ -38,7 +38,9 @@ namespace hod_back.DAL.Repositories
         mark:
             try
             {
-                var tmp = db.AttachedAcPlans.ToList();
+                var tmp = db.AttachedAcPlans
+                    .Include(x => x.BlockRec).ThenInclude(y => y.Sub).ThenInclude(z => z.AcPlDep)
+                    .ToList();
                 return tmp.Where(func);
             }
             catch (InvalidOperationException ex)
@@ -68,6 +70,26 @@ namespace hod_back.DAL.Repositories
 
             return tmp;
         }
+
+        public async override Task<IEnumerable<AttachedAcPlan>> GetManyWithIncludeAsync(Func<AttachedAcPlan, bool> func)
+        {
+            mark:
+            try
+            {
+                var res = db.AttachedAcPlans
+                    .Include(x => x.SubT)
+                    .Include(x => x.BlockRec).ThenInclude(y => y.Sub)
+                    .Where(func)
+                    .ToList();
+                return res;
+            }
+            catch(InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
+        }
+
 
         public override AttachedAcPlan GetOrDefault(Func<AttachedAcPlan, bool> func, AttachedAcPlan def = null)
         {

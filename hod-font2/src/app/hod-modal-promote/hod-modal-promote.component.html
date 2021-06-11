@@ -2,7 +2,7 @@
     <header id="modal-header">
         <h1 id="modal-title">Назначение преподавателя</h1>
         <h2 id="modal-title">
-            <b>Группа:</b>{{selectedGroup.Group_name}} &emsp;
+            <!-- <b>Группа:</b>{{selectedGroup.Group_name}} &emsp; -->
             <b>Дисциплина:</b>{{selectedSubject.SubjectName}} ({{selectedAttRec.SubTypeName}})
         </h2>
         <!-- <h3 id="modal-title"> <b>selectedAttRec.sub_name</b> - selectedAttRec.subTypeName </h3> -->
@@ -28,17 +28,65 @@
         </mat-form-field>
     </form>
 
-    <div class="row" *ngIf="stateForm.get('stateGroup').value.Fsh_id != undefined && submitedTeacher">
-        <p>Информация о преподавателе</p>
+    <div class="row" *ngIf="stateForm.get('stateGroup').value.Fsh_id != undefined || submitedTeacher">
+        <p>Информация о преподавателе:</p>
         <ul>
             <li>ФИО: <b>{{stateForm.get('stateGroup').value.FullName}}</b> </li>
-            <li>Должность: <b>{{submitedTeacher.PostName}}</b> </li>
-            <li>Ставка: <b>{{submitedTeacher.StaffCount}}</b> </li>
+            <li *ngIf="stateForm.get('stateGroup').value.Post_name != null">Должность: <b>{{stateForm.get('stateGroup').value.Post_name}}</b> </li>
+            <li *ngIf="stateForm.get('stateGroup').value.Post_name == null">Должность: <b>Старший преподаватель</b> </li>
+            <li>Условия привлечения: <b>{{displayApplyT1()}}</b> </li>
+            <li>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Профильное образование
+                    </label>
+                </div>
+            </li>
         </ul>
+    </div>
+
+    <div *ngIf="secondTeacher">
+        <hr>
+        <button class="btn btn-primary" (click)="switchTeacher()">Удалить</button>
+        <form [formGroup]="stateForm2">
+            <mat-form-field>
+                <mat-label>ФИО преподавателя</mat-label>
+                <input type="text" matInput formControlName="stateGroup2" [matAutocomplete]="autoGroup">
+                <!-- #docregion mat-autocomplete -->
+                <mat-autocomplete #autoGroup="matAutocomplete" panelWidth="350" [displayWith]="displayFn2">
+                    <mat-optgroup *ngFor="let group of stateGroupOptions2 | async" [label]="group.letter">
+                        <mat-option *ngFor="let name of group.teachers" [value]="name">
+                            {{name.FullName}}
+                        </mat-option>
+                    </mat-optgroup>
+                </mat-autocomplete>
+                <!-- #enddocregion mat-autocomplete -->
+            </mat-form-field>
+        </form>
+    
+        <div class="row" *ngIf="stateForm2.get('stateGroup2').value.Fsh_id != undefined || submitedTeacher2">
+            <p>Информация о преподавателе:</p>
+            <ul>
+                <li>ФИО: <b>{{stateForm2.get('stateGroup2').value.FullName}}</b> </li>
+                <li *ngIf="stateForm2.get('stateGroup2').value.Post_name != null">Должность: <b>{{stateForm2.get('stateGroup2').value.Post_name}}</b> </li>
+                <li *ngIf="stateForm2.get('stateGroup2').value.Post_name == null">Должность: <b>Старший преподаватель</b> </li>
+                <li>Условия привлечения: <b>{{displayApplyT2()}}</b> </li>
+                <li>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Профильное образование
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 
 
     <footer id="modal-footer">
+        <button mat-raised-button id="btn btn-primary" (click)="switchTeacher()">Добавить</button>
         <button mat-raised-button id="modal-action-button btn-primary" (click)="saveChanges()">Сохранить</button>
         <button mat-raised-button id="btn btn-info" [class]="btn_class" (click)="closeModal()">Выйти</button>
     </footer>

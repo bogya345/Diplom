@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { MethodCall } from '@angular/compiler';
 
-import { BlockRec, AcPlan, BlockNum } from '../_models/groups-models';
+import { BlockRec, AcPlan, BlockNum, Subject } from '../_models/groups-models';
 
 export class acplan_HttpService {
 
@@ -15,8 +15,8 @@ export class acplan_HttpService {
   /////// GET REGION START ///////
 
   /// 
-  getBlockNums(acPl_id, group_id): Observable<BlockNum[]> {
-    return this.http.get<BlockNum[]>(`${environment.hod_api_url}acplans/get/${acPl_id}/${group_id}`,
+  getSubjects(acPl_id): Observable<Subject[]> {
+    return this.http.get<Subject[]>(`${environment.hod_api_url}acplans/get/${acPl_id}/all`,
       {
         headers: {
           'Accept': 'application/json',
