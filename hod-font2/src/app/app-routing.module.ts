@@ -14,6 +14,7 @@ import { HodDepComponent } from './hod-dep/hod-dep.component';
 import { HodAcplanComponent } from './hod-acplan/hod-acplan.component';
 import { HodPromotionComponent } from './hod-promotion/hod-promotion.component';
 import { HodShowAcPlanComponent } from './hod-show-ac-plan/hod-show-ac-plan.component';
+import { HodFgosSettingComponent } from './hod-fgos-setting/hod-fgos-setting.component';
 
 // test
 import { SnackBarComponent } from './snack-bar/snack-bar.component';
@@ -46,6 +47,9 @@ const hod_routes: Routes = [
 
   // просмотр учебного плана направления
   { path: 'acplan/:acPl_id', component: HodShowAcPlanComponent },
+
+  // просмотр учебного плана направления
+  { path: 'fgos/requirs', component: HodFgosSettingComponent },
 
   // просмотр учебного плана направления
   { path: 'mapper', children: hod_mapper },

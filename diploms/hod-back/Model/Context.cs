@@ -246,6 +246,8 @@ namespace hod_back.Model
             modelBuilder.Entity<DirRequir>(entity =>
             {
                 entity.ToView("DirRequirs");
+
+                entity.Property(e => e.StartYear).IsUnicode(false);
             });
 
             modelBuilder.Entity<Direction>(entity =>

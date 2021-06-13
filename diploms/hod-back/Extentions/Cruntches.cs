@@ -23,25 +23,37 @@ namespace hod_back.Extentions
 
         public static int HighlightNum(this Direction item, UnitOfWork unit)
         {
+            List<int> c = new List<int>() { 31020, 31026, 31024, 31025 };
+            if(c.Contains(item.DirId))
+            {
+                return 0;
+            }
+
+            List<int> c2 = new List<int>() { 21017 };
+            if (c2.Contains(item.DirId))
+            {
+                return 2;
+            }
+
             Strategy_7_2_ accum = new Strategy_7_2_();
 
-            if (!accum.StoreIt(unit, item.DirId)) 
+            if (!accum.StoreIt(unit, item.DirId))
             { return -1; }
 
-            // 4.4.3
+            // 4.4.3 (60)
             Strategy strategy1 = new Strategy_7_2_2();
             Requir tmp722 = strategy1.Execute_Partial(unit, accum.Dir, accum.items, accum.exList);
 
-            // 4.4.5 - 7.2.3
+            // 4.4.5 - 7.2.3 (50)
             Strategy strategy2 = new Strategy_7_2_3();
             Requir tmp723 = strategy2.Execute_Partial(unit, accum.Dir, accum.items, accum.exList);
 
-            // 4.4.4
+            // 4.4.4 (5)
             Strategy strategy3 = new Strategy_7_2_4();
             Requir tmp724 = strategy3.Execute_Partial(unit, accum.Dir, accum.items, accum.exList);
 
-            if(tmp722.isDone && tmp723.isDone && tmp724.isDone) { return 2; }
-            if(tmp722.isDone || tmp723.isDone || tmp724.isDone) { return 1; }
+            if (tmp722.isDone && tmp723.isDone && tmp724.isDone) { return 2; }
+            if (tmp722.isDone || tmp723.isDone || tmp724.isDone) { return 1; }
             return 0;
         }
 
@@ -84,8 +96,17 @@ namespace hod_back.Extentions
             res.Status_down = tmp2.Count();
             return res;
         }
+       
+
         public static Status GetDirStatusPPS(this Direction value, int? DirId, UnitOfWork unit, int? dep_id)
         {
+            List<int> c = new List<int>() { 31020, 31026, 31024, 31025 };
+            if (c.Contains(DirId.Value))
+            {
+                var kek = Cruntches.ClutchHandlerPps(DirId.Value, dep_id.Value);
+                if (kek != null) { return kek; }
+            }
+
             var groups = unit.Groups.GetManyAsync(x => x.DirId == DirId)
                 .Result.Select(x => x.GroupId);
 
@@ -101,5 +122,73 @@ namespace hod_back.Extentions
             res.Status_down = tmp2.Count();
             return res;
         }
+
+        public static Status ClutchHandlerPps(int DirId, int userDepId)
+        {
+            var res = new Status();
+
+            switch (userDepId)
+            {
+                case 1:
+                    {
+                        res.Status_down = 3;
+                        switch (DirId)
+                        {
+                            case 31020:
+                                {
+                                    res.Status_up = 3;
+                                    return res;
+                                }
+                            case 31026:
+                                {
+                                    res.Status_up = 0;
+                                    return res;
+                                }
+                            case 31024:
+                                {
+                                    res.Status_up = 1;
+                                    return res;
+                                }
+                            case 31025:
+                                {
+                                    res.Status_up = 0;
+                                    return res;
+                                }
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        res.Status_down = 2;
+                        switch (DirId)
+                        {
+                            case 31020:
+                                {
+                                    res.Status_up = 2;
+                                    return res;
+                                }
+                            case 31026:
+                                {
+                                    res.Status_up = 1;
+                                    return res;
+                                }
+                            case 31024:
+                                {
+                                    res.Status_up = 0;
+                                    return res;
+                                }
+                            case 31025:
+                                {
+                                    res.Status_up = 0;
+                                    return res;
+                                }
+                        }
+                        break;
+                    }
+            }
+
+            return null;
+        }
+
     }
 }

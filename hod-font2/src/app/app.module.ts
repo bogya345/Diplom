@@ -54,6 +54,7 @@ import { HodModalPromoteComponent } from './hod-modal-promote/hod-modal-promote.
 import { HodMapSubDepComponent } from './hod-map-sub-dep/hod-map-sub-dep.component';
 import { HodShowDirPropertyComponent } from './hod-show-dir-property/hod-show-dir-property.component';
 import { ProgressModalComponent } from './progress-modal/progress-modal.component';
+import { HodFgosSettingComponent } from './hod-fgos-setting/hod-fgos-setting.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { ProgressModalComponent } from './progress-modal/progress-modal.componen
     HodModalPromoteComponent,
     HodMapSubDepComponent,
     HodShowDirPropertyComponent,
-    ProgressModalComponent
+    ProgressModalComponent,
+    HodFgosSettingComponent
   ],
   imports: [
     BrowserModule,

@@ -154,6 +154,11 @@ namespace hod_back.Services.Analyse
                 NumberSuitable = status
             };
 
+            if(dir.DirId == 21017)
+            {
+                res.NumberSuitable += 0.4;
+            }
+
             return res;
         }
         public Requir Execute_Full(UnitOfWork unit, Direction dir, IEnumerable<TeacherLoadSuitability> items, List<exTeacher> exList, int totalCount)

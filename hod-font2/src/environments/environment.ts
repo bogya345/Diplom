@@ -29,9 +29,13 @@ export const environment = {
     // pass: 'password1',
     
     email: 'dorogobeda@ugtu.net', 
-    // email: 'zorinaa@ugtu.net', 
-    // email: 'pelmegovr@ugtu.net', 
+    // email: 'zorinaa@ugtu.net', // уму
+    // email: 'polyakoval@ugtu.net', // математика 
+    // email: 'pelmegovr@ugtu.net',  // админ
     pass: 'password',
+
+    // email: '',
+    // pass: ''
   }
 
 };

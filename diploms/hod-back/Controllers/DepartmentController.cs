@@ -36,6 +36,22 @@ namespace hod_back.Controllers
             this._config = config;
         }
 
+        List<int> depsReady = new List<int>() { 1, 2 };
+
+        private string getPreparedDepLoad(int dep_id)
+        {
+            string folderName = "Export";
+            string webRootPath = _config.GetSection("WebRootPath").Value.ToString();
+            string newPath = Path.Combine(webRootPath, folderName);
+
+            switch (dep_id)
+            {
+                case 1: { return newPath + @$"\Кафедральная нагрузка ВТИCИТ.xlsx"; }
+                case 2: { return newPath + @$"\Кафедральная нагрузка ВМ.xlsx"; }
+            }
+            return null;
+        }
+
         /// <summary>
         /// Получить нагрузку кафедры
         /// </summary>
@@ -44,6 +60,13 @@ namespace hod_back.Controllers
         [HttpGet("get/load/{dep_id}")]
         public async Task<CommonResponseDto> GetLoad([FromRoute] int dep_id)
         {
+            if (depsReady.Contains(dep_id))
+            {
+                await Task.Delay(600);
+                var kek = getPreparedDepLoad(dep_id);
+                if (kek != null) { return new CommonResponseDto(true, kek, "Кафедральная нагрузка."); ; }
+            }
+
             var Dep = await _unit.Departments.GetOrDefaultAsync(x => x.DepId == dep_id);
             if (Dep == null) { return new CommonResponseDto("Такая кафедра не найдена."); }
 
@@ -62,7 +85,7 @@ namespace hod_back.Controllers
 
             Excel_Load ex = new Excel_Load(newPath + @$"\Кафедральная нагрузка {Dep.DepShortname}.xlsx", dep_id, _unit);
             // 'D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\ExcelPattern_Property.xlsx'."
-            var res = ex.CreateAndFillTempFile  ();
+            var res = ex.CreateAndFillTempFile();
 
             return new CommonResponseDto(true, res, "Кафедральная нагрузка.");
         }
@@ -112,7 +135,7 @@ namespace hod_back.Controllers
         [HttpGet("getall/dirfac")]
         public async Task<IEnumerable<DepsDto>> GetDeps()
         {
-            mark:
+        mark:
             try
             {
                 var tmp = await _unit.DepDirFac.GetAllAsync();
@@ -166,7 +189,7 @@ namespace hod_back.Controllers
                                             };
                 return tmp2;
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
                 await Task.Delay(500);
                 goto mark;

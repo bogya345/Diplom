@@ -9,5 +9,8 @@ namespace hod_back.Models
     {
         public int Fsh_id { get; set; }
         public string TeacherName { get; set; }
+
+        public int? Fsh_id2 { get; set; }
+        public string TeacherName2 { get; set; }
     }
 }

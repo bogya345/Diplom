@@ -33,6 +33,7 @@ namespace hod_back.Model
         [Column("dep_name")]
         [StringLength(100)]
         public string DepName { get; set; }
+        public string DissertCouncil { get; set; }
         [Column("edDoc_id_r")]
         public int? EdDocIdR { get; set; }
         [Column("rank_id")]

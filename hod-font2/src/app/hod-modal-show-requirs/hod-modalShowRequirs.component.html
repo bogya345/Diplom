@@ -8,7 +8,8 @@
         <ng-template #elseBlock_dirs>
 
             <h3>Пункт <b>4.4.3</b></h3>
-            <p>ППС соответсвующие профилю (необходимо 60%)</p>
+            <!-- <p>ППС соответсвующие профилю (необходимо 60%)</p> -->
+            <p>ППС соответсвующие профилю (необходимо {{requirs.Requirs[0].SettedValue}}%)</p>
             <section class="example-section">
                 <mat-progress-bar class="example-margin"
                     [color]="getColorForRequirs1()" [mode]="mode"
@@ -22,7 +23,8 @@
             <hr>
 
             <h3>Пункт <b>4.4.4</b></h3>
-            <p>Из числа работников организации (необходимо 5%)</p>
+            <!-- <p>Из числа работников организации (необходимо 5%)</p> -->
+            <p>Из числа работников организации (необходимо {{requirs.Requirs[1].SettedValue}}%)</p>
             <section class="example-section">
                 <mat-progress-bar class="example-margin"
                     [color]="getColorForRequirs3()" [mode]="mode"
@@ -36,7 +38,8 @@
             <hr>
 
             <h3>Пункт <b>4.4.5</b></h3>
-            <p>Остепененные (необходимо 50%)</p>
+            <!-- <p>Остепененные (необходимо 50%)</p> -->
+            <p>Остепененные (необходимо {{requirs.Requirs[2].SettedValue}}%)</p>
             <section class="example-section">
                 <mat-progress-bar class="example-margin"
                     [color]="getColorForRequirs2()" [mode]="mode"

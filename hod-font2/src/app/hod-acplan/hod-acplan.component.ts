@@ -72,8 +72,6 @@ export class HodAcplanComponent implements OnInit {
   public acPlan: BlockNum[];
   public subjects: Subject[];
 
-  private submittedTeacher: any;
-
   private _httpOwn: acplan_HttpService;
   private _user: User;
   public _userDepId: number;
@@ -180,11 +178,12 @@ export class HodAcplanComponent implements OnInit {
     modalDialog.afterClosed().subscribe(result => {
       console.log(result);
       console.log('The dialog was closed');
-      // this.submittedTeacher = result;
 
       this.selectedSubject.Loads.forEach(x => {
-        x.AtAcPlId == item.AtAcPlId ? x.FshId1 = result.fsh_id1 : x.FshId1 = x.FshId1;
-        x.AtAcPlId == item.AtAcPlId ? x.TeachName1 = result.teacherName1 : x.TeachName1 = x.TeachName1;
+        x.AtAcPlId == item.AtAcPlId ? x.FshId1 = result.fsh_id : x.FshId1 = x.FshId1;
+        x.AtAcPlId == item.AtAcPlId ? x.TeachName1 = result.teacherName : x.TeachName1 = x.TeachName1;
+        x.AtAcPlId == item.AtAcPlId && result.fsh_id2 != null ? x.FshId2 = result.fsh_id2 : x.FshId2 = x.FshId2;
+        x.AtAcPlId == item.AtAcPlId && result.teacherName2 != null ? x.TeachName2 = result.teacherName2 : x.TeachName2 = x.TeachName2;
       });
       console.log('lol, i did it');
 

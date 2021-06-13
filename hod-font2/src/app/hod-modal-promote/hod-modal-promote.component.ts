@@ -210,7 +210,7 @@ export class HodModalPromoteComponent implements OnInit {
       'teacherName2': null,
       'attAcPlan_id': this.selectedAttRec.AtAcPlId
     };
-    alert();
+    // alert();
     if(selectedTeacher2) {
       formFake = {
         'fsh_id': selectedTeacher.value.Fsh_id,

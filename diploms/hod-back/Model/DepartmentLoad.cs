@@ -21,7 +21,7 @@ namespace hod_back.Model
         [Column("ps_id")]
         public int PsId { get; set; }
         [Column("dep_id")]
-        public int? DepId { get; set; }
+        public int DepId { get; set; }
         [Column("dep_name")]
         [StringLength(100)]
         public string DepName { get; set; }

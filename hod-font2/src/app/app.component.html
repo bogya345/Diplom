@@ -16,6 +16,12 @@
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#">Профиль</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#">Выйти</a>
+        </li>
         <!-- <li class="nav-item d-none d-sm-inline-block">
           <a href="index3.html" class="nav-link">Главная странги</a>
         </li>
@@ -58,7 +64,8 @@
           <div class="info">
             <a href="#" class="d-block">{{user.username}}</a>
             <p style="color: aliceblue;" *ngIf="user.access_role_id == 1">(Преподаватель)</p>
-            <p style="color: aliceblue;" *ngIf="user.access_role_id == 2">(Руководитель ОПОП)</p>
+            <p style="color: aliceblue;" *ngIf="user.access_role_id == 2 && user.dep_id != 2">(Руководитель ОПОП)</p>
+            <p style="color: aliceblue;" *ngIf="user.access_role_id == 2 && user.dep_id == 2">(Заведующий кафедрой)</p>
             <p style="color: aliceblue;" *ngIf="user.access_role_id == 3">(Уму сотрудник)</p>
             <p style="color: aliceblue;" *ngIf="user.access_role_id == 4">(Администратор)</p>
           </div>
@@ -105,6 +112,16 @@
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Кадровые справки
+                  <!-- <span class="right badge badge-danger">New</span> -->
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="hod/fgos/requirs" class="nav-link">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Требования ФГОС
                   <!-- <span class="right badge badge-danger">New</span> -->
                 </p>
               </a>
@@ -177,6 +194,10 @@
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
       <!-- Control sidebar content goes here -->
+      <!-- <ul>
+        <li>Профиль</li>
+        <li>Выйти</li>
+      </ul> -->
     </aside>
     <!-- /.control-sidebar -->
 

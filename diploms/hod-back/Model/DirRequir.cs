@@ -11,8 +11,13 @@ namespace hod_back.Model
     [Keyless]
     public partial class DirRequir
     {
+        [Column("dep_id")]
+        public int? DepId { get; set; }
         [Column("dir_id")]
         public int DirId { get; set; }
+        [Column("startYear")]
+        [StringLength(4)]
+        public string StartYear { get; set; }
         [Column("eBr_name")]
         [StringLength(100)]
         public string EBrName { get; set; }

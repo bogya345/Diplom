@@ -78,7 +78,8 @@
                           <h3 class="card-title">{{i.SubTypeName}} Часы:<b>{{i.LoadValue}}</b></h3>
                           <p class="card-text mb-2 text-muted">
                             Преподаватель:
-                            <i>{{i.FshId1 == null ? '<не назначен>' : i.TeachName1}}</i>
+                            <i *ngIf="i.FshId1 != null && i.FshId2 == null">{{i.FshId1 == null ? '<не назначен>' : i.TeachName1}}</i>
+                            <i *ngIf="i.FshId2 != null">{{i.FshId1 == null ? '<не назначен>' : i.TeachName1}}, {{i.FshId2 == null ? '<не назначен>' : i.TeachName2}}</i>
                           </p>
 
                           <div

@@ -17,17 +17,6 @@ using hod_back.Dto;
 using hod_back.Services.Excel;
 using hod_back.Models;
 
-//using hod_back.DAL.Models;
-//using hod_back.DAL.Models.Views;
-//using hod_back.DAL.Models.ToRecieve;
-//using hod_back.DAL.Models.ToSend;
-//using hod_back.DAL.Models.ToParse;
-
-//using hod_back.DAL;
-//using hod_back.DAL.Contexts;
-
-//using hod_back.Services.Excel;
-
 namespace hod_back.Controllers
 {
     [ApiController]
@@ -107,15 +96,37 @@ namespace hod_back.Controllers
             {
                 return null;
             }
-            var tmp = this._unit.AttAcPlans.GetOrDefaultAsync(x => x.AttAcPlId == attAcPl_id).Result;
-            tmp.FshId1 = model.fsh_id;
-            this._unit.AttAcPlans.Update(tmp);
 
-            var res = new LoadPartDto()
+            LoadPartDto res;
+            if (model.fsh_id2 == null)
             {
-                Fsh_id = model.fsh_id.Value,
-                TeacherName = model.teacherName
-            };
+                var tmp = this._unit.AttAcPlans.GetOrDefaultAsync(x => x.AttAcPlId == attAcPl_id).Result;
+                tmp.FshId1 = model.fsh_id;
+                this._unit.AttAcPlans.Update(tmp);
+
+                res = new LoadPartDto()
+                {
+                    Fsh_id = model.fsh_id.Value,
+                    TeacherName = model.teacherName,
+                    Fsh_id2 = null,
+                    TeacherName2 = null
+                };
+            }
+            else
+            {
+                var tmp = this._unit.AttAcPlans.GetOrDefaultAsync(x => x.AttAcPlId == attAcPl_id).Result;
+                tmp.FshId1 = model.fsh_id;
+                tmp.FshId2 = model.fsh_id2;
+                this._unit.AttAcPlans.Update(tmp);
+
+                res = new LoadPartDto()
+                {
+                    Fsh_id = model.fsh_id.Value,
+                    TeacherName = model.teacherName,
+                    Fsh_id2 = model.fsh_id2,
+                    TeacherName2 = model.teacherName2
+                };
+            }
 
             return res;
         }

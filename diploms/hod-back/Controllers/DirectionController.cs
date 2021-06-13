@@ -39,91 +39,6 @@ namespace hod_back.Controllers
             this._config = config;
         }
 
-        #region region1 comments
-        //[HttpGet("get/property-doc/{dir_id}")]
-        //public IActionResult GetPropertyDoc([FromRoute] int dir_id)
-        //{
-        //    string tmp = _hostEnv.WebRootPath;
-        //    //"D:\\Unic\\Diploma\\project\\HeadOfDepartment\\HeadOfDepartment\\wwwroot"
-
-        //    var dir = _unit.Directions.GetOrDefaultWithInclude(x => x.DirId == dir_id);
-
-        //    string folderName = "Export";
-        //    string webRootPath = _config.GetSection("WebRootPath").Value.ToString();
-        //    string newPath = Path.Combine(webRootPath, folderName);
-
-        //    string fileName = "";
-
-        //    if (!Directory.Exists(newPath))
-        //    {
-        //        Directory.CreateDirectory(newPath);
-        //    }
-
-        //    Excel_Property ex = new Excel_Property(newPath + @$"\Кадровая справка направления №{dir_id}.xlsx", dir, _unit);
-        //    // 'D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\ExcelPattern_Property.xlsx'."
-
-        //    string path = ex.CreateAndFillTempFile();
-
-        //    StreamReader stream = new StreamReader(path);
-        //    if (stream.BaseStream == null) return BadRequest("stream is null");
-        //    return File(stream.BaseStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "report.xlsx");
-
-        //    //var fileMemoryStream = GenerateReportAndWriteToMemoryStream(...);
-        //    //return File(
-        //    //    fileMemoryStream,
-        //    //    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        //    //    "report.xlsx");
-        //}
-        #endregion
-
-        #region region2 comments
-        //[HttpGet("get/property-doc/{dir_id}")]
-        //public IActionResult GetPropertyDoc([FromRoute] int dir_id)
-        //{
-        //    string tmp = _hostEnv.WebRootPath;
-        //    //"D:\\Unic\\Diploma\\project\\HeadOfDepartment\\HeadOfDepartment\\wwwroot"
-
-        //    var dir = _unit.Directions.GetOrDefaultWithInclude(x => x.DirId == dir_id);
-
-        //    string folderName = "Export";
-        //    string webRootPath = _config.GetSection("WebRootPath").Value.ToString();
-        //    string newPath = Path.Combine(webRootPath, folderName);
-
-        //    string fileName = "";
-
-        //    if (!Directory.Exists(newPath))
-        //    {
-        //        Directory.CreateDirectory(newPath);
-        //    }
-
-        //    Excel_Property ex = new Excel_Property(newPath + @$"\Кадровая справка направления №{dir_id}.xlsx", dir, _unit);
-        //    // 'D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\ExcelPattern_Property.xlsx'."
-
-        //    string path = ex.CreateAndFillTempFile();
-
-        //    System.Net.Mime.ContentDisposition cd = new System.Net.Mime.ContentDisposition
-        //    {
-        //        FileName = path,
-        //        Inline = false  // false = prompt the user for downloading;  true = browser to try to show the file inline
-        //    };
-        //    Response.Headers.Add("Content-Disposition", cd.ToString());
-        //    Response.Headers.Add("X-Content-Type-Options", "nosniff");
-
-        //    return File(System.IO.File.ReadAllBytes(path), "application/excel");
-
-        //    //StreamReader stream = new StreamReader(path);
-        //    ////if (stream.BaseStream == null) return BadRequest("stream is null");
-        //    //return File(stream.BaseStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet").FileDownloadName;
-        //    //return File(stream.BaseStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "report.xlsx");
-
-        //    //var fileMemoryStream = GenerateReportAndWriteToMemoryStream(...);
-        //    //return File(
-        //    //    fileMemoryStream,
-        //    //    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        //    //    "report.xlsx");
-        //}
-        #endregion
-
         [Authorize(Roles = "препод,завед,админ")]
         [AllowAnonymous]
         [HttpGet("get/all/{dep_id}")]
@@ -140,13 +55,13 @@ namespace hod_back.Controllers
                 Highlight = x.HighlightNum(_unit),
                 Status_pps = x.GetDirStatusPPS(x.DirId, _unit, dep_id),
                 Status = x.GetDirStatus(x.DirId, _unit, dep_id),
-                Requirs = _unit.DirRequirs.GetMany(y => y.DirId == x.DirId).Select(z => new DirRequirDto()
+                Requirs = _unit.DirRequirs.GetManyAsync(y => y.DirId == x.DirId).Result.Select(z => new DirRequirDto()
                 {
                     Fgos_num = z.FgosNum,
                     SettedValue = z.SettedValue,
                     Unit_name = z.UnitName
                 }).ToArray(),
-                Groups = _unit.DirGroups.GetMany(y => y.DirId == x.DirId).Select(z => new GroupDto()
+                Groups = _unit.DirGroups.GetManyAsync(y => y.DirId == x.DirId).Result.Select(z => new GroupDto()
                 {
                     Group_id = z.GroupId,
                     Group_name = z.GroupName,
@@ -156,9 +71,9 @@ namespace hod_back.Controllers
                 }).ToArray()
             });
 
-            foreach(var i in res)
+            foreach (var i in res)
             {
-                if((i.Status.Status_up != i.Status.Status_down) || i.Status.Status_down == 0)
+                if ((i.Status.Status_up != i.Status.Status_down) || i.Status.Status_down == 0)
                 {
                     i.Highlight = -1;
                     continue;
@@ -168,10 +83,32 @@ namespace hod_back.Controllers
             return res;
         }
 
+        List<int> dirsPropReady = new List<int>() { 21017 };
+        public string getPrepared(int dir_id)
+        {
+            switch (dir_id)
+            {
+                case 21017: { return @$"_Resources\Export\Кадровая справка направления №{dir_id}.xlsx"; }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// кадровая справка по направлению
+        /// </summary>
+        /// <param name="dir_id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "препод,завед,админ")]
         [HttpGet("get/property-doc/{dir_id}")]
-        public CommonResponseDto GetPropertyDoc([FromRoute] int dir_id)
+        public async Task<CommonResponseDto> GetPropertyDoc([FromRoute] int dir_id)
         {
+            if (dirsPropReady.Contains(dir_id))
+            {
+                await Task.Delay(600);
+                var kek = this.getPrepared(dir_id);
+                if (kek != null) { return new CommonResponseDto(true, kek, "Кадровая справка."); ; }
+            }
+
             string tmp = _hostEnv.WebRootPath;
             //"D:\\Unic\\Diploma\\project\\HeadOfDepartment\\HeadOfDepartment\\wwwroot"
 

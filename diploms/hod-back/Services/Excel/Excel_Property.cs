@@ -153,7 +153,8 @@ namespace hod_back.Services.Excel
                 exT.RankId = eDoc.RankId;
                 exT.IsForeign = (rate.ApplyTId == 2);
 
-                ws.Cell("F" + activeRow).Value = "Уровень образования (нет данных)";
+                ws.Cell("F" + activeRow).Value = eDoc.DissertCouncil;
+                //ws.Cell("G" + activeRow).Value = "";
                 ws.Cell("G" + activeRow).Value = "Дополнительное образование (нет данных)";
 
                 // disciplines + hours + rate

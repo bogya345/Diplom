@@ -78,15 +78,15 @@ namespace hod_back.Controllers
             if (!this.accum.StoreIt(_unit, dir_id))
             { return new PackageRequirsDto() { Done = false, Msg_text = "Ни один преподаватель не назначен для получения сведений о показателей требований ФГОС." }; }
 
-            // 4.4.3
+            // 4.4.3 (60)
             Strategy strategy1 = new Strategy_7_2_2();
             Requir tmp722 = strategy1.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
 
-            // 4.4.5 - 7.2.3
+            // 4.4.5 - 7.2.3 (50)
             Strategy strategy2 = new Strategy_7_2_3();
             Requir tmp723 = strategy2.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
 
-            // 4.4.4
+            // 4.4.4 (5)-10
             Strategy strategy3 = new Strategy_7_2_4();
             Requir tmp724 = strategy3.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
 
@@ -106,6 +106,7 @@ namespace hod_back.Controllers
                 };
                 res1.Add(item);
             }
+            res1 = res1.OrderBy(x => x.Fgos_num).ToList();
 
             res.Requirs = res1.ToArray();
 

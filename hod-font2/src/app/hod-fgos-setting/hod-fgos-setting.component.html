@@ -1,0 +1,49 @@
+
+<div class="row">
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Год начала</th>
+                <th scope="col">пункт 4.4.3 (%)</th>
+                <th scope="col">пункт 4.4.4 (%)</th>
+                <th scope="col">пункт 4.4.5 (%)</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let item of dirFgos">
+
+                <!-- Название -->
+                <td>{{ item.DirName }}</td>
+
+                <!-- Год начала -->
+                <td>{{ item.StartYear }}</td>
+
+                <td>
+                    <input class="input" type="text" [value]="item.Fgos443">
+                </td>
+
+                <td>
+                    <input class="input" type="text" [value]="item.Fgos444">
+                </td>
+
+                <td>
+                    <input class="input" type="text" [value]="item.Fgos445">
+                </td>
+
+                <td>
+                    <button class="btn btn-primary" [disabled]="false">
+                        Сохранить
+                    </button>
+                </td>
+
+            </tr>
+        </tbody>
+
+    </table>
+
+</div>
