@@ -1,0 +1,43 @@
+program Pr5_3;
+
+
+
+var
+  n, i, a, l, max, x: longint;
+
+function perevod10v2(a: longint): longint;
+var
+  k, l: longint;
+begin
+  l := 0;
+  while a > 0 do
+  begin
+    k := a mod 2;
+    a := a div 2;
+    if k = 1 then l := l + 1;
+  end;
+  perevod10v2 := l;
+end;
+
+begin
+  repeat
+    writeln('Введите кол-во чисел:');
+    readln(n);
+  until n > 0;
+  l := 0;
+  for i := 1 to n do
+  begin
+    writeln('Введите число:');
+    
+    readln(a);
+    l := perevod10v2(a);
+    writeln(l);
+    if l > max then
+    begin
+      max := l;
+      x := a;
+    end;
+  end;
+  writeln('Число с наибольшим кол-ом 1 в 2-й записи: ', x);
+  writeln('Кол-во 1 в 2-й записи числа ', x, ':  ', l);
+end.

@@ -28,6 +28,7 @@ namespace WebBRS.Controllers
 		[HttpGet("GetTimeTableStudent/{IdSelectedDraft}/{IdSelectedDraftType}/{DateTimeExact}/{IdCourse}")]
 		public TimeTable2 GetTimeTableStudent(string IdSelectedDraft, string IdSelectedDraftType, string DateTimeExact, string IdCourse)
 		{
+			
 			TimeTable2 timeTable = new TimeTable2();
 			if (IdSelectedDraft == null)
 			{
@@ -277,13 +278,10 @@ namespace WebBRS.Controllers
 			var yearClaims = claimsIdentity.FindFirst("Name");
 			User user = unit.Users.Get(u => u.login == yearClaims.Value);
 			int IdPerson = user.PersonIdPerson;
-			//int IdPerson = 1739436573;
-			//int IdPerson = 237609111;
 			TeacherSubjects teacherSubjects = new TeacherSubjects();
 			TimeTable timeTable = new TimeTable();
 			int currentDoW = Convert.ToInt32(dateChoosen.DayOfWeek);
 			Person lecturer = unit.Persons.Get(IdPerson);
-			//StudyYear sty = unit.StudyYears.Get(Convert.ToInt32(IdStudyYear));
 			List<DraftTimeTable> dfts = unit.DraftTimeTables.GetAll().ToList();
 			List<TypeTimeTable> dttt = unit.TypesTimeTable.GetAll().ToList();
 			List<SubjectForGroup> sfgs = unit.SubjectForGroups.GetAll(sfg => sfg.IdPerson == lecturer.IdPerson && sfg.DraftTimeTableIdDFTT.ToString() == IdSelectedDraft).ToList();

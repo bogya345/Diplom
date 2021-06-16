@@ -24,22 +24,24 @@
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <label>Проект расписания</label>
+                <label>
+                  Расписание на 1 полугодие 2020-2021 года
+                </label>
 
-                <select class="form-control select2" style="width: 100%;" (change)="selectChangeHandler($event)">
+                <!--<select class="form-control select2" style="width: 100%;" (change)="selectChangeHandler($event)">
 
                   <option *ngFor="let i of TimeTable2.Drafts" value="{{i.IdDFTT}}"> {{i._Description}}  </option>
-                </select>
+                </select>-->
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label>Тип расписания</label>
+                <label>Фактическое расписание</label>
 
-                <select class="form-control select2" style="width: 100%;" (change)="selectChangeHandler2($event)">
+                <!--<select class="form-control select2" style="width: 100%;" (change)="selectChangeHandler2($event)">
 
                   <option *ngFor="let i of TimeTable2.DraftTypes" value="{{i.IdDTTT}}"> {{i._Description}}  </option>
-                </select>
+                </select>-->
               </div>
 
             </div>
@@ -113,7 +115,7 @@
                         </div>
                         <div class="col-md-6">
                           <div id="external-events" *ngFor="let k of TimeTable2.DaysStudent[0].EXTCforTimeTablesStudent">
-                            <a href="/dashboard/homeworks/{{k.IdClass}}">
+                            <a target="_blank" href="/dashboard/homeworks/{{k.IdClass}}">
                               <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
                             </a>
                           </div>
@@ -169,7 +171,7 @@
                         </div>
                         <div class="col-md-6">
                           <div id="external-events" *ngFor="let k of TimeTable2.DaysStudent[1].EXTCforTimeTablesStudent">
-                            <a href="/dashboard/homeworks/{{k.IdClass}}">
+                            <a target="_blank" href="/dashboard/homeworks/{{k.IdClass}}">
                               <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
                             </a>
                           </div>
@@ -195,7 +197,7 @@
                     <div class="card-header">
                       <div class="row">
                         <div class="col-12">
-                          <h4 >{{TimeTable2.DaysStudent[2].DayOfWeek}}</h4>
+                          <h4>{{TimeTable2.DaysStudent[2].DayOfWeek}}</h4>
                         </div>
                       </div>
                       <div class="row">
@@ -225,7 +227,7 @@
                         </div>
                         <div class="col-md-6">
                           <div id="external-events" *ngFor="let k of TimeTable2.DaysStudent[2].EXTCforTimeTablesStudent">
-                            <a href="/dashboard/homeworks/{{k.IdClass}}">
+                            <a target="_blank" href="/dashboard/homeworks/{{k.IdClass}}">
                               <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
                             </a>
                           </div>
@@ -255,10 +257,10 @@
                     <div class="card-header">
                       <div class="row">
                         <div class="col-12">
-                          <h4 >{{TimeTable2.DaysStudent[3].DayOfWeek}}</h4>
+                          <h4>{{TimeTable2.DaysStudent[3].DayOfWeek}}</h4>
                         </div>
                       </div>
-                      
+
                       <div class="row">
                         <div class="col-2">
                           <h6>Время</h6>
@@ -286,7 +288,7 @@
                         </div>
                         <div class="col-md-6">
                           <div id="external-events" *ngFor="let k of TimeTable2.DaysStudent[3].EXTCforTimeTablesStudent">
-                            <a href="/dashboard/homeworks/{{k.IdClass}}">
+                            <a target="_blank" href="/dashboard/homeworks/{{k.IdClass}}">
                               <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
                             </a>
                           </div>
@@ -343,7 +345,7 @@
                         </div>
                         <div class="col-md-6">
                           <div id="external-events" *ngFor="let k of TimeTable2.DaysStudent[4].EXTCforTimeTablesStudent">
-                            <a href="/dashboard/homeworks/{{k.IdClass}}">
+                            <a target="_blank" href="/dashboard/homeworks/{{k.IdClass}}">
                               <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
                             </a>
                           </div>
@@ -369,7 +371,7 @@
                     <div class="card-header">
                       <div class="row">
                         <div class="col-12">
-                          <h4 >{{TimeTable2.DaysStudent[5].DayOfWeek}}</h4>
+                          <h4>{{TimeTable2.DaysStudent[5].DayOfWeek}}</h4>
 
                         </div>
                       </div>
@@ -401,7 +403,7 @@
                         </div>
                         <div class="col-md-6">
                           <div id="external-events" *ngFor="let k of TimeTable2.DaysStudent[5].EXTCforTimeTablesStudent">
-                            <a href="/dashboard/homeworks/{{k.IdClass}}">
+                            <a target="_blank" href="/dashboard/homeworks/{{k.IdClass}}">
                               <div class="external-event bg-gradient-blue">{{k.SubjectName}}</div>
                             </a>
                           </div>
@@ -459,7 +461,7 @@
 
 
                                 <tr *ngFor="let k of ClassWorks.classWorkVM">
-                                  <td><a href="/dashboard/homeworks/{{k.IdClass}}"><span _ngcontent-ng-cli-universal-c0="" class="badge badge-pill">{{k.IdClassWork}}</span></a></td>
+                                  <td><a target="_blank" href="/dashboard/homeworks/{{k.IdClass}}"><span _ngcontent-ng-cli-universal-c0="" class="badge badge-pill">{{k.IdClassWork}}</span></a></td>
                                   <td>{{k.LecturerFIO}}</td>
                                   <td>{{k.DateGiven}}</td>
                                   <td><span class="tag tag-primary">{{k.MaxBall}}</span></td>
@@ -512,7 +514,7 @@
                               </thead>
                               <tbody>
                                 <tr *ngFor="let k of ClassWorks.classWorkVMAll">
-                                  <td><a href="/dashboard/homeworks/{{k.IdClass}}"><span _ngcontent-ng-cli-universal-c0="" class="badge badge-pill">{{k.IdClassWork}}</span></a></td>
+                                  <td><a target="_blank" href="/dashboard/homeworks/{{k.IdClass}}"><span _ngcontent-ng-cli-universal-c0="" class="badge badge-pill">{{k.IdClassWork}}</span></a></td>
                                   <td>{{k.LecturerFIO}}</td>
                                   <td>{{k.DateGiven}}</td>
                                   <td><span class="tag tag-primary">{{k.MaxBall}}</span></td>

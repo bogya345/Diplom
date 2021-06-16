@@ -28,6 +28,8 @@ export class ThemesforpdfComponent implements OnInit {
     
     this.baseUrl = baseUrl;
     this.selectedGroup = { idGroup: null, GroupName: '', Specialty: '' }
+
+
   }
 
   ngOnInit() {
@@ -52,7 +54,10 @@ export class ThemesforpdfComponent implements OnInit {
         console.log('error/constructor', error);
       }
     );
-    window.print();
+    setTimeout(tmp => {
+      window.print();
+    }, 1000);
+
   }
 
 }

@@ -1,8 +1,8 @@
-<div class="content-wrapper">
+<div class="content-wrapper" *ngIf="HW.IdClassWork!=0">
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
-        <div class="col-sm-6">
+        <div class="col-sm-6" *ngIf="HW.IdClassWork!=0">
           <h1>Домашнее задание №{{HW.IdClassWork}}</h1>
         </div>
         <!--<div class="col-sm-6">
@@ -18,7 +18,7 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-6">       
+        <div class="col-6">
 
           <!-- Main content -->
           <div class="invoice p-3 mb-3">
@@ -54,7 +54,6 @@
                 </address>
               </div>
               <!-- /.col -->
-              
               <!-- /.col -->
             </div>
 
@@ -64,7 +63,7 @@
                 <div class="form-group">
                   <!-- /.mailbox-controls -->
                   <div class="mailbox-read-message">
-                   {{HW.TextWork}}
+                    {{HW.TextWork}}
                   </div>
                 </div>
                 <a href="{{Url}}_Resources/homeworks/{{HW.FilePathWork}}">
@@ -78,7 +77,7 @@
           <!-- /.invoice -->
         </div><!-- /.col -->
         <div class="col-6">
-          <div class="card card-primary " >
+          <div class="card card-primary ">
             <div class="card-header">
               <h3 class="card-title">Выполненное задание </h3>
             </div>
@@ -108,12 +107,12 @@
                     </div>
                   </div>
                 </div>
-                
+
               </div>
               <!-- /.card-body -->
 
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary "  (click)="postData()">Сохранить</button>
+              <div class="card-footer" *ngIf="StudentAnswer.Checked!=true">
+                <button type="submit" class="btn btn-primary " (click)="postData()">Сохранить</button>
               </div>
             </form>
           </div>
@@ -121,4 +120,24 @@
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </section>
-  </div>
+</div>
+
+<div class="content-wrapper" *ngIf="HW.IdClassWork==0" style="background-color:white; margin-top:50px" >
+  <section class="content-header" style="align-content: center;">
+    <div class="container-fluid" >
+      <div class="row justify-content-center">
+        <div class="col-sm-6" *ngIf="HW.IdClassWork==0">
+          <h1 style="text-align:center; font-size:50px;">Домашнее задание не выдано <br /> займись чем-нибудь другим :)</h1>
+        </div>
+        <!--<div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Invoice</li>
+          </ol>
+        </div>-->
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+</div>
+

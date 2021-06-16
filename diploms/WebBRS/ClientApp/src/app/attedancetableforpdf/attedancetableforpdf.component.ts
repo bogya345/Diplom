@@ -3,6 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { attedanceTable_HttpService } from './http.serviceAttedance';
 import { HttpClient, HttpRequest, HttpResponse, HttpEventType } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-attedancetableforpdf',
   templateUrl: './attedancetableforpdf.component.html',
@@ -49,6 +50,7 @@ export class AttedancetableforpdfComponent implements OnInit {
     this.http = new attedanceTable_HttpService(http);
     this.baseUrl = baseUrl;
     this.selectedGroup = { idGroup: null, GroupName: '', Specialty: '' }
+
   }
 
   ngOnInit() {
@@ -68,12 +70,14 @@ export class AttedancetableforpdfComponent implements OnInit {
         this.ecflct.SelectedGroup = result.SelectedGroup;
         console.log('keks', this.ecflct.Groups);
         console.log('result/constructor', result);
-
       }, error => {
         console.log('error/constructor', error);
       }
     );
-    window.print();
+
+    setTimeout(tmp => {
+      window.print();
+    }, 1000);
 
   }
 

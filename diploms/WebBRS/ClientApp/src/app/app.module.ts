@@ -40,6 +40,9 @@ import { AttedancetableforpdfComponent } from './attedancetableforpdf/attedancet
 import { ThemesforpdfComponent } from './themesforpdf/themesforpdf.component';
 import { AttedanceforpdfComponent } from './attedanceforpdf/attedanceforpdf.component';
 import { PrikazCuratorComponent } from './prikaz-curator/prikaz-curator.component';
+import { PrikazCuratorPDFComponent } from './prikaz-curator-pdf/prikaz-curator-pdf.component';
+import { PrikazCuratorListComponent } from './prikaz-curator-list/prikaz-curator-list.component';
+import { ProfileforviewComponent } from './profileforview/profileforview.component';
 ////import { ConfirmDialogComponent } from './yes-no-modal/confirm-dialog.component';
 //import { DialogBodyComponent } from './dialog-body/dialog-body.component';
 
@@ -86,7 +89,10 @@ export function tokenGetter() {
     AttedancetableforpdfComponent,
     ThemesforpdfComponent,
     AttedanceforpdfComponent,
-    PrikazCuratorComponent
+    PrikazCuratorComponent,
+    PrikazCuratorPDFComponent,
+    PrikazCuratorListComponent,
+    ProfileforviewComponent
     //ConfirmDialogComponent,
     //DialogBodyComponent
   ],
@@ -109,7 +115,8 @@ export function tokenGetter() {
       {
         path: 'dashboard', component: MainSidebarComponent, 
         children: [
-          { path: 'profile/:IdPerson', canActivate: [AuthGuard], component: ProfileComponent },
+          { path: 'profile/:IdPerson', canActivate: [AuthGuard],  component: ProfileComponent },
+          { path: 'profileView/:IdPerson', canActivate: [AuthGuard], component: ProfileforviewComponent },
           { path: 'CuratorStatisticComponent', canActivate: [AuthGuard], component: CuratorStatisticComponent },
           { path: 'curator/:IdPortfolio', canActivate: [AuthGuard], component: CuratorConfirmedComponent },
           { path: 'curatorPortfolioList', canActivate: [AuthGuard],component: CuratorConfirmedListComponent },
@@ -136,13 +143,21 @@ export function tokenGetter() {
           { path: 'checkhomework', canActivate: [AuthGuard], component: HomeworkListTeacherComponent },
           { path: 'timetableTeacher', canActivate: [AuthGuard], component: TimetableTeacherComponent },
           { path: 'CuratorGroup', canActivate: [AuthGuard], component: PortfoliocardComponent},
-
+          {
+            path: 'newPrikaz', canActivate: [AuthGuard], component: PrikazCuratorComponent
+          },
+          {
+            path: 'PrikazList', canActivate: [AuthGuard], component: PrikazCuratorListComponent
+          },
 
 
         ]
       },
       {
         path: 'statisticCurator/:DateStart/:DateEnd', component: CuratorstatforPDFComponent
+      },
+      {
+        path: 'prikazCurator/:IdPrikaza', component: PrikazCuratorPDFComponent
       },
       {
         path: 'statistic/:IdECFLCT/:IdselectedGroup', component: AttedancetableforpdfComponent
@@ -153,6 +168,7 @@ export function tokenGetter() {
       {
         path: 'statisticAttedance/:IdECFLCT/:IdselectedGroup', component: AttedanceforpdfComponent
       },
+
       //{ path: 'login', component: LoginComponentComponent },
       { path: '**', redirectTo: '/dashboard/mainpage', pathMatch: 'full' }
     ]),

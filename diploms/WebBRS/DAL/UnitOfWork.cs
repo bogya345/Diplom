@@ -30,6 +30,8 @@ namespace WebBRS.DAL
 		#region Tables Reposes
 
 		private PersonsRepo personsRepository;
+		private PrikazRepo prikazRepo;
+		private PrikazRowRepo prikazRowRepo;
 		private CuratorsRepo curatorsRepository;
 		private PortfoliosRepo portfoliosRepo;
 		private ClassWorksRepo classWorksRepo;
@@ -99,6 +101,24 @@ namespace WebBRS.DAL
 				if (portfoliosRepo == null)
 					portfoliosRepo = new PortfoliosRepo(context);
 				return portfoliosRepo;
+			}
+		}	
+		public PrikazRepo Prikazes
+		{
+			get
+			{
+				if (prikazRepo == null)
+					prikazRepo = new PrikazRepo(context);
+				return prikazRepo;
+			}
+		}	
+		public PrikazRowRepo PrikazeRowes
+		{
+			get
+			{
+				if (prikazRowRepo == null)
+					prikazRowRepo = new PrikazRowRepo(context);
+				return prikazRowRepo;
 			}
 		}	
 		public AttedanceReasonRepo AttedanceReasons

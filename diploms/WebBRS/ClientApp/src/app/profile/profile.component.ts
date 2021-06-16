@@ -15,7 +15,7 @@ import { VERSION, MatDialogRef, MatDialog, MatSnackBar, MAT_DIALOG_DATA } from '
 })
 export class ProfileComponent implements OnInit {
   version = VERSION;
-
+  public Groups: GroupVM[];
   public http: profile_HttpService;
   public baseUrl: string;
   public portfolioAdd: PortfolioVM;
@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   public profile: ProfileVM;
   public portfolios: PortfolioVM[];
   public attedanceReasons: AttedanceReason[];
+  public SelectedGroup: GroupVM;
   //@ViewChild('deleteModal', { static: false }) public deleteModal: YesNoModalComponent;
   public dialog: MatDialog;
   public snackBar: MatSnackBar;
@@ -153,6 +154,17 @@ export class ProfileComponent implements OnInit {
         //snack.dismiss();
 
         this.postData();
+        this.http.getAttedanceReason()
+          .subscribe(result => {
+            this.attedanceReasons = result;
+
+            console.log('portfolios', this.attedanceReasons);
+            console.log('result/constructor', result);
+
+          }, error => {
+            console.log('error/constructor', error);
+          }
+          );
         this.http.getPortfolios()
           .subscribe(result => {
             this.portfolios = result;
@@ -303,6 +315,17 @@ export class ProfileComponent implements OnInit {
         console.log('error/constructor', error);
       }
     );
+    this.http.getPortfolio2()
+      .subscribe(result => {
+        this.Groups = result;
+        this.SelectedGroup = this.Groups[0];
+        console.log('keks', this.Groups);
+        console.log('result/constructor', result);
+
+      }, error => {
+        console.log('error/constructor', error);
+      }
+      );
     this.http.getAttedance(0)
       .subscribe(result => {
         this.attedanceReason = result;
@@ -370,6 +393,28 @@ interface PortfolioVM {
   Confirmed: string,
   File: File
 
+}
+interface GroupVM {
+  idGroup: number,
+  GroupName: string,
+  studentVMs: Student[],
+  SubjectVMs: SubjectGroup[]
+}
+interface Student {
+  IdStudent: number,
+  PersonFIO: string,
+  Balls: number,
+  Attedanced: AttedancedVMType[]
+}
+interface SubjectGroup {
+  IdSubject: number,
+  SubjectName: string
+}
+interface AttedancedVMType {
+
+  attedanced: string,
+  Ball: string,
+  BallHW: string
 }
 interface AttedanceReason {
 

@@ -24,6 +24,57 @@ namespace WebBRS.Controllers
 			_appEnvironment = appEnvironment;
 		}
 		IWebHostEnvironment _appEnvironment;
+		[HttpGet("GetAttedanceReasons/{IdPortfolio}")]
+		public List<AttedanceReasonVM> GetAttedanceReasons(int IdPortfolio)
+		{
+			List<AttedanceReasonVM> AttedanceReasonVMs = new List<AttedanceReasonVM>();
+			//изменить когда появится авторизация
+			//изменить когда появится авторизация
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			//int IdPerson = user.PersonIdPerson;
+			//int PersonId =;
+			int idPerson = IdPortfolio;
+			//int idPerson = 1739436577;
+			Person person = unit.Persons.Get(p => p.IdPerson == idPerson);
+			List<AttedanceReason> attedances = unit.AttedanceReasons.GetAll(po => po.IdPerson == idPerson).ToList();
+			foreach (var i in attedances)
+			{
+				AttedanceReasonVM buf = new AttedanceReasonVM();
+				buf.IdPerson = i.IdPerson;
+				buf.PersonFIO = person.PersonFIOShort();
+				buf.IdCurator = i.IdCurator;
+				buf.IdAttReas = i.IdAttReas;
+				buf.IdSGH = i.IdSGH;
+				Person curator = unit.Persons.Get(p => p.IdPerson == i.Curator.PersonIdPerson);
+				buf.CuratorFIO = curator.PersonFIOShort();
+				buf.DateAdded = i.DateAdded.ToShortDateString();
+				buf.DateTimeStart = i.DateTimeStart.ToString("d");
+				buf.DateTimeEnd = i.DateTimeEnd.ToString("d");
+
+				if (i.DateConfirmed != null)
+				{
+					buf.DateConfirmed = Convert.ToString(i.DateConfirmed);
+				}
+				if (i.DateNotConfirmed != null)
+				{
+					buf.DateNotConfirmed = Convert.ToString(i.DateNotConfirmed);
+				}
+			
+				buf.DocName = i.DocName;
+				buf.FilePath = i.FilePath;
+				buf.DateAdded = i.DateAdded.ToString("d");
+				if (i.DateConfirmed != null)
+				{
+					buf.DateConfirmed = Convert.ToDateTime(i.DateConfirmed).ToString("d");
+				}
+				buf.CuratorFIO = unit.Persons.Get(p => p.IdPerson == i.Curator.PersonIdPerson).PersonFIOShort();
+				AttedanceReasonVMs.Add(buf);
+			}
+			return AttedanceReasonVMs;
+		}
 		[HttpGet("GetAttedanceReason")]
 		public List<AttedanceReasonVM> GetAttedanceReason()
 		{
@@ -80,6 +131,7 @@ namespace WebBRS.Controllers
 
 		public AttedanceReasonVM GetAttedanceReason(int IdPortfolio)
 		{
+			
 			AttedanceReason portfolio = unit.AttedanceReasons.Get(cw => cw.IdAttReas == IdPortfolio);
 			AttedanceReasonVM portfolioVM = new AttedanceReasonVM();
 			//изменить когда появится авторизация
@@ -89,44 +141,69 @@ namespace WebBRS.Controllers
 			User user = unit.Users.Get(u => u.login == yearClaims.Value);
 			//int IdPerson = user.PersonIdPerson;
 			//int PersonId =;
+			if (IdPortfolio == 0)
+			{
+				portfolioVM.IdPerson = user.PersonIdPerson;
+			}
 			int idPerson = user.PersonIdPerson;
-			portfolioVM.IdPerson = idPerson;
-
-			Person person = unit.Persons.Get(portfolioVM.IdPerson);
-			Student student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
-
-			List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
-				.GetAll(sgh => sgh.IdStudent == student.IdStudent &&/* sgh.CourseIdCourse.ToString() == IdCourse && */sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
-			var studentsSorted = from s in studentsGroupHistories
-								 orderby s.DateSGHStart
-								 select s;
-			List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
-			StudentsGroupHistory sgh = studentsSortedList[0];
-			Curator curator = unit.Curators.Get(c => c.GroupIdGroup == sgh.GroupIdGroup);
-			if (portfolio == null)
+			portfolioVM.IdPerson = IdPortfolio;
+			Person person = new Person();
+			Student student = new Student();
+			try
 			{
-				portfolio = new AttedanceReason();
-				portfolioVM.IdAttReas = 0;
-				portfolioVM.IdPerson = person.IdPerson;
-				portfolioVM.CuratorFIO = curator.Person.PersonFIOShort();
-				portfolioVM.PersonFIO = person.PersonFIOShort();
-				portfolioVM.IdSGH = sgh.IdSGH;
-				portfolioVM.DateAdded = DateTime.Now.ToString();
+				person = unit.Persons.Get(portfolioVM.IdPerson);
+				student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
+				if (student != null)
+				{
+					List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
+	.GetAll(sgh => sgh.IdStudent == student.IdStudent &&/* sgh.CourseIdCourse.ToString() == IdCourse && */sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
+					var studentsSorted = from s in studentsGroupHistories
+										 orderby s.DateSGHStart
+										 select s;
+					List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
+					try
+					{
+						StudentsGroupHistory sgh = studentsSortedList[0];
+						Curator curator = unit.Curators.Get(c => c.GroupIdGroup == sgh.GroupIdGroup);
+						if (portfolio == null)
+						{
+							portfolio = new AttedanceReason();
+							portfolioVM.IdAttReas = 0;
+							portfolioVM.IdPerson = person.IdPerson;
+							portfolioVM.CuratorFIO = curator.Person.PersonFIOShort();
+							portfolioVM.PersonFIO = person.PersonFIOShort();
+							portfolioVM.IdSGH = sgh.IdSGH;
+							portfolioVM.DateAdded = DateTime.Now.ToString();
 
-				portfolioVM.IdCurator = curator.CuratorID;
-				portfolioVM.FilePath = "";
+							portfolioVM.IdCurator = curator.CuratorID;
+							portfolioVM.FilePath = "";
+						}
+						else
+						{
+							//portfolioVM.IdPortfolio = portfolio.IdPortfolio;
+							//portfolioVM.IdPortfolio = portfolio.IdPortfolio;
+							//portfolioVM.IdPerson = portfolio.IdPerson; ;
+							//portfolioVM.Description = portfolio.Description;
+							//portfolioVM.FilePath = portfolio.FilePath;
+							//portfolioVM.DateAdded = portfolio.DateAdded.ToString("d");
+							//portfolioVM.DateConfirmed = portfolio.DateConfirmed ;
+
+						}
+					}
+					catch
+					{
+
+					}
+				}
+
 			}
-			else
+			catch
 			{
-				//portfolioVM.IdPortfolio = portfolio.IdPortfolio;
-				//portfolioVM.IdPortfolio = portfolio.IdPortfolio;
-				//portfolioVM.IdPerson = portfolio.IdPerson; ;
-				//portfolioVM.Description = portfolio.Description;
-				//portfolioVM.FilePath = portfolio.FilePath;
-				//portfolioVM.DateAdded = portfolio.DateAdded.ToString("d");
-				//portfolioVM.DateConfirmed = portfolio.DateConfirmed ;
 
 			}
+
+
+
 			return portfolioVM;
 		}
 		[HttpGet("GetAttedanceForConfirm/{conf}/{datestart}/{dateend}")]
@@ -134,61 +211,70 @@ namespace WebBRS.Controllers
 		public List<AttedanceReasonVM> GetAttedanceForConfirm(bool conf, DateTime datestart, DateTime dateend)
 		{
 			List<AttedanceReasonVM> portfolioVMs = new List<AttedanceReasonVM>();
-			//изменить когда появится авторизация
-			ClaimsIdentity claimsIdentity;
-			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
-			var yearClaims = claimsIdentity.FindFirst("Name");
-			User user = unit.Users.Get(u => u.login == yearClaims.Value);
-			//int IdPerson = user.PersonIdPerson;
-			//int PersonId =;
-			int idPerson = user.PersonIdPerson;
-			List<Curator> curators = unit.Curators.GetAll(c => c.PersonIdPerson == idPerson && c.Actual == true).ToList();
-			List<AttedanceReason> portfolios = new List<AttedanceReason>();
-			if (!conf)
+			try
 			{
-				foreach (var c in curators)
+				//изменить когда появится авторизация
+				ClaimsIdentity claimsIdentity;
+				claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+				var yearClaims = claimsIdentity.FindFirst("Name");
+				User user = unit.Users.Get(u => u.login == yearClaims.Value);
+				//int IdPerson = user.PersonIdPerson;
+				//int PersonId =;
+				int idPerson = user.PersonIdPerson;
+				List<Curator> curators = unit.Curators.GetAll(c => c.PersonIdPerson == idPerson && c.Actual == true).ToList();
+				List<AttedanceReason> portfolios = new List<AttedanceReason>();
+				if (!conf)
 				{
-					List<AttedanceReason> portfoliosBUF = unit.AttedanceReasons.GetAll(po => po.IdCurator == c.CuratorID && po.Confirmed == conf && po.DateAdded > datestart && po.DateAdded < dateend).ToList();
-					foreach (var p in portfoliosBUF)
+					foreach (var c in curators)
 					{
-						portfolios.Add(p);
+						List<AttedanceReason> portfoliosBUF = unit.AttedanceReasons.GetAll(po => po.IdCurator == c.CuratorID && po.Confirmed == conf && po.DateAdded > datestart && po.DateAdded < dateend).ToList();
+						foreach (var p in portfoliosBUF)
+						{
+							portfolios.Add(p);
+						}
 					}
 				}
-			}
-			else
-			{
-				foreach (var c in curators)
+				else
 				{
-					List<AttedanceReason> portfoliosBUF = unit.AttedanceReasons.GetAll(po => po.IdCurator == c.CuratorID && po.DateAdded > datestart && po.DateAdded < dateend).ToList();
-					foreach (var p in portfoliosBUF)
+					foreach (var c in curators)
 					{
-						portfolios.Add(p);
+						List<AttedanceReason> portfoliosBUF = unit.AttedanceReasons.GetAll(po => po.IdCurator == c.CuratorID && po.DateAdded > datestart && po.DateAdded < dateend).ToList();
+						foreach (var p in portfoliosBUF)
+						{
+							portfolios.Add(p);
+						}
 					}
 				}
-			}
 
-			foreach (var i in portfolios)
+				foreach (var i in portfolios)
+				{
+					AttedanceReasonVM buf = new AttedanceReasonVM();
+					buf.IdPerson = i.IdPerson;
+					Person person = unit.Persons.Get(p => p.IdPerson == buf.IdPerson);
+					buf.PersonFIO = i.Person.PersonFIOShort();
+					buf.IdCurator = i.IdCurator;
+					buf.IdAttReas = i.IdAttReas;
+					buf.DocName = i.DocName;
+					buf.DateTimeStart = i.DateTimeStart.ToString("d");
+					buf.DateTimeEnd = i.DateTimeEnd.ToString("d");
+					//buf.Description = i.Description;
+					buf.FilePath = i.FilePath;
+					buf.DateAdded = i.DateAdded.ToString("d");
+					if (i.DateConfirmed != null)
+					{
+						buf.DateConfirmed = Convert.ToDateTime(i.DateConfirmed).ToString("d");
+					}
+					if (i.DateNotConfirmed != null)
+					{
+						buf.DateNotConfirmed = Convert.ToDateTime(i.DateNotConfirmed).ToString("d");
+					}
+					//buf.PersonFIO = unit.Persons.Get(p => p.IdPerson == i.Curator.PersonIdPerson).PersonFIOShort();
+					portfolioVMs.Add(buf);
+				}
+			}
+			catch
 			{
-				AttedanceReasonVM buf = new AttedanceReasonVM();
-				buf.IdPerson = i.IdPerson;
-				Person person = unit.Persons.Get(p => p.IdPerson == buf.IdPerson);
-				buf.PersonFIO = person.PersonFIOShort();
-				buf.IdCurator = i.IdCurator;
-				buf.IdAttReas = i.IdAttReas;
-				buf.DocName = i.DocName;
-				//buf.Description = i.Description;
-				buf.FilePath = i.FilePath;
-				buf.DateAdded = i.DateAdded.ToString("d");
-				if (i.DateConfirmed != null)
-				{
-					buf.DateConfirmed = Convert.ToDateTime(i.DateConfirmed).ToString("d");
-				}
-				if (i.DateNotConfirmed != null)
-				{
-					buf.DateNotConfirmed = Convert.ToDateTime(i.DateNotConfirmed).ToString("d");
-				}
-				buf.PersonFIO = unit.Persons.Get(p => p.IdPerson == i.Curator.PersonIdPerson).PersonFIOShort();
-				portfolioVMs.Add(buf);
+
 			}
 			return portfolioVMs;
 		}
@@ -226,14 +312,13 @@ namespace WebBRS.Controllers
 				Person person = unit.Persons.Get(PersonId);
 				Student student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
 				int IdCourse = 1363575543;
-				List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
-					.GetAll(sgh => sgh.IdStudent == student.IdStudent && sgh.CourseIdCourse == IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
-				var studentsSorted = from s in studentsGroupHistories
-									 orderby s.DateSGHFinished
-									 select s;
-				List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
-				StudentsGroupHistory sgh = studentsSortedList[0];
-				Curator curator = unit.Curators.Get(c => c.GroupIdGroup == sgh.GroupIdGroup);
+	//			List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
+	//.GetAll(sgh => sgh.IdStudent == student.IdStudent && sgh.CourseIdCourse == IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
+	//			var studentsSorted = from s in studentsGroupHistories
+	//								 orderby s.DateSGHFinished
+	//								 select s;
+	//			List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
+	//			StudentsGroupHistory sgh = studentsSortedList[0];
 				if (data.IdAttReas != 0)
 				{
 					cw = unit.AttedanceReasons.Get(c => c.IdAttReas == data.IdAttReas);
@@ -281,6 +366,14 @@ namespace WebBRS.Controllers
 				{
 					//изменить после добавления авторизации
 					string filepath = "/_Resources/attedanceReasons/" + count.ToString() + data.File.FileName;
+					List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
+	.GetAll(sgh => sgh.IdStudent == student.IdStudent && sgh.CourseIdCourse == IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
+					var studentsSorted = from s in studentsGroupHistories
+										 orderby s.DateSGHFinished
+										 select s;
+					List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
+					StudentsGroupHistory sgh = studentsSortedList[0];
+					Curator curator = unit.Curators.Get(c => c.GroupIdGroup == sgh.GroupIdGroup);
 
 					cw.IdCurator = curator.CuratorID;
 					cw.DateAdded = DateTime.Now;

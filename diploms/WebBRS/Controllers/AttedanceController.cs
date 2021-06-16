@@ -61,7 +61,7 @@ namespace WebBRS.Controllers
 		{
 			ExactClassForLecturerClassTable ecflct = new ExactClassForLecturerClassTable();
 
-			List<ExactClass> exactClasses = unit.ExactClasses.GetAll(ec => ec.ID_reff.ToString() == ID_reff).ToList();
+			List<ExactClass> exactClasses = unit.ExactClasses.GetAll(ec => ec.ID_reff.ToString() == ID_reff&&ec.TypeTimeTableidTTT == -1045036686).ToList();
 			ecflct.LecturerFIO = exactClasses[0].PersonLecturer.PersonFIOShort();
 			ecflct.Date = DateTime.Now.ToString("d");
 			foreach (var i in exactClasses)
@@ -74,7 +74,16 @@ namespace WebBRS.Controllers
 				};
 				if (i.Theme != null)
 				{
-					ex.ThemeShort = i.Theme.Substring(0, 11);
+					if (i.Theme.Length > 11)
+					{
+						ex.ThemeShort = i.Theme.Substring(0, 11);
+
+					}
+					else
+					{
+						ex.ThemeShort = i.Theme;
+
+					}
 				}				
 				ecflct.ExactClasses.Add(ex);
 			}
@@ -308,6 +317,10 @@ namespace WebBRS.Controllers
 					var att = unit.Attendances.Get(a => a.IdAtt == i.IdAttedance);
 					att.TypeAttedanceIdTA = i.AttedanceTypeSelected;
 					att.Ball = i.Ball;
+					if (att.BallHW != null)
+					{
+						att.Checked = true;
+					}
 					att.BallHW = i.BallHW;
 					unit.Attendances.Update(att);
 					unit.Save();

@@ -33,7 +33,73 @@ namespace WebBRS.Controllers
 			_appEnvironment = appEnvironment;
 		}
 		IWebHostEnvironment _appEnvironment;
-		[Authorize(Roles = "admin, student, curator, studentlector, lectcur,lectcurstud")]
+		[Authorize(Roles = "admin, student, curator, studentlector, lectcur,lectcurstud, decan")]
+		[HttpGet("GetPortfile/{Id}")]
+
+		public ProfileVM GetProfile(string Id)
+		{
+			//изменить когда появится авторизация
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			int IdPerson = Convert.ToInt32(Id);
+
+			//var a = User.Identity;
+			ProfileVM profileVM = new ProfileVM();
+			Person person = unit.Persons.Get(p => p.IdPerson == IdPerson);
+
+			int IdCourse = 1363575543;
+			try
+			{
+				Student student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
+				List<StudentsGroupHistory> studentsGroupHistories = new List<StudentsGroupHistory>();
+				if (student != null)
+				{
+					studentsGroupHistories = unit.StudentGroupHistories
+				   .GetAll(sgh => sgh.IdStudent == student.IdStudent && sgh.CourseIdCourse == IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
+				}
+				else
+				{
+					studentsGroupHistories = unit.StudentGroupHistories
+.GetAll(sgh => sgh.CourseIdCourse == IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
+				}
+				var studentsSorted = from s in studentsGroupHistories
+									 orderby s.DateSGHStart
+									 select s;
+				List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
+				StudentsGroupHistory sgh = studentsSortedList[0];
+				List<Attendance> attendances = unit.Attendances.GetAll(at => at.IdSGH == sgh.IdSGH).ToList();
+				foreach (var i in attendances)
+				{
+					if (i.TypeAttedanceIdTA == 3)
+					{
+						profileVM.NopeAttedance += 1;
+					};
+					if (i.TypeAttedanceIdTA == 4)
+					{
+						profileVM.NopeAttedanceConfirmed += 1;
+					};
+
+				};
+				double count = attendances.Count();
+				double procents = (profileVM.NopeAttedance) / count * 100;
+				profileVM.NopeAttedanceProc = Convert.ToInt32(procents);
+
+				profileVM.Group = sgh.Group.GroupName;
+
+			}
+			catch (Exception ex)
+			{
+
+			}
+
+			profileVM.IdPerson = IdPerson;
+			profileVM.PersonFIO = person.PersonFIOShort();
+
+			return profileVM;
+		}
+		[Authorize(Roles = "admin, student, curator, studentlector, lectcur,lectcurstud, decan")]
 		[HttpGet("GetPortfile")]
 
 		public ProfileVM GetProfile()
@@ -48,35 +114,89 @@ namespace WebBRS.Controllers
 			//var a = User.Identity;
 			ProfileVM profileVM = new ProfileVM();
 			Person person = unit.Persons.Get(p => p.IdPerson == IdPerson);
-			Student student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
+
 			int IdCourse = 1363575543;
-			List<StudentsGroupHistory> studentsGroupHistories = unit.StudentGroupHistories
-				.GetAll(sgh => sgh.IdStudent == student.IdStudent && sgh.CourseIdCourse == IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
-			var studentsSorted = from s in studentsGroupHistories
-								 orderby s.DateSGHStart
-								 select s;
-			List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
-			StudentsGroupHistory sgh = studentsSortedList[0];
+			try
+			{
+				Student student = unit.Students.Get(st => st.IdPerson == person.IdPerson);
+				List<StudentsGroupHistory> studentsGroupHistories = new List<StudentsGroupHistory>();
+				if (student != null)
+				{
+					studentsGroupHistories = unit.StudentGroupHistories
+				   .GetAll(sgh => sgh.IdStudent == student.IdStudent && sgh.CourseIdCourse == IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
+				}
+				else
+				{
+					studentsGroupHistories = unit.StudentGroupHistories
+.GetAll(sgh => sgh.CourseIdCourse == IdCourse && sgh.ConditionOfPersonIdConditionOfPerson == 1601441643).ToList();
+				}
+				var studentsSorted = from s in studentsGroupHistories
+									 orderby s.DateSGHStart
+									 select s;
+				List<StudentsGroupHistory> studentsSortedList = studentsSorted.ToList();
+				StudentsGroupHistory sgh = studentsSortedList[0];
+				List<Attendance> attendances = unit.Attendances.GetAll(at => at.IdSGH == sgh.IdSGH).ToList();
+				foreach (var i in attendances)
+				{
+					if (i.TypeAttedanceIdTA == 3)
+					{
+						profileVM.NopeAttedance += 1;
+					};
+					if (i.TypeAttedanceIdTA == 4)
+					{
+						profileVM.NopeAttedanceConfirmed += 1;
+					};
+
+				};
+				double count = attendances.Count();
+				double procents = (profileVM.NopeAttedance) / count * 100;
+				profileVM.NopeAttedanceProc = Convert.ToInt32(procents);
+
+				profileVM.Group = sgh.Group.GroupName;
+
+			}
+			catch (Exception ex)
+			{
+
+			}
+
 			profileVM.IdPerson = IdPerson;
 			profileVM.PersonFIO = person.PersonFIOShort();
-			List<Attendance> attendances = unit.Attendances.GetAll(at => at.IdSGH == sgh.IdSGH).ToList();
-			foreach (var i in attendances)
-			{
-				if (i.TypeAttedanceIdTA == 3)
-				{
-					profileVM.NopeAttedance += 1;
-				};
-				if (i.TypeAttedanceIdTA == 4)
-				{
-					profileVM.NopeAttedanceConfirmed += 1;
-				};
 
-			};
-			double count = attendances.Count();
-			double procents = (profileVM.NopeAttedance) / count * 100;
-			profileVM.NopeAttedanceProc = Convert.ToInt32(procents);
-			profileVM.Group = sgh.Group.GroupName;
 			return profileVM;
+		}
+		[HttpGet("GetPortfolios/{Id}")]
+		public List<PortfolioVM> GetAllPortfolios(string Id)
+		{
+			List<PortfolioVM> portfolioVMs = new List<PortfolioVM>();
+			//изменить когда появится авторизация
+			ClaimsIdentity claimsIdentity;
+			claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			var yearClaims = claimsIdentity.FindFirst("Name");
+			User user = unit.Users.Get(u => u.login == yearClaims.Value);
+			int idPerson = Convert.ToInt32(Id);
+			//int idPerson = 1739436577;
+			Person person = unit.Persons.Get(p => p.IdPerson == idPerson);
+			List<Portfolio> portfolios = unit.Portfolios.GetAll(po => po.IdPerson == idPerson).ToList();
+			foreach (var i in portfolios)
+			{
+				PortfolioVM buf = new PortfolioVM();
+				buf.IdPerson = i.IdPerson;
+				buf.PersonFIO = person.PersonFIOShort();
+				buf.IdPortfolio = i.IdPortfolio;
+				buf.Name = i.Name;
+				buf.Description = i.Description;
+				buf.FilePath = i.FilePath;
+				buf.DateAdded = i.DateAdded.ToString("d");
+				if (i.DateConfirmed != null)
+				{
+					buf.DateConfirmed = Convert.ToDateTime(i.DateConfirmed).ToString("d");
+
+				}
+				buf.PersonFIOconfirmed = unit.Persons.Get(p => p.IdPerson == i.Curator.PersonIdPerson).PersonFIOShort();
+				portfolioVMs.Add(buf);
+			}
+			return portfolioVMs;
 		}
 		[HttpGet("GetPortfolios")]
 

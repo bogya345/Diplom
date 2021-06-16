@@ -64,6 +64,7 @@
     <None Remove="ClientApp\src\app\homework\http.serviceHomework.ts" />
     <None Remove="ClientApp\src\app\main-sidebar\http.serviceMainSidebar.ts" />
     <None Remove="ClientApp\src\app\person-list\http.servicePersonList.ts" />
+    <None Remove="ClientApp\src\app\profileforview\http.serviceProfile.ts" />
     <None Remove="ClientApp\src\app\profile\http.serviceProfile.ts" />
     <None Remove="ClientApp\src\app\timetable-part\http.timetable-part.ts" />
     <None Remove="ClientApp\src\app\timetable-teacher\http.serviceTimeTableTeacher.ts" />

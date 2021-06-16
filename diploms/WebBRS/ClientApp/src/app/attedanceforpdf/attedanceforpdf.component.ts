@@ -52,7 +52,10 @@ export class AttedanceforpdfComponent implements OnInit {
         console.log('error/constructor', error);
       }
       );
-    window.print();
+    setTimeout(tmp => {
+      window.print();
+    }, 1000);
+  
   }
 
 }

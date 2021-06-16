@@ -56,74 +56,182 @@
                       <b>Friends</b> <a class="float-right">13,287</a>
                     </li>-->
                   </ul>
-                  <a href="/dashboard/timetable" class="btn btn-primary btn-block"><b>Расписание</b></a>
+                  <a href="/dashboard/timetable" class="btn btn-light btn-block"><b>Расписание</b></a>
                 </div>
                 <!-- /.card-body -->
               </div>
-              <!-- /.card -->
-              <!-- About Me Box -->
-              <!--<div class="card card-primary">
-                <div class="card-header">
-                  <h3 class="card-title">About Me</h3>
-                </div>-->
-              <!-- /.card-header -->
-              <!--<div class="card-body">
-                <strong><i class="fas fa-book mr-1"></i> Education</strong>
 
-                <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
-                </p>
-
-                <hr>
-
-                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-              </div>-->
-              <!-- /.card-body -->
-              <!--</div>-->
-              <!-- /.card -->
             </div>
-            <!-- /.col -->
-            <div class="col-md-9">
-              <div class="card">
-                <div class="card-header p-2">
-                  <ul class="nav nav-pills">
-                    <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Портфолио</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Добавить файл портфолио</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#attedance" data-toggle="tab">Подтверждающие справки</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#addattedance" data-toggle="tab">Добавить справку</a></li>
-                  </ul>
-                </div><!-- /.card-header -->
-                <div class="card-body">
-                  <div class="tab-content">
-                    <div class="active tab-pane" id="activity">
-                      <!-- Post -->
+            <div class="col-9">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <ul class="nav nav-pills">
+
+                        <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Добавить файл портфолио</a></li>
+
+                        <li class="nav-item"><a class="nav-link" href="#addattedance" data-toggle="tab">Добавить справку</a></li>
+                      </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                      <div class="tab-content">
+
+                        <!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="settings">
+                          <form class="form-horizontal">
+                            <div class="form-group row">
+                              <label for="inputName" class="col-sm-2 col-form-label">Название активности</label>
+                              <div class="col-sm-10">
+                                <input type="email" class="form-control" id="inputName" placeholder="Название активности" (change)="selectChangeHandler4($event)" value="{{portfolioAdd.Name}}">
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label for="inputExperience" class="col-sm-2 col-form-label">Описание</label>
+                              <div class="col-sm-10">
+                                <textarea class="textarea" placeholder="Введите текст"
+                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" (change)="doTextareaValueChange($event)">{{portfolioAdd.Description}}</textarea>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputFile">Файл активности</label>
+                              <div class="input-group">
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="exampleInputFile" (change)="onSelectFile($event)">
+                                  <label class="custom-file-label" for="exampleInputFile" *ngIf="portfolioAdd.File!=null">{{portfolioAdd.File.name}}</label>
+                                  <label class="custom-file-label" for="exampleInputFile" *ngIf="portfolioAdd.File==null">{{portfolioAdd.FilePath}}</label>
+                                </div>
+                                <div class="input-group-append">
+                                  <span class="input-group-text" id="">Загрузить</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger" (click)="openDialog2()">Добавить</button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+
+                        <div class="tab-pane" id="addattedance">
+                          <form class="form-horizontal">
+                            <div class="form-group row">
+                              <label for="inputName" class="col-sm-2 col-form-label">Название справки</label>
+                              <div class="col-sm-6">
+                                <input type="email" class="form-control" id="inputName" placeholder="Название справки" (change)="selectChangeHandler5($event)" value="{{attedanceReason.DocName}}">
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-2 col-sm-12">
+                                <label>С:</label>
+
+                                <div class="input-group">
+                                  <input id="datetime" value="{{attedanceReason.DateTimeStart}}" (change)="selectChangeHandler6($event)" type="date">
+                                </div>
+                              </div>
+                              <div class="col-4 col-sm-12">
+
+                                <label>По:</label>
+
+                                <div class="input-group">
+
+                                  <!--(change)="selectChangeHandler6($event)"-->
+
+                                  <input id="datetime" value="{{attedanceReason.DateTimeEnd}}" (change)="selectChangeHandler7($event)" type="date">
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label for="exampleInputFile">Файл документа</label>
+                              <div class="input-group">
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="exampleInputFile" (change)="onSelectFile2($event)">
+                                  <label class="custom-file-label" for="exampleInputFile" *ngIf="portfolioAdd.File!=null">{{attedanceReason.File.name}}</label>
+                                  <label class="custom-file-label" for="exampleInputFile" *ngIf="portfolioAdd.File==null">{{attedanceReason.FilePath}}</label>
+                                </div>
+                                <div class="input-group-append">
+                                  <span class="input-group-text" id="">Загрузить</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="offset-sm-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger" (click)="openDialog3()">Добавить</button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <!-- /.tab-pane -->
+                      </div>
+                      <!-- /.tab-content -->
+                    </div><!-- /.card-body -->
+                  </div>
+                  <!-- /.nav-tabs-custom -->
+                </div>
+                <div class="col-6">
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h4> Список справок</h4>
+                    </div>
+
+                    <div class="card-body">
+                      <div class="post" *ngFor="let i of attedanceReasons">
+                        <div class="user-block">
+                          <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
+                          <span class="username">
+                         
+                              Проверяющий:      {{i.CuratorFIO}}
+                         
+
+                            <!--<button type="button" class="btn btn-primary" >    X </button>-->
+                            <!--<a class="float-right btn-tool"></a>-->
+                          </span>
+                          <span class="description">Добавлена - {{i.DateAdded}}</span>
+                          <span class="description">Подтверждена - {{i.DateConfirmed}}</span>
+                          <span class="description">Отклонена - {{i.DateNotConfirmed}}</span>
+                        </div>
+                        <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
+                        <p>
+                          {{i.DocName}}
+
+                        </p>
+
+                        <br />  Действительна  с
+                        <h6>
+                          {{i.DateTimeStart}}
+                        </h6>
+
+                        по
+
+                        <h6>{{i.DateTimeEnd}}</h6>
+                        <div class="btn-group btn-group-sm">
+                          <a href="{{Url}}_Resources/attedanceReasons/{{i.FilePath}}" target="_blank" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                          <button href="#" class="btn btn-danger" value="{{i.IdAttReas}}" (click)="openDialog4($event)"><i class="fas fa-trash"></i></button>
+                        </div>
+                        <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-6">
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h4>Список достижений</h4>
+                    </div>
+                    <div class="card-body">
+
                       <div class="post" *ngFor="let i of portfolios">
                         <div class="user-block">
                           <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
                           <span class="username">
-                            <a href="#">
-                           Проверяющий:   {{i.PersonFIOconfirmed}}
-                            </a>
+                     
+                              Проверяющий:   {{i.PersonFIOconfirmed}}
+                          
 
 
                             <!--<button type="button" class="btn btn-primary" >    X </button>-->
@@ -145,146 +253,74 @@
                         </div>
                         <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
                         <!--<div class="row no-print">
-    <div class="col-12">
-      <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                          <div class="col-12">
+                            <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
 
-        <i class="fas fa-download"></i> Скачать файл
-      </button>
-    </div>
-  </div>-->
+                              <i class="fas fa-download"></i> Скачать файл
+                            </button>
+                          </div>
+                        </div>-->
                       </div>
-                      <!-- /.post -->
-                      <!-- Post -->
-                      <!-- /.post -->
                     </div>
-                    <!-- /.tab-pane -->
-
-                    <div class="tab-pane" id="settings">
-                      <form class="form-horizontal">
-                        <div class="form-group row">
-                          <label for="inputName" class="col-sm-2 col-form-label">Название активности</label>
-                          <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputName" placeholder="Название активности" (change)="selectChangeHandler4($event)" value="{{portfolioAdd.Name}}">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label for="inputExperience" class="col-sm-2 col-form-label">Описание</label>
-                          <div class="col-sm-10">
-                            <textarea class="textarea" placeholder="Введите текст"
-                                      style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" (change)="doTextareaValueChange($event)">{{portfolioAdd.Description}}</textarea>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputFile">Файл активности</label>
-                          <div class="input-group">
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="exampleInputFile" (change)="onSelectFile($event)">
-                              <label class="custom-file-label" for="exampleInputFile" *ngIf="portfolioAdd.File!=null">{{portfolioAdd.File.name}}</label>
-                              <label class="custom-file-label" for="exampleInputFile" *ngIf="portfolioAdd.File==null">{{portfolioAdd.FilePath}}</label>
-                            </div>
-                            <div class="input-group-append">
-                              <span class="input-group-text" id="">Загрузить</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <div class="offset-sm-2 col-sm-10">
-                            <button type="submit" class="btn btn-danger" (click)="openDialog2()">Добавить</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <div class="active tab-pane" id="attedance">
-                      <!-- Post -->
-                      <div class="post" *ngFor="let i of attedanceReasons">
-                        <div class="user-block">
-                          <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
-                          <span class="username">
-                            <a href="#">
-                              Проверяющий:      {{i.CuratorFIO}}
-                            </a>
-
-
-                            <!--<button type="button" class="btn btn-primary" >    X </button>-->
-
-                            <!--<a class="float-right btn-tool"></a>-->
-                          </span>
-                          <span class="description">Добавлена - {{i.DateAdded}}</span>
-                          <span class="description">Подтверждена - {{i.DateConfirmed}}</span>
-                          <span class="description">Отклонена - {{i.DateNotConfirmed}}</span>
-                        </div>
-                        <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
-                        <p>
-                          {{i.DocName}}
-                        </p>
-                        <div class="btn-group btn-group-sm">
-                          <a href="{{Url}}_Resources/attedanceReasons/{{i.FilePath}}" target="_blank" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                          <button href="#" class="btn btn-danger"value="{{i.IdAttReas}}" (click)="openDialog4($event)"><i class="fas fa-trash"></i></button>
-                        </div>
-                        <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
-
-                      </div>
-                      <!-- /.post -->
-                      <!-- Post -->
-                      <!-- /.post -->
-                    </div>
-                    <div class="tab-pane" id="addattedance">
-                      <form class="form-horizontal">
-                        <div class="form-group row">
-                          <label for="inputName" class="col-sm-2 col-form-label">Название справки</label>
-                          <div class="col-sm-6">
-                            <input type="email" class="form-control" id="inputName" placeholder="Название справки" (change)="selectChangeHandler5($event)" value="{{attedanceReason.DocName}}">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <div class="col-2 col-sm-12">
-                            <label>С:</label>
-
-                            <div class="input-group">
-                              <input id="datetime" value="{{attedanceReason.DateTimeStart}}" (change)="selectChangeHandler6($event)" type="date">
-                            </div>
-                          </div>
-                          <div class="col-4 col-sm-12">
-
-                            <label>По:</label>
-
-                            <div class="input-group">
-
-                              <!--(change)="selectChangeHandler6($event)"-->
-
-                              <input id="datetime" value="{{attedanceReason.DateTimeEnd}}" (change)="selectChangeHandler7($event)" type="date">
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <label for="exampleInputFile">Файл документа</label>
-                          <div class="input-group">
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="exampleInputFile" (change)="onSelectFile2($event)">
-                              <label class="custom-file-label" for="exampleInputFile" *ngIf="portfolioAdd.File!=null">{{attedanceReason.File.name}}</label>
-                              <label class="custom-file-label" for="exampleInputFile" *ngIf="portfolioAdd.File==null">{{attedanceReason.FilePath}}</label>
-                            </div>
-                            <div class="input-group-append">
-                              <span class="input-group-text" id="">Загрузить</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <div class="offset-sm-2 col-sm-10">
-                            <button type="submit" class="btn btn-danger" (click)="openDialog3()">Добавить</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <!-- /.tab-pane -->
                   </div>
-                  <!-- /.tab-content -->
-                </div><!-- /.card-body -->
+                </div>
               </div>
-              <!-- /.nav-tabs-custom -->
             </div>
             <!-- /.col -->
+            <!-- /.col -->
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">{{ Groups[0].GroupName }}</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body" style="overflow-y: scroll;">
+                      <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th>ФИО</th>
+                            <!--<th>Сумма баллов</th>-->
+                            <th *ngFor="let j of SelectedGroup.SubjectVMs">{{j.SubjectName}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let j of  SelectedGroup.studentVMs; let n = index">
+                            <td>{{j.PersonFIO}}</td>
+                            <!--<td>{{j.Balls}}</td>-->
+                            <td *ngFor="let k of SelectedGroup.studentVMs[n].Attedanced">
+                              <div>
+                                Б. :     <span _ngcontent-ng-cli-universal-c0="" class="badge badge-success">{{k.Ball}}</span>
+
+                              </div>
+                              <div>
+                                Б. за д/з:    <span _ngcontent-ng-cli-universal-c0="">{{k.BallHW}}</span>
+                              </div>
+                              <div>
+                                Пр. : <span _ngcontent-ng-cli-universal-c0="" class="badge badge-danger"> {{k.attedanced}}</span>
+
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <!--<tfoot>
+                          <tr>
+                            <th>Rendering engine</th>
+                            <th>Browser</th>
+                            <th>Platform(s)</th>
+
+                          </tr>
+                        </tfoot>-->
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <!-- /.row -->
         </div><!-- /.container-fluid -->

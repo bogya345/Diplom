@@ -189,7 +189,7 @@ export class CuratorConfirmedListComponent implements OnInit {
   }
   openDialog2(event: any) {
     console.log('event: ', event);
-    this.idPortfolioUpdate = event.target.value;
+    this.idPortfolioUpdate = event.target.id;
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         message: 'Вы хотите отклонить активность?',
@@ -251,6 +251,7 @@ export class CuratorConfirmedListComponent implements OnInit {
     console.log('event: ', event);
     this.idPortfolioUpdate = event.target.value;
    console.log ('Idatt ', this.idPortfolioUpdate as number);
+    console.log('event.target ', event.target);
    console.log ('att ',this.attedances.findIndex(st => st.IdAttReas == this.idPortfolioUpdate as number));
 
     const dialogRef = this.dialog.open(ConfirmationDialog, {
@@ -272,6 +273,7 @@ export class CuratorConfirmedListComponent implements OnInit {
           //a.click();
           //a.remove();
           //snack.dismiss();
+          
           this.attedances[this.attedances.findIndex(st => st.IdAttReas == this.idPortfolioUpdate as number)].Confirmed = 'true';
 
           this.http.execute2(this.attedances[this.attedances.findIndex(st => st.IdAttReas == this.idPortfolioUpdate as number)])
@@ -288,17 +290,20 @@ export class CuratorConfirmedListComponent implements OnInit {
                   console.log('error/constructor', error);
                 }
               );
-              this.http.getAttedanceReasons(this.conf, this.DateTimeStart, this.DateTimeEnd)
-                .subscribe(result => {
-                  this.attedances = result;
+     
+                this.http.getAttedanceReasons(this.conf, this.DateTimeStart, this.DateTimeEnd)
+                  .subscribe(result => {
+                    this.attedances = result;
 
-                  console.log('attedance', this.portfolios);
-                  console.log('result/constructor', result);
+                    console.log('attedance', this.portfolios);
+                    console.log('result/constructor', result);
 
-                }, error => {
-                  console.log('error/constructor', error);
-                }
-                );
+                  }, error => {
+                    console.log('error/constructor', error);
+                  }
+                  );
+   
+
             });
 
           //this.snackBar.open('Удаляется', 'Fechar', {

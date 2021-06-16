@@ -1,1 +1,142 @@
-<p>prikaz-curator works!</p>
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <!--<h1>{{ecflct.SubjectName }}    {{ ecflct.DateTime}}</h1>-->
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <!--<li class="breadcrumb-item"><a href="/dashboard/timetableTeacher">Расписание</a></li>
+            <li class="breadcrumb-item"><a href="/dashboard/attedancetable/{{ecflct.IdECFLCT}}">{{ecflct.SubjectName }}</a>  </li>
+            <li class="breadcrumb-item active">{{ ecflct.DateTime}}</li>-->
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <section class="content">
+    <div class="card">
+      <div class="card-body">
+        <div class="container-fluid">
+
+          <div class="row">
+            <div class="col-8">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-5">
+                    <label>Приказ о назначении куратора</label>
+                  </div>
+                  <div class="col-5">
+                   
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Приказ</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form role="form">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Текст приказа</label>
+                      <textarea class="textarea" placeholder="Введите текст"
+                                style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" (change)="doTextareaValueChange2($event)">{{Prikaz.TextPrikaz}}</textarea>
+
+                    </div>
+
+
+
+                  </div>
+                </form>
+              </div>
+            </div>
+          <!--</div>
+          <div class="row">-->
+            <div class="col-9">
+              <div class="card">
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-8">
+                      <h3 class="card-title">Список кураторов</h3>
+
+                    </div>
+                    <div class="col-4">
+                      <button class="btn btn-light" (click)="addNewRow()">Добавить куратора</button>
+
+                    </div>
+                  </div>
+                  <!--<div class="card-tools">
+    <div class="input-group input-group-sm" style="width: 150px;">
+      <input type="text" name="table_search" class="form-control float-right" placeholder="Поиск">
+
+      <div class="input-group-append">
+        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </div>-->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-hover text-nowrap">
+                    <thead>
+                      <tr>
+                        <!--<th>ID</th>-->
+                        <th>ФИО</th>
+                        <th>Должность</th>
+                        <th>Группа</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let i of Prikaz.Rows;let n = index">
+                        <td hidden="hidden">
+                          <!--{{i.IdPrikazRow}}-->
+                        </td>
+                        <td>
+                          <select id="{{i.IdPrikazRow}}" class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;" (change)="selectChangeHandler2($event)" >
+                            <option id="{{i.IdPrikazRow}}" selected="selected" *ngFor="let j of Prikaz.Rows[n].Curators" value="{{j.IdLecturer}}">{{j.PersonFIO}}</option>
+                          </select>
+                        </td>
+                        <td>
+                          {{i.Curator.Rabota}}
+                        </td>
+                        <td>
+                          <select id="{{i.IdPrikazRow}}"  class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;" (change)="selectChangeHandler3($event)">
+                            <option id="{{i.IdPrikazRow}}"  selected="selected" *ngFor="let j of Prikaz.Rows[n].Groups" value="{{j.IdGroup}}">{{j.GroupName}}</option>
+                          </select>
+                        </td>
+
+
+                      </tr>
+
+
+                    </tbody>
+                  </table>
+
+                </div>
+                <button type="submit" class="btn btn-success" (click)="openDialog()" postData>Сохранить</button>
+
+                <!-- /.card-body -->
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<router-outlet></router-outlet>

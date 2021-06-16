@@ -63,7 +63,7 @@
                       <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
                       <span class="username">
                         <a href="#">
-                          {{i.PersonFIOconfirmed}}
+                          {{i.PersonFIO}}
                         </a>
 
 
@@ -78,12 +78,13 @@
                     <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
                     <p>
                       {{i.Description}}
+                   
                     </p>
                     <div class="btn-group btn-group-sm">
                       <a href="{{Url}}_Resources/portfolios/{{i.FilePath}}" target="_blank" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                      <button class="btn btn-success" value="{{i.IdPortfolio}}" (click)="openDialog($event)"><i class="fas fa-check"></i></button>
+                      <button class="btn btn-success" value="{{i.IdPortfolio}}" id="{{i.IdPortfolio}}" (click)="openDialog($event)" ><i id="{{i.IdPortfolio}}" class="fas fa-check"></i></button>
                       <!--<ion-icon name="close-circle-outline"></ion-icon>-->
-                      <button href="#" class="btn btn-danger" value="{{i.IdPortfolio}}" (click)="openDialog2($event)"><i class="fas fa-trash"></i></button>
+                      <button href="#" class="btn btn-danger" value="{{i.IdPortfolio}}"  id="{{i.IdPortfolio}}" (click)="openDialog2($event)"><i id="{{i.IdPortfolio}}"  class="fas fa-trash"></i></button>
                     </div>
                     <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
                     <!--<div class="row no-print">
@@ -107,7 +108,7 @@
                       <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
                       <span class="username">
                         <a href="#">
-                          {{i.CuratorFIO}}
+                          {{i.PersonFIO}}
                         </a>
 
 
@@ -121,7 +122,15 @@
                     <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
                     <p>
                       {{i.DocName}}
+                      <br />  Действительна  с
                     </p>
+                    <h6>
+                      {{i.DateTimeStart}} 
+                    </h6>
+                    <p>
+                      по
+                    </p>
+                    <h6>{{i.DateTimeEnd}}</h6>
                     <div class="btn-group btn-group-sm">
                       <a href="{{Url}}_Resources/attedanceReasons/{{i.FilePath}}" target="_blank" class="btn btn-info"><i class="fas fa-eye"></i></a>
                       <button href="#" class="btn btn-success" value="{{i.IdAttReas}}" (click)="openDialog3($event)"><i class="fas fa-check"></i></button>

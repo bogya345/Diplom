@@ -40,12 +40,16 @@ export class CuratorstatforPDFComponent implements OnInit {
         this.SelectedGroup = this.Groups[0];
         console.log('keks', this.Groups);
         console.log('result/constructor', result);
+    
 
       }, error => {
         console.log('error/constructor', error);
       }
       );
-    window.print();
+    setTimeout(tmp => {
+      window.print();
+    }, 2000);
+
   }
 
 }

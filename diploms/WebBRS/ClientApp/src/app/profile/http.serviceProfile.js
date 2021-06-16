@@ -15,6 +15,14 @@ var profile_HttpService = /** @class */ (function () {
         //}
         });
     };
+    profile_HttpService.prototype.getPortfolio2 = function () {
+        return this.http.get("CuratorStatisticController/GetCharts2/2020-09-01/2020-12-30", {
+        //headers: {
+        //  'Accept': 'application/json',
+        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
+        //}
+        });
+    };
     profile_HttpService.prototype.getAttedance = function (IdECFLCT) {
         return this.http.get("attedanceReason/GetAttedanceReason/" + IdECFLCT, {
         //headers: {
@@ -88,6 +96,8 @@ var profile_HttpService = /** @class */ (function () {
         formData.append('IdPerson', String(portfolioAdd.IdPerson));
         formData.append('DocName', String(portfolioAdd.DocName));
         formData.append('PersonFIO', String(portfolioAdd.PersonFIO));
+        formData.append('DateTimeStart', String(portfolioAdd.DateTimeStart));
+        formData.append('DateTimeEnd', String(portfolioAdd.DateTimeEnd));
         //formData.append('PersonFIOconfirmed', String(portfolioAdd.PersonFIOconfirmed));
         formData.append('DateAdded', String(portfolioAdd.DateAdded));
         formData.append('DateConfirmed', String(portfolioAdd.DateConfirmed));

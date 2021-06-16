@@ -20,6 +20,15 @@ export class profile_HttpService {
         //}
       });
   }
+  getPortfolio2(): Observable<GroupVM[]> {
+    return this.http.get<GroupVM[]>(`CuratorStatisticController/GetCharts2/2020-09-01/2020-12-30`,
+      {
+        //headers: {
+        //  'Accept': 'application/json',
+        //  'Authorization': 'Bearer ' + sessionStorage.getItem(environment.sessionConst.accessTokenName)
+        //}
+      });
+  }
   getAttedance(IdECFLCT): Observable<AttedanceReason> {
     return this.http.get<AttedanceReason>(`attedanceReason/GetAttedanceReason/${IdECFLCT}`,
       {
@@ -99,6 +108,8 @@ export class profile_HttpService {
     formData.append('IdPerson', String(portfolioAdd.IdPerson));
     formData.append('DocName', String(portfolioAdd.DocName));
     formData.append('PersonFIO', String(portfolioAdd.PersonFIO));
+    formData.append('DateTimeStart', String(portfolioAdd.DateTimeStart));
+    formData.append('DateTimeEnd', String(portfolioAdd.DateTimeEnd));
     //formData.append('PersonFIOconfirmed', String(portfolioAdd.PersonFIOconfirmed));
     formData.append('DateAdded', String(portfolioAdd.DateAdded));
     formData.append('DateConfirmed', String(portfolioAdd.DateConfirmed));
@@ -127,6 +138,28 @@ interface PortfolioVM {
   DateConfirmed: string,
   Confirmed: string,
   File: File
+}
+interface GroupVM {
+  idGroup: number,
+  GroupName: string,
+  studentVMs: Student[],
+  SubjectVMs: SubjectGroup[]
+}
+interface Student {
+  IdStudent: number,
+  PersonFIO: string,
+  Balls: number,
+  Attedanced: AttedancedVMType[]
+}
+interface SubjectGroup {
+  IdSubject: number,
+  SubjectName: string
+}
+interface AttedancedVMType {
+
+  attedanced: string,
+  Ball: string,
+  BallHW: string
 }
 interface AttedanceReason {
 

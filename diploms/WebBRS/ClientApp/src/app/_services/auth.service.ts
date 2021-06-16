@@ -46,7 +46,7 @@ export class AuthService {
 
         localStorage.setItem(environment.sessionConst.role, token.role);
         localStorage.setItem(environment.sessionConst.roleId, String(token.roleId));
-        console.log(token.role);
+        console.log('role: ', token.role);
 
         // сохраняем в хранилище sessionStorage токен доступа
         //localStorage.setItem('hod_accessToken', data.access_token);
@@ -64,6 +64,10 @@ export class AuthService {
     var token = localStorage.getItem(ACCESS_TOKEN_KEY);
     return token && !this.jwtHelper.isTokenExpired(token)
   }
+  inRole(): string {
+    var token = localStorage.getItem(ACCESS_TOKEN_KEY);
+    return environment.sessionConst.role;
+}
   logout(): void {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     this.router.navigate(['']);

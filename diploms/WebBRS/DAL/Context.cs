@@ -17,6 +17,8 @@ namespace WebBRS.DAL
 		public DbSet<Role> Roles { get; set; }
 		public DbSet<DraftTimeTable> DraftTimeTable { get; set; }
 		public DbSet<Portfolio> Portfolios { get; set; }
+		public DbSet<PrikazRow> PrikazRows { get; set; }
+		public DbSet<Prikaz> Prikazes { get; set; }
 		public DbSet<TypeTimeTable> TypeTimeTables { get; set; }
 		public DbSet<TypeAttedance> TypeAttedances { get; set; }
 		public DbSet<TypeControl> TypeControls { get; set; }
@@ -102,6 +104,11 @@ namespace WebBRS.DAL
 				.HasOne(p => p.Curator)
 				.WithMany(t => t.AttedanceReasons)
 				.HasForeignKey(st => st.IdCurator);
+			modelBuilder.Entity<PrikazRow>()
+				.HasOne(p => p.Prikaz)
+				.WithMany(t => t.RowsForSend)
+				.HasForeignKey(st => st.IdPrikaz);
+
 			modelBuilder.Entity<AttedanceReason>()
 				.HasOne(p => p.SGH)
 				.WithMany(t => t.AttedanceReasons)

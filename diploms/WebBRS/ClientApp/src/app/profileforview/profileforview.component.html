@@ -1,0 +1,227 @@
+<div class="content-wrapper">
+  <div class="card">
+    <!-- /.card-header -->
+    <div class="card-body">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Профиль</h1>
+            </div>
+            <!--<div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">User Profile</li>
+              </ol>
+            </div>-->
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+      <!--<app-yes-no-modal #deleteModal
+                        body="Вы действительно хотите удалить свой аккаунт?"
+                        title="Предупреждение"
+                        type="danger"></app-yes-no-modal>-->
+      <!--<app-confirm-dialog></app-confirm-dialog>-->
+      <!--Main content-->
+      <!-- <button class="btn btn-primary pull-right" (click)="showDialog()">Show Dialog</button>-->
+      <!--<button mat-button (click)="openAlertDialog()">Open Alert Dialog</button>-->
+
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-3">
+
+              <!-- Profile Image -->
+              <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+                  <div class="text-center">
+                    <img class="profile-user-img img-fluid img-circle"
+                         src="../../assets/img/user2-160x160.jpg"
+                         alt="User profile picture">
+                  </div>
+
+                  <h3 class="profile-username text-center">{{profile.PersonFIO}}</h3>
+
+                  <p class="text-muted text-center">{{profile.Group}}</p>
+
+                  <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                      <b>Кол-во пропусков за семестр</b> <a class="float-right">{{profile.NopeAttedance}}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>% пропусков </b> <a class="float-right">{{profile.NopeAttedanceProc}}</a>
+                    </li>
+                    <!--<li class="list-group-item">
+                      <b>Friends</b> <a class="float-right">13,287</a>
+                    </li>-->
+                  </ul>
+                  <!--<a href="/dashboard/timetable" class="btn btn-light btn-block"><b>Расписание</b></a>-->
+                </div>
+                <!-- /.card-body -->
+              </div>
+
+            </div>
+            <div class="col-9">
+              <div class="row">
+
+                <div class="col-6">
+                  <div class="card">
+                    <div class="card-header p-2">
+                      <h5>Список справок</h5>
+                    </div>
+
+                    <div class="card-body"  *ngIf="attedanceReasons!=null">
+
+                      <div class="post" *ngFor="let i of attedanceReasons">
+                        <div class="user-block">
+                          <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
+                          <span class="username">
+                           
+                              Проверяющий:      {{i.CuratorFIO}}
+                            
+
+                            <!--<button type="button" class="btn btn-primary" >    X </button>-->
+                            <!--<a class="float-right btn-tool"></a>-->
+                          </span>
+                          <span class="description">Добавлена - {{i.DateAdded}}</span>
+                          <span class="description">Подтверждена - {{i.DateConfirmed}}</span>
+                          <span class="description">Отклонена - {{i.DateNotConfirmed}}</span>
+                        </div>
+                        <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
+                        <p>
+                          {{i.DocName}}
+
+                        </p>
+                        <br />  Действительна  с
+
+                        <h6>
+                          {{i.DateTimeStart}}
+                        </h6>
+
+                        по
+
+                        <h6>{{i.DateTimeEnd}}</h6>
+                        <!--<div class="btn-group btn-group-sm">
+    <a href="{{Url}}_Resources/attedanceReasons/{{i.FilePath}}" target="_blank" class="btn btn-info"><i class="fas fa-eye"></i></a>
+    <button href="#" class="btn btn-danger" value="{{i.IdAttReas}}" (click)="openDialog4($event)"><i class="fas fa-trash"></i></button>
+  </div>-->
+                        <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-6">
+                  <div class="card">
+                    <div class="card-header p-2">
+                    <h5>  Список достижений</h5>
+                    </div>
+                    <div class="card-body"  *ngIf="attedanceReasons!=null" >
+
+                      <div class="post" *ngFor="let i of portfolios">
+                        <div class="user-block">
+                          <img class="img-circle img-bordered-sm" src="../../assets/img/user1-128x128.jpg" alt="user image">
+                          <span class="username">
+                            
+                              Проверяющий:   {{i.PersonFIOconfirmed}}
+
+
+
+                            <!--<button type="button" class="btn btn-primary" >    X </button>-->
+                            <!--<a class="float-right btn-tool"></a>-->
+                          </span>
+                          <span class="description">Активность добавлена - {{i.DateAdded}}</span>
+                          <span class="description">Активность подтверждена - {{i.DateConfirmed}}</span>
+                          <span class="description">Активность отклонена - {{i.DateNotConfirmed}}</span>
+                        </div>
+                        <h4>{{i.Name}}</h4>
+                        <!-- /.user-block   href="/dashboard/profile/1739436577"  -->
+                        <p>
+                          {{i.Description}}
+                        </p>
+
+                        <!--<div class="btn-group btn-group-sm">
+                          <a href="{{Url}}_Resources/portfolios/{{i.FilePath}}" target="_blank" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                          <button href="#" class="btn btn-danger" value="{{i.IdPortfolio}}" (click)="openDialog($event)"><i class="fas fa-trash"></i></button>
+                        </div>-->
+                        <!--<button mat-button (click)="openDialog($event)" value="{{i.IdPortfolio}}">Open Confirm Dialog</button>-->
+                        <!--<div class="row no-print">
+                          <div class="col-12">
+                            <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+
+                              <i class="fas fa-download"></i> Скачать файл
+                            </button>
+                          </div>
+                        </div>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.col -->
+            <!-- /.col -->
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">{{ Groups[0].GroupName }}</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body" style="overflow-y: scroll;" *ngIf="SelectedGroup!=null">
+                      <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th>ФИО</th>
+                            <!--<th>Сумма баллов</th>-->
+                            <th *ngFor="let j of SelectedGroup.SubjectVMs">{{j.SubjectName}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let j of  SelectedGroup.studentVMs; let n = index">
+                            <td>{{j.PersonFIO}}</td>
+                            <!--<td>{{j.Balls}}</td>-->
+                            <td *ngFor="let k of SelectedGroup.studentVMs[n].Attedanced">
+                              <div>
+                                Б. :     <span _ngcontent-ng-cli-universal-c0="" class="badge badge-success">{{k.Ball}}</span>
+
+                              </div>
+                              <div>
+                                Б. за д/з:    <span _ngcontent-ng-cli-universal-c0="">{{k.BallHW}}</span>
+                              </div>
+                              <div>
+                                Пр. : <span _ngcontent-ng-cli-universal-c0="" class="badge badge-danger"> {{k.attedanced}}</span>
+
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <!--<tfoot>
+                          <tr>
+                            <th>Rendering engine</th>
+                            <th>Browser</th>
+                            <th>Platform(s)</th>
+
+                          </tr>
+                        </tfoot>-->
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
+
+    </div>
+  </div>
+</div>

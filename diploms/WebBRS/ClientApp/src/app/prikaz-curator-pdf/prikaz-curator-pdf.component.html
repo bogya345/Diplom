@@ -1,0 +1,121 @@
+
+
+<div class="wrapper landScape" style="padding:30px; font-family:'Times New Roman';">
+  <!-- Main content -->
+  <section class="invoice">
+    <!-- title row -->
+    <div class="row">
+      <div class="col-12">
+        <h3 style="text-align:center;  font:large; ">МИНОБРНАУКИ РОССИИ </h3>
+
+        <h4 style="text-align:center;  font:large; ">Федеральное государственное бюджетное<br /> образовательное учреждение высшего образования</h4>
+
+        <h3 style="text-align:center;  font:large; ">
+          «Ухтинский государственный технический университет»
+          <br />
+          (УГТУ)
+        </h3>
+        <br />
+        <br />
+        <br />
+        <h3 style="text-align:center;  font:bolder; ">РАСПОРЯЖЕНИЕ</h3>        <br />
+        <h4 style="text-align:center;">Факультет экономики, управления и информационных технологий</h4>
+        <br />
+        <br />
+        <div class="row" style="    font-size: 24px;">
+          <div class="col-4">
+            <p style="    text-align: center;
+    text-decoration: underline;">{{Prikaz.DateAdd | date:'yyyy-MM-dd'}}</p>
+          </div>
+          <div class="col-4">        <p style="text-align:center;">г. Ухта</p></div>
+          <div class="col-4">
+            <p style="    text-align: center;
+    text-decoration: underline;">№ {{Prikaz.IdPrikaz}}</p>
+          </div>
+        </div>
+      </div>
+      <!-- /.col -->
+    </div><br /><br /><br />
+    <!-- info row -->
+    <div class="row invoice-info" style="margin-left: 20px; font-size:14px;" >
+      <div class="col-sm-4 invoice-col">
+
+        <address style="font-size:24px;">
+             О назначении кураторов
+          <br />
+          распоряжаюсь:
+        </address>
+      </div>
+    </div>
+    <div class="row" style="font-size:24px;">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"  style="font-size:24px;">{{Prikaz.TextPrikaz }}</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped"  style="font-size:24px;">
+                  <thead>
+                    <tr>
+                      <th width="400px">Имя куратора</th>
+                      <th>Должность</th>
+                      <th>Группа</th>
+
+                    </tr>
+                  </thead>
+                  <tbody  style="font-size:18px;">
+                    <tr *ngFor="let j of Prikaz.PrikazRowVMs">
+                      <td>{{j.Curator}}</td>
+                      <td>{{j.CuratorDoljn}}</td>
+                      <td>{{j.Group}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+      <!-- accepted payments column -->
+      <div class="col-6">
+      </div>
+      <!-- /.col -->
+      <div class="col-6">
+        <p class="lead  float-right" style="    font-size: 24px;">Дата/подпись: </p>
+
+        <div class="table-responsive">
+          <table class="table  table-borderless">
+            <tr>
+              <th style="    width: 50%;
+    font-size: 24px;">Декан ФЭУиИТ:</th>
+              <td  style="    font-size: 24px;">{{  Prikaz.DekanFIO}}</td>
+              <td>___________________</td>
+            </tr>
+            <tr>
+              <th  style="    font-size: 24px;">Дата</th>
+              <td  style="    font-size: 24px;">{{Prikaz.DateAdd | date:'yyyy-MM-dd'}}</td>
+            </tr>
+            <!--<tr>
+              <th>Shipping:</th>
+              <td>$5.80</td>
+            </tr>
+            <tr>
+              <th>Total:</th>
+              <td>$265.24</td>
+            </tr>-->
+          </table>
+        </div>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>

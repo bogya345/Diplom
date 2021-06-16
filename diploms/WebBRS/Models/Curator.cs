@@ -11,6 +11,7 @@ namespace WebBRS.Models
 	public class Curator
 	{
 		[Required, Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
 		public int CuratorID { get; set; }
 		public int PersonIdPerson { get; set; }

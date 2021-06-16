@@ -11,7 +11,7 @@ export class serviceTimeTable {
   constructor(private http: HttpClient) { }
   getStudentClassList(IdSelectedDraft, IdSelectedDraftType, DateTimeExact): Observable<TimeTable2> {
     //return this.http.get<TimeTable2>(`timeTable/GetTimeTable/-1096224834/2007228761/2001-01-08T00:00:00`,
-    return this.http.get<TimeTable2>(`timeTable/GetTimeTableStudent/${IdSelectedDraft}/${IdSelectedDraftType}/${DateTimeExact}/1363575543`,
+    return this.http.get<TimeTable2>(`timeTable/GetTimeTableStudent/${1584633406}/${-1045036686}/${DateTimeExact}/1363575543`,
       {
         //headers: {
         //  'Accept': 'application/json',
@@ -21,7 +21,7 @@ export class serviceTimeTable {
   }
   getStudentWorksList(IdSelectedDraft, IdSelectedDraftType, DateTimeExact): Observable<ClassWorkVMUnion> {
     //return this.http.get<TimeTable2>(`timeTable/GetTimeTable/-1096224834/2007228761/2001-01-08T00:00:00`,
-    return this.http.get<ClassWorkVMUnion>(`homeworks/getClassWork/${IdSelectedDraft}/${IdSelectedDraftType}/${DateTimeExact}/1363575543`,
+    return this.http.get<ClassWorkVMUnion>(`homeworks/getClassWork/${1584633406}/${-1045036686}/${DateTimeExact}/1363575543`,
       {
         //headers: {
         //  'Accept': 'application/json',

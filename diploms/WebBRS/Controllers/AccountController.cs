@@ -13,6 +13,7 @@ using WebBRS.Models.Views;
 using WebBRS.DAL;
 using WebBRS.Models.Auth;
 
+
 namespace WebBRS.Controllers
 {
 	public class AccountController : Controller
@@ -62,10 +63,7 @@ namespace WebBRS.Controllers
             {
                 username = identity.Name,
                 access_role_id = identity.Claims.ToList()[1].Value,
-                //access_role = identity.Claims.ToList()[2].Value,
-                //id_department = identity.Claims.ToList()[3].Value,
-                //name_department = identity.Claims.ToList()[4].Value,
-                //access_token = encodedJwt
+
             };
 
             return Json(response);
