@@ -21,24 +21,29 @@ namespace hod_back.Extentions
             return value;
         }
 
+        public static List<int> constDirs_foreign = new List<int>() { 31020, 31026, 31024, 31025, 21021 };
+
         public static int HighlightNum(this Direction item, UnitOfWork unit)
         {
-            List<int> c = new List<int>() { 31020, 31026, 31024, 31025 };
-            if(c.Contains(item.DirId))
+            if (item.DirId == 11016) { return 2; }
+            //if (item.DirId == 21021) { return 2; }
+            //if (item.DirId == 21017) { return 2; }
+
+            if (constDirs_foreign.Contains(item.DirId))
             {
                 return 0;
             }
 
-            List<int> c2 = new List<int>() { 21017 };
-            if (c2.Contains(item.DirId))
-            {
-                return 2;
-            }
+            //List<int> c2 = new List<int>() { 21017 };
+            //if (c2.Contains(item.DirId))
+            //{
+            //    return -1;
+            //}
 
             Strategy_7_2_ accum = new Strategy_7_2_();
 
             if (!accum.StoreIt(unit, item.DirId))
-            { return -1; }
+            { return 0; }
 
             // 4.4.3 (60)
             Strategy strategy1 = new Strategy_7_2_2();
@@ -82,6 +87,25 @@ namespace hod_back.Extentions
 
         public static Status GetDirStatus(this Direction value, int? DirId, UnitOfWork unit, int? dep_id)
         {
+            if (value.AcPlId == null) { return new Status() { Status_up = 0, Status_down = 0 }; }
+            if (constDirs_foreign.Contains(value.DirId))
+            {
+                switch (value.DirId)
+                {
+                    // нгд
+                    case 31020: { return new Status() { Status_down = 84, Status_up = 84 }; break; }
+                    // ст
+                    case 31026: { return new Status() { Status_down = 81, Status_up = 81 }; break; }
+                    // тмо
+                    case 31024: { return new Status() { Status_down = 84, Status_up = 84 }; break; }
+                    // зик
+                    case 31025: { return new Status() { Status_down = 78, Status_up = 78 }; break; }
+                    // ист-21
+                    //case 21021: { return new Status() { Status_down = 70, Status_up = 70 }; break; }
+                }
+                //return null;
+            }
+
             var groups = unit.Groups.GetManyAsync(x => x.DirId == DirId)
                 .Result.Select(x => x.GroupId);
 
@@ -96,11 +120,19 @@ namespace hod_back.Extentions
             res.Status_down = tmp2.Count();
             return res;
         }
-       
+
 
         public static Status GetDirStatusPPS(this Direction value, int? DirId, UnitOfWork unit, int? dep_id)
         {
-            List<int> c = new List<int>() { 31020, 31026, 31024, 31025 };
+            if (value.AcPlId == null) { return new Status() { Status_up = 0, Status_down = 0 }; }
+            List<int> c = new List<int>()
+            {
+                31020,
+                31026,
+                31024,
+                31025,
+                //21021 /// ист-21
+            };
             if (c.Contains(DirId.Value))
             {
                 var kek = Cruntches.ClutchHandlerPps(DirId.Value, dep_id.Value);
@@ -154,6 +186,12 @@ namespace hod_back.Extentions
                                     res.Status_up = 0;
                                     return res;
                                 }
+                                //case 21021:
+                                //    {
+                                //        res.Status_up = 56;
+                                //        res.Status_down = 56;
+                                //        return res;
+                                //    }
                         }
                         break;
                     }
@@ -182,6 +220,12 @@ namespace hod_back.Extentions
                                     res.Status_up = 0;
                                     return res;
                                 }
+                                //case 21021:
+                                //    {
+                                //        res.Status_up = 56;
+                                //        res.Status_down = 56;
+                                //        return res;
+                                //    }
                         }
                         break;
                     }

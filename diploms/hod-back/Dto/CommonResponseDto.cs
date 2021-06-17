@@ -7,6 +7,7 @@ namespace hod_back.Dto
 {
     public class CommonResponseDto
     {
+        public CommonResponseDto() { }
         public CommonResponseDto(string message) { this.Message = message; }
         public CommonResponseDto(bool done, string path, string message = "")
         {

@@ -48,6 +48,7 @@ export class HodModalShowRequirsComponent implements OnInit {
         }
       }).subscribe(result => {
         console.log(result);
+        // console.log(result.Requirs.length);
         this.requirs = result;
       });
   }

@@ -10,6 +10,7 @@ import { DepInfo, DepsDto } from '../_models/deps-models';
 import { SnackBarComponent } from '../snack-bar/snack-bar.component';
 import { identifierModuleUrl } from '@angular/compiler';
 
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-hod-home',
@@ -25,6 +26,29 @@ export class HodHomeComponent implements OnInit {
   public user: User;
 
   public dep: DepInfo;
+
+  multi: any[];
+  view: any[] = [700, 400];
+
+  // options
+  showXAxis: boolean = true;
+  showYAxis: boolean = true;
+  gradient: boolean = true;
+  showLegend: boolean = true;
+  showXAxisLabel: boolean = true;
+  xAxisLabel: string = 'Направления';
+  showYAxisLabel: boolean = true;
+  yAxisLabel: string = 'Проценты';
+  legendTitle: string = 'Требования';
+
+  colorScheme = {
+    // domain: ['#5AA454', '#C7B42C', '#AAAAAA']
+    domain: ['#1424E2', '#10D383', '#A412BE']
+  };
+
+  selectedDir: any;
+
+  emptyDirs: boolean;
 
   constructor(
     private _http: HttpClient,
@@ -49,8 +73,72 @@ export class HodHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // if(this._share.getUser())
-    // this._http.get
+
+    this._http.get<any[]>(`${environment.hod_api_url}analyser/get/home/dirs/${this.user.dep_id}`)
+      .subscribe(result => {
+        console.log(result);
+        console.log(result.length);
+        if(result.length != 0){
+          this.multi = result;
+        }
+        else{
+          this.emptyDirs = true;
+        }
+      });
+
+  }
+
+  onSelect(data): void {
+    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+    this.selectedDir = data;
+    console.log(data);
+  }
+
+  onActivate(data): void {
+    console.log('Activate', JSON.parse(JSON.stringify(data)));
+  }
+
+  onDeactivate(data): void {
+    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
 }
+
+// this.multi = [
+//   {
+//     "name": "ИСТ-2016",
+//     "series": [
+//       {
+//         "name": "4.4.3",
+//         "value": 10
+//       },
+//       {
+//         "name": "4.4.4",
+//         "value": 30
+//       },
+//       {
+//         "name": "4.4.5",
+//         "value": 50
+//       },
+//     ]
+//   },
+
+//   {
+//     "name": "ИСТ-2017",
+//     "series": [
+//       {
+//         "name": "4.4.3",
+//         "value": 10
+//       },
+//       {
+//         "name": "4.4.4",
+//         "value": 30
+//       },
+//       {
+//         "name": "4.4.5",
+//         "value": 50
+//       },
+//     ]
+//   }
+
+// ];

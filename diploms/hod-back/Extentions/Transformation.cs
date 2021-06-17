@@ -150,7 +150,7 @@ namespace hod_back.Extentions
                         FshId2 = item.FshId2,
                         TeachName1 = item.FshId1Navigation == null ? "" : $"{item.FshId1Navigation.Fs.Emp.LastName} {item.FshId1Navigation.Fs.Emp.FirstName} {item.FshId1Navigation.Fs.Emp.MiddleName}",
                         TeachName2 = item.FshId2Navigation == null ? "" : $"{item.FshId2Navigation.Fs.Emp.LastName} {item.FshId2Navigation.Fs.Emp.FirstName} {item.FshId2Navigation.Fs.Emp.MiddleName}",
-                        LoadValue = (double)item.HourValue,
+                        LoadValue = Math.Round((double)item.HourValue, 2),
                         SemNum = item.BlockRec.SemestrNum,
                         SubTypeName = item.SubT.SubTName,
                         SubTypeId = item.SubTId.Value

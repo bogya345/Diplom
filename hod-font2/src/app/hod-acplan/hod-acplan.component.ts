@@ -30,6 +30,7 @@ import { HodModalPromoteComponent } from '../hod-modal-promote/hod-modal-promote
 import { SnackBarComponent } from '../snack-bar/snack-bar.component';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
+import { id } from '@swimlane/ngx-charts';
 
 // @NgModule({
 //   imports: [BrowserModule, NgbModule],
@@ -79,6 +80,8 @@ export class HodAcplanComponent implements OnInit {
   public isAdmin: boolean;
   public isYmy: boolean;
 
+  public fetcher: boolean;
+
   constructor(
     private _router: Router,
     private _http: HttpClient,
@@ -97,6 +100,7 @@ export class HodAcplanComponent implements OnInit {
     this.isYmy = (this._user.access_role_id == 3);
   }
   ngOnChanges(): void {
+    this.fetcher = false;
     // this._httpOwn.getAcPlan(this.group.group_id)
     //   .subscribe(result => {
     //     this.acPlan = result;
@@ -116,6 +120,9 @@ export class HodAcplanComponent implements OnInit {
         // this.dataSource_subjects = this.subjects;
         this.dataSource_subjects = new MatTableDataSource(this.subjects);
         console.log(this.subjects);
+        if(result.length != 0){
+          this.fetcher = true;
+        }
         // this.snack.openSnackBarWithMsg('Учебный план был загружен и обработан.');
       });
 
@@ -128,6 +135,8 @@ export class HodAcplanComponent implements OnInit {
 
     console.log('variables changes');
     console.log(this.blockRecs);
+
+
 
     this.snack.openSnackBarFull('Загрузка дисциплин...', 'center', 'right', 1000);
   }

@@ -266,5 +266,61 @@ namespace hod_back.Controllers
             return res;
         }
 
+
+        [HttpGet("get/home/dirs/{dep_id}")]
+        public async Task<DepDirsChartDto[]> GetDepDirs([FromRoute] int dep_id)
+        {
+            var res = new List<DepDirsChartDto>();
+
+            var tmp = _unit.Directions.GetManyAsync(x => x.DepId == dep_id).Result.ToList();
+
+            foreach (var i in tmp)
+            {
+                if (!this.accum.StoreIt(_unit, i.DirId))
+                {
+                    continue;
+                }
+
+                var serias = new List<ChartSeria>();
+
+                // 4.4.3 (60)
+                Strategy strategy1 = new Strategy_7_2_2();
+                Requir tmp722 = strategy1.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
+                serias.Add(new ChartSeria()
+                {
+                    name = "4.4.3",
+                    value = Math.Round((tmp722.NumberSuitable * 100) / tmp722.NumberAll)
+                });
+
+                // 4.4.4 (5)-10
+                Strategy strategy3 = new Strategy_7_2_4();
+                Requir tmp724 = strategy3.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
+                serias.Add(new ChartSeria()
+                {
+                    name = "4.4.4",
+                    value = Math.Round((tmp724.NumberSuitable * 100) / tmp724.NumberAll)
+                });
+
+                // 4.4.5 - 7.2.3 (50)
+                Strategy strategy2 = new Strategy_7_2_3();
+                Requir tmp723 = strategy2.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
+                serias.Add(new ChartSeria()
+                {
+                    name = "4.4.5",
+                    value = Math.Round((tmp723.NumberSuitable * 100) / tmp723.NumberAll)
+                });
+
+
+                var chartInfo = new DepDirsChartDto()
+                {
+                    name = $"{i.EBr.EBrShortname} - {i.StartYear}",
+                    series = serias.ToArray()
+                };
+
+                res.Add(chartInfo);
+            }
+
+            return res.ToArray();
+        }
     }
 }

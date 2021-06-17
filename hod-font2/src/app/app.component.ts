@@ -249,4 +249,9 @@ export class AppComponent {
     window.location.reload();
   }
 
+  logout() {
+    sessionStorage.clear();
+    setTimeout(kek => {this.router.navigate(['hod/home']);}, 1000);
+  }
+
 }

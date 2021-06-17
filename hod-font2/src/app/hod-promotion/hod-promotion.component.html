@@ -23,8 +23,9 @@
                                 <th colspan="2">&nbsp;ФГОС требования</th>
                                 <th>Учебный план</th>
                                 <th *ngIf="user.access_role_id != 3 && user.access_role_id != 4">Статус ППС</th>
-                                <th *ngIf="user.access_role_id == 2 && user.dep_id != 2">Статус ОПОП</th>
-                                <th>Кадровая справка</th> 
+                                <th *ngIf="user.access_role_id == 2 && user.dep_id != 2 || user.access_role_id == 3">
+                                    Статус ОПОП</th>
+                                <th>Кадровая справка</th>
                             </tr>
                         </thead>
 
@@ -38,15 +39,32 @@
 
                             <!-- Выбор направления -->
                             <td>
-                                <button [disabled]="item.AcPl_id == null" class=" btn btn-primary" (click)="setSelectedDirection( item )">
+                                <button [disabled]="item.AcPl_id == null" class=" btn btn-primary"
+                                    (click)="setSelectedDirection( item )">
                                     Выбрать
                                 </button>
                             </td>
 
                             <!-- ФГОС требования -->
                             <td>
-                                <button class="btn btn-info" mat-raised-button id="logout-button"
-                                    (click)="openModal( item )" [disabled]="item.Status.Status_up == 0">Подробнее</button>
+                                <!--kek1--> 
+                                <div *ngIf="item.Status != null"> 
+                                    <div *ngIf="item.Status_pps.Status_up == item.Status_pps.Status_down">
+                                        <button class="btn btn-info" mat-raised-button id="logout-button"
+                                        (click)="openModal( item )"
+                                        [disabled]="item.Status.Status_up == 0 || item.Status.Status_up == 1">Подробнее</button>
+                                    </div>
+                                    <div *ngIf="item.Status_pps.Status_up != item.Status_pps.Status_down">
+                                        <button class="btn btn-info" mat-raised-button id="logout-button"
+                                        (click)="openModal( item )"
+                                        [disabled]="true">Подробнее</button>
+                                    </div>
+                                </div>
+                                <div *ngIf="item.Status == null">
+                                    <button class="btn btn-info" mat-raised-button id="logout-button"
+                                        (click)="openModal( item )"
+                                        [disabled]="true">Подробнее</button>
+                                </div>
                                 <!-- <div style="border: solid 2px;">
                                     
                                 </div> -->
@@ -54,9 +72,11 @@
                             <td>
                                 <div>
                                     <span *ngIf="item.Highlight == 2">✅</span>
-                                    <span *ngIf="item.Highlight == 1 && item.Status.Status_up == item.Status.Status_down">🟧</span>
-                                    <span *ngIf="item.Highlight == 0 || item.Status.Status_up != item.Status.Status_down">❌</span>
-                                    <span *ngIf="item.Highlight == -1 && item.Dep_id != 1">⬜</span>
+                                    <span
+                                        *ngIf="item.Highlight == 1 && item.Status.Status_up == item.Status.Status_down">🟧</span>
+                                    <span *ngIf="item.Status != null && item.Highlight == 0 && item.Status.Status_down != 0">❌</span>
+                                    <span *ngIf="item.Highlight == -1 || item.Status.Status_down == 0">⬜</span>
+                                    <!-- <span *ngIf="item.Highlight == -1 || item.Status_pps.Status_down == 0">⬜</span> -->
                                 </div>
                             </td>
 
@@ -80,8 +100,8 @@
                                     <button class="btn btn-info" (click)="openAcPlan(item)">
                                         Скачать учебный план
                                     </button>
-                                    <button *ngIf="user.dep_id == item.Dep_id" class="btn btn-info" mat-raised-button id="reload-acplan"
-                                        (click)="openModalReloadAcPlan( item )">
+                                    <button *ngIf="user.dep_id == item.Dep_id" class="btn btn-info" mat-raised-button
+                                        id="reload-acplan" (click)="openModalReloadAcPlan( item )">
                                         Изменить
                                     </button>
                                 </td>
@@ -106,9 +126,10 @@
                             </td>
 
                             <!-- Статус ОПОП -->
-                            <td *ngIf="user.access_role_id == 2 && user.dep_id != 2">
+                            <td
+                                *ngIf="user.access_role_id == 2 && user.dep_id == item.Dep_id || user.access_role_id == 3">
                                 <div style="padding: 5px; width: 70px; height:30px;">
-                                    <div *ngIf="item.Status.Status_down != 0">
+                                    <div *ngIf="item.Status != null && item.Status.Status_down != 0">
                                         {{item.Status_msg}}
                                         <div *ngIf="item.Status.Status_up != item.Status.Status_down">
                                             <!-- <i class="fa fa-close"></i> -->
@@ -122,11 +143,12 @@
                                     </div>
                                 </div>
                             </td>
+                            <td *ngIf="user.dep_id != item.Dep_id && user.access_role_id != 3"></td>
 
                             <!-- Кадровая справка -->
                             <td>
-                                <button [disabled]="!(item.AcPl_id != null && user.dep_id == item.Dep_id)" class="btn btn-primary"
-                                    (click)="openModalShowDirProperty( item )">
+                                <button [disabled]="!(item.AcPl_id != null && user.dep_id == item.Dep_id && item.Highlight == 2)"
+                                    class="btn btn-primary" (click)="openModalShowDirProperty( item )">
                                     <!-- || user.dep_id != selectedDep.Dep_id -->
                                     Сформировать
                                 </button>

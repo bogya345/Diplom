@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
+using hod_back.Models;
 
 namespace hod_back.DAL.Repositories
 {
@@ -69,6 +70,38 @@ namespace hod_back.DAL.Repositories
                 await Task.Delay(1000);
                 goto mark;
             }
+        }
+
+        public new bool UpdateRangeAsync(ChangesFgosModel model)
+        {
+            List<DirFgo> tmp = new List<DirFgo>();
+        mark:
+            try
+            {
+                tmp = this.db.DirFgos
+                    .Include(x => x.Fgos)
+                    .Where(x => x.DirId == model.DirId).ToList();
+            }
+            catch (InvalidOperationException ex)
+            {
+                //await Task.Delay(1000);
+                goto mark;
+            }
+
+            // 4.4.3 - 7.2.2
+            tmp.First(x => x.Fgos.FgosNum.Contains("7.2.2")).SettedValue = (float)Convert.ToDouble(model.Fgos443);
+            // 4.4.4 - 7.2.4
+            tmp.First(x => x.Fgos.FgosNum.Contains("7.2.4")).SettedValue = (float)Convert.ToDouble(model.Fgos444);
+            // 4.4.5 - 7.2.3
+            tmp.First(x => x.Fgos.FgosNum.Contains("7.2.3")).SettedValue = (float)Convert.ToDouble(model.Fgos445);
+
+            foreach(var i in tmp)
+            {
+                this.db.DirFgos.Update(i);
+            }
+            this.db.SaveChanges();
+            //this.db.Update(tmp);
+            return true;
         }
 
         //public override async Task<DirRequir> GetOrDefaultAsync(Func<DirRequir, bool> func, DirRequir def = null)

@@ -17,6 +17,8 @@ namespace hod_back.Services.Analyse
 
         public int TotalCount { get; set; }
 
+        public bool isFull { get; set; }
+
         public Strategy_7_2_()
         {
             //items
@@ -36,6 +38,8 @@ namespace hod_back.Services.Analyse
             //if (!tmp_check.Any()) { return false; }
 
             var dataLoads = unit.TeacherLoadsViews.GetManyAsync(x => x.DirId == dir_id && x.EFormId == 1).Result.ToList();
+
+            if(dataLoads.Count() < 300) { this.isFull = false; return false; }
 
             var groupData = dataLoads.GroupBy(x => x.EmpId).ToList();
 

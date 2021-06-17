@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace hod_back.Model
 {
-    [Keyless]
     public partial class DirFgo
     {
         [Column("dir_id")]
@@ -19,12 +18,18 @@ namespace hod_back.Model
         public float? SettedValue { get; set; }
         [Column("unit_id")]
         public int? UnitId { get; set; }
+        [Key]
+        [Column("id")]
+        public int Id { get; set; }
 
         [ForeignKey(nameof(DirId))]
+        [InverseProperty(nameof(Direction.DirFgos))]
         public virtual Direction Dir { get; set; }
         [ForeignKey(nameof(FgosId))]
+        [InverseProperty(nameof(FgosRequir.DirFgos))]
         public virtual FgosRequir Fgos { get; set; }
         [ForeignKey(nameof(UnitId))]
+        [InverseProperty("DirFgos")]
         public virtual Unit Unit { get; set; }
     }
 }

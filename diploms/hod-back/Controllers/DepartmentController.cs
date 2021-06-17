@@ -36,7 +36,7 @@ namespace hod_back.Controllers
             this._config = config;
         }
 
-        List<int> depsReady = new List<int>() { 1, 2 };
+        List<int> depsReady = new List<int>() { 1, 2, 5 };
 
         private string getPreparedDepLoad(int dep_id)
         {
@@ -48,6 +48,7 @@ namespace hod_back.Controllers
             {
                 case 1: { return newPath + @$"\Кафедральная нагрузка ВТИCИТ.xlsx"; }
                 case 2: { return newPath + @$"\Кафедральная нагрузка ВМ.xlsx"; }
+                case 5: { return newPath + @$"\Кафедральная нагрузка КФ.xlsx"; }
             }
             return null;
         }
@@ -176,7 +177,7 @@ namespace hod_back.Controllers
                                                     //    Unit_name = z.UnitName
                                                     //}).ToArray() : null,
 
-                                                    Groups = _unit.DirGroups.GetMany(y => y.DirId == x.DirId).Select(z => new GroupDto()
+                                                    Groups = _unit.DirGroups.GetManyAsync(y => y.DirId == x.DirId).Result.Select(z => new GroupDto()
                                                     {
                                                         Group_id = z.GroupId,
                                                         Group_name = z.GroupName,

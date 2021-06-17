@@ -178,6 +178,7 @@ export class HodPromotionComponent implements OnInit {
     return path; // `::${this.selectedDep.dep_name}/${this.selectedDir.dir_name}/${this.selectedGroup.group_name}`
   }
 
+  // кадровая справка
   downloadDepLoad(item) {
     let path = this._http.get<PropertyDoc>(`${environment.hod_api_url}deps/get/load/${item.Dep_id}`,
       {

@@ -1,21 +1,70 @@
-
 <!-- кафедры -->
 <div id="home_cathedra" *ngIf="user.access_role_id == 1 || user.access_role_id == 2">
 
-    <div class="container">
-        <div class="row">
-            <h2>Кафедра <b>{{user.dep}}</b></h2>
-        </div>
-        <div class="row">
-            <div class="col">
-                <!-- <p>Краткая информация о {{dep.Dep_name}}</p> -->
-                <p>Краткая информация о кафедре:</p>
-                <ul>
-                    <li>Заведующий кафедрой: {{dep.HeadTeach_name}}</li>
-                    <li>Количество направлений: {{dep.Count_groups}} </li>
-                </ul>
+    <div class="container" style="padding: 10px;">
+        
+        <div class="card" style="padding: 25px;">
+            <div class="row">
+                <h1>Кафедра <b>{{user.dep}}</b></h1>
+            </div>
+            <hr>
+            <div class="row" *ngIf="dep">
+                <div class="col">
+                    <!-- <p>Краткая информация о {{dep.Dep_name}}</p> -->
+                    <p>Краткая информация о кафедре:</p>
+                    <ul>
+                        <li>Заведующий кафедрой: {{dep.HeadTeach_name}}</li>
+                        <li>Количество направлений: {{dep.Count_groups}} </li>
+                    </ul>
+                </div>
             </div>
         </div>
+
+        <hr>
+
+        <div class="card" style="padding: 25px;">
+            
+            <div class="row">
+                <div class="col">
+                    <h2>Краткая информация по направлениям кафедры</h2>
+                    <hr>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div *ngIf="multi || emptyDirs; else awaiterBlock" class="col">
+    
+                    <ngx-charts-bar-vertical-2d *ngIf="!emptyDirs" [view]="view" [scheme]="colorScheme" [results]="multi"
+                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+                        [yAxisLabel]="yAxisLabel" [legendTitle]="legendTitle" (select)="onSelect($event)"
+                        (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
+                    </ngx-charts-bar-vertical-2d>
+    
+                    <div class="d-flex justify-content-center" *ngIf="emptyDirs">
+                        <div class="card" style="width: 90%;">
+                            <div class="card-header text-center bg-light">
+                                <h2>Ваша кафдера не является выпускающей</h2>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    Если у вас возникли проблемы, <a href="#">обратитесь к системному администратору</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+    
+                </div>
+                <ng-template #awaiterBlock>
+                    <div class="col">
+                        <mat-spinner diameter="100"></mat-spinner>
+                    </div>
+                </ng-template>
+            </div>
+
+        </div>
+
+
     </div>
 
 </div>

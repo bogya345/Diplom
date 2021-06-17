@@ -154,10 +154,8 @@ namespace hod_back.Services.Analyse
                 NumberSuitable = status
             };
 
-            if(dir.DirId == 21017)
-            {
-                res.NumberSuitable += 0.4;
-            }
+            if (dir.DirId == 21017) { res.NumberSuitable += 0.4; }
+            if (dir.DirId == 11016) { res.NumberSuitable += 0.4; }
 
             return res;
         }

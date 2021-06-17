@@ -26,6 +26,19 @@ namespace hod_back.DAL.Repositories
         {
             return db.BlockNums;
         }
+        public async override Task<IEnumerable<BlockNum>> GetAllAsync()
+        {
+            mark:
+            try
+            {
+                return db.BlockNums.ToList();
+            }
+            catch(InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
+        }
 
         public override IEnumerable<BlockNum> GetMany(Func<BlockNum, bool> func)
         {

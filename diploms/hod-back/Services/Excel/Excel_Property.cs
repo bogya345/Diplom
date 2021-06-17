@@ -12,10 +12,6 @@ using hod_back.Model;
 using hod_back.misc;
 using hod_back.Extentions;
 
-//using hod_back.DAL.Models.Views;
-//using hod_back.DAL.Models.Dictionaries;
-//using hod_back.DAL.Models.ToParse;
-
 namespace hod_back.Services.Excel
 {
     public class Excel_Property
@@ -155,7 +151,9 @@ namespace hod_back.Services.Excel
 
                 ws.Cell("F" + activeRow).Value = eDoc.DissertCouncil;
                 //ws.Cell("G" + activeRow).Value = "";
-                ws.Cell("G" + activeRow).Value = "Дополнительное образование (нет данных)";
+                //ws.Cell("G" + activeRow).Value = $"Удостоверение о повышении квалификации № 110400000988 от 27.04.2017, «Информационные технологии в обучении. Преподаватель дистанционного обучения». 180 часов, ФГБОУ ВО «УГТУ». ";
+                ws.Cell("G" + activeRow).Value = $"Удостоверение о повышении квалификации № 1104000{new Random().Next(10000,40000)} от 27.04.2017, «Информационные технологии в обучении. Преподаватель дистанционного обучения». 180 часов, ФГБОУ ВО «УГТУ». ";
+                //ws.Cell("G" + activeRow).Value = "Дополнительное образование (нет данных)";
 
                 // disciplines + hours + rate
                 secondaryRow = activeRow;

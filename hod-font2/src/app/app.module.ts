@@ -17,13 +17,17 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 
+// import { MatTooltipModule } from '@angular/material/tooltip';
+
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 //
 
@@ -111,7 +115,10 @@ import { HodFgosSettingComponent } from './hod-fgos-setting/hod-fgos-setting.com
 
     FormsModule,
     ReactiveFormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+
+    NgxChartsModule
+    // MatTooltipModule
   ],
   providers: [
     ShareService,

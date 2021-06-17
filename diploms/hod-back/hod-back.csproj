@@ -31,7 +31,6 @@
     <Folder Include="Services\FgosRequirs\" />
     <Folder Include="_Resources\Upload\" />
     <Folder Include="_Resources\Patterns\" />
-    <Folder Include="_Resources\Export\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

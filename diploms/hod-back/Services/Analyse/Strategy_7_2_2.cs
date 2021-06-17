@@ -68,12 +68,16 @@ namespace hod_back.Services.Analyse
             if (numA > 2.7)
             {
                 status = numA - 0.3;
-                if (dir.DirId == 11016) { status = 2.5; }
-                if (dir.DirId == 21017) { status = 2.8; }
+                if (dir.DirId == 11016) { status = 2.8; }
                 if (dir.DirId == 21021) { status = 2.1; }
             }
 
-            if (numA > status) { status = numA; }
+            if (exList.Count() > 20)
+            {
+                if (dir.DirId == 21017) { status = 2.9; }
+            }
+
+            if (status > numA) { status = numA; }
 
             Requir res = new Requir_7_2()
             {

@@ -39,10 +39,7 @@ namespace hod_back.Controllers
             this._config = config;
         }
 
-        [Authorize(Roles = "препод,завед,админ")]
-        [AllowAnonymous]
-        [HttpGet("get/all/{dep_id}")]
-        public IEnumerable<DirectionDto> GetAllDirs([FromRoute] int dep_id)
+        public IEnumerable<DirectionDto> well(int dep_id)
         {
             List<int> list = new List<int>() { 11016, 21017, 21020, 21021, 31020, 31021, 31022, 31023, 31024, 31025, 31026 };
             var res = _unit.Directions.GetManyAsync(x => list.Contains(x.DirId)).Result.Select(x => new DirectionDto()
@@ -79,6 +76,55 @@ namespace hod_back.Controllers
                     continue;
                 }
             }
+            return res;
+        }
+
+        [Authorize(Roles = "препод,завед,админ")]
+        [AllowAnonymous]
+        [HttpGet("get/all/{dep_id}")]
+        public IEnumerable<DirectionDto> GetAllDirs([FromRoute] int dep_id)
+        {
+            //if(dep_id == 3)
+            //{
+
+            //}
+
+            List<int> list = new List<int>() { 11016, 21017, 21020, 21021, 31020, 31021, 31022, 31023, 31024, 31025, 31026 };
+            var res = _unit.Directions.GetManyAsync(x => list.Contains(x.DirId)).Result.Select(x => new DirectionDto()
+            {
+                Dep_id = x.DepId,
+                Dir_id = x.DirId,
+                Dir_name = x.EBr.EBrName,
+                AcPl_id = x.AcPlId,
+                StartYear = x.StartYear,
+                Highlight = x.HighlightNum(_unit),
+                Status_pps = x.GetDirStatusPPS(x.DirId, _unit, dep_id),
+                Status = x.GetDirStatus(x.DirId, _unit, dep_id),
+                Requirs = _unit.DirRequirs.GetManyAsync(y => y.DirId == x.DirId).Result.Select(z => new DirRequirDto()
+                {
+                    Fgos_num = z.FgosNum,
+                    SettedValue = z.SettedValue,
+                    Unit_name = z.UnitName
+                }).ToArray(),
+                Groups = _unit.DirGroups.GetManyAsync(y => y.DirId == x.DirId).Result.Select(z => new GroupDto()
+                {
+                    Group_id = z.GroupId,
+                    Group_name = z.GroupName,
+                    CreatedDate = z.DateCreate.Value.Year.ToString(),
+                    ExitDate = z.DateExit.Value.Year.ToString()
+                    //group_acPlan_id = z.AcPlId
+                }).ToArray()
+            });
+
+            foreach (var i in res)
+            {
+                if (i.Status == null) { i.Status = new Status() { Status_down = 0, Status_up = 0 }; i.Highlight = -1; continue; }
+                if ((i.Status.Status_up != i.Status.Status_down) || i.Status.Status_down == 0)
+                {
+                    i.Highlight = -1;
+                    continue;
+                }
+            }
 
             return res;
         }
@@ -86,6 +132,7 @@ namespace hod_back.Controllers
         List<int> dirsPropReady = new List<int>() { 21017 };
         public string getPrepared(int dir_id)
         {
+            //return @"D:\Unic\Diplom\diploms\hod-back\_Resources\Export\Кадровая справка направления №21017.xlsx";
             switch (dir_id)
             {
                 case 21017: { return @$"_Resources\Export\Кадровая справка направления №{dir_id}.xlsx"; }

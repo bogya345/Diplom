@@ -22,9 +22,9 @@ namespace hod_back.Services.Excel
 
         private readonly List<AcPlanDep> acPlanDeps;
 
-        private readonly Department dep;
-        private readonly Direction dir;
-        private readonly AcPlan acPl;
+        private Department dep;
+        private Direction dir;
+        private AcPlan acPl;
 
         private List<BlockNum> blockNums;
         public List<BlockRec> recs;
@@ -39,28 +39,57 @@ namespace hod_back.Services.Excel
 
         public List<Blocks> blocks { get; set; }
 
+        private async void kek(int dep_id, int dir_id, byte[] docAcPlan)
+        {
+        mark:
+            try
+            {
+                this.dep = unit.Departments.GetOrDefault(x => x.DepId == dep_id);// new Department { DepId = dep_id }
+            }
+            catch (InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark;
+            }
+            mark2:
+            try
+            {
+                this.dir = unit.Directions.GetOrDefault(x => x.DirId == dir_id); // ?? new Direction() { DirId = dir_id }
+            }
+            catch(InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark2;
+            }
+            mark3:
+            try
+            {
+                this.acPl = dir.AcPlId != null
+                    ? unit.AcPlans.GetOrDefault(x => x.AcPlId == dir.AcPlId) : new AcPlan { Document = docAcPlan };
+                this.isNewAcPl = dir.AcPlId == null;
+            }
+            catch(InvalidOperationException ex)
+            {
+                await Task.Delay(1000);
+                goto mark3;
+            }
+        }
+
         public Excel(string path, int dep_id, int dir_id, UnitOfWork unit, byte[] docAcPlan)
         {
             this.path = path; // @"D:\Unic\Diploma\project\HeadOfDepartment\HeadOfDepartment\wwwroot\Upload\Plan_IST_-_16.xlsx"
 
             this.unit = unit;
 
-            this.acPlanDeps = unit.AcPlanDeps.GetAll().ToList();
+            this.acPlanDeps = unit.AcPlanDeps.GetAllAsync().Result.ToList();
 
-            this.dep = unit.Departments.GetOrDefault(x => x.DepId == dep_id);// new Department { DepId = dep_id }
+            kek(dep_id, dir_id, docAcPlan);
 
-            this.dir = unit.Directions.GetOrDefault(x => x.DirId == dir_id); // ?? new Direction() { DirId = dir_id }
-
-            this.acPl = dir.AcPlId != null
-                ? unit.AcPlans.GetOrDefault(x => x.AcPlId == dir.AcPlId) : new AcPlan { Document = docAcPlan };
-            this.isNewAcPl = dir.AcPlId == null;
-
-            this.blockNums = unit.BlockNums.GetAll().ToList();
-
+            this.blockNums = unit.BlockNums.GetAllAsync().Result.ToList();
 
             if (!this.isNewAcPl)
             {
-                this.recs = unit.BlockRecs.GetMany(x => x.AcPlId == this.dir.AcPlId).ToList();
+                this.recs = unit.BlockRecs.GetManyAsync(x => x.AcPlId == this.dir.AcPlId).Result.ToList();
             }
 
             if (this.isNewAcPl)

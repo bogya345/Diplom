@@ -10,6 +10,11 @@ namespace hod_back.Model
 {
     public partial class FgosRequir
     {
+        public FgosRequir()
+        {
+            DirFgos = new HashSet<DirFgo>();
+        }
+
         [Key]
         [Column("fgos_id")]
         public int FgosId { get; set; }
@@ -20,5 +25,8 @@ namespace hod_back.Model
         public string FgosContent { get; set; }
         [Column("fgos_propertyView")]
         public string FgosPropertyView { get; set; }
+
+        [InverseProperty(nameof(DirFgo.Fgos))]
+        public virtual ICollection<DirFgo> DirFgos { get; set; }
     }
 }

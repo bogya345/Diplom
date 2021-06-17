@@ -58,7 +58,9 @@ namespace hod_back.Services.Excel
             var ws = wb.Worksheet(1);
 
             var data = unit.DepartmentLoads.GetManyAsync(x =>
+                x.StartYear.ToString() != "2017" && x.StartYear.ToString() != "2016" &&
                 x.DepId == this.dep_id &&
+                x.SemestrNum.HasValue && (x.SemestrNum.Value == 1 || x.SemestrNum.Value == 2) &&
                 this.subsDep.Contains(x.SubId.Value)
                 ).Result.OrderBy(x => x.SemestrNum).ThenBy(x => x.SubName);
 

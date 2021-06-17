@@ -1,0 +1,28 @@
+/* 
+.tooltiptext{
+    display:none;
+    position:absolute; 
+    z-index:100;
+    border:1px;
+    background-color:#eee;
+    border-style:solid;
+    border-width:1px;
+    border-color:blue;
+    border-radius: 6px;
+    padding:3px;
+    color:blue; 
+    top:20px; 
+    left:20px;
+  }
+  
+  .tooltip1:hover span.tooltiptext{
+    display:block;
+  }
+  
+  .tooltip2:hover span.tooltiptext{
+    display:block;
+  }
+  
+  .tooltip:hover span.tooltiptext{
+    display:block;
+  } */

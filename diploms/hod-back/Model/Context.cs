@@ -222,18 +222,20 @@ namespace hod_back.Model
 
             modelBuilder.Entity<DirFgo>(entity =>
             {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
                 entity.HasOne(d => d.Dir)
-                    .WithMany()
+                    .WithMany(p => p.DirFgos)
                     .HasForeignKey(d => d.DirId)
                     .HasConstraintName("DirFgos_direction");
 
                 entity.HasOne(d => d.Fgos)
-                    .WithMany()
+                    .WithMany(p => p.DirFgos)
                     .HasForeignKey(d => d.FgosId)
                     .HasConstraintName("DirFgos_fgosRequirs");
 
                 entity.HasOne(d => d.Unit)
-                    .WithMany()
+                    .WithMany(p => p.DirFgos)
                     .HasForeignKey(d => d.UnitId)
                     .HasConstraintName("DirFgos_unit");
             });

@@ -13,6 +13,7 @@ namespace hod_back.Model
     {
         public Direction()
         {
+            DirFgos = new HashSet<DirFgo>();
             Groups = new HashSet<Group>();
         }
 
@@ -57,6 +58,8 @@ namespace hod_back.Model
         [ForeignKey(nameof(KZavId))]
         [InverseProperty(nameof(KatZaved.Directions))]
         public virtual KatZaved KZav { get; set; }
+        [InverseProperty(nameof(DirFgo.Dir))]
+        public virtual ICollection<DirFgo> DirFgos { get; set; }
         [InverseProperty(nameof(Group.Dir))]
         public virtual ICollection<Group> Groups { get; set; }
     }
