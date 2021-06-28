@@ -117,7 +117,7 @@
               </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="user.access_role_id != 3">
               <a href="hod/fgos/requirs" class="nav-link">
                 <i class="nav-icon fas fa-edit"></i>
                 <p>

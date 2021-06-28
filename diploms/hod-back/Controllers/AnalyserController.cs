@@ -78,6 +78,41 @@ namespace hod_back.Controllers
             if (!this.accum.StoreIt(_unit, dir_id))
             { return new PackageRequirsDto() { Done = false, Msg_text = "Ни один преподаватель не назначен для получения сведений о показателей требований ФГОС." }; }
 
+            //if(dir_id == 31020)
+            //{
+            //    var res = new PackageRequirsDto();
+
+            //    List<RequirInfoDto> res1 = new List<RequirInfoDto>();
+            //    foreach (var i in tmp)
+            //    {
+            //        var item = new RequirInfoDto()
+            //        {
+            //            Fgos_content = i.FgosContent,
+            //            Fgos_num = i.FgosNum.NewFgos(),
+            //            SettedValue = i.SettedValue,
+            //            Unit_name = i.UnitName,
+            //        };
+            //        res1.Add(item);
+            //    }
+            //    res1 = res1.OrderBy(x => x.Fgos_num).ToList();
+
+            //    res.Requirs = res1.ToArray();
+
+            //    res.NumA722 = tmp722.NumberAll;
+            //    res.NumA723 = tmp723.NumberAll;
+            //    res.NumA724 = tmp724.NumberAll;
+
+            //    res.NumS722 = tmp722.NumberSuitable;
+            //    res.NumS723 = tmp723.NumberSuitable;
+            //    res.NumS724 = tmp724.NumberSuitable;
+
+            //    res.Mark722 = tmp722.isDone;
+            //    res.Mark723 = tmp723.isDone;
+            //    res.Mark724 = tmp724.isDone;
+
+            //    res.Done = true;
+            //}
+
             // 4.4.3 (60)
             Strategy strategy1 = new Strategy_7_2_2();
             Requir tmp722 = strategy1.Execute_Partial(_unit, this.accum.Dir, this.accum.items, this.accum.exList);
